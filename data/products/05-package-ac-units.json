@@ -1,0 +1,16 @@
+{
+  "name": "Package AC units",
+  "slug": "package-ac-units",
+  "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80",
+  "tagline": "Self-contained capacity for bigger loads",
+  "description": "Outdoor packaged systems designed for medium to large spaces needing higher capacities and straightforward installation.",
+  "long_description": "A package unit holds the compressor, condenser, evaporator and blower in one cabinet, usually placed on a rooftop or outdoor platform. Conditioned air is ducted into the building. Because everything is in one place, installation is quicker and servicing happens outside the occupied space, with no disruption indoors.",
+  "capacity": "5 – 20 TR",
+  "use_case": "Commercial and light industrial spaces",
+  "features": [
+    "All major components in a single weatherproof cabinet",
+    "Rooftop or ground placement keeps plant out of sight",
+    "Servicing happens outdoors, with no disruption inside",
+    "Common in auditoriums, warehouses, gyms and workshops"
+  ]
+}

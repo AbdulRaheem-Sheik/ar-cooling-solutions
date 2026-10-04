@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% set active = "parts" %}
+{% set category_icons = {"copper-coils": "coil", "compressors": "compressor", "capacitors": "bolt", "fan-motors": "fan", "pcbs-controls": "chip", "filters-remotes": "filter"} %}
+
+{% block title %}AC Spare Parts | {{ business.name }}{% endblock %}
+{% block meta_description %}Browse AC spare parts from {{ business.name }} in {{ business.city }}, including copper pancake coil tubing, compressors, capacitors, fan motors, PCBs, filters and remotes.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <p class="chip"><span class="status-dot"></span> AC &amp; HVAC spare parts · {{ business.city }}</p>
+    <h1>Parts that keep cooling <em>going.</em></h1>
+    <p>The wrong part can cost more than the repair. Browse common AC spares below and let our team match the exact part to your unit. Just share the make, model and a photo of the old part if you have one.</p>
+    <nav class="jump-links" aria-label="Jump to a category">
+      {% for category in categories %}
+      <a href="#{{ category.slug }}">{{ icon(category_icons.get(category.slug, "spark")) }} {{ category.name }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</section>
+
+<section class="section container" id="categories" aria-labelledby="category-heading">
+  <div class="section-heading reveal">
+    <div>
+      <p class="eyebrow">Find a part</p>
+      <h2 id="category-heading">Browse by category.</h2>
+    </div>
+    <p>Availability and exact fit depend on your AC model. Send an enquiry with the details you have and we'll check compatibility and stock.</p>
+  </div>
+  <div class="category-grid">
+    {% for category in categories %}
+    {% set is_featured = category.name == featured_spare.category %}
+    <article class="category-card reveal{% if is_featured %} category-card-featured{% endif %}" id="{{ category.slug }}">
+      <div class="category-top">
+        <span class="service-icon">{{ icon(category_icons.get(category.slug, "spark")) }}</span>
+        {% if is_featured %}<span class="tag">Featured part</span>{% endif %}
+      </div>
+      <h3>{{ category.name }}</h3>
+      <p class="lead-sm">{{ category.description }}</p>
+      {% if category.long_description %}<p class="muted">{{ category.long_description }}</p>{% endif %}
+      {% if category.parts %}
+      <h4>We supply</h4>
+      <ul class="check-list check-list-compact">
+        {% for item in category.parts %}<li>{{ icon("check") }} {{ item }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+      {% if category.signs %}
+      <h4>Time to replace when</h4>
+      <ul class="sign-list">
+        {% for sign in category.signs %}<li>{{ sign }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+      <a class="card-link" href="{{ url_for('product_enquiry', category=category.enquiry_category, product_description=featured_spare.name if is_featured else '') }}">Enquire about {{ category.name|lower }} {{ icon("arrow-right") }}</a>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section section-tint" id="featured-coil" aria-labelledby="featured-spare-title">
+  <div class="container featured-spare-inner">
+    <div class="coil-visual reveal">
+      <!-- Replace this placeholder with:
+      <img src="{{ url_for('static', filename='images/copper-pancake-coil.jpg') }}" alt="Copper pancake coil for split AC" width="720" height="720" loading="lazy">
+      -->
+      <div class="media-placeholder media-placeholder-tall" role="img" aria-label="Product photo placeholder for a copper pancake coil">
+        {{ icon("coil", "media-placeholder-icon") }}
+        <span>Product photo goes here</span>
+        <small>Add an authorized coil image to static/images/</small>
+      </div>
+      <p class="caption">Photo placeholder · Split AC copper coil</p>
+    </div>
+    <div class="featured-spare-copy reveal">
+      <p class="eyebrow">Featured part · {{ featured_spare.category }}</p>
+      <h2 id="featured-spare-title">{{ featured_spare.name }}</h2>
+      <p class="lead">{{ featured_spare.description }}</p>
+      <div class="fit-note"><span class="fit-note-icon">{{ icon("info") }}</span><p><b>Check compatibility</b>{{ featured_spare.fit_note }}</p></div>
+      <ul class="check-list check-list-compact">
+        <li>{{ icon("check") }} Used for split AC refrigerant pipe connections</li>
+        <li>{{ icon("check") }} Coil lengths from {{ featured_spare.coil_length_range }}</li>
+        <li>{{ icon("check") }} Share your AC make and model for a fit check</li>
+      </ul>
+      <section class="coil-size-chart" aria-labelledby="coil-size-heading">
+        <div class="coil-size-heading">
+          <h3 id="coil-size-heading">Mexflow coil size guide</h3>
+          <span>Split AC copper coil</span>
+        </div>
+        <div class="table-wrap">
+          <table class="compare-table compare-table-sm" aria-label="Mexflow copper coil nominal outside diameters and minimum wall thickness">
+            <thead><tr><th scope="col">Nominal OD</th><th scope="col">OD (mm)</th><th scope="col">Min. wall</th></tr></thead>
+            <tbody>
+              {% for size in featured_spare.size_chart %}
+              <tr><td>{{ size.nominal_od }} in</td><td>{{ size.od_mm }}</td><td>{{ featured_spare.minimum_wall_thickness }}</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <p class="fine-print">Mexflow publishes an OD range of 4.76–22.22 mm, a 0.508 mm minimum wall thickness, and 15–100 m coil lengths. Exact size and thickness availability varies, so confirm against your AC model. <a href="{{ featured_spare.specification_url }}" target="_blank" rel="noopener noreferrer">View Mexflow specification</a>.</p>
+      </section>
+      <a class="button button-primary" href="{{ url_for('product_enquiry', category=featured_spare.category, product_description=featured_spare.name) }}">Enquire about this coil {{ icon("arrow-right") }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="section-heading reveal">
+    <div>
+      <p class="eyebrow">Getting the right fit</p>
+      <h2>Three details help us match your part fast.</h2>
+    </div>
+    <p>You don't need to know the part number. These details are usually enough for us to identify it.</p>
+  </div>
+  <ol class="steps steps-light">
+    <li class="reveal"><span class="step-num">1</span><h3>Brand &amp; model</h3><p>Check the sticker on the side of the indoor or outdoor unit for the model number and capacity.</p></li>
+    <li class="reveal"><span class="step-num">2</span><h3>Photo of the old part</h3><p>A clear photo of the part and any labels or ratings printed on it (µF, voltage, HP, part code).</p></li>
+    <li class="reveal"><span class="step-num">3</span><h3>What went wrong</h3><p>Describe the symptom. It helps us confirm the part is really the cause before you buy.</p></li>
+  </ol>
+  <div class="cta-panel reveal">
+    <div>
+      <p class="eyebrow">Not sure which part?</p>
+      <h2>We can help identify it.</h2>
+      <p>Send us the details and we'll confirm compatibility and availability.</p>
+    </div>
+    <div class="button-row">
+      <a class="button button-light" href="/enquiry">Send us the details {{ icon("arrow-right") }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

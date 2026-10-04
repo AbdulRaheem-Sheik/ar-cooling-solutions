@@ -1,0 +1,16 @@
+{
+  "name": "Split AC units",
+  "slug": "split-ac-units",
+  "image": "/static/images/products/split.jpg",
+  "tagline": "Quiet, efficient cooling for individual rooms",
+  "description": "A popular choice for homes and small offices, offering efficient cooling with a separate indoor and outdoor unit.",
+  "long_description": "The indoor unit sits high on the wall and handles airflow, while the compressor and condenser stay outside. Keeping the noisy parts outdoors makes a split AC quiet inside. Inverter models adjust compressor speed to the room load, which cuts power use during long running hours in Hyderabad summers.",
+  "capacity": "0.75 – 2.5 TR",
+  "use_case": "Residential and commercial rooms",
+  "features": [
+    "Quiet indoor operation with the compressor outside",
+    "Inverter and fixed-speed options to suit budget and usage",
+    "Neat wall-mounted indoor unit with simple remote control",
+    "Easy to service, with spares widely available"
+  ]
+}

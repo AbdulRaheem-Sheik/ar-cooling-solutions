@@ -1,0 +1,16 @@
+{
+  "name": "Cassette AC units",
+  "slug": "cassette-ac-units",
+  "image": "/static/images/products/cassette.jpg",
+  "tagline": "Four-way airflow from a flush ceiling panel",
+  "description": "Ceiling-mounted systems designed for even airflow in open rooms, offices, and retail spaces.",
+  "long_description": "Cassette units fit into a false ceiling, so only a slim grille is visible. Air is thrown in up to four directions from the centre of the room, which avoids the hot and cold spots common with wall units in large spaces. They also free up wall space for shelving, displays and windows.",
+  "capacity": "1.5 – 4 TR",
+  "use_case": "Open-plan interiors and offices",
+  "features": [
+    "360° or four-way air distribution for even comfort",
+    "Flush ceiling mounting that keeps walls clear",
+    "Built-in drain pump for flexible placement",
+    "Well suited to showrooms, clinics, restaurants and offices"
+  ]
+}

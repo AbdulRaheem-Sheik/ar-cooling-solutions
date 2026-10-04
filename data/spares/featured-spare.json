@@ -1,0 +1,19 @@
+{
+  "name": "Copper pancake coil tubing",
+  "category": "Copper coils",
+  "description": "Flexible copper refrigerant tubing supplied in a flat coil for split AC pipe connections, installations, and repairs. It runs between the indoor and outdoor units as part of the refrigerant line set.",
+  "fit_note": "Tube diameter, wall thickness, length, insulation, and fit vary by AC model and installation. Share your unit make/model and required length so we can check the right option.",
+  "size_chart": [
+    {"nominal_od": "3/16", "od_mm": "4.76"},
+    {"nominal_od": "1/4", "od_mm": "6.35"},
+    {"nominal_od": "5/16", "od_mm": "7.94"},
+    {"nominal_od": "3/8", "od_mm": "9.52"},
+    {"nominal_od": "1/2", "od_mm": "12.70"},
+    {"nominal_od": "5/8", "od_mm": "15.88"},
+    {"nominal_od": "3/4", "od_mm": "19.05"},
+    {"nominal_od": "7/8", "od_mm": "22.22"}
+  ],
+  "minimum_wall_thickness": "0.508 mm (0.020 in)",
+  "coil_length_range": "15-100 m",
+  "specification_url": "https://www.mexflow.com/product/9"
+}

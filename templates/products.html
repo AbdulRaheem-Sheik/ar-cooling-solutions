@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% set active = "products" %}
+
+{% block title %}Air Conditioning Products | {{ business.name }}{% endblock %}
+{% block meta_description %}Explore AC and HVAC systems including split, cassette, ductable, tower, package, water chiller, AHU and VRV/VRF units from {{ business.name }}, {{ business.city }}.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <p class="chip"><span class="status-dot"></span> AC &amp; HVAC product range · {{ business.city }}</p>
+    <h1>Cooling systems built for every <em>space.</em></h1>
+    <p>From compact room units to central plants for hospitals and factories, we supply, install and support a full range of air conditioning systems, each selected for your capacity, layout and running hours.</p>
+    <nav class="jump-links" aria-label="Jump to a product">
+      {% for product in products %}
+      <a href="#{{ product.slug }}">{{ product.name }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</section>
+
+<section class="section container product-catalog" id="product-list" aria-labelledby="products-heading">
+  <div class="section-heading reveal">
+    <div>
+      <p class="eyebrow">Browse by application</p>
+      <h2 id="products-heading">Cooling for every kind of space.</h2>
+    </div>
+    <p>Start with the type of space you need to cool. Compare the main system options, open the details that matter, then enquire for a site-specific recommendation.</p>
+  </div>
+
+  <nav class="product-family-nav" aria-label="Browse product families">
+    <a href="#room-products">Room systems <span>02 types</span></a>
+    <a href="#light-commercial-products">Light commercial <span>03 types</span></a>
+    <a href="#central-products">Central HVAC <span>03 types</span></a>
+  </nav>
+
+  {% set product_families = [
+    ("room-products", "Room air conditioning", "Independent systems for bedrooms, living spaces, shops and other individual rooms.", ["split-ac-units", "tower-ac-units"]),
+    ("light-commercial-products", "Light commercial systems", "Flexible ceiling, concealed and packaged systems for offices, retail, hospitality and larger rooms.", ["cassette-ac-units", "ductable-ac-units", "package-ac-units"]),
+    ("central-products", "Central and multi-zone HVAC", "Scalable plant and zoned systems for buildings, facilities and continuous cooling loads.", ["vrv-vrf-units", "water-chillers", "ahu-units"])
+  ] %}
+  {% for family_id, family_name, family_description, family_slugs in product_families %}
+  <section class="product-family" id="{{ family_id }}" aria-labelledby="{{ family_id }}-heading">
+    <div class="product-family-heading reveal">
+      <div>
+        <p class="eyebrow">Product family</p>
+        <h2 id="{{ family_id }}-heading">{{ family_name }}</h2>
+      </div>
+      <p>{{ family_description }}</p>
+    </div>
+    <div class="product-grid">
+      {% for product in products %}
+      {% if product.slug in family_slugs %}
+      <article class="product-card product-range-card reveal" id="{{ product.slug }}">
+        <figure class="product-visual">
+          <img src="{{ product.image }}" alt="{{ product.name }}" loading="lazy">
+          <span class="product-num">{{ "%02d"|format(loop.index) }}</span>
+        </figure>
+        <div class="product-body">
+          {% if product.tagline %}<p class="product-tagline">{{ product.tagline }}</p>{% endif %}
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.description }}</p>
+          <div class="product-quick-specs">
+            <div><small>Typical capacity</small><b>{{ product.capacity or "On request" }}</b></div>
+            <div><small>Best suited to</small><b>{{ product.use_case }}</b></div>
+          </div>
+          <details class="product-details">
+            <summary>System details</summary>
+            <div class="product-details-content">
+              {% if product.long_description %}<p>{{ product.long_description }}</p>{% endif %}
+              {% if product.features %}
+              <ul class="check-list check-list-compact">
+                {% for feature in product.features %}
+                <li>{{ icon("check") }} {{ feature }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+          </details>
+          <div class="product-foot">
+            <a class="button button-primary button-sm" href="{{ url_for('product_enquiry', category=product.name, product_description=product.name ~ ' enquiry') }}" aria-label="Enquire about {{ product.name }}">Enquire {{ icon("arrow-right") }}</a>
+          </div>
+        </div>
+      </article>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+</section>
+
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">Quick comparison</p>
+        <h2>Which system fits your space?</h2>
+      </div>
+      <p>A quick guide to start with. The right choice also depends on ceiling height, heat load, running hours and budget, and we'll go through all of it with you.</p>
+    </div>
+    <div class="table-wrap reveal">
+      <table class="compare-table">
+        <thead><tr><th scope="col">System</th><th scope="col">Typical capacity</th><th scope="col">Best for</th></tr></thead>
+        <tbody>
+          {% for product in products %}
+          <tr><th scope="row"><a href="#{{ product.slug }}">{{ product.name }}</a></th><td>{{ product.capacity or "On request" }}</td><td>{{ product.use_case }}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="cta-panel reveal">
+    <div>
+      <p class="eyebrow">Need a matching solution?</p>
+      <h2>Tell us your space and we'll suggest the right system.</h2>
+      <p>Share the area, number of rooms and how the space is used. We'll recommend capacity and system type, and quote for supply and installation.</p>
+    </div>
+    <div class="button-row">
+      <a class="button button-light" href="/enquiry">Request a quote {{ icon("arrow-right") }}</a>
+      <a class="button button-glass" href="tel:{{ business.phone_e164 }}">{{ icon("phone") }} {{ business.phone_display }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

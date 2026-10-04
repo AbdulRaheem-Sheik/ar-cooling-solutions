@@ -1,0 +1,16 @@
+{
+  "name": "Water chillers",
+  "slug": "water-chillers",
+  "image": "/static/images/products/water-chiller.jpg",
+  "tagline": "Central plant cooling for large buildings and processes",
+  "description": "High-capacity cooling systems that chill water for process cooling, central HVAC, and large building loads.",
+  "long_description": "Chillers cool water that is pumped to AHUs, fan coil units or process equipment across a building or plant. Air-cooled chillers reject heat through fans, and water-cooled chillers use a cooling tower for higher efficiency at scale. They suit sites where many zones or machines need steady, controllable cooling around the clock.",
+  "capacity": "10 – 500+ TR",
+  "use_case": "Hospitals, factories, and central plants",
+  "features": [
+    "Air-cooled and water-cooled configurations",
+    "Feeds AHUs, FCUs and industrial process equipment",
+    "Staged or variable capacity for part-load efficiency",
+    "Built for continuous duty in critical facilities"
+  ]
+}

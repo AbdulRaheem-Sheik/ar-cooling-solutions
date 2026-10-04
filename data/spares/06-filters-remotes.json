@@ -1,0 +1,9 @@
+{
+  "name": "Filters & remotes",
+  "slug": "filters-remotes",
+  "description": "Everyday replacement and maintenance essentials.",
+  "long_description": "Clean filters keep airflow strong, protect the cooling coil and improve indoor air. A working remote keeps everyday control simple. These small parts make a noticeable difference to comfort and running cost.",
+  "parts": ["Mesh and dust filters", "Carbon and anti-bacterial filters", "Original and universal remotes", "Drain pipes and small fittings"],
+  "signs": ["Torn or clogged filter mesh", "Dusty or musty smell from the vents", "Lost, damaged or unresponsive remote"],
+  "enquiry_category": "Filters"
+}

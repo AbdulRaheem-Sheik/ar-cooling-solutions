@@ -1,0 +1,16 @@
+{
+  "name": "VRV & VRF units",
+  "slug": "vrv-vrf-units",
+  "image": "https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1200&q=80",
+  "tagline": "One outdoor system, many independently controlled zones",
+  "description": "Variable refrigerant flow systems built for multi-zone efficiency, comfort control, and flexible building layouts.",
+  "long_description": "VRV/VRF systems connect one outdoor unit, or a bank of them, to many indoor units of different styles: wall, cassette, ductable and more. Each zone sets its own temperature, and the system varies refrigerant flow to match real demand, so it uses far less energy than running many separate ACs. Central controllers make it easy to manage a whole building.",
+  "capacity": "8 – 60+ HP per system",
+  "use_case": "Multi-room and large commercial buildings",
+  "features": [
+    "Independent temperature control for every zone",
+    "Mix and match indoor unit types on one system",
+    "High part-load efficiency through variable refrigerant flow",
+    "Centralised control and scheduling for facility teams"
+  ]
+}

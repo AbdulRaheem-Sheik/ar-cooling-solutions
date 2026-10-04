@@ -1,0 +1,16 @@
+{
+  "name": "Installation",
+  "slug": "installation",
+  "icon": "install",
+  "image": "/static/images/services/installation.jpg",
+  "summary": "New AC installation and replacement, carefully fitted and ready for the season.",
+  "description": "A good installation decides how well an AC performs for years. We survey the space, recommend the right capacity, and plan where the indoor and outdoor units go for airflow, drainage and easy servicing. Every job includes proper copper piping, vacuuming, leak testing and a final cooling check.",
+  "includes": [
+    "Site survey and heat-load based capacity advice",
+    "Wall, ceiling, ductable and VRV/VRF installations",
+    "Copper piping, insulation, drain lines and stand fitting",
+    "Nitrogen pressure test, vacuuming and leak check",
+    "Commissioning with temperature and current readings"
+  ],
+  "whatsapp_text": "Hi, I'm looking for AC installation service."
+}

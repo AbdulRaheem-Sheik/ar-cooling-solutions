@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit {{ collection }} | {{ business.name }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    .admin-editor { width: min(1000px, calc(100% - 32px)); margin: 48px auto 80px; background: #fff; border: 1px solid #dbe4eb; border-radius: 10px; padding: 24px; }
+    .editor-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .editor-top h1 { margin-bottom: 0; }
+    .editor-form { display: grid; gap: 16px; }
+    textarea { width: 100%; min-height: 420px; border: 1px solid #c9d5de; border-radius: 6px; background: #fbfdff; color: #102638; padding: 16px; font: 12px/1.6 'Consolas', 'SFMono-Regular', monospace; resize: vertical; }
+    .editor-actions { display: flex; justify-content: flex-end; gap: 12px; }
+    .admin-error { margin-bottom: 18px; padding: 12px 14px; border-left: 3px solid #b13d35; background: #fff2f0; color: #792b25; font-size: 12px; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="admin-editor">
+    <div class="editor-top">
+      <div>
+        <p class="eyebrow">EDIT {{ collection|upper }}</p>
+        <h1>{{ item_name }}</h1>
+      </div>
+      <a class="button button-outline" href="{{ url_for('admin_dashboard') }}">Back to dashboard</a>
+    </div>
+
+    {% if error %}
+      <div class="admin-error">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" class="editor-form">
+      <textarea name="json_data" spellcheck="false">{{ json_text }}</textarea>
+      <div class="editor-actions">
+        <button class="button button-primary" type="submit">Save changes</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "Copper coils",
+  "slug": "copper-coils",
+  "description": "Refrigerant tubing for split AC installations and repairs.",
+  "long_description": "Soft-drawn copper tubing in pancake coils carries refrigerant between the indoor and outdoor units. The right diameter and wall thickness protect against leaks and pressure loss, especially with high-pressure refrigerants like R32 and R410A.",
+  "parts": ["Pancake coils in 3/16\" to 7/8\" OD", "Liquid and suction line pairs", "Insulation sleeves and tape", "Flare nuts and brazing consumables"],
+  "signs": ["New installation or AC relocation", "Oil stains or frost on pipe joints", "Repeated gas loss after refills"],
+  "enquiry_category": "Copper coils"
+}

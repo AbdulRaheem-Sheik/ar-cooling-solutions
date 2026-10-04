@@ -1,0 +1,16 @@
+{
+  "name": "Tower AC units",
+  "slug": "tower-ac-units",
+  "image": "/static/images/products/tower.jpg",
+  "tagline": "High-throw floor-standing cooling",
+  "description": "Free-standing cooling solutions suitable for compact spaces where a wall or ceiling unit is not preferred.",
+  "long_description": "Tower ACs stand on the floor and push a strong, long-throw air stream. That makes them useful where walls are glazed, ceilings are high, or a quick setup is needed without false-ceiling work. They pair with an outdoor unit like a split AC and are often used in shops, waiting areas and halls that need fast pull-down cooling.",
+  "capacity": "2 – 4 TR",
+  "use_case": "Bedrooms, shops, and compact rooms",
+  "features": [
+    "Powerful long-throw airflow for quick cooling",
+    "No wall or ceiling mounting needed",
+    "Simple installation and easy to relocate",
+    "Good for glass-fronted shops and high-ceiling rooms"
+  ]
+}

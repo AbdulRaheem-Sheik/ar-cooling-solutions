@@ -1,0 +1,16 @@
+{
+  "name": "AMC & maintenance",
+  "slug": "maintenance",
+  "icon": "calendar",
+  "image": "/static/images/services/maintenance.jpg",
+  "summary": "Regular cleaning and check-ups that help your equipment run reliably.",
+  "description": "Dust, heat and long running hours slowly reduce cooling and raise power bills. Our Annual Maintenance Contracts (AMC) schedule periodic servicing so problems are caught early. They suit homes with several units as well as offices, shops and facilities that cannot afford downtime.",
+  "includes": [
+    "Scheduled preventive service visits",
+    "Filter, coil and drain-line cleaning",
+    "Electrical checks and gas pressure readings",
+    "Priority response for breakdown calls",
+    "Service records for every unit on site"
+  ],
+  "whatsapp_text": "Hi, please share your AC maintenance and AMC options."
+}

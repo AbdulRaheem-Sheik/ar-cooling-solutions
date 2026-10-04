@@ -1,0 +1,9 @@
+{
+  "name": "Capacitors",
+  "slug": "capacitors",
+  "description": "Starting and running components with the right rating.",
+  "long_description": "Capacitors give compressors and fan motors the extra push they need to start and stay running. They are one of the most common failure points in hot weather, and a correctly rated replacement (µF and voltage) is often a quick, low-cost fix.",
+  "parts": ["Compressor run capacitors", "Fan motor capacitors", "Dual-run capacitors", "Start capacitors and relays"],
+  "signs": ["Clicking sound but no start", "Fan spins slowly or needs a push", "Swollen or leaking capacitor body"],
+  "enquiry_category": "Capacitors"
+}

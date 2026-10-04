@@ -1,0 +1,28 @@
+{% from "_icons.html" import icon %}
+<section class="contact-section" id="contact">
+  <div class="container contact-inner">
+    <div class="contact-copy reveal">
+      <p class="eyebrow">Here when you need us</p>
+      <h2>Let's get your cool back.</h2>
+      <p>Call or message us about a breakdown, a new installation, an AMC or a spare part. We'll respond with practical next steps.</p>
+    </div>
+    <div class="contact-cards reveal">
+      <a class="contact-card" href="tel:{{ business.phone_e164 }}">
+        <span class="contact-card-icon">{{ icon("phone") }}</span>
+        <span><small>Call us</small><b>{{ business.phone_display }}</b></span>
+      </a>
+      <a class="contact-card" href="https://wa.me/{{ business.whatsapp_number }}?text=Hi%20AR%20Cooling%20Solutions%2C%20I%27d%20like%20to%20enquire%20about%20your%20services." target="_blank" rel="noopener noreferrer">
+        <span class="contact-card-icon">{{ icon("chat") }}</span>
+        <span><small>WhatsApp</small><b>Message us</b></span>
+      </a>
+      <a class="contact-card" href="mailto:{{ business.email }}">
+        <span class="contact-card-icon">{{ icon("mail") }}</span>
+        <span><small>Email</small><b>{{ business.email }}</b></span>
+      </a>
+      <div class="contact-card contact-card-static">
+        <span class="contact-card-icon">{{ icon("clock") }}</span>
+        <span><small>{{ business.city }}, Telangana</small><b>Open daily · 09:00–18:00</b></span>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,16 @@
+{
+  "name": "Ductable AC units",
+  "slug": "ductable-ac-units",
+  "image": "/static/images/products/ductable.jpg",
+  "tagline": "Concealed cooling for whole floors and large halls",
+  "description": "Hidden-in-ceiling systems that distribute conditioned air through ducts for tidy, centralised cooling.",
+  "long_description": "A ductable unit sits above the ceiling or in a service area and sends cool air through insulated ducts to grilles or diffusers in each zone. One machine can serve several rooms or a large hall, and the interior shows only the grilles. Good duct design matters as much as the unit, so we plan airflow, static pressure and return paths together.",
+  "capacity": "3 – 17 TR",
+  "use_case": "Large rooms and commercial spaces",
+  "features": [
+    "Fully concealed, with only grilles or diffusers on show",
+    "One unit can serve multiple rooms or a large open area",
+    "Supports fresh-air mixing and better filtration",
+    "Suitable for banquet halls, offices, villas and retail floors"
+  ]
+}

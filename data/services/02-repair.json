@@ -1,0 +1,16 @@
+{
+  "name": "Repair",
+  "slug": "repair",
+  "icon": "wrench",
+  "image": "/static/images/services/repair.jpg",
+  "summary": "Fault finding and repairs for AC units that aren't cooling like they should.",
+  "description": "When an AC stops cooling, leaks water, trips the breaker or shows an error code, we find the actual cause before replacing anything. Our technicians test the electrical, refrigerant and airflow sides of the system, explain what they find, and quote clearly before starting work.",
+  "includes": [
+    "Diagnosis of cooling, noise, leakage and error-code issues",
+    "PCB, sensor, capacitor and fan motor replacement",
+    "Compressor and refrigerant circuit repairs",
+    "Leak detection and brazing",
+    "Genuine spares sourced through our parts desk"
+  ],
+  "whatsapp_text": "Hi, I need help with an AC repair."
+}

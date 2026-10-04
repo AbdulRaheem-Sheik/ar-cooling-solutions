@@ -1,0 +1,84 @@
+{% from "_icons.html" import icon -%}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0a1b2e">
+  <meta name="description" content="{% block meta_description %}{{ business.name }} provides AC and HVAC products, genuine spare parts, installation, repair and maintenance across {{ business.city }}.{% endblock %}">
+  <title>{% block title %}{{ business.name }}{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script>document.documentElement.classList.add("js");</script>
+  {% block head %}{% endblock %}
+  <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="/" aria-label="{{ business.name }} home">
+        <span class="brand-mark" aria-hidden="true"><img src="{{ url_for('static', filename='images/Cooling-Logo-PNG-Photo.png') }}" alt=""></span>
+        <span class="brand-text"><b>AR Cooling</b><small>Solutions</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation">
+        <span></span><span></span>
+      </button>
+      <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+        {% set nav = [("home", "/", "Home"), ("products", "/products", "Products"), ("services", "/services", "Services"), ("parts", "/parts", "Spare parts"), ("about", "/about", "About us"), ("contact", "/#contact", "Contact")] %}
+        {% for key, href, label in nav %}
+        <a href="{{ href }}"{% if active == key %} aria-current="page"{% endif %}>{{ label }}</a>
+        {% endfor %}
+        <a class="nav-call" href="tel:{{ business.phone_e164 }}">{{ icon("phone") }} {{ business.phone_display }}</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a class="brand brand-invert" href="/" aria-label="{{ business.name }} home">
+          <span class="brand-mark" aria-hidden="true"><img src="{{ url_for('static', filename='images/Cooling-Logo-PNG-Photo.png') }}" alt=""></span>
+          <span class="brand-text"><b>AR Cooling</b><small>Solutions Â· {{ business.city }}</small></span>
+        </a>
+        <p>AC sales, installation, repair, maintenance and genuine spare parts for homes and businesses across {{ business.city }}, from one local team.</p>
+      </div>
+      <div class="footer-col">
+        <h2>Explore</h2>
+        <a href="/">Home</a>
+        <a href="/services">Services</a>
+        <a href="/products">Products</a>
+        <a href="/parts">Spare parts</a>
+        <a href="/about">About us</a>
+        <a href="/enquiry">Request a quote</a>
+      </div>
+      <div class="footer-col">
+        <h2>Services</h2>
+        <a href="/services#installation">Installation</a>
+        <a href="/services#repair">Repair</a>
+        <a href="/services#maintenance">AMC &amp; maintenance</a>
+        <a href="/services#gas-refilling">Gas refilling</a>
+        <a href="/services#commercial-hvac">Commercial HVAC</a>
+      </div>
+      <div class="footer-col footer-contact">
+        <h2>Get in touch</h2>
+        <a href="tel:{{ business.phone_e164 }}">{{ icon("phone") }} {{ business.phone_display }}</a>
+        <a href="mailto:{{ business.email }}">{{ icon("mail") }} {{ business.email }}</a>
+        <span>{{ icon("pin") }} {{ business.city }}, Telangana</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Â© <span id="year">2026</span> {{ business.name }}. All rights reserved.</span>
+      <span>Reliable cooling, right here in {{ business.city }}.</span>
+    </div>
+  </footer>
+
+  <a class="floating-whatsapp" href="https://wa.me/{{ business.whatsapp_number }}?text=Hi%20AR%20Cooling%20Solutions%2C%20I%27d%20like%20to%20enquire." target="_blank" rel="noopener noreferrer" aria-label="Message {{ business.name }} on WhatsApp">{{ icon("chat") }}<span class="floating-label">WhatsApp us</span></a>
+</body>
+</html>

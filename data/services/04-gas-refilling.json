@@ -1,0 +1,16 @@
+{
+  "name": "Gas refilling",
+  "slug": "gas-refilling",
+  "icon": "gauge",
+  "image": "/static/images/services/gas-refill.png",
+  "summary": "Cooling checks and refrigerant service by experienced technicians.",
+  "description": "Low refrigerant usually means there is a leak. Topping up without fixing it only buys a few weeks. We find and repair the leak first, then vacuum the system and charge the correct refrigerant (R22, R32, R410A and others) by weight and pressure, as the manufacturer specifies.",
+  "includes": [
+    "Leak detection and repair before refilling",
+    "System vacuuming to remove air and moisture",
+    "Accurate charging for R22, R32, R410A and more",
+    "Pressure, temperature and current verification",
+    "Advice on preventing repeat leaks"
+  ],
+  "whatsapp_text": "Hi, I'd like to enquire about AC gas refilling."
+}

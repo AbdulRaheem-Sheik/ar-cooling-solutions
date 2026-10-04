@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% set active = "enquiry" %}
+
+{% block title %}Product Enquiry | {{ business.name }}{% endblock %}
+{% block meta_description %}Send {{ business.name }} an enquiry for AC and HVAC products and spare parts in {{ business.city }}.{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero-compact">
+  <div class="container page-hero-inner">
+    <p class="chip"><span class="status-dot"></span> Products &amp; parts, made simple</p>
+    <h1>What are you <em>looking for?</em></h1>
+    <p>Share a few details and our team will help identify the right AC system or spare part, and come back to you with availability and pricing.</p>
+  </div>
+</section>
+
+<section class="section container enquiry-layout" aria-label="Product enquiry form">
+  <aside class="enquiry-aside">
+    <span class="service-icon">{{ icon("snow") }}</span>
+    <h2>Let's find the right fit.</h2>
+    <p>Tell us the product or part, the category, and any model details you have. We'll follow up on availability and the next step.</p>
+    <ul class="check-list check-list-compact">
+      <li>{{ icon("check") }} AC brand and model number</li>
+      <li>{{ icon("check") }} Capacity (tonnage / HP) if known</li>
+      <li>{{ icon("check") }} Quantity and delivery location</li>
+    </ul>
+    <div class="enquiry-aside-contact">
+      <span>Need help now?</span>
+      <a href="tel:{{ business.phone_e164 }}">{{ icon("phone") }} {{ business.phone_display }}</a>
+      <span>{{ business.city }} · Open daily 09:00–18:00</span>
+    </div>
+  </aside>
+
+  <form class="enquiry-form" method="post" action="/enquiry">
+    <div class="form-heading">
+      <div><p class="eyebrow">Product enquiry</p><h2>Your details</h2></div>
+      <span class="required-note"><b>*</b> Required</span>
+    </div>
+
+    {% if errors %}
+    <div class="form-errors" role="alert">
+      <p>Please check the following:</p>
+      <ul>{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul>
+    </div>
+    {% endif %}
+
+    <div class="form-grid">
+      <div class="form-field">
+        <label for="name">Full name <span aria-hidden="true">*</span></label>
+        <input id="name" name="name" type="text" autocomplete="name" maxlength="120" value="{{ form.get('name', '') }}" required>
+      </div>
+      <div class="form-field">
+        <label for="company_name">Company name <span aria-hidden="true">*</span></label>
+        <input id="company_name" name="company_name" type="text" autocomplete="organization" maxlength="150" value="{{ form.get('company_name', '') }}" required>
+      </div>
+      <div class="form-field">
+        <label for="email">Email address <span aria-hidden="true">*</span></label>
+        <input id="email" name="email" type="email" autocomplete="email" maxlength="254" value="{{ form.get('email', '') }}" required>
+      </div>
+      <div class="form-field">
+        <label for="mobile">Mobile number <span aria-hidden="true">*</span></label>
+        <input id="mobile" name="mobile" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" value="{{ form.get('mobile', '') }}" required>
+      </div>
+      <div class="form-field form-field-full">
+        <label for="category">Product category <span aria-hidden="true">*</span></label>
+        <select id="category" name="category" required>
+          <option value="" disabled {% if not form.get('category') %}selected{% endif %}>Choose a category</option>
+          {% for category in categories %}
+          <option value="{{ category }}" {% if form.get('category') == category %}selected{% endif %}>{{ category }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-field form-field-full">
+        <label for="product_description">Product description <span aria-hidden="true">*</span></label>
+        <textarea id="product_description" name="product_description" rows="3" maxlength="1000" placeholder="Part name, AC brand/model, quantity or other identifying details" required>{{ form.get('product_description', '') }}</textarea>
+      </div>
+      <div class="form-field form-field-full">
+        <label for="comments">Comments <span class="optional-label">Optional</span></label>
+        <textarea id="comments" name="comments" rows="3" maxlength="1000" placeholder="Anything else we should know?">{{ form.get('comments', '') }}</textarea>
+      </div>
+    </div>
+
+    <div class="form-submit-row">
+      <p>Submitting opens WhatsApp with your enquiry ready to send. This site does not store your details.</p>
+      <button class="button button-primary" type="submit">{{ icon("chat") }} Continue to WhatsApp</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

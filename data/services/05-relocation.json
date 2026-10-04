@@ -1,0 +1,15 @@
+{
+  "name": "Uninstallation & relocation",
+  "slug": "relocation",
+  "icon": "move",
+  "image": "/static/images/services/ac-uninstallation-service.jpg",
+  "summary": "Safe removal and reinstallation when you move home or office.",
+  "description": "Moving an AC is more than unscrewing it from the wall. We pump down the refrigerant into the outdoor unit, seal the lines, and dismantle everything carefully, so the system can be reinstalled at your new location without losing gas or damaging parts.",
+  "includes": [
+    "Refrigerant pump-down to save existing gas",
+    "Careful dismantling and capping of pipes",
+    "Reinstallation with new piping where required",
+    "Leak test and cooling check at the new site"
+  ],
+  "whatsapp_text": "Hi, I need help uninstalling and relocating an AC."
+}

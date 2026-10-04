@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Login | {{ business.name }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    body { background: #f5f8fb; }
+    .admin-shell { width: min(480px, calc(100% - 32px)); margin: 72px auto; background: #fff; border: 1px solid #dbe4eb; border-radius: 10px; padding: 32px 24px; box-shadow: 0 14px 40px rgba(16, 38, 56, 0.08); }
+    .admin-shell h1 { font-size: 32px; margin-bottom: 8px; }
+    .admin-shell p { color: #526574; margin-bottom: 24px; }
+    .admin-form { display: grid; gap: 16px; }
+    .admin-form label { font-size: 12px; font-weight: 700; color: #102638; }
+    .admin-form input { width: 100%; min-height: 48px; padding: 12px 14px; border: 1px solid #c9d5de; border-radius: 4px; font: 400 14px 'DM Sans', sans-serif; }
+    .admin-form input:focus { outline: 3px solid rgba(7, 86, 168, 0.15); border-color: #0756a8; }
+    .admin-error { margin-bottom: 16px; padding: 12px 14px; border-left: 3px solid #b13d35; background: #fff2f0; color: #792b25; font-size: 12px; font-weight: 600; }
+    .admin-meta { margin-top: 16px; color: #617482; font-size: 11px; }
+  </style>
+</head>
+<body>
+  <main class="admin-shell">
+    <p class="eyebrow">ADMIN ACCESS</p>
+    <h1>Sign in</h1>
+    <p>Manage the product and spare JSON records for {{ business.name }}.</p>
+
+    {% if error %}
+      <div class="admin-error">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="{{ url_for('admin_login_submit') }}" class="admin-form">
+      <div>
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" required>
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required>
+      </div>
+      <button class="button button-primary" type="submit">Login</button>
+    </form>
+
+    <div class="admin-meta">
+      Default credentials: admin / admin123
+    </div>
+  </main>
+</body>
+</html>
