@@ -32,8 +32,9 @@ jobs:
 
       - name: Build static site
         env:
-          # Repository variable (Settings > Secrets and variables > Actions > Variables).
-          WEB3FORMS_ACCESS_KEY: ${{ vars.WEB3FORMS_ACCESS_KEY }}
+          # Web3Forms keys are public by design (they appear in the page HTML and can only
+          # email the owner's inbox). A repository variable of the same name overrides this.
+          WEB3FORMS_ACCESS_KEY: ${{ vars.WEB3FORMS_ACCESS_KEY || 'c17f04ca-f628-4b93-99b0-34c3fff5fc86' }}
           AR_SITE_URL: https://arcooling.in
         run: python tools/build_static.py
 
