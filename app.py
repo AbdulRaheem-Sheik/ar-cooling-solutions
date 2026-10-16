@@ -21,6 +21,24 @@ SITE_URL = os.environ.get("AR_SITE_URL", "https://arcooling.in").rstrip("/")
 # Enquiries are emailed to you by Web3Forms (free). Get a key at https://web3forms.com.
 # The key is designed to sit in public HTML: it can only send to your own inbox.
 WEB3FORMS_ACCESS_KEY = os.environ.get("WEB3FORMS_ACCESS_KEY", "").strip()
+
+# Each enquiry type is emailed to its own team. A Web3Forms key delivers only to the address
+# that created it, so every team inbox has its own key. Until a team's key is set, its
+# enquiries use WEB3FORMS_ACCESS_KEY.
+ENQUIRY_TEAMS = {
+    "product": {"team": "Sales", "email": "sales@arcooling.in", "key_env": "WEB3FORMS_KEY_SALES"},
+    "spare": {"team": "Sales", "email": "sales@arcooling.in", "key_env": "WEB3FORMS_KEY_SALES"},
+    "service": {"team": "Services", "email": "services@arcooling.in", "key_env": "WEB3FORMS_KEY_SERVICES"},
+    "general": {"team": "Enquiry", "email": "enquiry@arcooling.in", "key_env": "WEB3FORMS_KEY_ENQUIRY"},
+}
+
+
+def get_enquiry_keys():
+    """Web3Forms key for each enquiry type, falling back to the shared key."""
+    return {
+        kind: os.environ.get(team["key_env"], "").strip() or WEB3FORMS_ACCESS_KEY
+        for kind, team in ENQUIRY_TEAMS.items()
+    }
 # Admin is a local editing tool (it is not part of the static site). It has no built-in
 # default login: it stays disabled until both values are set in .env.
 ADMIN_USERNAME = os.environ.get("AR_ADMIN_USERNAME", "").strip()
@@ -103,7 +121,7 @@ BUSINESS = {
     "phone_display": "+91 88013 81405",
     "phone_e164": "+918801381405",
     "whatsapp_number": "918801381405",
-    "email": "mailtoabdul1@gmail.com",
+    "email": "enquiry@arcooling.in",
     "city": "Hyderabad",
 }
 SPARE_ENQUIRY_CATEGORIES = (
@@ -208,7 +226,9 @@ def get_enquiry_type(category):
         return "spare"
     if category in get_service_categories():
         return "service"
-    return "product"
+    if category in get_product_categories():
+        return "product"
+    return "general"   # "Other" and anything unrecognised
 
 
 def get_enquiry_items():
@@ -547,6 +567,7 @@ def product_enquiry():
         category_types={c: get_enquiry_type(c) for c in product_categories + service_categories + SPARE_ENQUIRY_CATEGORIES},
         enquiry_items=get_enquiry_items(),
         web3forms_access_key=WEB3FORMS_ACCESS_KEY,
+        enquiry_keys=get_enquiry_keys(),
     )
 
 

@@ -59,7 +59,8 @@
 
   <form class="enquiry-form" method="post" action="https://api.web3forms.com/submit" data-enquiry-form>
     {# Web3Forms settings. The access key only lets this form email your own inbox. #}
-    <input type="hidden" name="access_key" value="{{ web3forms_access_key }}">
+    {# enquiry.js swaps in the key for the enquiry's team (sales / service / spares); info is the default. #}
+    <input type="hidden" name="access_key" value="{{ enquiry_keys.general }}">
     <input type="hidden" name="subject" value="New enquiry from {{ business.name }} website">
     <input type="hidden" name="from_name" value="{{ business.name }} website">
     <input type="hidden" name="redirect" value="{{ site_url }}{{ url_for('enquiry_thanks') }}">
@@ -141,6 +142,7 @@
 <script type="application/json" id="enquiry-data">{{ {
   "items": enquiry_items,
   "categoryTypes": category_types,
+  "keys": enquiry_keys,
   "whatsapp": business.whatsapp_number,
   "siteUrl": site_url,
   "thanksUrl": url_for("enquiry_thanks"),

@@ -33,7 +33,7 @@
     let enquiry = null;
     try { enquiry = JSON.parse(sessionStorage.getItem("ar-enquiry")); } catch { return; }
     if (!enquiry) return;
-    const label = { service: "Service", spare: "Spare part", product: "Product" }[enquiry.type] || "Product";
+    const label = { service: "Service", spare: "Spare part", product: "Product", general: "General" }[enquiry.type] || "Your";
     document.getElementById("thanks-chip").textContent = `${label} enquiry received`;
     if (enquiry.name) document.getElementById("thanks-name").textContent = `, ${enquiry.name}`;
     if (enquiry.about) {

@@ -22,7 +22,7 @@
 
   function enquiryType() {
     if (item) return item.kind === "part" ? "spare" : item.kind;
-    return data.categoryTypes[field("category").value] || "product";
+    return data.categoryTypes[field("category").value] || "general";
   }
 
   function showVariant() {
@@ -30,7 +30,7 @@
     document.querySelectorAll("[data-variant]").forEach((element) => {
       element.hidden = element.dataset.variant !== variant;
     });
-    const labels = { service: "Service enquiry", spare: "Spare part enquiry", product: "Product enquiry" };
+    const labels = { service: "Service enquiry", spare: "Spare part enquiry", product: "Product enquiry", general: "General enquiry" };
     document.getElementById("enquiry-eyebrow").textContent = labels[enquiryType()];
   }
 
@@ -110,7 +110,10 @@
     field("enquiry_type").value = enquiryType();
     field("enquiring_about").value = item ? item.name : field("category").value;
     field("page_link").value = item ? data.siteUrl + item.url : "";
-    field("subject").value = `New ${enquiryType()} enquiry: ${field("enquiring_about").value} (${reference})`;
+    const subjectType = { spare: "spare part" }[enquiryType()] || enquiryType();
+    field("subject").value = `New ${subjectType} enquiry: ${field("enquiring_about").value} (${reference})`;
+    // Route to the right team inbox: each team's Web3Forms key emails that team.
+    field("access_key").value = data.keys[enquiryType()] || data.keys.general;
 
     // Open the WhatsApp tab now (inside the click), or pop-up blockers stop it later.
     const whatsappTab = viaWhatsapp ? window.open("", "_blank") : null;
