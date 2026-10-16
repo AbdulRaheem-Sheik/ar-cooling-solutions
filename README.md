@@ -37,6 +37,7 @@ To preview the exact static site that will be published:
 |---|---|
 | Products, services, spare parts | `data/products/`, `data/services/`, `data/spares/` (or the local admin) |
 | Business name, phone, email, city | `BUSINESS` in `app.py` |
+| Product / service photos | put them in `static/images/products/` or `services/`, set `"image"` in the data file, then run `python tools/optimize_images.py` (needs `pip install pillow`) |
 | Partner and client logos | add the image, run `python tools/process_logos.py` (needs `pip install pillow`), add it to `BRAND_LOGOS` / `CLIENT_LOGOS` in `app.py` |
 | Colours, fonts, layout | `static/css/style.css` |
 

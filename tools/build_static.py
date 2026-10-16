@@ -23,8 +23,9 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "_site"
-# Original logo files: the site uses the processed copies in static/images/logos/.
-SKIP_STATIC = {Path("images/brand_logos"), Path("images/clients")}
+# Always published; other static files (images) only when a built page references them,
+# so unused originals and spare photos never bloat the site.
+ALWAYS_STATIC = {Path("css"), Path("js")}
 # Pages that should not be listed for search engines.
 NOT_IN_SITEMAP = {"/enquiry/thank-you/"}
 
@@ -78,10 +79,16 @@ def build(site):
     not_found = client.get("/this-page-does-not-exist/")
     (OUTPUT / "404.html").write_bytes(not_found.data)
 
+    referenced = set()
+    for html in OUTPUT.rglob("*.html"):
+        for url in re.findall(r'(?:href|src)="/static/([^"?#]+)', html.read_text(encoding="utf-8")):
+            referenced.add(Path(unquote(url)))
     static_out = OUTPUT / "static"
     for source in (ROOT / "static").rglob("*"):
         relative = source.relative_to(ROOT / "static")
-        if source.is_dir() or any(relative.is_relative_to(skip) for skip in SKIP_STATIC):
+        if source.is_dir():
+            continue
+        if relative not in referenced and not any(relative.is_relative_to(folder) for folder in ALWAYS_STATIC):
             continue
         destination = static_out / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
