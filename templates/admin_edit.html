@@ -33,6 +33,7 @@
     {% endif %}
 
     <form method="post" class="editor-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <textarea name="json_data" spellcheck="false">{{ json_text }}</textarea>
       <div class="editor-actions">
         <button class="button button-primary" type="submit">Save changes</button>

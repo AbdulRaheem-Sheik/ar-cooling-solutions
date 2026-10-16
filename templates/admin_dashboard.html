@@ -22,7 +22,7 @@
     .admin-actions { display: flex; gap: 8px; }
     .admin-actions a { display: inline-flex; align-items: center; justify-content: center; min-height: 36px; padding: 0 12px; border-radius: 4px; text-decoration: none; font-size: 11px; font-weight: 700; }
     .admin-actions .edit { background: #eaf2f8; color: #0756a8; }
-    .admin-actions .logout { background: #102638; color: #fff; }
+    .admin-actions .logout { min-height: 36px; padding: 0 12px; border: 0; border-radius: 4px; background: #102638; color: #fff; font-size: 11px; font-weight: 700; cursor: pointer; }
     .admin-empty { color: #617482; font-size: 12px; }
     @media (max-width: 740px) { .admin-grid { grid-template-columns: 1fr; } .admin-topbar { flex-direction: column; align-items: flex-start; } }
   </style>
@@ -35,7 +35,10 @@
         <h1>{{ business.name }}</h1>
       </div>
       <div class="admin-actions">
-        <a href="{{ url_for('admin_logout') }}" class="logout">Logout</a>
+        <form method="post" action="{{ url_for('admin_logout') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="logout">Logout</button>
+        </form>
       </div>
     </div>
 

@@ -1,0 +1,42 @@
+{
+  "name": "Multi-split AC units",
+  "slug": "multi-split-ac-units",
+  "family": "room-products",
+  "icon": "home",
+  "image": "",
+  "tagline": "Several rooms, one outdoor unit",
+  "description": "One outdoor unit runs two to five indoor units, ideal for apartments and villas short on balcony or terrace space.",
+  "long_description": "A multi-split connects a single inverter outdoor unit to several indoor units, each with its own remote and temperature setting. It frees up balcony and façade space compared with fitting a separate outdoor unit for every room, and the inverter compressor adjusts to how many rooms are actually running.",
+  "capacity": "2 – 5 indoor units per system",
+  "use_case": "Apartments, villas and small offices",
+  "features": [
+    "One outdoor unit serves 2 – 5 rooms",
+    "Each room has its own on/off and temperature control",
+    "Saves balcony, terrace and façade space",
+    "Mix wall, cassette and concealed indoor units"
+  ],
+  "specs": [
+    {"label": "Outdoor capacity", "value": "About 4 – 12 kW (roughly 1.5 – 3.5 TR combined)"},
+    {"label": "Indoor units", "value": "2 – 5 per outdoor unit (wall, cassette, ducted)"},
+    {"label": "Compressor", "value": "Inverter"},
+    {"label": "Refrigerant", "value": "R32 or R410A"},
+    {"label": "Power supply", "value": "Single phase, 230 V (most models)"},
+    {"label": "Piping", "value": "Separate copper line set to each indoor unit"}
+  ],
+  "variants": [
+    {"capacity": "2 indoor units", "suits": "Two bedrooms or a bedroom + living room"},
+    {"capacity": "3 indoor units", "suits": "2–3 BHK apartments"},
+    {"capacity": "4 – 5 indoor units", "suits": "Villas and duplex homes"}
+  ],
+  "applications": ["Apartments", "Villas", "Duplex homes", "Small offices", "Clinics", "Boutique stores"],
+  "brands": ["Daikin", "Mitsubishi Electric", "Panasonic", "LG", "Samsung", "Toshiba", "O General"],
+  "considerations": [
+    "If the outdoor unit fails, all connected rooms lose cooling",
+    "Piping lengths to each room must stay within the maker's limits",
+    "For more than about five rooms, a VRF system is usually a better fit"
+  ],
+  "faqs": [
+    {"question": "Is multi-split cheaper than separate splits?", "answer": "The equipment usually costs a little more, but you save outdoor space and often get better efficiency when only some rooms are in use."},
+    {"question": "Can I add rooms later?", "answer": "Only up to the number of ports the outdoor unit has, so plan for the final number of rooms at the start."}
+  ]
+}

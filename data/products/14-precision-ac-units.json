@@ -1,0 +1,42 @@
+{
+  "name": "Precision AC units",
+  "slug": "precision-ac-units",
+  "family": "central-products",
+  "icon": "chip",
+  "image": "",
+  "tagline": "Round-the-clock cooling for servers and sensitive equipment",
+  "description": "Close-control air conditioners that hold temperature and humidity steady for server rooms, data centres and labs.",
+  "long_description": "Precision ACs are built to run 24/7 and hold temperature within about ±1 °C and humidity within a tight band. They move much more air per ton than comfort ACs and handle mostly sensible heat, which is what IT and electronic equipment give off. Redundant units, alarms and remote monitoring keep critical rooms protected.",
+  "capacity": "2 – 30+ TR",
+  "use_case": "Server rooms, data centres and labs",
+  "features": [
+    "Designed for continuous 24/7 duty",
+    "Tight temperature and humidity control",
+    "Down-flow, up-flow and in-row configurations",
+    "Alarms, auto-changeover and remote monitoring"
+  ],
+  "specs": [
+    {"label": "Capacity range", "value": "2 – 30+ TR"},
+    {"label": "Control accuracy", "value": "About ±1 °C and ±5 % RH"},
+    {"label": "Configurations", "value": "Down-flow, up-flow, in-row, wall-mounted"},
+    {"label": "Cooling type", "value": "DX (air-cooled) or chilled water"},
+    {"label": "Power supply", "value": "Three phase, 415 V (single phase on small models)"},
+    {"label": "Options", "value": "Humidifier, reheat, EC fans, SNMP / BMS monitoring"}
+  ],
+  "variants": [
+    {"capacity": "2 – 5 TR", "suits": "Server rooms and network rooms"},
+    {"capacity": "5 – 15 TR", "suits": "Small data centres and labs"},
+    {"capacity": "15 – 30+ TR", "suits": "Data halls and large critical spaces"}
+  ],
+  "applications": ["Server rooms", "Data centres", "Telecom shelters", "Laboratories", "UPS and battery rooms", "Control rooms"],
+  "brands": [],
+  "considerations": [
+    "Plan N+1 redundancy so cooling continues during servicing or a failure",
+    "Raised floors or containment improve airflow to the racks",
+    "Comfort split ACs are not built for 24/7 server-room duty"
+  ],
+  "faqs": [
+    {"question": "Why not use regular split ACs in a server room?", "answer": "Comfort ACs aren't designed for 24/7 duty, remove too much moisture and lack alarms and redundancy. Precision units are built for that job."},
+    {"question": "Which brands do you supply?", "answer": "We source precision cooling from leading manufacturers to suit your load, layout and budget. Share your rack count and we'll recommend options."}
+  ]
+}

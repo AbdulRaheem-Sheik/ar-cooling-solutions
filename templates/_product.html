@@ -1,0 +1,10 @@
+{% from "_icons.html" import icon %}
+
+{#- Product photo, or a branded icon placeholder when no image is set. -#}
+{% macro product_image(product, lazy=True) -%}
+{%- if product.image -%}
+<img src="{{ product.image }}" alt="{{ product.name }}"{% if lazy %} loading="lazy"{% endif %}>
+{%- else -%}
+<span class="product-placeholder" role="img" aria-label="{{ product.name }}">{{ icon(product.icon or "snow") }}</span>
+{%- endif -%}
+{%- endmacro %}

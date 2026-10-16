@@ -1,0 +1,41 @@
+{
+  "name": "Duct cleaning",
+  "slug": "duct-cleaning",
+  "group": "cleaning-maintenance",
+  "icon": "filter",
+  "image": "",
+  "tagline": "Cleaner air from every grille",
+  "summary": "Cleaning of supply and return ducts, grilles and diffusers for better air quality.",
+  "description": "Over time, ducts collect dust, debris and microbial growth that blow straight into the space and reduce airflow. We inspect the ductwork, clean it with brushes and vacuum equipment, and clean the grilles, diffusers and plenum boxes, so the air your system delivers is cleaner and stronger.",
+  "duration": "Half a day to several days, depending on duct length",
+  "suitable_for": "Ductable, package, VRF ducted, AHU and central systems",
+  "includes": [
+    "Inspection of supply and return ducts",
+    "Mechanical brushing and HEPA vacuum extraction",
+    "Grille, diffuser and plenum box cleaning",
+    "Optional sanitisation treatment",
+    "Before-and-after photos for your records"
+  ],
+  "signs": [
+    "Dust blowing out of the grilles",
+    "Musty smell from the ducted system",
+    "Weak airflow at some diffusers",
+    "Ducts haven't been cleaned in 2+ years"
+  ],
+  "options": [
+    {"name": "Residential ducted system", "detail": "Villas and apartments with ducted AC"},
+    {"name": "Office / retail ductwork", "detail": "Commercial floors and showrooms"},
+    {"name": "AHU & ducting cleaning", "detail": "AHU sections, coils and main ducts"}
+  ],
+  "process": [
+    {"title": "Inspection", "text": "We check duct condition and access points."},
+    {"title": "Cleaning", "text": "Brushing and vacuum extraction section by section."},
+    {"title": "Grilles & diffusers", "text": "Every outlet is removed, washed and refitted."},
+    {"title": "Report", "text": "Before-and-after photos and recommendations."}
+  ],
+  "faqs": [
+    {"question": "How often should ducts be cleaned?", "answer": "Every 2 – 3 years for offices and homes, and more often for hospitals, kitchens and dusty sites."},
+    {"question": "Will it disturb our work?", "answer": "We work zone by zone and can schedule cleaning after hours or on weekends."}
+  ],
+  "whatsapp_text": "Hi, I'd like to enquire about AC duct cleaning."
+}

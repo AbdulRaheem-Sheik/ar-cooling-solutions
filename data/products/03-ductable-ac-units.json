@@ -1,6 +1,8 @@
 {
   "name": "Ductable AC units",
   "slug": "ductable-ac-units",
+  "family": "light-commercial-products",
+  "icon": "building",
   "image": "/static/images/products/ductable.jpg",
   "tagline": "Concealed cooling for whole floors and large halls",
   "description": "Hidden-in-ceiling systems that distribute conditioned air through ducts for tidy, centralised cooling.",
@@ -12,5 +14,31 @@
     "One unit can serve multiple rooms or a large open area",
     "Supports fresh-air mixing and better filtration",
     "Suitable for banquet halls, offices, villas and retail floors"
+  ],
+  "specs": [
+    {"label": "Capacity range", "value": "3 – 17 TR"},
+    {"label": "Static pressure", "value": "Medium and high static options for longer duct runs"},
+    {"label": "Compressor", "value": "Scroll; inverter models available"},
+    {"label": "Refrigerant", "value": "R410A or R32"},
+    {"label": "Power supply", "value": "Three phase, 415 V"},
+    {"label": "Air distribution", "value": "GI or pre-insulated ducting with grilles / diffusers"},
+    {"label": "Controls", "value": "Wired wall controller; thermostat and BMS options"}
+  ],
+  "variants": [
+    {"capacity": "3 – 5.5 TR", "suits": "Villas, large halls and small offices"},
+    {"capacity": "7.5 – 8.5 TR", "suits": "Office floors and showrooms"},
+    {"capacity": "11 TR", "suits": "Banquet halls and retail floors"},
+    {"capacity": "16.5 – 17 TR", "suits": "Large open commercial spaces"}
+  ],
+  "applications": ["Villas", "Office floors", "Banquet halls", "Retail stores", "Auditoriums", "Restaurants"],
+  "brands": ["Daikin", "Blue Star", "Voltas", "Carrier", "Hitachi", "O General", "Mitsubishi Heavy Industries"],
+  "considerations": [
+    "Duct design, insulation and return-air path decide real-world performance",
+    "Allow ceiling space for the unit, ducts and a service access panel",
+    "Zoning dampers can split one unit across rooms with different loads"
+  ],
+  "faqs": [
+    {"question": "Do you design the ducting too?", "answer": "Yes. We size the unit and ducts from the heat load, supply the ducting and grilles, and handle installation, insulation and balancing."},
+    {"question": "Ductable or VRF for an office?", "answer": "Ductable is lower cost for one large open zone. VRF suits many rooms that need separate temperature control."}
   ]
 }

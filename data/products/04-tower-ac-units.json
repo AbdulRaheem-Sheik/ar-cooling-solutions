@@ -1,16 +1,42 @@
 {
   "name": "Tower AC units",
   "slug": "tower-ac-units",
+  "family": "room-products",
+  "icon": "fan",
   "image": "/static/images/products/tower.jpg",
   "tagline": "High-throw floor-standing cooling",
   "description": "Free-standing cooling solutions suitable for compact spaces where a wall or ceiling unit is not preferred.",
   "long_description": "Tower ACs stand on the floor and push a strong, long-throw air stream. That makes them useful where walls are glazed, ceilings are high, or a quick setup is needed without false-ceiling work. They pair with an outdoor unit like a split AC and are often used in shops, waiting areas and halls that need fast pull-down cooling.",
   "capacity": "2 – 4 TR",
-  "use_case": "Bedrooms, shops, and compact rooms",
+  "use_case": "Shops, halls and high-ceiling rooms",
   "features": [
     "Powerful long-throw airflow for quick cooling",
     "No wall or ceiling mounting needed",
     "Simple installation and easy to relocate",
     "Good for glass-fronted shops and high-ceiling rooms"
+  ],
+  "specs": [
+    {"label": "Capacity range", "value": "2 – 4 TR"},
+    {"label": "Air throw", "value": "Long throw, up to about 15 m on larger models"},
+    {"label": "Compressor", "value": "Rotary or scroll; inverter models available"},
+    {"label": "Refrigerant", "value": "R32 or R410A"},
+    {"label": "Power supply", "value": "Single phase up to ~2 TR; three phase for larger models"},
+    {"label": "Installation", "value": "Floor-standing indoor unit + outdoor unit"}
+  ],
+  "variants": [
+    {"capacity": "2 TR", "suits": "Shops and halls of about 200 – 280 sq ft"},
+    {"capacity": "3 TR", "suits": "Halls of about 280 – 400 sq ft"},
+    {"capacity": "4 TR", "suits": "Large halls of about 400 – 550 sq ft"}
+  ],
+  "applications": ["Retail shops", "Waiting areas", "Function halls", "Prayer halls", "Showrooms", "Gyms"],
+  "brands": ["Blue Star", "Voltas", "Daikin", "Carrier", "Lloyd"],
+  "considerations": [
+    "Needs a clear floor spot with an unobstructed air path",
+    "Best where a wall or ceiling unit isn't practical",
+    "Floor footprint is roughly 0.3 m × 0.5 m"
+  ],
+  "faqs": [
+    {"question": "Can a tower AC be moved later?", "answer": "Yes. It needs a refrigerant pump-down and re-piping, which is quicker than relocating a ceiling unit."},
+    {"question": "Is a tower AC good for a high-ceiling hall?", "answer": "Yes. Its long, low air throw cools the occupied zone first instead of the space under the roof."}
   ]
 }

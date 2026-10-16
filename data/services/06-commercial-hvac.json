@@ -1,16 +1,42 @@
 {
   "name": "Commercial HVAC projects",
   "slug": "commercial-hvac",
+  "group": "commercial",
   "icon": "building",
   "image": "/static/images/services/commercial.jpg",
+  "tagline": "Design, supply, install and maintain, all with one team",
   "summary": "Ducting, central systems and multi-unit projects for businesses.",
   "description": "For offices, showrooms, restaurants, clinics and industrial spaces, we handle complete HVAC packages: from choosing between ductable, package, VRV/VRF or chilled-water systems, to ducting, installation, commissioning and ongoing maintenance.",
+  "duration": "Planned by project scope",
+  "suitable_for": "Offices, retail, hospitality, healthcare and industrial sites",
   "includes": [
     "System selection based on load, layout and budget",
     "GI ducting, grilles, diffusers and insulation",
     "Ductable, package, VRV/VRF, AHU and chiller work",
     "Testing, balancing and handover",
     "Ongoing AMC support after completion"
+  ],
+  "signs": [
+    "You're fitting out a new office, showroom or restaurant",
+    "Existing cooling can't keep up with the space",
+    "You're replacing an old central system",
+    "You need fresh air or better indoor air quality"
+  ],
+  "options": [
+    {"name": "VRV / VRF project", "detail": "Multi-zone systems for offices and buildings"},
+    {"name": "Ductable / package project", "detail": "Ducted cooling for halls and open floors"},
+    {"name": "Chiller & AHU project", "detail": "Central plant for large buildings"},
+    {"name": "Ducting & ventilation", "detail": "GI ducting, fresh air and exhaust systems"}
+  ],
+  "process": [
+    {"title": "Survey & heat load", "text": "We measure the site and calculate the cooling load."},
+    {"title": "Design & proposal", "text": "System selection, layout and a detailed quote."},
+    {"title": "Execution", "text": "Supply, installation, ducting and piping on an agreed schedule."},
+    {"title": "Commissioning & AMC", "text": "Testing, balancing, handover and ongoing maintenance."}
+  ],
+  "faqs": [
+    {"question": "Do you provide drawings and BOQs?", "answer": "Yes. For projects we share the system layout and a bill of quantities with the proposal."},
+    {"question": "Can work happen outside business hours?", "answer": "Yes. We can schedule work at night or on weekends to avoid disrupting your business."}
   ],
   "whatsapp_text": "Hi, I'd like to discuss a commercial HVAC project."
 }

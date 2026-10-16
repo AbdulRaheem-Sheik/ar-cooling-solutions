@@ -1,16 +1,42 @@
 {
   "name": "Gas refilling",
   "slug": "gas-refilling",
+  "group": "repairs",
   "icon": "gauge",
   "image": "/static/images/services/gas-refill.png",
+  "tagline": "Fix the leak first, then charge it right",
   "summary": "Cooling checks and refrigerant service by experienced technicians.",
   "description": "Low refrigerant usually means there is a leak. Topping up without fixing it only buys a few weeks. We find and repair the leak first, then vacuum the system and charge the correct refrigerant (R22, R32, R410A and others) by weight and pressure, as the manufacturer specifies.",
+  "duration": "1.5 – 3 hours including leak repair",
+  "suitable_for": "Split, window, cassette, tower and ductable ACs",
   "includes": [
     "Leak detection and repair before refilling",
     "System vacuuming to remove air and moisture",
     "Accurate charging for R22, R32, R410A and more",
     "Pressure, temperature and current verification",
     "Advice on preventing repeat leaks"
+  ],
+  "signs": [
+    "AC runs but cooling is weak",
+    "Ice or frost on the copper pipes",
+    "Hissing or bubbling sound from the unit",
+    "Outdoor unit runs constantly"
+  ],
+  "options": [
+    {"name": "R32 gas refilling", "detail": "Common in newer inverter ACs"},
+    {"name": "R410A gas refilling", "detail": "Common in inverter and commercial units"},
+    {"name": "R22 gas refilling", "detail": "Older ACs"},
+    {"name": "Leak repair + full charge", "detail": "Brazing, vacuum and full refrigerant charge"}
+  ],
+  "process": [
+    {"title": "Pressure check", "text": "We measure system pressure to confirm whether gas is low."},
+    {"title": "Leak detection", "text": "Joints, coils and valves are checked to find the leak."},
+    {"title": "Repair & vacuum", "text": "We fix the leak, then vacuum out air and moisture."},
+    {"title": "Charge & test", "text": "Refrigerant is charged by weight, then cooling is verified."}
+  ],
+  "faqs": [
+    {"question": "Why does my AC need gas again?", "answer": "Refrigerant isn't used up. If it's low, there's a leak, and we repair it so you don't need repeated refills."},
+    {"question": "Can a top-up be done instead of a full charge?", "answer": "Sometimes. If the leak is small and repaired, a top-up may be enough; otherwise a full recharge gives accurate performance."}
   ],
   "whatsapp_text": "Hi, I'd like to enquire about AC gas refilling."
 }

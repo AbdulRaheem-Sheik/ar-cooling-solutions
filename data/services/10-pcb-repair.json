@@ -1,0 +1,41 @@
+{
+  "name": "PCB & inverter board repair",
+  "slug": "pcb-repair",
+  "group": "repairs",
+  "icon": "chip",
+  "image": "",
+  "tagline": "Board-level repair for inverter and smart ACs",
+  "summary": "Repair or replacement of indoor and outdoor control boards, sensors and displays.",
+  "description": "Modern inverter ACs rely on electronic boards to control the compressor, fans and sensors. Voltage fluctuations, moisture and age can damage them, causing error codes or a dead unit. We diagnose the fault, repair boards at component level where possible, or replace them with compatible boards.",
+  "duration": "Same day for many faults; board repairs may take 1 – 3 days",
+  "suitable_for": "Inverter and non-inverter split, cassette and VRF indoor units",
+  "includes": [
+    "Error-code and board-level diagnosis",
+    "Component-level PCB repair where possible",
+    "Genuine or compatible replacement boards",
+    "Sensor, display and remote receiver replacement",
+    "Advice on voltage protection"
+  ],
+  "signs": [
+    "Error code or blinking lights on the display",
+    "AC doesn't respond to the remote",
+    "Unit stops after a power fluctuation",
+    "Compressor won't start on an inverter AC"
+  ],
+  "options": [
+    {"name": "Indoor PCB repair", "detail": "Display, fan and control faults"},
+    {"name": "Outdoor inverter PCB repair", "detail": "Compressor drive and power faults"},
+    {"name": "Board replacement", "detail": "When repair isn't possible or cost-effective"}
+  ],
+  "process": [
+    {"title": "Read the fault", "text": "We read error codes and test sensors and wiring."},
+    {"title": "Board check", "text": "The PCB is tested to locate failed components."},
+    {"title": "Repair or replace", "text": "We repair at component level or fit a compatible board."},
+    {"title": "Test run", "text": "Full operation test across modes and speeds."}
+  ],
+  "faqs": [
+    {"question": "Is PCB repair cheaper than replacement?", "answer": "Usually, yes. Many faults are a few failed components, and repairing them costs much less than a new board."},
+    {"question": "How can I protect the PCB?", "answer": "A suitable stabiliser or voltage protector helps, especially in areas with frequent power fluctuations."}
+  ],
+  "whatsapp_text": "Hi, I need my AC PCB / inverter board checked."
+}

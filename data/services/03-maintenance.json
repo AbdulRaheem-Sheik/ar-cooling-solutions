@@ -1,16 +1,42 @@
 {
   "name": "AMC & maintenance",
   "slug": "maintenance",
+  "group": "cleaning-maintenance",
   "icon": "calendar",
   "image": "/static/images/services/maintenance.jpg",
+  "tagline": "Planned care that prevents breakdowns",
   "summary": "Regular cleaning and check-ups that help your equipment run reliably.",
   "description": "Dust, heat and long running hours slowly reduce cooling and raise power bills. Our Annual Maintenance Contracts (AMC) schedule periodic servicing so problems are caught early. They suit homes with several units as well as offices, shops and facilities that cannot afford downtime.",
+  "duration": "45 – 60 minutes per unit per visit",
+  "suitable_for": "Homes with several units, offices, shops, clinics and facilities",
   "includes": [
     "Scheduled preventive service visits",
     "Filter, coil and drain-line cleaning",
     "Electrical checks and gas pressure readings",
     "Priority response for breakdown calls",
     "Service records for every unit on site"
+  ],
+  "signs": [
+    "You have several ACs to keep running",
+    "Your business can't afford cooling downtime",
+    "Power bills are creeping up",
+    "Units haven't been serviced in over a year"
+  ],
+  "options": [
+    {"name": "Non-comprehensive AMC", "detail": "Scheduled servicing; parts charged as needed"},
+    {"name": "Comprehensive AMC", "detail": "Servicing plus most parts covered under the contract"},
+    {"name": "One-time general service", "detail": "Single pre-summer service visit"},
+    {"name": "Commercial / multi-site AMC", "detail": "Plans built around your units and running hours"}
+  ],
+  "process": [
+    {"title": "Site audit", "text": "We list every unit, its condition and running hours."},
+    {"title": "Plan", "text": "We propose visit frequency and coverage that fit your usage and budget."},
+    {"title": "Scheduled visits", "text": "Technicians clean, check and record each unit on schedule."},
+    {"title": "Priority support", "text": "AMC customers get priority response for breakdowns."}
+  ],
+  "faqs": [
+    {"question": "How many visits does an AMC include?", "answer": "Homes typically have 2 – 4 visits a year. Commercial units that run long hours often need servicing every 2 – 3 months."},
+    {"question": "Comprehensive or non-comprehensive?", "answer": "Comprehensive costs more upfront but covers most parts. Non-comprehensive is cheaper, with parts charged when needed."}
   ],
   "whatsapp_text": "Hi, please share your AC maintenance and AMC options."
 }

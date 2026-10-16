@@ -1,0 +1,42 @@
+{
+  "name": "Ceiling-suspended AC units",
+  "slug": "ceiling-suspended-ac-units",
+  "family": "light-commercial-products",
+  "icon": "fan",
+  "image": "",
+  "tagline": "Wide air throw with no false ceiling needed",
+  "description": "Under-ceiling units that hang directly from the slab and spread air across wide, open spaces.",
+  "long_description": "Ceiling-suspended (also called floor-ceiling or under-ceiling) units mount flat against the ceiling, or low on a wall, and throw air horizontally across the room. They give cassette-like coverage without a false ceiling, which makes them a good fit for exposed-slab interiors, older buildings, restaurants and workshops.",
+  "capacity": "1.5 – 5 TR",
+  "use_case": "Restaurants, showrooms and halls without false ceilings",
+  "features": [
+    "No false ceiling required",
+    "Long horizontal air throw for wide rooms",
+    "Can be ceiling- or wall-mounted",
+    "Easy access for filter cleaning and servicing"
+  ],
+  "specs": [
+    {"label": "Capacity range", "value": "1.5 – 5 TR"},
+    {"label": "Mounting", "value": "Under-ceiling or low wall (floor-ceiling convertible)"},
+    {"label": "Compressor", "value": "Inverter or fixed speed"},
+    {"label": "Refrigerant", "value": "R32 or R410A"},
+    {"label": "Power supply", "value": "Single phase up to ~2 TR; three phase for larger models"},
+    {"label": "Air throw", "value": "Up to about 10 – 12 m"}
+  ],
+  "variants": [
+    {"capacity": "1.5 – 2 TR", "suits": "Areas of about 150 – 280 sq ft"},
+    {"capacity": "3 TR", "suits": "Areas of about 280 – 400 sq ft"},
+    {"capacity": "4 – 5 TR", "suits": "Areas of about 400 – 650 sq ft"}
+  ],
+  "applications": ["Restaurants", "Showrooms", "Workshops", "Function halls", "Classrooms", "Older buildings"],
+  "brands": ["Daikin", "Blue Star", "Carrier", "Hitachi", "Mitsubishi Heavy Industries", "Toshiba"],
+  "considerations": [
+    "The unit stays visible, so plan its placement with the interior design",
+    "Mount it on the long wall side so air throws across the room",
+    "Ideal where ceilings can't be lowered or opened"
+  ],
+  "faqs": [
+    {"question": "Ceiling-suspended or cassette?", "answer": "Choose a cassette if you have a false ceiling and want a flush look. Choose ceiling-suspended where there's no false ceiling or you need longer air throw."},
+    {"question": "Is it suitable for kitchens?", "answer": "For dining areas, yes. Commercial kitchens need extra filtration and regular coil cleaning because of grease."}
+  ]
+}

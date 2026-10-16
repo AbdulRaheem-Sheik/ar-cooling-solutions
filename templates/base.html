@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0a1b2e">
+  <meta name="theme-color" content="#ffffff">
   <meta name="description" content="{% block meta_description %}{{ business.name }} provides AC and HVAC products, genuine spare parts, installation, repair and maintenance across {{ business.city }}.{% endblock %}">
   <title>{% block title %}{{ business.name }}{% endblock %}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
         <span></span><span></span>
       </button>
       <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
-        {% set nav = [("home", "/", "Home"), ("products", "/products", "Products"), ("services", "/services", "Services"), ("parts", "/parts", "Spare parts"), ("about", "/about", "About us"), ("contact", "/#contact", "Contact")] %}
+        {% set nav = [("home", "/", "Home"), ("products", "/products/", "Products"), ("services", "/services/", "Services"), ("parts", "/parts/", "Spare parts"), ("about", "/about/", "About us"), ("contact", "/#contact", "Contact")] %}
         {% for key, href, label in nav %}
         <a href="{{ href }}"{% if active == key %} aria-current="page"{% endif %}>{{ label }}</a>
         {% endfor %}
@@ -40,31 +40,34 @@
     {% block content %}{% endblock %}
   </main>
 
+  {% include "_logo_strips.html" %}
+
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-brand">
         <a class="brand brand-invert" href="/" aria-label="{{ business.name }} home">
           <span class="brand-mark" aria-hidden="true"><img src="{{ url_for('static', filename='images/Cooling-Logo-PNG-Photo.png') }}" alt=""></span>
-          <span class="brand-text"><b>AR Cooling</b><small>Solutions Â· {{ business.city }}</small></span>
+          <span class="brand-text"><b>AR Cooling</b><small>Solutions · {{ business.city }}</small></span>
         </a>
-        <p>AC sales, installation, repair, maintenance and genuine spare parts for homes and businesses across {{ business.city }}, from one local team.</p>
+        <p>AC sales, installation, repair, maintenance and genuine spare parts for homes and businesses across {{ business.city }}, from one team.</p>
       </div>
       <div class="footer-col">
         <h2>Explore</h2>
         <a href="/">Home</a>
-        <a href="/services">Services</a>
-        <a href="/products">Products</a>
-        <a href="/parts">Spare parts</a>
-        <a href="/about">About us</a>
-        <a href="/enquiry">Request a quote</a>
+        <a href="/services/">Services</a>
+        <a href="/products/">Products</a>
+        <a href="/parts/">Spare parts</a>
+        <a href="/about/">About us</a>
+        <a href="/enquiry/">Request a quote</a>
       </div>
       <div class="footer-col">
         <h2>Services</h2>
-        <a href="/services#installation">Installation</a>
-        <a href="/services#repair">Repair</a>
-        <a href="/services#maintenance">AMC &amp; maintenance</a>
-        <a href="/services#gas-refilling">Gas refilling</a>
-        <a href="/services#commercial-hvac">Commercial HVAC</a>
+        <a href="/services/installation/">Installation</a>
+        <a href="/services/repair/">Repair</a>
+        <a href="/services/maintenance/">AMC &amp; maintenance</a>
+        <a href="/services/deep-cleaning/">AC deep cleaning</a>
+        <a href="/services/gas-refilling/">Gas refilling</a>
+        <a href="/services/commercial-hvac/">Commercial HVAC</a>
       </div>
       <div class="footer-col footer-contact">
         <h2>Get in touch</h2>
@@ -74,7 +77,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>Â© <span id="year">2026</span> {{ business.name }}. All rights reserved.</span>
+      <span>© <span id="year">2026</span> {{ business.name }}. All rights reserved.</span>
       <span>Reliable cooling, right here in {{ business.city }}.</span>
     </div>
   </footer>

@@ -1,0 +1,40 @@
+{
+  "name": "Concealed copper piping",
+  "slug": "concealed-piping",
+  "group": "installation-setup",
+  "icon": "coil",
+  "image": "",
+  "tagline": "Pre-installation piping hidden in walls and ceilings",
+  "summary": "Concealed copper, drain and electrical lines laid before plastering or false ceiling work.",
+  "description": "For new homes and interiors, running AC piping inside walls or ceilings keeps everything neat. We lay insulated copper lines, drain pipes and power cables at the right stage of construction, pressure test them, and seal the ends so the AC can be fitted cleanly later.",
+  "duration": "Half a day to 2 days, depending on the number of points",
+  "suitable_for": "New homes, villas, offices and interior fit-outs",
+  "includes": [
+    "Point planning for indoor and outdoor units",
+    "Insulated copper piping in walls or ceilings",
+    "Concealed drain lines with proper slope",
+    "Nitrogen pressure test and capped ends",
+    "Coordination with civil and interior teams"
+  ],
+  "signs": [
+    "You're building or renovating a home",
+    "You want no visible pipes on the walls",
+    "Interior work or false ceiling is being planned"
+  ],
+  "options": [
+    {"name": "Apartment piping", "detail": "2 – 4 AC points"},
+    {"name": "Villa / independent house", "detail": "Multiple floors and AC points"},
+    {"name": "Office fit-out piping", "detail": "Cassette, ductable or VRF points"}
+  ],
+  "process": [
+    {"title": "Plan points", "text": "We mark indoor, outdoor and drain positions with you."},
+    {"title": "Lay piping", "text": "Copper, drain and cable are laid before plastering."},
+    {"title": "Pressure test", "text": "Lines are nitrogen-tested and capped."},
+    {"title": "Final fitting", "text": "When the ACs arrive, units are connected and commissioned."}
+  ],
+  "faqs": [
+    {"question": "When should concealed piping be done?", "answer": "Before plastering, or before the false ceiling is closed. Talk to us at the brickwork stage."},
+    {"question": "What if a concealed pipe leaks later?", "answer": "That's why we pressure-test every line before it's covered, and use proper brazing and insulation."}
+  ],
+  "whatsapp_text": "Hi, I'd like to enquire about concealed AC copper piping."
+}

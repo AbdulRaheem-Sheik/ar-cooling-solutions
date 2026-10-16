@@ -1,0 +1,34 @@
+{#- Scrolling client and partner logos, shown above the footer on every page.
+    Logos come from static/images/logos/ (made by tools/process_logos.py). -#}
+
+{#- The visible set is repeated until it is wide enough to loop seamlessly;
+    only the first copy is read by screen readers. -#}
+{% macro logo_marquee(logos, folder, label, reverse=False) -%}
+{% set reps = [1, ((8 / logos|length)|round(0, "ceil"))|int]|max %}
+<div class="marquee{% if reverse %} marquee-reverse{% endif %}" role="group" aria-label="{{ label }}" style="--marquee-duration: {{ logos|length * reps * 3 }}s">
+  <div class="marquee-track">
+    {% for copy in range(reps * 2) %}
+    {% for name, filename in logos.items() %}
+    <span class="partner-logo"{% if copy %} aria-hidden="true"{% endif %} title="{{ name }}"><img src="{{ url_for('static', filename='images/logos/' ~ folder ~ '/' ~ filename) }}" alt="{{ name if not copy else '' }}" width="160" height="60" loading="lazy"></span>
+    {% endfor %}
+    {% endfor %}
+  </div>
+</div>
+{%- endmacro %}
+
+<section class="logo-strips" aria-label="Clients and partners">
+  <div class="logo-strip">
+    <div class="container partners-heading">
+      <p class="eyebrow">Clients who trust us</p>
+      <h2>Our Clients</h2>
+    </div>
+    {{ logo_marquee(client_logos, "clients", "Our clients", reverse=True) }}
+  </div>
+  <div class="logo-strip">
+    <div class="container partners-heading">
+      <p class="eyebrow">Trusted names in cooling</p>
+      <h2>Our Partners</h2>
+    </div>
+    {{ logo_marquee(brand_logos, "partners", "Air conditioning brand partners") }}
+  </div>
+</section>

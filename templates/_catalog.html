@@ -1,0 +1,56 @@
+{% from "_icons.html" import icon %}
+{% from "_product.html" import product_image %}
+
+{#- Shared catalog pieces for the products, services and spare-parts pages. -#}
+
+{% macro catalog_toolbar(total, noun) -%}
+<div class="catalog-toolbar">
+  <p><b>{{ total }}</b> {{ noun }}</p>
+  <button class="catalog-toggle" type="button" data-catalog-toggle aria-expanded="false">
+    <span class="catalog-toggle-label">Expand all</span>
+    <span class="catalog-chevron" aria-hidden="true"></span>
+  </button>
+</div>
+{%- endmacro %}
+
+{#- A collapsible category. Use with {% call catalog_group(...) %}cards{% endcall %}. -#}
+{% macro catalog_group(id, title, description, icon_name, count, noun, open=False) -%}
+<details class="catalog-group reveal" id="{{ id }}"{% if open %} open{% endif %}>
+  <summary class="catalog-summary">
+    <span class="catalog-icon">{{ icon(icon_name) }}</span>
+    <span class="catalog-title">
+      <h2>{{ title }}</h2>
+      <span>{{ description }}</span>
+    </span>
+    <span class="catalog-count">{{ count }} {{ noun }}</span>
+    <span class="catalog-chevron" aria-hidden="true"></span>
+  </summary>
+  <div class="catalog-body">
+    {{ caller() }}
+  </div>
+</details>
+{%- endmacro %}
+
+{#- One item card. The whole card links to `href`; the Enquire button sits above that link. -#}
+{% macro catalog_card(href, visual, title, text, tagline="", specs=(), badge="", enquire_href="", link_label="View details", id="") -%}
+<article class="product-card"{% if id %} id="{{ id }}"{% endif %}>
+  <figure class="product-visual">
+    {{ product_image(visual) }}
+    {% if badge %}<span class="product-cap">{{ badge }}</span>{% endif %}
+  </figure>
+  <div class="product-body">
+    {% if tagline %}<p class="product-tagline">{{ tagline }}</p>{% endif %}
+    <h3><a class="card-stretch" href="{{ href }}">{{ title }}</a></h3>
+    <p class="muted">{{ text }}</p>
+    {% if specs %}
+    <div class="product-quick-specs{% if specs|length == 1 %} product-quick-specs-single{% endif %}">
+      {% for label, value in specs %}<div><small>{{ label }}</small><b>{{ value }}</b></div>{% endfor %}
+    </div>
+    {% endif %}
+    <div class="product-foot">
+      <span class="card-link">{{ link_label }} {{ icon("arrow-right") }}</span>
+      {% if enquire_href %}<a class="button button-primary button-sm card-raise" href="{{ enquire_href }}" aria-label="Enquire about {{ title }}">Enquire</a>{% endif %}
+    </div>
+  </div>
+</article>
+{%- endmacro %}

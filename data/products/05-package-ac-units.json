@@ -1,6 +1,8 @@
 {
   "name": "Package AC units",
   "slug": "package-ac-units",
+  "family": "light-commercial-products",
+  "icon": "building",
   "image": "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80",
   "tagline": "Self-contained capacity for bigger loads",
   "description": "Outdoor packaged systems designed for medium to large spaces needing higher capacities and straightforward installation.",
@@ -12,5 +14,30 @@
     "Rooftop or ground placement keeps plant out of sight",
     "Servicing happens outdoors, with no disruption inside",
     "Common in auditoriums, warehouses, gyms and workshops"
+  ],
+  "specs": [
+    {"label": "Capacity range", "value": "5 – 20 TR"},
+    {"label": "Configuration", "value": "Rooftop or ground-mounted single cabinet"},
+    {"label": "Compressor", "value": "Scroll, single or multiple"},
+    {"label": "Refrigerant", "value": "R410A or R407C"},
+    {"label": "Power supply", "value": "Three phase, 415 V"},
+    {"label": "Air distribution", "value": "Ducted supply and return"},
+    {"label": "Options", "value": "Fresh-air intake, economiser, higher-grade filters"}
+  ],
+  "variants": [
+    {"capacity": "5 – 8.5 TR", "suits": "Gyms, small auditoriums and workshops"},
+    {"capacity": "11 TR", "suits": "Large halls and warehouses"},
+    {"capacity": "15 – 20 TR", "suits": "Auditoriums and large commercial floors"}
+  ],
+  "applications": ["Auditoriums", "Warehouses", "Gyms", "Workshops", "Places of worship", "Supermarkets"],
+  "brands": ["Blue Star", "Voltas", "Daikin", "Carrier", "Trane"],
+  "considerations": [
+    "Check roof or platform strength for the unit's weight",
+    "Short duct runs from the unit to the space improve efficiency",
+    "Needs crane or hoist access for rooftop placement"
+  ],
+  "faqs": [
+    {"question": "Package AC or ductable split?", "answer": "A package unit keeps all machinery outdoors and is quick to install. A ductable split suits sites where there's no roof or platform space for a full cabinet."},
+    {"question": "Do you handle rooftop placement?", "answer": "Yes. We coordinate lifting, the mounting frame, vibration isolation and duct connections."}
   ]
 }

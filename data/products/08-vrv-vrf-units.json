@@ -1,6 +1,8 @@
 {
   "name": "VRV & VRF units",
   "slug": "vrv-vrf-units",
+  "family": "central-products",
+  "icon": "building",
   "image": "https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=1200&q=80",
   "tagline": "One outdoor system, many independently controlled zones",
   "description": "Variable refrigerant flow systems built for multi-zone efficiency, comfort control, and flexible building layouts.",
@@ -12,5 +14,31 @@
     "Mix and match indoor unit types on one system",
     "High part-load efficiency through variable refrigerant flow",
     "Centralised control and scheduling for facility teams"
+  ],
+  "specs": [
+    {"label": "Outdoor capacity", "value": "8 – 60+ HP per system (modular)"},
+    {"label": "Indoor units", "value": "Wall, cassette, ductable, ceiling-suspended, floor-standing"},
+    {"label": "Indoor units per system", "value": "Up to around 64, depending on brand and model"},
+    {"label": "Compressor", "value": "Inverter scroll"},
+    {"label": "Refrigerant", "value": "R410A or R32"},
+    {"label": "Power supply", "value": "Three phase, 415 V (outdoor)"},
+    {"label": "Controls", "value": "Individual remotes, central controller, BMS integration"}
+  ],
+  "variants": [
+    {"capacity": "8 – 16 HP", "suits": "Villas and small offices"},
+    {"capacity": "18 – 36 HP", "suits": "Office floors, clinics and restaurants"},
+    {"capacity": "38 – 60+ HP", "suits": "Hotels, hospitals and multi-floor buildings"},
+    {"capacity": "Heat recovery VRF", "suits": "Sites that need cooling and heating at the same time"}
+  ],
+  "applications": ["Corporate offices", "Hotels", "Hospitals", "Luxury villas", "Educational buildings", "Mixed-use buildings"],
+  "brands": ["Daikin", "Mitsubishi Electric", "Hitachi", "Toshiba", "LG", "Samsung", "Blue Star", "Voltas", "Carrier"],
+  "considerations": [
+    "Plan the outdoor unit location and piping routes during design",
+    "Pair with a treated fresh-air unit for good indoor air quality",
+    "Copper piping and brazing quality are critical; we nitrogen-purge every joint"
+  ],
+  "faqs": [
+    {"question": "What's the difference between VRV and VRF?", "answer": "VRV is Daikin's brand name for the technology. VRF is the general term used by other manufacturers. They work the same way."},
+    {"question": "Can VRF be added floor by floor?", "answer": "Yes. Modular outdoor units let you phase installation and extend the system as floors are fitted out."}
   ]
 }

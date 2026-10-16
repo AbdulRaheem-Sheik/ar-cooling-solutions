@@ -1,58 +1,56 @@
 {% extends "base.html" %}
 {% from "_icons.html" import icon %}
+{% from "_catalog.html" import catalog_toolbar, catalog_group, catalog_card %}
 {% set active = "services" %}
 
 {% block title %}AC Services in {{ business.city }} | {{ business.name }}{% endblock %}
-{% block meta_description %}AC installation, repair, AMC and maintenance, gas refilling, relocation and commercial HVAC projects across {{ business.city }} from {{ business.name }}.{% endblock %}
+{% block meta_description %}AC installation, repair, AMC, deep cleaning, gas refilling, compressor and PCB repair, duct cleaning, relocation and commercial HVAC projects across {{ business.city }} from {{ business.name }}.{% endblock %}
 
 {% block content %}
 <section class="page-hero">
   <div class="container page-hero-inner">
     <p class="chip"><span class="status-dot"></span> AC &amp; HVAC services · {{ business.city }}</p>
     <h1>Service done <em>properly</em>, the first time.</h1>
-    <p>Installation, repairs, preventive maintenance and full commercial HVAC work, all handled by one experienced local team that explains what it's doing and why.</p>
-    <nav class="jump-links" aria-label="Jump to a service">
-      {% for service in services %}
-      <a href="#{{ service.slug }}">{{ icon(service.icon) }} {{ service.name }}</a>
+    <p>Installation, repairs, preventive maintenance and full commercial HVAC work, all handled by one experienced team that explains what it's doing and why.</p>
+    <nav class="jump-links" aria-label="Jump to a service category">
+      {% for group in groups %}
+      <a href="#{{ group.id }}">{{ icon(group.icon) }} {{ group.name }}</a>
       {% endfor %}
     </nav>
   </div>
 </section>
 
-<section class="section container">
-  <div class="service-details">
-    {% for service in services %}
-    <article class="service-detail reveal" id="{{ service.slug }}">
-      <div class="service-detail-media">
-        {% if service.image %}
-        <img src="{{ service.image }}" alt="{{ service.name }} by {{ business.name }}" loading="lazy">
-        {% else %}
-        <div class="media-placeholder" role="img" aria-label="{{ service.name }} illustration">
-          {{ icon(service.icon, "media-placeholder-icon") }}
-          <span>{{ service.name }}</span>
-        </div>
-        {% endif %}
-        <span class="service-detail-num">{{ "%02d"|format(loop.index) }}</span>
-      </div>
-      <div class="service-detail-copy">
-        <span class="service-icon">{{ icon(service.icon) }}</span>
-        <h2>{{ service.name }}</h2>
-        <p class="lead">{{ service.summary }}</p>
-        <p>{{ service.description }}</p>
-        {% if service.includes %}
-        <h3>What's included</h3>
-        <ul class="check-list">
-          {% for item in service.includes %}
-          <li>{{ icon("check") }} {{ item }}</li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-        <div class="button-row">
-          <a class="button button-primary" href="https://wa.me/{{ business.whatsapp_number }}?text={{ service.whatsapp_text|urlencode }}" target="_blank" rel="noopener noreferrer">{{ icon("chat") }} Enquire on WhatsApp</a>
-          <a class="button button-outline" href="tel:{{ business.phone_e164 }}">{{ icon("phone") }} Call us</a>
-        </div>
-      </div>
-    </article>
+<section class="section container" aria-labelledby="services-heading">
+  <div class="section-heading reveal">
+    <div>
+      <p class="eyebrow">All services</p>
+      <h2 id="services-heading">Pick a service to see the details.</h2>
+    </div>
+    <p>Open a category to see its services. Each service page covers what's included, how the job is done, the options and common questions.</p>
+  </div>
+
+  {{ catalog_toolbar(services|length, "services in " ~ groups|length ~ " categories") }}
+  <div class="catalog">
+    {% for group in groups %}
+    {% set items = services|selectattr("group", "equalto", group.id)|list %}
+    {% if items %}
+    {% call catalog_group(group.id, group.name, group.description, group.icon, items|length, "services" if items|length != 1 else "service", open=loop.first) %}
+    <div class="product-grid">
+      {% for service in items %}
+      {{ catalog_card(
+        href=url_for('service_detail', slug=service.slug),
+        visual=service,
+        title=service.name,
+        text=service.summary,
+        tagline=service.tagline,
+        specs=[("Typical duration", service.duration or "On request"), ("Suitable for", service.suitable_for or "All AC types")],
+        enquire_href=service_enquiry_url(service),
+        id=service.slug
+      ) }}
+      {% endfor %}
+    </div>
+    {% endcall %}
+    {% endif %}
     {% endfor %}
   </div>
 </section>

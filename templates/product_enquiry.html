@@ -2,88 +2,151 @@
 {% from "_icons.html" import icon %}
 {% set active = "enquiry" %}
 
-{% block title %}Product Enquiry | {{ business.name }}{% endblock %}
-{% block meta_description %}Send {{ business.name }} an enquiry for AC and HVAC products and spare parts in {{ business.city }}.{% endblock %}
+{% block title %}Enquiry | {{ business.name }}{% endblock %}
+{% block meta_description %}Send {{ business.name }} an enquiry for AC and HVAC products, services and spare parts in {{ business.city }}.{% endblock %}
+
+{% block head %}
+  <script src="{{ url_for('static', filename='js/enquiry.js') }}" defer></script>
+{% endblock %}
 
 {% block content %}
+{#- This page is static. static/js/enquiry.js fills it in from the link (?product=, ?service=,
+    ?part=, ?category=, ?product_description=, ?comments=) and sends it to Web3Forms. -#}
 <section class="page-hero page-hero-compact">
   <div class="container page-hero-inner">
-    <p class="chip"><span class="status-dot"></span> Products &amp; parts, made simple</p>
-    <h1>What are you <em>looking for?</em></h1>
-    <p>Share a few details and our team will help identify the right AC system or spare part, and come back to you with availability and pricing.</p>
+    <p class="chip"><span class="status-dot"></span> <span data-variant="default">Products, services &amp; parts, made simple</span><span data-variant="service" hidden>Book a service visit</span></p>
+    <h1 id="enquiry-title">What are you <em>looking for?</em></h1>
+    <p data-variant="default">Share a few details and our team will help identify the right AC system or spare part, and come back to you with availability and pricing.</p>
+    <p data-variant="service" hidden>Share a few details about your AC and our team will confirm the visit, the work involved and the cost before starting.</p>
   </div>
 </section>
 
-<section class="section container enquiry-layout" aria-label="Product enquiry form">
+<section class="section container enquiry-layout" aria-label="Enquiry form">
   <aside class="enquiry-aside">
-    <span class="service-icon">{{ icon("snow") }}</span>
-    <h2>Let's find the right fit.</h2>
-    <p>Tell us the product or part, the category, and any model details you have. We'll follow up on availability and the next step.</p>
-    <ul class="check-list check-list-compact">
-      <li>{{ icon("check") }} AC brand and model number</li>
-      <li>{{ icon("check") }} Capacity (tonnage / HP) if known</li>
-      <li>{{ icon("check") }} Quantity and delivery location</li>
-    </ul>
+    <a class="enquiry-product" id="enquiry-selected" href="#" hidden>
+      <span class="enquiry-product-media" id="enquiry-selected-media"></span>
+      <span>
+        <small>You're enquiring about</small>
+        <b id="enquiry-selected-name"></b>
+        <em id="enquiry-selected-meta"></em>
+      </span>
+    </a>
+    <span class="service-icon" id="enquiry-default-icon">{{ icon("snow") }}</span>
+    <div data-variant="default">
+      <h2>Let's find the right fit.</h2>
+      <p>Tell us the product or part, the category, and any model details you have. We'll follow up on availability and the next step.</p>
+      <ul class="check-list check-list-compact">
+        <li>{{ icon("check") }} AC brand and model number</li>
+        <li>{{ icon("check") }} Capacity (tonnage / HP) if known</li>
+        <li>{{ icon("check") }} Quantity and delivery location</li>
+      </ul>
+    </div>
+    <div data-variant="service" hidden>
+      <h2>Let's book the right visit.</h2>
+      <p>Tell us about your AC and what's happening. We'll confirm the visit time and anything we need to bring.</p>
+      <ul class="check-list check-list-compact">
+        <li>{{ icon("check") }} AC brand, type and capacity</li>
+        <li>{{ icon("check") }} The problem you're seeing, if any</li>
+        <li>{{ icon("check") }} Your area and preferred visit time</li>
+      </ul>
+    </div>
     <div class="enquiry-aside-contact">
       <span>Need help now?</span>
       <a href="tel:{{ business.phone_e164 }}">{{ icon("phone") }} {{ business.phone_display }}</a>
-      <span>{{ business.city }} · Open daily 09:00–18:00</span>
+      <span>{{ business.city }} · Open 7 days a week</span>
     </div>
   </aside>
 
-  <form class="enquiry-form" method="post" action="/enquiry">
+  <form class="enquiry-form" method="post" action="https://api.web3forms.com/submit" data-enquiry-form>
+    {# Web3Forms settings. The access key only lets this form email your own inbox. #}
+    <input type="hidden" name="access_key" value="{{ web3forms_access_key }}">
+    <input type="hidden" name="subject" value="New enquiry from {{ business.name }} website">
+    <input type="hidden" name="from_name" value="{{ business.name }} website">
+    <input type="hidden" name="redirect" value="{{ site_url }}{{ url_for('enquiry_thanks') }}">
+    <input type="hidden" name="reference" value="">
+    <input type="hidden" name="enquiry_type" value="">
+    <input type="hidden" name="enquiring_about" value="">
+    <input type="hidden" name="page_link" value="">
+    {# Spam trap checked by Web3Forms: invisible to people, ticked by bots. #}
+    <input type="checkbox" name="botcheck" class="form-trap" tabindex="-1" autocomplete="off" aria-hidden="true">
+
     <div class="form-heading">
-      <div><p class="eyebrow">Product enquiry</p><h2>Your details</h2></div>
+      <div><p class="eyebrow" id="enquiry-eyebrow">Product enquiry</p><h2>Your details</h2></div>
       <span class="required-note"><b>*</b> Required</span>
     </div>
 
-    {% if errors %}
+    {% if not web3forms_access_key %}
     <div class="form-errors" role="alert">
-      <p>Please check the following:</p>
-      <ul>{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul>
+      <p>The enquiry form isn't connected yet.</p>
+      <ul><li>Set WEB3FORMS_ACCESS_KEY (see .env.example). Until then, please call {{ business.phone_display }}.</li></ul>
     </div>
     {% endif %}
+    <div class="form-errors" id="form-status" role="alert" hidden></div>
 
     <div class="form-grid">
       <div class="form-field">
         <label for="name">Full name <span aria-hidden="true">*</span></label>
-        <input id="name" name="name" type="text" autocomplete="name" maxlength="120" value="{{ form.get('name', '') }}" required>
+        <input id="name" name="name" type="text" autocomplete="name" maxlength="120" required>
       </div>
       <div class="form-field">
-        <label for="company_name">Company name <span aria-hidden="true">*</span></label>
-        <input id="company_name" name="company_name" type="text" autocomplete="organization" maxlength="150" value="{{ form.get('company_name', '') }}" required>
+        <label for="company">Company name <span aria-hidden="true">*</span></label>
+        <input id="company" name="company" type="text" autocomplete="organization" maxlength="150" required>
       </div>
       <div class="form-field">
         <label for="email">Email address <span aria-hidden="true">*</span></label>
-        <input id="email" name="email" type="email" autocomplete="email" maxlength="254" value="{{ form.get('email', '') }}" required>
+        <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required>
       </div>
       <div class="form-field">
-        <label for="mobile">Mobile number <span aria-hidden="true">*</span></label>
-        <input id="mobile" name="mobile" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" value="{{ form.get('mobile', '') }}" required>
+        <label for="phone">Mobile number <span aria-hidden="true">*</span></label>
+        <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" pattern="[0-9+()\- ]{7,24}" title="Digits, spaces and + ( ) - only" required>
       </div>
       <div class="form-field form-field-full">
-        <label for="category">Product category <span aria-hidden="true">*</span></label>
+        <label for="category">Enquiry category <span aria-hidden="true">*</span></label>
         <select id="category" name="category" required>
-          <option value="" disabled {% if not form.get('category') %}selected{% endif %}>Choose a category</option>
-          {% for category in categories %}
-          <option value="{{ category }}" {% if form.get('category') == category %}selected{% endif %}>{{ category }}</option>
-          {% endfor %}
+          <option value="" disabled selected>Choose a category</option>
+          <optgroup label="AC &amp; HVAC systems">
+            {% for category in product_categories %}<option value="{{ category }}">{{ category }}</option>{% endfor %}
+          </optgroup>
+          <optgroup label="Services">
+            {% for category in service_categories %}<option value="{{ category }}">{{ category }}</option>{% endfor %}
+          </optgroup>
+          <optgroup label="Spare parts">
+            {% for category in spare_categories %}<option value="{{ category }}">{{ category }}</option>{% endfor %}
+          </optgroup>
+          <option value="Other">Other</option>
         </select>
       </div>
       <div class="form-field form-field-full">
-        <label for="product_description">Product description <span aria-hidden="true">*</span></label>
-        <textarea id="product_description" name="product_description" rows="3" maxlength="1000" placeholder="Part name, AC brand/model, quantity or other identifying details" required>{{ form.get('product_description', '') }}</textarea>
+        <label for="details">Product / service details <span aria-hidden="true">*</span></label>
+        <textarea id="details" name="details" rows="4" maxlength="1000" placeholder="Product or part name, AC brand/model, capacity, quantity, or the problem you're seeing" required></textarea>
       </div>
       <div class="form-field form-field-full">
         <label for="comments">Comments <span class="optional-label">Optional</span></label>
-        <textarea id="comments" name="comments" rows="3" maxlength="1000" placeholder="Anything else we should know?">{{ form.get('comments', '') }}</textarea>
+        <textarea id="comments" name="comments" rows="3" maxlength="1000" placeholder="Anything else we should know?"></textarea>
       </div>
     </div>
 
     <div class="form-submit-row">
-      <p>Submitting opens WhatsApp with your enquiry ready to send. This site does not store your details.</p>
-      <button class="button button-primary" type="submit">{{ icon("chat") }} Continue to WhatsApp</button>
+      <p>Your enquiry is sent to our team and we'll reply by phone or email. Prefer chat? Submit &amp; WhatsApp also opens it in WhatsApp.</p>
+      <div class="form-actions">
+        {# Primary first in markup so pressing Enter submits without opening WhatsApp; CSS shows it on the right. #}
+        <button class="button button-primary" type="submit" name="action" value="submit"{% if not web3forms_access_key %} disabled{% endif %}>Submit enquiry {{ icon("arrow-right") }}</button>
+        <button class="button button-outline" type="submit" name="action" value="whatsapp"{% if not web3forms_access_key %} disabled{% endif %}>{{ icon("chat") }} Submit &amp; WhatsApp</button>
+      </div>
     </div>
   </form>
 </section>
+
+{#- Data for enquiry.js: what each Enquire link points at, and icons for items without photos. -#}
+<script type="application/json" id="enquiry-data">{{ {
+  "items": enquiry_items,
+  "categoryTypes": category_types,
+  "whatsapp": business.whatsapp_number,
+  "siteUrl": site_url,
+  "thanksUrl": url_for("enquiry_thanks"),
+  "phone": business.phone_display,
+}|tojson }}</script>
+{% for icon_name in enquiry_items.values()|map(attribute="icon")|unique %}
+<template data-icon="{{ icon_name }}"><span class="product-placeholder" role="img">{{ icon(icon_name) }}</span></template>
+{% endfor %}
 {% endblock %}

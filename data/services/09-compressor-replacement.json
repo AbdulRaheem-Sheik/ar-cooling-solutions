@@ -1,0 +1,41 @@
+{
+  "name": "Compressor replacement",
+  "slug": "compressor-replacement",
+  "group": "repairs",
+  "icon": "compressor",
+  "image": "",
+  "tagline": "The right compressor, fitted and charged properly",
+  "summary": "Diagnosis and replacement of failed AC compressors with correctly matched units.",
+  "description": "A failed compressor means no cooling at all. We first confirm the compressor is really at fault and not a capacitor, relay or PCB. If replacement is needed, we match the compressor to your unit's capacity, refrigerant and power supply, then braze, vacuum and recharge the system so the new compressor runs reliably.",
+  "duration": "3 – 5 hours, subject to part availability",
+  "suitable_for": "Split, window, cassette, tower, ductable and package ACs",
+  "includes": [
+    "Confirmation testing before replacement",
+    "Correctly matched rotary, reciprocating or scroll compressor",
+    "Brazing with nitrogen purging",
+    "Vacuuming and full refrigerant charge",
+    "Current and pressure checks after start-up"
+  ],
+  "signs": [
+    "Outdoor fan runs but no cooling",
+    "Outdoor unit hums but doesn't start",
+    "Breaker trips as the compressor starts",
+    "Compressor is very hot or noisy"
+  ],
+  "options": [
+    {"name": "Rotary compressor (split / window)", "detail": "Most residential ACs up to 2 TR"},
+    {"name": "Inverter (BLDC) compressor", "detail": "Inverter split ACs"},
+    {"name": "Scroll compressor", "detail": "Higher-tonnage and commercial units"}
+  ],
+  "process": [
+    {"title": "Diagnosis", "text": "We test the winding, capacitor and controls to confirm the fault."},
+    {"title": "Part matching", "text": "We source a compressor matched to capacity and refrigerant."},
+    {"title": "Replacement", "text": "Old compressor out, new one brazed in with nitrogen purging."},
+    {"title": "Charge & test", "text": "Vacuum, recharge and check pressure and current."}
+  ],
+  "faqs": [
+    {"question": "Is replacing the compressor worth it?", "answer": "On a newer AC in good condition, yes. On an old unit we'll tell you honestly if a new AC makes more sense."},
+    {"question": "Is the compressor under warranty?", "answer": "Many brands cover compressors for 5 – 10 years. Share your purchase details and we'll check."}
+  ],
+  "whatsapp_text": "Hi, I need an AC compressor checked or replaced."
+}

@@ -2,3 +2,9 @@
 __pycache__/
 *.py[cod]
 .env
+
+# Customer enquiries contain personal data; keep the folders, not the files.
+enquiries/**/*.json
+
+# Static build output (published by GitHub Actions, not committed)
+_site/

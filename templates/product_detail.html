@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_product.html" import product_image %}
+{% set active = "products" %}
+
+{% block title %}{{ product.name }} | {{ business.name }}, {{ business.city }}{% endblock %}
+{% block meta_description %}{{ product.description }} Supply, installation and service by {{ business.name }}, {{ business.city }}.{% endblock %}
+
+{% block content %}
+<section class="page-hero product-hero">
+  <div class="container product-hero-inner">
+    <div class="product-hero-copy">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/products/">Products</a>
+        {% if family %}<span aria-hidden="true">/</span><a href="/products/#{{ family.id }}">{{ family.short_name }}</a>{% endif %}
+        <span aria-hidden="true">/</span><span aria-current="page">{{ product.name }}</span>
+      </nav>
+      {% if product.tagline %}<p class="chip"><span class="status-dot"></span> {{ product.tagline }}</p>{% endif %}
+      <h1>{{ product.name }}</h1>
+      <p>{{ product.description }}</p>
+      <dl class="product-facts">
+        <div><dt>Capacity</dt><dd>{{ product.capacity or "On request" }}</dd></div>
+        <div><dt>Best suited to</dt><dd>{{ product.use_case }}</dd></div>
+      </dl>
+      <div class="hero-actions">
+        <a class="button button-primary" href="{{ product_enquiry_url(product) }}">Enquire about this product {{ icon("arrow-right") }}</a>
+        <a class="button button-glass" href="https://wa.me/{{ business.whatsapp_number }}?text={{ ('Hi AR Cooling Solutions, I would like a quote for ' ~ product.name ~ '.')|urlencode }}" target="_blank" rel="noopener noreferrer">{{ icon("chat") }} WhatsApp</a>
+      </div>
+    </div>
+    <figure class="product-hero-media">
+      {{ product_image(product, lazy=False) }}
+    </figure>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="product-overview">
+    <div class="reveal">
+      <p class="eyebrow">Overview</p>
+      <h2>How it works and why it fits.</h2>
+      <p class="product-long">{{ product.long_description }}</p>
+      {% if product.features %}
+      <ul class="check-list">
+        {% for feature in product.features %}
+        <li>{{ icon("check") }} {{ feature }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    {% if product.specs %}
+    <div class="reveal">
+      <p class="eyebrow">Specifications</p>
+      <div class="table-wrap">
+        <table class="compare-table spec-table">
+          <tbody>
+            {% for spec in product.specs %}
+            <tr><th scope="row">{{ spec.label }}</th><td>{{ spec.value }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="fine-print">Typical figures. Exact specifications vary by brand and model; we'll confirm them in your quote.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% if product.variants %}
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">Capacity options</p>
+        <h2>Pick a size to enquire about.</h2>
+      </div>
+      <p>Room sizes are a starting guide. Sun exposure, occupancy, ceiling height and equipment all affect the right capacity, so we'll confirm it on site.</p>
+    </div>
+    <div class="variant-grid">
+      {% for variant in product.variants %}
+      <a class="variant-card reveal" href="{{ product_enquiry_url(product, variant) }}">
+        <span class="variant-icon">{{ icon("gauge") }}</span>
+        <b>{{ variant.capacity }}</b>
+        <span>{{ variant.suits }}</span>
+        <span class="card-link">Enquire {{ icon("arrow-right") }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if product.applications or product.considerations %}
+<section class="section container">
+  <div class="split-panels">
+    {% if product.applications %}
+    <div class="panel reveal">
+      <p class="eyebrow">Where it's used</p>
+      <h2>Typical applications</h2>
+      <ul class="tag-list">
+        {% for application in product.applications %}
+        <li>{{ application }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% if product.considerations %}
+    <div class="panel panel-accent reveal">
+      <p class="eyebrow">Before you buy</p>
+      <h2>Things worth knowing</h2>
+      <ul class="check-list check-list-compact">
+        {% for item in product.considerations %}
+        <li>{{ icon("info") }} {{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endif %}
+
+{% if product.brands %}
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">Brands</p>
+        <h2>Brands we supply and service.</h2>
+      </div>
+      <p>Model availability changes through the year. Tell us your preferred brand and we'll check current stock and pricing.</p>
+    </div>
+    <div class="partner-grid reveal">
+      {% for brand in product.brands %}
+      <span class="partner-logo" title="{{ brand }}">
+        {% if brand_logos.get(brand) %}<img src="{{ url_for('static', filename='images/logos/partners/' ~ brand_logos[brand]) }}" alt="{{ brand }}" width="160" height="60" loading="lazy">{% else %}<b>{{ brand }}</b>{% endif %}
+      </span>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if product.faqs %}
+<section class="section container">
+  <div class="faq-layout">
+    <div class="reveal">
+      <p class="eyebrow">Questions</p>
+      <h2>{{ product.name }}: common questions.</h2>
+      <p class="muted">Something else on your mind? Call {{ business.phone_display }} or send an enquiry.</p>
+    </div>
+    <div class="faq-list reveal">
+      {% for faq in product.faqs %}
+      <details{% if loop.first %} open{% endif %}>
+        <summary>{{ faq.question }}</summary>
+        <p>{{ faq.answer }}</p>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if related %}
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">{{ family.short_name if family else "More products" }}</p>
+        <h2>Compare similar systems.</h2>
+      </div>
+      <a class="button button-outline" href="/products/">All products {{ icon("arrow-right") }}</a>
+    </div>
+    <div class="product-grid">
+      {% for item in related %}
+      <article class="product-card reveal">
+        <figure class="product-visual">
+          {{ product_image(item) }}
+          {% if item.capacity %}<span class="product-cap">{{ item.capacity }}</span>{% endif %}
+        </figure>
+        <div class="product-body">
+          {% if item.tagline %}<p class="product-tagline">{{ item.tagline }}</p>{% endif %}
+          <h3><a class="card-stretch" href="{{ url_for('product_detail', slug=item.slug) }}">{{ item.name }}</a></h3>
+          <p class="muted">{{ item.description }}</p>
+          <div class="product-foot">
+            <span class="card-link">View details {{ icon("arrow-right") }}</span>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section container">
+  <div class="cta-panel reveal">
+    <div>
+      <p class="eyebrow">Get a quote</p>
+      <h2>Ready to get a price for {{ product.name }}?</h2>
+      <p>Your enquiry is prefilled with this product. Add your site details and we'll come back with the right model, capacity and installation cost.</p>
+    </div>
+    <div class="button-row">
+      <a class="button button-light" href="{{ product_enquiry_url(product) }}">Enquire now {{ icon("arrow-right") }}</a>
+      <a class="button button-glass" href="tel:{{ business.phone_e164 }}">{{ icon("phone") }} {{ business.phone_display }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% from "_icons.html" import icon %}
+{% from "_catalog.html" import catalog_toolbar, catalog_group, catalog_card %}
 {% set active = "parts" %}
-{% set category_icons = {"copper-coils": "coil", "compressors": "compressor", "capacitors": "bolt", "fan-motors": "fan", "pcbs-controls": "chip", "filters-remotes": "filter"} %}
+{% set coil_category = categories|selectattr("enquiry_category", "equalto", featured_spare.category)|first %}
 
 {% block title %}AC Spare Parts | {{ business.name }}{% endblock %}
 {% block meta_description %}Browse AC spare parts from {{ business.name }} in {{ business.city }}, including copper pancake coil tubing, compressors, capacitors, fan motors, PCBs, filters and remotes.{% endblock %}
@@ -14,7 +15,7 @@
     <p>The wrong part can cost more than the repair. Browse common AC spares below and let our team match the exact part to your unit. Just share the make, model and a photo of the old part if you have one.</p>
     <nav class="jump-links" aria-label="Jump to a category">
       {% for category in categories %}
-      <a href="#{{ category.slug }}">{{ icon(category_icons.get(category.slug, "spark")) }} {{ category.name }}</a>
+      <a href="#{{ category.slug }}">{{ icon(category.icon or "spark") }} {{ category.name }}</a>
       {% endfor %}
     </nav>
   </div>
@@ -26,33 +27,42 @@
       <p class="eyebrow">Find a part</p>
       <h2 id="category-heading">Browse by category.</h2>
     </div>
-    <p>Availability and exact fit depend on your AC model. Send an enquiry with the details you have and we'll check compatibility and stock.</p>
+    <p>Open a category to see the parts we supply. Availability and fit depend on your AC model, so enquire and we'll check compatibility and stock.</p>
   </div>
-  <div class="category-grid">
+
+  {{ catalog_toolbar(categories|sum(attribute="parts", start=[])|length, "spare parts in " ~ categories|length ~ " categories") }}
+  <div class="catalog">
     {% for category in categories %}
-    {% set is_featured = category.name == featured_spare.category %}
-    <article class="category-card reveal{% if is_featured %} category-card-featured{% endif %}" id="{{ category.slug }}">
-      <div class="category-top">
-        <span class="service-icon">{{ icon(category_icons.get(category.slug, "spark")) }}</span>
-        {% if is_featured %}<span class="tag">Featured part</span>{% endif %}
-      </div>
-      <h3>{{ category.name }}</h3>
-      <p class="lead-sm">{{ category.description }}</p>
-      {% if category.long_description %}<p class="muted">{{ category.long_description }}</p>{% endif %}
-      {% if category.parts %}
-      <h4>We supply</h4>
-      <ul class="check-list check-list-compact">
-        {% for item in category.parts %}<li>{{ icon("check") }} {{ item }}</li>{% endfor %}
-      </ul>
-      {% endif %}
+    {% call catalog_group(category.slug, category.name, category.description, category.icon or "spark", category.parts|length, "parts", open=loop.first) %}
+    {% if category.long_description or category.signs %}
+    <div class="catalog-note">
+      {% if category.long_description %}<p>{{ category.long_description }}</p>{% endif %}
       {% if category.signs %}
-      <h4>Time to replace when</h4>
-      <ul class="sign-list">
-        {% for sign in category.signs %}<li>{{ sign }}</li>{% endfor %}
-      </ul>
+      <div>
+        <h4>Time to replace when</h4>
+        <ul class="sign-list">
+          {% for sign in category.signs %}<li>{{ sign }}</li>{% endfor %}
+        </ul>
+      </div>
       {% endif %}
-      <a class="card-link" href="{{ url_for('product_enquiry', category=category.enquiry_category, product_description=featured_spare.name if is_featured else '') }}">Enquire about {{ category.name|lower }} {{ icon("arrow-right") }}</a>
-    </article>
+    </div>
+    {% endif %}
+    <div class="product-grid">
+      {% for part in category.parts %}
+      {% set enquire = spare_enquiry_url(category, part) %}
+      {{ catalog_card(
+        href=enquire,
+        visual={"name": part.name, "icon": category.icon, "image": part.image or ""},
+        title=part.name,
+        text=part.detail,
+        tagline=category.name,
+        specs=[("Matched by", category.match_by or "Brand and model")],
+        enquire_href=enquire,
+        link_label="Check fit & price"
+      ) }}
+      {% endfor %}
+    </div>
+    {% endcall %}
     {% endfor %}
   </div>
 </section>
@@ -60,9 +70,8 @@
 <section class="section section-tint" id="featured-coil" aria-labelledby="featured-spare-title">
   <div class="container featured-spare-inner">
     <div class="coil-visual reveal">
-      <!-- Replace this placeholder with:
-      <img src="{{ url_for('static', filename='images/copper-pancake-coil.jpg') }}" alt="Copper pancake coil for split AC" width="720" height="720" loading="lazy">
-      -->
+      {# To show a real photo, add static/images/copper-pancake-coil.jpg and replace the placeholder below with:
+      <img src="{{ url_for('static', filename='images/copper-pancake-coil.jpg') }}" alt="Copper pancake coil for split AC" width="720" height="720" loading="lazy"> #}
       <div class="media-placeholder media-placeholder-tall" role="img" aria-label="Product photo placeholder for a copper pancake coil">
         {{ icon("coil", "media-placeholder-icon") }}
         <span>Product photo goes here</span>
@@ -97,7 +106,7 @@
         </div>
         <p class="fine-print">Mexflow publishes an OD range of 4.76–22.22 mm, a 0.508 mm minimum wall thickness, and 15–100 m coil lengths. Exact size and thickness availability varies, so confirm against your AC model. <a href="{{ featured_spare.specification_url }}" target="_blank" rel="noopener noreferrer">View Mexflow specification</a>.</p>
       </section>
-      <a class="button button-primary" href="{{ url_for('product_enquiry', category=featured_spare.category, product_description=featured_spare.name) }}">Enquire about this coil {{ icon("arrow-right") }}</a>
+      <a class="button button-primary" href="{{ spare_enquiry_url(coil_category, coil_category.parts[0]) if coil_category else url_for('product_enquiry', category=featured_spare.category, product_description=featured_spare.name) }}">Enquire about this coil {{ icon("arrow-right") }}</a>
     </div>
   </div>
 </section>
@@ -122,7 +131,7 @@
       <p>Send us the details and we'll confirm compatibility and availability.</p>
     </div>
     <div class="button-row">
-      <a class="button button-light" href="/enquiry">Send us the details {{ icon("arrow-right") }}</a>
+      <a class="button button-light" href="/enquiry/">Send us the details {{ icon("arrow-right") }}</a>
     </div>
   </div>
 </section>

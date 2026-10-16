@@ -1,0 +1,42 @@
+{
+  "name": "AC deep cleaning",
+  "slug": "deep-cleaning",
+  "group": "cleaning-maintenance",
+  "icon": "snow",
+  "image": "",
+  "tagline": "Jet and foam wash that restores cooling and airflow",
+  "summary": "Thorough jet and foam cleaning of coils, fins, blower and drain tray.",
+  "description": "A regular filter clean doesn't reach the dirt packed into the coil fins and blower wheel. Our deep cleaning uses a foam cleaner and pressure jet wash on the indoor and outdoor coils, cleans the blower and drain tray, and clears the drain line. It restores airflow, improves cooling and removes musty smells.",
+  "duration": "1 – 1.5 hours per unit",
+  "suitable_for": "Split, window, cassette and tower ACs",
+  "includes": [
+    "Foam and pressure jet wash of the indoor coil",
+    "Outdoor condenser coil cleaning",
+    "Blower wheel and drain tray cleaning",
+    "Drain line flush and filter wash",
+    "Cooling and airflow check after cleaning"
+  ],
+  "signs": [
+    "Musty or damp smell when the AC runs",
+    "Weak airflow even with clean filters",
+    "Cooling has dropped since last summer",
+    "Black spots or dust on the vents"
+  ],
+  "options": [
+    {"name": "Split AC jet service", "detail": "Indoor + outdoor unit wash"},
+    {"name": "Window AC deep clean", "detail": "Unit removed and washed fully"},
+    {"name": "Cassette AC deep clean", "detail": "Panel, coil and drain pump cleaning"},
+    {"name": "Multiple units", "detail": "Homes and offices with several ACs"}
+  ],
+  "process": [
+    {"title": "Cover & protect", "text": "We cover the wall and furniture and fit a water-collection bag."},
+    {"title": "Foam wash", "text": "Coil cleaner foam loosens dust and grime in the fins."},
+    {"title": "Jet rinse", "text": "A pressure jet washes the coil, blower and drain tray."},
+    {"title": "Test", "text": "We check airflow, drainage and cooling after reassembly."}
+  ],
+  "faqs": [
+    {"question": "How often should I get a deep clean?", "answer": "Once a year before summer for homes. Dusty or high-use spaces benefit from twice a year."},
+    {"question": "Is the indoor unit removed from the wall?", "answer": "No. For split ACs we clean the indoor unit in place using a water-collection bag."}
+  ],
+  "whatsapp_text": "Hi, I'd like to book an AC deep cleaning service."
+}

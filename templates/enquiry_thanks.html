@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% set active = "enquiry" %}
+
+{% block title %}Enquiry received | {{ business.name }}{% endblock %}
+{% block head %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero-compact">
+  <div class="container page-hero-inner">
+    <p class="chip"><span class="status-dot"></span> <span id="thanks-chip">Enquiry received</span></p>
+    <h1>Thank you<span id="thanks-name"></span><em>.</em></h1>
+    <p id="thanks-intro">We've received your enquiry. Our team will get back to you shortly with the next steps.</p>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="enquiry-success reveal">
+    <span class="success-icon">{{ icon("check") }}</span>
+    <h2>Your enquiry is with our team.</h2>
+    <p>We're open 7 days a week and usually reply the same day. If it's urgent, call us and mention your reference.</p>
+    <p class="enquiry-reference" id="thanks-reference" hidden><span>Reference</span><code></code></p>
+    <div class="button-row">
+      <a class="button button-primary" href="tel:{{ business.phone_e164 }}">{{ icon("phone") }} {{ business.phone_display }}</a>
+      <a class="button button-outline" href="/products/">Browse products {{ icon("arrow-right") }}</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Personalise with the details the enquiry form stored for this tab (if any).
+  (() => {
+    let enquiry = null;
+    try { enquiry = JSON.parse(sessionStorage.getItem("ar-enquiry")); } catch { return; }
+    if (!enquiry) return;
+    const label = { service: "Service", spare: "Spare part", product: "Product" }[enquiry.type] || "Product";
+    document.getElementById("thanks-chip").textContent = `${label} enquiry received`;
+    if (enquiry.name) document.getElementById("thanks-name").textContent = `, ${enquiry.name}`;
+    if (enquiry.about) {
+      document.getElementById("thanks-intro").textContent =
+        `We've received your enquiry about ${enquiry.about}. Our team will get back to you shortly with the next steps.`;
+    }
+    if (enquiry.reference) {
+      const reference = document.getElementById("thanks-reference");
+      reference.querySelector("code").textContent = enquiry.reference;
+      reference.hidden = false;
+    }
+  })();
+</script>
+{% endblock %}

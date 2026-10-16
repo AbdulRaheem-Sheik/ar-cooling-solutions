@@ -1,16 +1,43 @@
 {
   "name": "Repair",
   "slug": "repair",
+  "group": "repairs",
   "icon": "wrench",
   "image": "/static/images/services/repair.jpg",
+  "tagline": "Root-cause fixes, not quick patch-ups",
   "summary": "Fault finding and repairs for AC units that aren't cooling like they should.",
   "description": "When an AC stops cooling, leaks water, trips the breaker or shows an error code, we find the actual cause before replacing anything. Our technicians test the electrical, refrigerant and airflow sides of the system, explain what they find, and quote clearly before starting work.",
+  "duration": "1 – 2 hours for most diagnoses; parts jobs may need a second visit",
+  "suitable_for": "All AC types and major brands",
   "includes": [
     "Diagnosis of cooling, noise, leakage and error-code issues",
     "PCB, sensor, capacitor and fan motor replacement",
     "Compressor and refrigerant circuit repairs",
     "Leak detection and brazing",
     "Genuine spares sourced through our parts desk"
+  ],
+  "signs": [
+    "AC runs but the air isn't cold",
+    "Water dripping from the indoor unit",
+    "Breaker trips or the AC won't switch on",
+    "Error code or blinking lights on the display",
+    "Unusual noise or burning smell"
+  ],
+  "options": [
+    {"name": "Not cooling / low cooling", "detail": "Gas, compressor, coil and airflow checks"},
+    {"name": "Water leakage", "detail": "Drain line, tray and installation slope fixes"},
+    {"name": "Not starting / tripping", "detail": "Electrical, capacitor, PCB and wiring faults"},
+    {"name": "Noise or error code", "detail": "Fan motor, bearings, sensors and fault codes"}
+  ],
+  "process": [
+    {"title": "Diagnosis", "text": "We test electrical, refrigerant and airflow systems to find the real fault."},
+    {"title": "Clear quote", "text": "You get an explanation of the problem, parts needed and cost before any work."},
+    {"title": "Repair", "text": "We fix the fault using correctly rated, genuine spare parts."},
+    {"title": "Verification", "text": "Cooling, pressure and current are checked before we leave."}
+  ],
+  "faqs": [
+    {"question": "Is there a visit charge?", "answer": "A diagnosis charge applies for the visit. We tell you the amount when you book, and the work is quoted separately."},
+    {"question": "Do you repair inverter ACs?", "answer": "Yes. We repair inverter PCBs, sensors and BLDC compressors across major brands."}
   ],
   "whatsapp_text": "Hi, I need help with an AC repair."
 }

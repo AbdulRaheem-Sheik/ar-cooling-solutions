@@ -1,9 +1,16 @@
 {
   "name": "PCBs & controls",
   "slug": "pcbs-controls",
+  "icon": "chip",
   "description": "Control boards and electronic parts for AC units.",
   "long_description": "Modern ACs depend on control boards to manage sensors, timers, inverter drives and safety cut-outs. Voltage fluctuations and moisture are common causes of failure. We help source model-specific PCBs as well as sensors and display boards.",
-  "parts": ["Indoor and outdoor unit PCBs", "Inverter drive boards", "Temperature and coil sensors", "Display panels and receivers"],
+  "match_by": "Brand, model number and board part code",
+  "parts": [
+    {"name": "Indoor & outdoor unit PCBs", "detail": "Main control boards for indoor and outdoor units."},
+    {"name": "Inverter drive boards", "detail": "Compressor drive boards for inverter ACs."},
+    {"name": "Temperature & coil sensors", "detail": "Room, coil and discharge thermistors."},
+    {"name": "Display panels & receivers", "detail": "Display boards and remote signal receivers."}
+  ],
   "signs": ["Error code or blinking lights on the display", "Unit does not respond to the remote", "AC switches off at random"],
   "enquiry_category": "PCBs"
 }

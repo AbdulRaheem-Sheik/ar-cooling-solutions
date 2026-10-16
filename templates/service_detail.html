@@ -1,0 +1,173 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_product.html" import product_image %}
+{% set active = "services" %}
+
+{% block title %}{{ service.name }} in {{ business.city }} | {{ business.name }}{% endblock %}
+{% block meta_description %}{{ service.summary }} {{ service.name }} by {{ business.name }}, {{ business.city }}.{% endblock %}
+
+{% block content %}
+<section class="page-hero product-hero">
+  <div class="container product-hero-inner">
+    <div class="product-hero-copy">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/services/">Services</a>
+        <span aria-hidden="true">/</span><span aria-current="page">{{ service.name }}</span>
+      </nav>
+      {% if service.tagline %}<p class="chip"><span class="status-dot"></span> {{ service.tagline }}</p>{% endif %}
+      <h1>{{ service.name }}</h1>
+      <p>{{ service.summary }}</p>
+      <dl class="product-facts">
+        {% if service.duration %}<div><dt>Typical duration</dt><dd>{{ service.duration }}</dd></div>{% endif %}
+        {% if service.suitable_for %}<div><dt>Suitable for</dt><dd>{{ service.suitable_for }}</dd></div>{% endif %}
+      </dl>
+      <div class="hero-actions">
+        <a class="button button-primary" href="{{ service_enquiry_url(service) }}">Enquire about this service {{ icon("arrow-right") }}</a>
+        <a class="button button-glass" href="https://wa.me/{{ business.whatsapp_number }}?text={{ (service.whatsapp_text or 'Hi, I would like to enquire about ' ~ service.name ~ '.')|urlencode }}" target="_blank" rel="noopener noreferrer">{{ icon("chat") }} WhatsApp</a>
+      </div>
+    </div>
+    <figure class="product-hero-media">
+      {{ product_image(service, lazy=False) }}
+    </figure>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="product-overview">
+    <div class="reveal">
+      <p class="eyebrow">Overview</p>
+      <h2>What this service covers.</h2>
+      <p class="product-long">{{ service.description }}</p>
+      {% if service.includes %}
+      <h3 class="list-heading">What's included</h3>
+      <ul class="check-list">
+        {% for item in service.includes %}
+        <li>{{ icon("check") }} {{ item }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    {% if service.signs %}
+    <div class="panel panel-accent reveal">
+      <p class="eyebrow">When to book</p>
+      <h2>You may need this if…</h2>
+      <ul class="check-list check-list-compact">
+        {% for sign in service.signs %}
+        <li>{{ icon("info") }} {{ sign }}</li>
+        {% endfor %}
+      </ul>
+      <div class="panel-meta">
+        <span>{{ icon("phone") }} {{ business.phone_display }}</span>
+        <span>{{ icon("clock") }} Open 7 days a week</span>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% if service.options %}
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">Service options</p>
+        <h2>Choose what you need.</h2>
+      </div>
+      <p>Pick the option closest to your job and the enquiry form is filled in for you. Not sure? Choose any and describe the issue.</p>
+    </div>
+    <div class="variant-grid">
+      {% for option in service.options %}
+      <a class="variant-card reveal" href="{{ service_enquiry_url(service, option) }}">
+        <span class="variant-icon">{{ icon(service.icon) }}</span>
+        <b>{{ option.name }}</b>
+        <span>{{ option.detail }}</span>
+        <span class="card-link">Enquire {{ icon("arrow-right") }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if service.process %}
+<section class="section section-dark">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">How we do it</p>
+        <h2>Our {{ service.name }} process.</h2>
+      </div>
+      <p>The same careful steps on every job, so the result lasts.</p>
+    </div>
+    <ol class="steps">
+      {% for step in service.process %}
+      <li class="reveal"><span class="step-num">{{ loop.index }}</span><h3>{{ step.title }}</h3><p>{{ step.text }}</p></li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+{% endif %}
+
+{% if service.faqs %}
+<section class="section container">
+  <div class="faq-layout">
+    <div class="reveal">
+      <p class="eyebrow">Questions</p>
+      <h2>{{ service.name }}: common questions.</h2>
+      <p class="muted">Something else on your mind? Call {{ business.phone_display }} or send an enquiry.</p>
+    </div>
+    <div class="faq-list reveal">
+      {% for faq in service.faqs %}
+      <details{% if loop.first %} open{% endif %}>
+        <summary>{{ faq.question }}</summary>
+        <p>{{ faq.answer }}</p>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if related %}
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">More services</p>
+        <h2>Other ways we can help.</h2>
+      </div>
+      <a class="button button-outline" href="/services/">All services {{ icon("arrow-right") }}</a>
+    </div>
+    <div class="product-grid">
+      {% for item in related %}
+      <article class="product-card reveal">
+        <figure class="product-visual">{{ product_image(item) }}</figure>
+        <div class="product-body">
+          {% if item.tagline %}<p class="product-tagline">{{ item.tagline }}</p>{% endif %}
+          <h3><a class="card-stretch" href="{{ url_for('service_detail', slug=item.slug) }}">{{ item.name }}</a></h3>
+          <p class="muted">{{ item.summary }}</p>
+          <div class="product-foot">
+            <span class="card-link">View details {{ icon("arrow-right") }}</span>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section container">
+  <div class="cta-panel reveal">
+    <div>
+      <p class="eyebrow">Book a visit</p>
+      <h2>Need {{ service.name }}?</h2>
+      <p>Your enquiry is prefilled with this service. Add your AC details and preferred time and we'll confirm a visit.</p>
+    </div>
+    <div class="button-row">
+      <a class="button button-light" href="{{ service_enquiry_url(service) }}">Enquire now {{ icon("arrow-right") }}</a>
+      <a class="button button-glass" href="tel:{{ business.phone_e164 }}">{{ icon("phone") }} {{ business.phone_display }}</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

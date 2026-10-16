@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% from "_icons.html" import icon %}
+{% from "_product.html" import product_image %}
 {% set active = "home" %}
 
 {% block title %}{{ business.name }} | AC &amp; HVAC Service and Parts in {{ business.city }}{% endblock %}
@@ -20,13 +21,7 @@
         "addressRegion": "Telangana",
         "addressCountry": "IN"
       },
-      "areaServed": { "@type": "City", "name": "{{ business.city }}" },
-      "openingHoursSpecification": [{
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        "opens": "09:00",
-        "closes": "18:00"
-      }]
+      "areaServed": { "@type": "City", "name": "{{ business.city }}" }
     }
   </script>
 {% endblock %}
@@ -40,15 +35,16 @@
       <p class="hero-intro">Genuine AC parts, honest repairs and careful installation for homes, offices and commercial spaces. We've been keeping {{ business.city }} comfortable for more than 15 years.</p>
       <div class="hero-actions">
         <a class="button button-primary" href="tel:{{ business.phone_e164 }}">{{ icon("phone") }} Call {{ business.phone_display }}</a>
-        <a class="button button-glass" href="/enquiry">Request a quote {{ icon("arrow-right") }}</a>
+        <a class="button button-glass" href="/enquiry/">Request a quote {{ icon("arrow-right") }}</a>
       </div>
       <dl class="hero-stats">
         <div><dt>15+</dt><dd>Years serving {{ business.city }}</dd></div>
         <div><dt>{{ products|length }}</dt><dd>AC &amp; HVAC system types</dd></div>
-        <div><dt>7</dt><dd>Days a week, 09:00–18:00</dd></div>
+        <div><dt>7</dt><dd>Days a week</dd></div>
       </dl>
     </div>
     <div class="hero-visual">
+      <img class="hero-image" src="{{ url_for('static', filename='images/services/installation.jpg') }}" alt="{{ business.name }} technician installing an air conditioner" fetchpriority="high">
       <div class="hero-float hero-float-top">
         <span class="float-icon">{{ icon("shield") }}</span>
         <span><b>Genuine parts</b><small>Matched to your unit</small></span>
@@ -77,16 +73,16 @@
     <p>From a quick fix to a full commercial fit-out, you get practical advice and skilled work from technicians who know {{ business.city }}'s climate and its demands on cooling equipment.</p>
   </div>
   <div class="service-grid">
-    {% for service in services %}
-    <a class="service-card reveal" href="/services#{{ service.slug }}">
+    {% for service in services[:6] %}
+    <a class="service-card reveal" href="{{ url_for('service_detail', slug=service.slug) }}">
       <span class="service-icon">{{ icon(service.icon) }}</span>
-      <span class="service-num">{{ "%02d"|format(loop.index) }}</span>
       <h3>{{ service.name }}</h3>
       <p>{{ service.summary }}</p>
       <span class="card-link">Learn more {{ icon("arrow-right") }}</span>
     </a>
     {% endfor %}
   </div>
+  <div class="center-cta"><a class="button button-outline" href="/services/">View all {{ services|length }} services {{ icon("arrow-right") }}</a></div>
 </section>
 
 <section class="section section-tint">
@@ -100,8 +96,8 @@
     </div>
     <div class="range-grid">
       {% for product in products %}
-      <a class="range-item reveal" href="/products#{{ product.slug }}">
-        <span class="range-num">{{ "%02d"|format(loop.index) }}</span>
+      <a class="range-item reveal" href="{{ url_for('product_detail', slug=product.slug) }}">
+        <span class="range-thumb">{{ product_image(product) }}</span>
         <span class="range-body">
           <b>{{ product.name }}</b>
           <small>{{ product.tagline or product.use_case }}</small>
@@ -111,7 +107,7 @@
       </a>
       {% endfor %}
     </div>
-    <div class="center-cta"><a class="button button-outline" href="/products">View all products {{ icon("arrow-right") }}</a></div>
+    <div class="center-cta"><a class="button button-outline" href="/products/">View all products {{ icon("arrow-right") }}</a></div>
   </div>
 </section>
 
@@ -121,7 +117,7 @@
       <p class="eyebrow">Why {{ business.city }} calls us</p>
       <h2>Fixes that last, not quick patch-ups.</h2>
       <p>Many AC problems come back because only the symptom was treated. We find the root cause, use the correct parts, and explain what we did and why.</p>
-      <a class="text-link" href="/about">More about us {{ icon("arrow-right") }}</a>
+      <a class="text-link" href="/about/">More about us {{ icon("arrow-right") }}</a>
     </div>
     <div class="why-grid">
       <div class="why-card reveal">
@@ -174,17 +170,18 @@
       <h2>Need a spare? We'll help you find it.</h2>
       <p>Compressors, capacitors, fan motors, PCBs, copper coils, remotes, filters and more. Share your unit details and we'll check fit and availability.</p>
     </div>
-    <a class="button button-light" href="/parts">Browse spare parts {{ icon("arrow-right") }}</a>
+    <a class="button button-light" href="/parts/">Browse spare parts {{ icon("arrow-right") }}</a>
   </div>
 </section>
 
 <section class="section section-tint" id="about">
   <div class="container about-teaser">
     <div class="about-teaser-media reveal">
-      <div class="about-badge"><b>15+</b><span>years of local<br>experience</span></div>
+      <img src="{{ url_for('static', filename='images/services/commercial.jpg') }}" alt="Commercial HVAC system serviced by {{ business.name }}" loading="lazy">
+      <div class="about-badge"><b>15+</b><span>years of<br>experience</span></div>
     </div>
     <div class="reveal">
-      <p class="eyebrow">Local experience. Practical advice.</p>
+      <p class="eyebrow">Real experience. Practical advice.</p>
       <h2>15 years of helping {{ business.city }} stay cool.</h2>
       <p>{{ business.name }} is a {{ business.city }}-based AC and HVAC service partner for homes, offices, retail spaces and commercial facilities. We bring together installation, prompt repairs, maintenance and the right spare parts, so customers get complete solutions instead of temporary fixes.</p>
       <p>Our approach is simple: honest recommendations, quality workmanship and practical support for the equipment you already have.</p>
@@ -193,47 +190,10 @@
         <li>{{ icon("check") }} Service across {{ business.city }} and nearby areas</li>
         <li>{{ icon("check") }} Parts, service and AMC under one roof</li>
       </ul>
-      <a class="button button-primary" href="/about">Our story {{ icon("arrow-right") }}</a>
+      <a class="button button-primary" href="/about/">Our story {{ icon("arrow-right") }}</a>
     </div>
   </div>
 </section>
 
 {% include "_contact.html" %}
-
-{% set partner_brands = [
-  ("blue_star.png", "Blue Star"),
-  ("carrier.png", "Carrier"),
-  ("copeland.png", "Copeland"),
-  ("daikin.png", "Daikin"),
-  ("danfosss.png", "Danfoss"),
-  ("general.png", "O General"),
-  ("godrej.jpg", "Godrej"),
-  ("haier.png", "Haier"),
-  ("hitachi.png", "Hitachi"),
-  ("lg.png", "LG"),
-  ("llyod.png", "Lloyd"),
-  ("mandev.jpg", "Mandev"),
-  ("mexflow.jpg", "Mexflow"),
-  ("mistubushi_electric.png", "Mitsubishi Electric"),
-  ("mistubushi_heavy.png", "Mitsubishi Heavy Industries"),
-  ("panasonic.png", "Panasonic"),
-  ("rajco.jpg", "Rajco"),
-  ("samsung.png", "Samsung"),
-  ("toshiba.png", "Toshiba"),
-  ("totaline.png", "Totaline"),
-  ("trane.png", "Trane"),
-  ("vguard.png", "V-Guard"),
-  ("voltas.jpg", "Voltas")
-] %}
-<section class="partners-section" aria-labelledby="partners-heading">
-  <div class="container partners-heading">
-    <p class="eyebrow">Trusted names in cooling</p>
-    <h2 id="partners-heading">Our Partners</h2>
-  </div>
-  <div class="container partner-grid" aria-label="Air conditioning brand partners">
-    {% for filename, brand in partner_brands %}
-    <span class="partner-logo"><img src="{{ url_for('static', filename='images/brand_logos/' ~ filename) }}" alt="{{ brand }}" loading="lazy"></span>
-    {% endfor %}
-  </div>
-</section>
 {% endblock %}

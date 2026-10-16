@@ -1,0 +1,43 @@
+{
+  "name": "Window AC units",
+  "slug": "window-ac-units",
+  "family": "room-products",
+  "icon": "home",
+  "image": "",
+  "tagline": "All-in-one cooling that fits a wall or window opening",
+  "description": "A single-box air conditioner that's affordable, quick to install and needs no separate outdoor unit.",
+  "long_description": "A window AC houses the compressor, condenser, evaporator and fans in one cabinet that sits in a window or wall opening, with the hot side facing outdoors. There's no refrigerant piping to run, so installation is fast and the unit is easy to remove or replace. Modern inverter window ACs are noticeably more efficient than older fixed-speed models.",
+  "capacity": "0.75 – 2 TR",
+  "use_case": "Bedrooms, rented homes and small offices",
+  "features": [
+    "Single unit, with no outdoor unit or piping to install",
+    "Lower purchase and installation cost than a split AC",
+    "Easy to remove, relocate or replace",
+    "Inverter models available for lower running costs"
+  ],
+  "specs": [
+    {"label": "Capacity range", "value": "0.75 – 2 TR"},
+    {"label": "Compressor", "value": "Inverter or fixed speed (rotary)"},
+    {"label": "Energy rating", "value": "3-star and 5-star BEE models"},
+    {"label": "Refrigerant", "value": "R32 or R410A"},
+    {"label": "Power supply", "value": "Single phase, 230 V"},
+    {"label": "Installation", "value": "Window or wall opening with a support frame"},
+    {"label": "Typical install time", "value": "1.5 – 2 hours"}
+  ],
+  "variants": [
+    {"capacity": "1 TR", "suits": "Rooms up to about 120 sq ft"},
+    {"capacity": "1.5 TR", "suits": "Rooms of about 120 – 180 sq ft"},
+    {"capacity": "2 TR", "suits": "Rooms of about 180 – 250 sq ft"}
+  ],
+  "applications": ["Bedrooms", "Rented homes", "Small offices", "Server cupboards", "Shop back rooms", "Hostels"],
+  "brands": ["Voltas", "Blue Star", "LG", "Carrier", "Hitachi", "Lloyd", "Godrej", "Haier"],
+  "considerations": [
+    "Needs a window or a wall opening with the back exposed to open air",
+    "Louder indoors than a split, because the compressor is in the same box",
+    "We can make a neat wall cut-out and frame if there's no suitable window"
+  ],
+  "faqs": [
+    {"question": "Window AC or split AC?", "answer": "A window AC is cheaper and quicker to install. A split AC is quieter and more flexible about where the indoor unit goes."},
+    {"question": "Can you install a window AC without a window?", "answer": "Yes, through an external wall. We cut and frame the opening and seal it afterwards."}
+  ]
+}

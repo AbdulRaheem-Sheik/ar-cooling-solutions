@@ -32,20 +32,17 @@
     {% endif %}
 
     <form method="post" action="{{ url_for('admin_login_submit') }}" class="admin-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
       <div>
         <label for="username">Username</label>
-        <input id="username" name="username" type="text" required>
+        <input id="username" name="username" type="text" autocomplete="username" required>
       </div>
       <div>
         <label for="password">Password</label>
-        <input id="password" name="password" type="password" required>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
       </div>
       <button class="button button-primary" type="submit">Login</button>
     </form>
-
-    <div class="admin-meta">
-      Default credentials: admin / admin123
-    </div>
   </main>
 </body>
 </html>

@@ -1,6 +1,8 @@
 {
   "name": "Water chillers",
   "slug": "water-chillers",
+  "family": "central-products",
+  "icon": "snow",
   "image": "/static/images/products/water-chiller.jpg",
   "tagline": "Central plant cooling for large buildings and processes",
   "description": "High-capacity cooling systems that chill water for process cooling, central HVAC, and large building loads.",
@@ -12,5 +14,30 @@
     "Feeds AHUs, FCUs and industrial process equipment",
     "Staged or variable capacity for part-load efficiency",
     "Built for continuous duty in critical facilities"
+  ],
+  "specs": [
+    {"label": "Capacity range", "value": "10 – 500+ TR"},
+    {"label": "Types", "value": "Air-cooled or water-cooled"},
+    {"label": "Compressor", "value": "Scroll, screw or centrifugal (by size)"},
+    {"label": "Refrigerant", "value": "R134a, R410A, R513A or R1234ze"},
+    {"label": "Power supply", "value": "Three phase, 415 V"},
+    {"label": "Leaving water temp.", "value": "Typically 6 – 7 °C for comfort; lower for process duty"},
+    {"label": "Plant items", "value": "Pumps, cooling tower (water-cooled), piping, controls"}
+  ],
+  "variants": [
+    {"capacity": "10 – 60 TR", "suits": "Process cooling and small buildings (scroll)"},
+    {"capacity": "60 – 300 TR", "suits": "Hospitals, malls and offices (screw)"},
+    {"capacity": "300 – 500+ TR", "suits": "Large campuses and central plants (screw / centrifugal)"}
+  ],
+  "applications": ["Hospitals", "Factories and process lines", "Malls", "Hotels", "IT parks", "Plastic and pharma units"],
+  "brands": ["Daikin", "Carrier", "Trane", "Blue Star", "Voltas"],
+  "considerations": [
+    "Water-cooled chillers are more efficient but need a cooling tower and water treatment",
+    "N+1 redundancy is recommended for critical facilities",
+    "Plan plant-room or rooftop space, pumps and piping early"
+  ],
+  "faqs": [
+    {"question": "Air-cooled or water-cooled?", "answer": "Air-cooled is simpler with no cooling tower or water use. Water-cooled is more efficient for large, continuous loads where water is reliably available."},
+    {"question": "Do you service existing chillers?", "answer": "Yes. We handle breakdowns, annual maintenance, tube cleaning, refrigerant work and controls on most major brands."}
   ]
 }

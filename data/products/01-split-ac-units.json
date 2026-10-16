@@ -1,6 +1,8 @@
 {
   "name": "Split AC units",
   "slug": "split-ac-units",
+  "family": "room-products",
+  "icon": "snow",
   "image": "/static/images/products/split.jpg",
   "tagline": "Quiet, efficient cooling for individual rooms",
   "description": "A popular choice for homes and small offices, offering efficient cooling with a separate indoor and outdoor unit.",
@@ -12,5 +14,32 @@
     "Inverter and fixed-speed options to suit budget and usage",
     "Neat wall-mounted indoor unit with simple remote control",
     "Easy to service, with spares widely available"
+  ],
+  "specs": [
+    {"label": "Capacity range", "value": "0.75 – 2.5 TR"},
+    {"label": "Compressor", "value": "Inverter (rotary / twin-rotary) or fixed speed"},
+    {"label": "Energy rating", "value": "3-star and 5-star BEE models"},
+    {"label": "Refrigerant", "value": "R32 or R410A (eco-friendly)"},
+    {"label": "Power supply", "value": "Single phase, 230 V"},
+    {"label": "Installation", "value": "Wall-mounted indoor unit + outdoor unit on bracket or stand"},
+    {"label": "Typical install time", "value": "3 – 4 hours per unit"}
+  ],
+  "variants": [
+    {"capacity": "0.75 – 1 TR", "suits": "Rooms up to about 120 sq ft"},
+    {"capacity": "1.5 TR", "suits": "Rooms of about 120 – 180 sq ft"},
+    {"capacity": "2 TR", "suits": "Rooms of about 180 – 250 sq ft"},
+    {"capacity": "2.5 TR", "suits": "Halls of about 250 – 320 sq ft"}
+  ],
+  "applications": ["Bedrooms", "Living rooms", "Cabins and small offices", "Clinics", "Shops", "Guest houses"],
+  "brands": ["Daikin", "Voltas", "Blue Star", "LG", "Samsung", "Carrier", "Hitachi", "Panasonic", "Lloyd", "O General", "Mitsubishi Electric", "Haier", "Godrej", "Toshiba"],
+  "considerations": [
+    "Top-floor, west-facing or glass-heavy rooms usually need the next capacity up",
+    "Choose inverter models if the AC runs more than 6 – 8 hours a day",
+    "Keep the outdoor unit in a shaded, ventilated spot for better efficiency",
+    "Copper piping runs over the standard length are charged extra"
+  ],
+  "faqs": [
+    {"question": "Inverter or non-inverter?", "answer": "For daily use of several hours, an inverter split pays back through lower power bills. For occasional use, a fixed-speed model keeps the upfront cost down."},
+    {"question": "What is included in installation?", "answer": "Mounting both units, standard copper piping, drain pipe, electrical connection, vacuuming and a cooling test. We'll confirm any extra piping or stand cost before work starts."}
   ]
 }

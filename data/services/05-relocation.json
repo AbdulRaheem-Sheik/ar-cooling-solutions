@@ -1,15 +1,39 @@
 {
   "name": "Uninstallation & relocation",
   "slug": "relocation",
+  "group": "installation-setup",
   "icon": "move",
   "image": "/static/images/services/ac-uninstallation-service.jpg",
+  "tagline": "Move your AC without losing gas or damaging parts",
   "summary": "Safe removal and reinstallation when you move home or office.",
   "description": "Moving an AC is more than unscrewing it from the wall. We pump down the refrigerant into the outdoor unit, seal the lines, and dismantle everything carefully, so the system can be reinstalled at your new location without losing gas or damaging parts.",
+  "duration": "1 – 1.5 hours to uninstall; 3 – 4 hours to reinstall",
+  "suitable_for": "Split, window, cassette and tower ACs",
   "includes": [
     "Refrigerant pump-down to save existing gas",
     "Careful dismantling and capping of pipes",
     "Reinstallation with new piping where required",
     "Leak test and cooling check at the new site"
+  ],
+  "signs": [
+    "You're moving home or office",
+    "You're renovating or repainting the room",
+    "You want to move the AC to another room"
+  ],
+  "options": [
+    {"name": "Uninstallation only", "detail": "Pump-down, dismantling and capping"},
+    {"name": "Uninstall + reinstall", "detail": "Complete move to a new location"},
+    {"name": "Office / multi-unit relocation", "detail": "Planned move for several units"}
+  ],
+  "process": [
+    {"title": "Pump-down", "text": "Refrigerant is pumped into the outdoor unit to save it."},
+    {"title": "Dismantle", "text": "Units are removed and pipes capped to keep out dust and moisture."},
+    {"title": "Reinstall", "text": "We fit the units at the new site, with new piping if needed."},
+    {"title": "Test", "text": "Leak test and cooling check before handover."}
+  ],
+  "faqs": [
+    {"question": "Will I need a gas refill after moving?", "answer": "Not usually. With a proper pump-down the gas is saved. A top-up may be needed if extra piping is added."},
+    {"question": "Can the old copper pipe be reused?", "answer": "Sometimes, if it's in good condition and long enough. Otherwise we recommend new piping."}
   ],
   "whatsapp_text": "Hi, I need help uninstalling and relocating an AC."
 }

@@ -1,6 +1,8 @@
 {
   "name": "AHU units",
   "slug": "ahu-units",
+  "family": "central-products",
+  "icon": "filter",
   "image": "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1200&q=80",
   "tagline": "Fresh air, filtration and conditioning in one",
   "description": "Air handling units that condition and distribute fresh air with filtration, cooling, and ventilation control.",
@@ -12,5 +14,31 @@
     "Chilled-water or DX cooling coil options",
     "Fresh-air and return-air mixing control",
     "Modular sections built to suit the site"
+  ],
+  "specs": [
+    {"label": "Airflow range", "value": "1,000 – 50,000 CFM"},
+    {"label": "Coil", "value": "Chilled-water or DX"},
+    {"label": "Construction", "value": "Double-skin, insulated panels"},
+    {"label": "Filtration", "value": "Pre-filter, fine filter; HEPA for clean areas"},
+    {"label": "Fan", "value": "Belt-driven or direct-drive EC / plug fans"},
+    {"label": "Power supply", "value": "Three phase, 415 V"},
+    {"label": "Options", "value": "Heat recovery wheel, UV, humidity control, VFD"}
+  ],
+  "variants": [
+    {"capacity": "1,000 – 5,000 CFM", "suits": "Single floors, clinics and small offices"},
+    {"capacity": "5,000 – 20,000 CFM", "suits": "Office buildings, hotels and malls"},
+    {"capacity": "20,000 – 50,000 CFM", "suits": "Large commercial and hospital zones"},
+    {"capacity": "Treated fresh-air unit (TFA)", "suits": "Pre-cooled fresh air for VRF or FCU systems"}
+  ],
+  "applications": ["Hospitals and OTs", "Malls", "Office buildings", "Hotels", "Pharma and clean rooms", "Auditoriums"],
+  "brands": ["Daikin", "Carrier", "Trane", "Blue Star"],
+  "considerations": [
+    "Size airflow from the heat load and the fresh-air needs of the space",
+    "Clean areas such as OTs need HEPA filtration and pressure control",
+    "Leave access space around the AHU for filter changes and coil cleaning"
+  ],
+  "faqs": [
+    {"question": "AHU or fan coil unit?", "answer": "AHUs handle large zones and fresh air through ductwork. FCUs are smaller, room-level units that run off the same chilled-water system."},
+    {"question": "Do you clean and service AHUs?", "answer": "Yes. We change filters, clean coils, service belts and bearings, and check drains as part of an AMC."}
   ]
 }

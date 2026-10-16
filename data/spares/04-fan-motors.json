@@ -1,9 +1,16 @@
 {
   "name": "Fan motors",
   "slug": "fan-motors",
+  "icon": "fan",
   "description": "Indoor and outdoor unit motor replacements.",
   "long_description": "Indoor blower motors move air across the cooling coil, and outdoor fan motors carry heat away from the condenser. A weak or noisy motor reduces cooling and strains the compressor. We supply motors matched by shaft size, rotation, RPM and mounting.",
-  "parts": ["Indoor blower (cross-flow) motors", "Outdoor condenser fan motors", "BLDC / DC inverter fan motors", "Fan blades and blower wheels"],
+  "match_by": "Shaft size, rotation, RPM and mounting",
+  "parts": [
+    {"name": "Indoor blower motors", "detail": "Cross-flow blower motors for wall-mounted indoor units."},
+    {"name": "Outdoor condenser fan motors", "detail": "Motors that carry heat away from the outdoor coil."},
+    {"name": "BLDC / DC inverter fan motors", "detail": "Variable-speed motors for inverter ACs."},
+    {"name": "Fan blades & blower wheels", "detail": "Replacement blades and cross-flow wheels."}
+  ],
   "signs": ["Grinding or rattling noise", "Weak airflow from the indoor unit", "Outdoor fan not spinning while the AC runs"],
   "enquiry_category": "Fan motors"
 }

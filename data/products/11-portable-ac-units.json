@@ -1,0 +1,41 @@
+{
+  "name": "Portable AC units",
+  "slug": "portable-ac-units",
+  "family": "room-products",
+  "icon": "move",
+  "image": "",
+  "tagline": "Plug-in cooling you can move room to room",
+  "description": "Wheeled, self-contained units for rented spaces, temporary needs and spot cooling where a fixed AC isn't possible.",
+  "long_description": "A portable AC rolls on castors and vents hot air outside through a flexible hose fitted to a window kit. It needs no mounting or refrigerant piping, so it's ready to use within minutes. It's best for spot cooling, short-term needs or spaces where drilling walls isn't allowed.",
+  "capacity": "1 – 1.5 TR",
+  "use_case": "Rented spaces, events and spot cooling",
+  "features": [
+    "No installation: plug in and vent the hose outside",
+    "Castor wheels to move between rooms",
+    "Useful backup cooling during breakdowns",
+    "Ideal where wall drilling isn't permitted"
+  ],
+  "specs": [
+    {"label": "Capacity range", "value": "1 – 1.5 TR"},
+    {"label": "Exhaust", "value": "Flexible hose with window kit"},
+    {"label": "Refrigerant", "value": "R32 or R290 (varies by model)"},
+    {"label": "Power supply", "value": "Single phase, 230 V standard socket"},
+    {"label": "Drainage", "value": "Internal tank or continuous drain"},
+    {"label": "Setup time", "value": "About 15 minutes"}
+  ],
+  "variants": [
+    {"capacity": "1 TR", "suits": "Rooms up to about 120 sq ft"},
+    {"capacity": "1.5 TR", "suits": "Rooms of about 120 – 160 sq ft"}
+  ],
+  "applications": ["Rented flats", "Temporary site offices", "Events and exhibitions", "Server cupboards", "Backup cooling", "Workshops"],
+  "brands": ["Lloyd", "Blue Star", "Voltas"],
+  "considerations": [
+    "Less efficient than a split or window AC of the same capacity",
+    "Needs a window or opening for the exhaust hose",
+    "Best for short-term or spot cooling rather than all-day use"
+  ],
+  "faqs": [
+    {"question": "Does a portable AC need installation?", "answer": "No. Just fit the exhaust hose to the window kit and plug it in. We can supply and set it up for you."},
+    {"question": "Do you rent portable ACs?", "answer": "Ask us about short-term needs for events or breakdowns and we'll suggest the best option."}
+  ]
+}

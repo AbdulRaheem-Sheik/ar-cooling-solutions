@@ -1,0 +1,42 @@
+{
+  "name": "Fan coil units (FCU)",
+  "slug": "fan-coil-units",
+  "family": "central-products",
+  "icon": "fan",
+  "image": "",
+  "tagline": "Room-level comfort from a central chilled-water plant",
+  "description": "Compact terminal units that use chilled water from a central chiller to cool individual rooms and zones.",
+  "long_description": "A fan coil unit pulls room air across a chilled-water coil and blows it back into the space. Each FCU has its own thermostat, so hotel rooms, cabins and wards can be controlled individually while the main cooling comes from a central chiller plant. FCUs come as ceiling-concealed, cassette, wall-mounted and floor-standing models.",
+  "capacity": "200 – 2,000 CFM per unit",
+  "use_case": "Hotels, hospitals and chiller-based buildings",
+  "features": [
+    "Individual room control on a central chilled-water system",
+    "Concealed, cassette, wall and floor-standing styles",
+    "No refrigerant inside occupied rooms",
+    "Quiet operation with EC motor options"
+  ],
+  "specs": [
+    {"label": "Airflow range", "value": "200 – 2,000 CFM per unit"},
+    {"label": "Coil", "value": "2-pipe or 4-pipe chilled water"},
+    {"label": "Styles", "value": "Ceiling-concealed ducted, cassette, wall-mounted, floor-standing"},
+    {"label": "Fan motor", "value": "3-speed PSC or EC motor"},
+    {"label": "Controls", "value": "Room thermostat, 2-way / 3-way valve, BMS options"},
+    {"label": "Power supply", "value": "Single phase, 230 V"}
+  ],
+  "variants": [
+    {"capacity": "200 – 600 CFM", "suits": "Hotel rooms, cabins and wards"},
+    {"capacity": "600 – 1,200 CFM", "suits": "Meeting rooms and suites"},
+    {"capacity": "1,200 – 2,000 CFM", "suits": "Lobbies and larger zones"}
+  ],
+  "applications": ["Hotel rooms", "Hospital wards", "Office cabins", "Service apartments", "Lobbies", "Meeting rooms"],
+  "brands": ["Daikin", "Carrier", "Trane", "Blue Star"],
+  "considerations": [
+    "Needs a central chiller and chilled-water piping",
+    "Condensate drain and valve access must be planned for each unit",
+    "EC motors cut fan energy and noise in hotel rooms"
+  ],
+  "faqs": [
+    {"question": "Can FCUs be added to an existing chiller?", "answer": "Usually yes, if the chiller and pumps have spare capacity. We check the plant before recommending new FCUs."},
+    {"question": "Do you service FCUs?", "answer": "Yes. Filter cleaning, coil washing, drain tray cleaning, motor checks and valve servicing are all part of our AMC."}
+  ]
+}

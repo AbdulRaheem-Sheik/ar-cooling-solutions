@@ -1,16 +1,42 @@
 {
   "name": "Installation",
   "slug": "installation",
+  "group": "installation-setup",
   "icon": "install",
   "image": "/static/images/services/installation.jpg",
+  "tagline": "Fitted right, so it cools right for years",
   "summary": "New AC installation and replacement, carefully fitted and ready for the season.",
   "description": "A good installation decides how well an AC performs for years. We survey the space, recommend the right capacity, and plan where the indoor and outdoor units go for airflow, drainage and easy servicing. Every job includes proper copper piping, vacuuming, leak testing and a final cooling check.",
+  "duration": "3 – 4 hours per split AC; larger systems by schedule",
+  "suitable_for": "Split, window, cassette, tower, ductable and VRV/VRF systems",
   "includes": [
     "Site survey and heat-load based capacity advice",
     "Wall, ceiling, ductable and VRV/VRF installations",
     "Copper piping, insulation, drain lines and stand fitting",
     "Nitrogen pressure test, vacuuming and leak check",
     "Commissioning with temperature and current readings"
+  ],
+  "signs": [
+    "You've bought a new AC and need it fitted",
+    "You're replacing an old or inefficient unit",
+    "You're fitting out a new home, office or shop",
+    "A previous installation keeps leaking or cooling poorly"
+  ],
+  "options": [
+    {"name": "Split AC installation", "detail": "Wall-mounted indoor unit, outdoor unit on bracket or stand"},
+    {"name": "Window AC installation", "detail": "Window or wall opening with a support frame"},
+    {"name": "Cassette / ceiling unit installation", "detail": "False-ceiling mounting with drain pump connection"},
+    {"name": "Ductable / VRF installation", "detail": "Planned with ducting, piping and controls"}
+  ],
+  "process": [
+    {"title": "Site survey", "text": "We check the room size, wall strength, outdoor unit location and power supply."},
+    {"title": "Fitting", "text": "Indoor and outdoor units are mounted, piped, insulated and wired."},
+    {"title": "Testing", "text": "Nitrogen pressure test, vacuuming and a leak check before gas is released."},
+    {"title": "Handover", "text": "We check cooling and current readings, then show you how to use and care for it."}
+  ],
+  "faqs": [
+    {"question": "Is extra copper piping charged?", "answer": "Standard installation includes a set pipe length. Longer runs are charged per metre, and we confirm this before starting."},
+    {"question": "Can you install an AC I bought online?", "answer": "Yes. We install all major brands, wherever you bought the unit."}
   ],
   "whatsapp_text": "Hi, I'm looking for AC installation service."
 }

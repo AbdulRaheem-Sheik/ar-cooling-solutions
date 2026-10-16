@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+
+{% block title %}Page not found | {{ business.name }}{% endblock %}
+{% block head %}<meta name="robots" content="noindex">{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero-compact">
+  <div class="container page-hero-inner">
+    <p class="chip"><span class="status-dot"></span> Error 404</p>
+    <h1>This page has <em>moved or doesn't exist.</em></h1>
+    <p>The link may be old or mistyped. These are good places to continue from:</p>
+    <nav class="jump-links" aria-label="Popular pages">
+      <a href="/">{{ icon("home") }} Home</a>
+      <a href="/products/">{{ icon("snow") }} Products</a>
+      <a href="/services/">{{ icon("wrench") }} Services</a>
+      <a href="/parts/">{{ icon("compressor") }} Spare parts</a>
+      <a href="/enquiry/">{{ icon("chat") }} Send an enquiry</a>
+    </nav>
+  </div>
+</section>
+{% endblock %}

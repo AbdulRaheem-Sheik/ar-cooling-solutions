@@ -1,6 +1,8 @@
 {
   "name": "Cassette AC units",
   "slug": "cassette-ac-units",
+  "family": "light-commercial-products",
+  "icon": "fan",
   "image": "/static/images/products/cassette.jpg",
   "tagline": "Four-way airflow from a flush ceiling panel",
   "description": "Ceiling-mounted systems designed for even airflow in open rooms, offices, and retail spaces.",
@@ -12,5 +14,31 @@
     "Flush ceiling mounting that keeps walls clear",
     "Built-in drain pump for flexible placement",
     "Well suited to showrooms, clinics, restaurants and offices"
+  ],
+  "specs": [
+    {"label": "Capacity range", "value": "1.5 – 4 TR"},
+    {"label": "Air throw", "value": "4-way or 360° round flow"},
+    {"label": "Compressor", "value": "Inverter or fixed speed"},
+    {"label": "Refrigerant", "value": "R32 or R410A"},
+    {"label": "Power supply", "value": "Single phase up to ~2 TR; three phase for larger models"},
+    {"label": "Ceiling requirement", "value": "False ceiling with about 250 – 300 mm clear depth"},
+    {"label": "Drainage", "value": "Built-in drain pump (lift of about 500 – 850 mm)"}
+  ],
+  "variants": [
+    {"capacity": "1.5 TR", "suits": "Areas of about 150 – 200 sq ft"},
+    {"capacity": "2 TR", "suits": "Areas of about 200 – 280 sq ft"},
+    {"capacity": "3 TR", "suits": "Areas of about 280 – 400 sq ft"},
+    {"capacity": "4 TR", "suits": "Areas of about 400 – 550 sq ft"}
+  ],
+  "applications": ["Open offices", "Showrooms", "Restaurants and cafés", "Clinics", "Conference rooms", "Bank branches"],
+  "brands": ["Daikin", "Blue Star", "Voltas", "Carrier", "LG", "Samsung", "Hitachi", "Mitsubishi Heavy Industries", "O General", "Toshiba"],
+  "considerations": [
+    "Needs a false ceiling; plan it before ceiling work is finished",
+    "Place the unit near the centre of the room for even air throw",
+    "Several cassettes can share one large space for better coverage"
+  ],
+  "faqs": [
+    {"question": "Can a cassette be fitted in an existing ceiling?", "answer": "Yes, if there is enough depth above the ceiling. We cut a panel opening, support the unit from the slab and route piping and drain above the ceiling."},
+    {"question": "Is a cassette noisier than a split?", "answer": "No. Modern cassettes are comparable to wall splits, and the compressor still sits outdoors."}
   ]
 }
