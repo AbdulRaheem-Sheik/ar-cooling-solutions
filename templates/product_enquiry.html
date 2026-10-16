@@ -127,7 +127,7 @@
     </div>
 
     <div class="form-submit-row">
-      <p>Your enquiry is sent to our team and we'll reply by phone or email. Prefer chat? Submit &amp; WhatsApp also opens it in WhatsApp.</p>
+      <p>Your enquiry is emailed to our team and we'll reply by phone or email. Prefer chat? Submit &amp; WhatsApp also opens it in WhatsApp. See our <a href="{{ url_for('privacy') }}">privacy policy</a>.</p>
       <div class="form-actions">
         {# Primary first in markup so pressing Enter submits without opening WhatsApp; CSS shows it on the right. #}
         <button class="button button-primary" type="submit" name="action" value="submit"{% if not web3forms_access_key %} disabled{% endif %}>Submit enquiry {{ icon("arrow-right") }}</button>

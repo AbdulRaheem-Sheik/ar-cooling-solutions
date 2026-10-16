@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% set active = "privacy" %}
+
+{% block title %}Privacy policy | {{ business.name }}{% endblock %}
+{% block meta_description %}How {{ business.name }} collects, uses and protects the details you share through our website and enquiry form.{% endblock %}
+
+{% block content %}
+<section class="page-hero page-hero-compact">
+  <div class="container page-hero-inner">
+    <p class="chip"><span class="status-dot"></span> Last updated {{ privacy_updated }}</p>
+    <h1>Privacy <em>policy</em></h1>
+    <p>This page explains what information {{ business.name }} collects through this website, why, and how you can contact us about it.</p>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="prose">
+    <h2>Who we are</h2>
+    <p>{{ business.name }} is an AC and HVAC sales, service and spare-parts business in {{ business.city }}, Telangana, India. For anything in this policy, contact us at <a href="mailto:{{ business.email }}">{{ business.email }}</a> or <a href="tel:{{ business.phone_e164 }}">{{ business.phone_display }}</a>.</p>
+
+    <h2>What we collect</h2>
+    <p>We only collect what you choose to send us through the enquiry form:</p>
+    <ul>
+      <li>your name and company name;</li>
+      <li>your email address and mobile number;</li>
+      <li>the product, service or spare part you're asking about, and any details or comments you add.</li>
+    </ul>
+    <p>Browsing the site does not require you to give us any personal information.</p>
+
+    <h2>How your enquiry reaches us</h2>
+    <ul>
+      <li><b>Submit enquiry:</b> your details are sent by <a href="https://web3forms.com/privacy" target="_blank" rel="noopener noreferrer">Web3Forms</a>, a form-delivery service, which emails them to us. Web3Forms may process the data on servers outside India.</li>
+      <li><b>Submit &amp; WhatsApp:</b> the same email is sent, and WhatsApp opens with your details so you can send them to us there as well. Messages you send on WhatsApp are covered by <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">WhatsApp's privacy policy</a>.</li>
+    </ul>
+
+    <h2>How we use it</h2>
+    <p>We use your details only to reply to your enquiry: to answer questions, prepare quotes, arrange site visits and service, and follow up on that work. We do not sell your information or share it with anyone for their own marketing.</p>
+
+    <h2>How long we keep it</h2>
+    <p>We keep enquiries in our email for as long as we need them to respond, carry out any work, and keep reasonable business records. You can ask us to delete your details at any time, unless we must keep them for legal or accounting reasons.</p>
+
+    <h2>Your choices and rights</h2>
+    <p>You can ask us to tell you what information we hold about you, to correct it, or to delete it. You can also withdraw your consent for us to keep contacting you. Email or call us using the details above and we'll respond as soon as we can. If you're not satisfied with our response, you can raise a complaint with the Data Protection Board of India.</p>
+
+    <h2>Cookies and other services</h2>
+    <ul>
+      <li>This website does not use advertising or tracking cookies, and has no analytics.</li>
+      <li>After you send an enquiry, your browser briefly keeps your name and reference number (session storage) to show them on the thank-you page. It is cleared when you close the tab.</li>
+      <li>The site loads its fonts from Google Fonts, so Google receives your device's IP address when a page loads, as described in <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's privacy policy</a>.</li>
+    </ul>
+
+    <h2>Changes to this policy</h2>
+    <p>If we change how we handle information, we'll update this page and the date at the top.</p>
+  </div>
+</section>
+{% endblock %}

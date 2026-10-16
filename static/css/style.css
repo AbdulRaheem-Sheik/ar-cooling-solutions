@@ -292,6 +292,17 @@ a.contact-card:hover { transform: translateY(-3px); border-color: var(--ring); b
 .footer-contact .icon { color: var(--accent); }
 .footer-contact a { overflow-wrap: anywhere; }
 .footer-bottom { width: min(1200px, calc(100% - 48px)); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; margin-inline: auto; padding-block: 22px 30px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+.footer-bottom a, .form-submit-row p a { text-decoration: underline; text-underline-offset: 2px; }
+.footer-bottom a:hover, .form-submit-row p a:hover { color: var(--accent); }
+
+/* ---------- Long-form text (privacy policy) ---------- */
+.prose { max-width: 760px; color: var(--ink-soft); font-size: 15px; line-height: 1.75; }
+.prose h2 { margin: 40px 0 12px; color: var(--ink); font-size: clamp(20px, 2.2vw, 24px); }
+.prose h2:first-child { margin-top: 0; }
+.prose ul { display: grid; gap: 8px; margin: 0 0 16px; padding-left: 22px; }
+.prose li::marker { color: var(--accent); }
+.prose b { color: var(--ink); }
+.prose a { color: var(--accent); font-weight: 500; text-decoration: underline; text-underline-offset: 2px; }
 
 /* ---------- Clients & partner logos (every page) ---------- */
 .logo-strips { padding-block: 72px 80px; border-top: 1px solid var(--line); background: var(--bg); }

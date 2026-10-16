@@ -49,7 +49,7 @@ def load_app(allow_missing_key):
 def page_paths(site):
     with site.app.test_request_context():
         paths = [site.url_for(endpoint) for endpoint in
-                 ("home", "products", "services", "spare_parts", "about", "product_enquiry", "enquiry_thanks")]
+                 ("home", "products", "services", "spare_parts", "about", "product_enquiry", "enquiry_thanks", "privacy")]
         paths += [site.url_for("product_detail", slug=p["slug"]) for p in site.get_product_types()]
         paths += [site.url_for("service_detail", slug=s["slug"]) for s in site.get_services()]
     return paths
@@ -93,6 +93,9 @@ def build(site):
         destination = static_out / relative
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
+
+    # Some browsers and tools ask for /favicon.ico without reading the page's <link> tags.
+    shutil.copy2(ROOT / "static" / "favicon.ico", OUTPUT / "favicon.ico")
 
     site_url = site.SITE_URL
     today = date.today().isoformat()

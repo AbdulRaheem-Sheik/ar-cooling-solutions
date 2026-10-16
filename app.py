@@ -555,6 +555,14 @@ def enquiry_thanks():
     return render_template("enquiry_thanks.html", business=BUSINESS)
 
 
+PRIVACY_UPDATED = "16 October 2026"   # change when the privacy policy text changes
+
+
+@app.get("/privacy/")
+def privacy():
+    return render_template("privacy.html", business=BUSINESS, privacy_updated=PRIVACY_UPDATED)
+
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("404.html", business=BUSINESS), 404
