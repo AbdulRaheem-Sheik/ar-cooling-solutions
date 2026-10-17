@@ -1,3 +1,4 @@
+import hashlib
 import json
 import os
 import secrets
@@ -302,6 +303,26 @@ app.config.update(
 csrf = CSRFProtect(app)
 
 CSRF_RETRY_MESSAGE = "Your session expired before the form was sent. Please check the details and submit again."
+
+_static_versions = {}
+
+
+@app.url_defaults
+def add_static_version(endpoint, values):
+    """Add ?v=<content hash> to every static file URL, so browsers fetch a changed
+    stylesheet, script or image right after a deploy instead of a cached copy."""
+    if endpoint != "static" or "filename" not in values:
+        return
+    path = STATIC_DIR / values["filename"]
+    if not path.is_file():
+        return
+    stamp = path.stat().st_mtime_ns
+    cached = _static_versions.get(path)
+    if not cached or cached[0] != stamp:
+        cached = (stamp, hashlib.sha256(path.read_bytes()).hexdigest()[:10])
+        _static_versions[path] = cached
+    values["v"] = cached[1]
+
 
 @app.context_processor
 def inject_site_settings():
