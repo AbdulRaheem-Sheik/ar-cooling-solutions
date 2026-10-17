@@ -84,8 +84,13 @@
     </div>
   </footer>
 
-  {% if business.linkedin_url %}
-  <a class="floating-linkedin" href="{{ business.linkedin_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ business.name }} on LinkedIn (opens in a new tab)">{{ icon("linkedin") }}<span class="floating-linkedin-label">Follow us</span></a>
+  {% set socials = [("linkedin", business.linkedin_url, "LinkedIn"), ("x", business.x_url, "X")]|selectattr(1)|list %}
+  {% if socials %}
+  <nav class="social-rail" aria-label="{{ business.name }} on social media">
+    {% for network, url, label in socials %}
+    <a class="social-link social-{{ network }}" href="{{ url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ business.name }} on {{ label }} (opens in a new tab)">{{ icon(network) }}<span class="social-label">Follow us</span></a>
+    {% endfor %}
+  </nav>
   {% endif %}
   <a class="floating-whatsapp" href="https://wa.me/{{ business.whatsapp_number }}?text=Hi%20AR%20Cooling%20Solutions%2C%20I%27d%20like%20to%20enquire." target="_blank" rel="noopener noreferrer" aria-label="Message {{ business.name }} on WhatsApp">{{ icon("chat") }}<span class="floating-label">WhatsApp us</span></a>
 </body>
