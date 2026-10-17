@@ -84,6 +84,9 @@
     </div>
   </footer>
 
+  {% if business.linkedin_url %}
+  <a class="floating-linkedin" href="{{ business.linkedin_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ business.name }} on LinkedIn (opens in a new tab)">{{ icon("linkedin") }}<span class="floating-linkedin-label">Follow us</span></a>
+  {% endif %}
   <a class="floating-whatsapp" href="https://wa.me/{{ business.whatsapp_number }}?text=Hi%20AR%20Cooling%20Solutions%2C%20I%27d%20like%20to%20enquire." target="_blank" rel="noopener noreferrer" aria-label="Message {{ business.name }} on WhatsApp">{{ icon("chat") }}<span class="floating-label">WhatsApp us</span></a>
 </body>
 </html>

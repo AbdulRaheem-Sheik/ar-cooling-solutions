@@ -122,6 +122,8 @@ BUSINESS = {
     "phone_e164": "+918801381405",
     "whatsapp_number": "918801381405",
     "email": "enquiry@arcooling.in",
+    # LinkedIn company page (shown as a button on the right edge of every page). Empty = hidden.
+    "linkedin_url": "https://www.linkedin.com/company/arcooling/",
     "city": "Hyderabad",
 }
 SPARE_ENQUIRY_CATEGORIES = (

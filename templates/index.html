@@ -21,7 +21,8 @@
         "addressRegion": "Telangana",
         "addressCountry": "IN"
       },
-      "areaServed": { "@type": "City", "name": "{{ business.city }}" }
+      "areaServed": { "@type": "City", "name": "{{ business.city }}" }{% if business.linkedin_url %},
+      "sameAs": ["{{ business.linkedin_url }}"]{% endif %}
     }
   </script>
 {% endblock %}
