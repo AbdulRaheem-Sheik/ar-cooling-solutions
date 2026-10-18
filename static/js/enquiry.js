@@ -1,5 +1,5 @@
 // Enquiry form for the static site: prefill from the link, send to Web3Forms (which emails
-// the enquiry to AR Cooling), optionally open WhatsApp, then show the thank-you page.
+// the enquiry to the right AR Cooling team), then show the thank-you page.
 (() => {
   const form = document.querySelector("[data-enquiry-form]");
   const dataElement = document.getElementById("enquiry-data");
@@ -81,30 +81,12 @@
     status.scrollIntoView({ block: "center", behavior: "smooth" });
   }
 
-  function whatsappMessage(reference) {
-    const value = (name) => field(name).value.trim();
-    const lines = [
-      `${enquiryType()[0].toUpperCase()}${enquiryType().slice(1)} enquiry`,
-      `Reference: ${reference}`,
-      `Name: ${value("name")}`,
-      `Company: ${value("company")}`,
-      `Email: ${value("email")}`,
-      `Mobile: ${value("phone")}`,
-      `Category: ${value("category")}`,
-      `Details: ${value("details")}`,
-      `Comments: ${value("comments") || "None"}`,
-    ];
-    if (field("page_link").value) lines.push(`Page: ${field("page_link").value}`);
-    return lines.join("\n");
-  }
-
   const buttons = form.querySelectorAll('button[type="submit"]');
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!form.reportValidity()) return;
 
-    const viaWhatsapp = event.submitter && event.submitter.value === "whatsapp";
     const reference = makeReference();
     field("reference").value = reference;
     field("enquiry_type").value = enquiryType();
@@ -115,9 +97,6 @@
     // Route to the right team inbox: each team's Web3Forms key emails that team.
     field("access_key").value = data.keys[enquiryType()] || data.keys.general;
 
-    // Open the WhatsApp tab now (inside the click), or pop-up blockers stop it later.
-    const whatsappTab = viaWhatsapp ? window.open("", "_blank") : null;
-
     buttons.forEach((button) => { button.disabled = true; });
     status.hidden = true;
     const primary = form.querySelector('button[value="submit"]');
@@ -125,7 +104,7 @@
     primary.textContent = "Sending…";
 
     try {
-      // getAttribute: the buttons are named "action", which hides the form.action property.
+      // getAttribute: reads the HTML action, even if a field named "action" is ever added.
       const response = await fetch(form.getAttribute("action"), {
         method: "POST",
         headers: { Accept: "application/json" },
@@ -134,7 +113,6 @@
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.success) throw new Error(result.message || `HTTP ${response.status}`);
     } catch (error) {
-      if (whatsappTab) whatsappTab.close();
       buttons.forEach((button) => { button.disabled = false; });
       primary.innerHTML = primaryLabel;
       showError(`Sorry, your enquiry couldn't be sent (${error.message}). Please try again, or call us on ${data.phone}.`);
@@ -150,9 +128,6 @@
       }));
     } catch {
       // Storage can be blocked; the thank-you page has a generic fallback.
-    }
-    if (whatsappTab) {
-      whatsappTab.location.href = `https://wa.me/${data.whatsapp}?text=${encodeURIComponent(whatsappMessage(reference))}`;
     }
     window.location.href = data.thanksUrl;
   });
