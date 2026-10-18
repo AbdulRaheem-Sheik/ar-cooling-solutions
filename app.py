@@ -330,10 +330,13 @@ def add_static_version(endpoint, values):
     values["v"] = cached[1]
 
 
+SNOW_EFFECT = True   # gentle falling snow in the background of every page; False turns it off
+
+
 @app.context_processor
 def inject_site_settings():
     """Logos (shown above the footer on every page) and site-wide settings."""
-    return {"brand_logos": BRAND_LOGOS, "client_logos": CLIENT_LOGOS, "site_url": SITE_URL}
+    return {"brand_logos": BRAND_LOGOS, "client_logos": CLIENT_LOGOS, "site_url": SITE_URL, "snow_effect": SNOW_EFFECT}
 
 
 @app.template_global()

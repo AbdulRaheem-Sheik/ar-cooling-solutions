@@ -16,6 +16,7 @@
   <script>document.documentElement.classList.add("js");</script>
   {% block head %}{% endblock %}
   <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+  {% if snow_effect %}<script src="{{ url_for('static', filename='js/snow.js') }}" defer></script>{% endif %}
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>

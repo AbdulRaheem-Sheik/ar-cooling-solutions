@@ -338,6 +338,8 @@ a.contact-card:hover { transform: translateY(-3px); border-color: var(--ring); b
 .follow-linkedin:hover, .follow-linkedin:focus-visible { background: #004182; }
 .follow-x { background: #0f1419; box-shadow: 0 14px 30px -12px rgb(15 20 25 / 60%); }
 .follow-x:hover, .follow-x:focus-visible { background: #000; }
+/* Falling snow (static/js/snow.js): over the page but under the header and floating buttons; never blocks clicks. */
+.snowfall { position: fixed; inset: 0; z-index: 20; pointer-events: none; }
 .floating-whatsapp { position: fixed; z-index: 25; right: 24px; bottom: 24px; width: 60px; height: 60px; display: grid; place-items: center; border-radius: 20px; background: var(--whatsapp); color: #fff; box-shadow: 0 16px 32px -10px rgb(31 174 91 / 70%); transition: transform 200ms var(--ease), border-radius 200ms var(--ease); }
 .floating-whatsapp:hover { transform: translateY(-3px) scale(1.04); border-radius: 50%; }
 .floating-whatsapp .icon { width: 28px; height: 28px; }
