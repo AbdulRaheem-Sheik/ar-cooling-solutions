@@ -123,6 +123,12 @@ BUSINESS = {
     "phone_e164": "+918801381405",
     "whatsapp_number": "918801381405",
     "email": "enquiry@arcooling.in",
+    # Opening hours, shown across the site. Keep opening_days / opens / closes in step
+    # (they are given to Google in the home page's structured data).
+    "hours": "Mon – Sat, 9am – 7pm",
+    "opening_days": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+    "opens": "09:00",
+    "closes": "19:00",
     # Social profiles, shown as buttons on the right edge of every page. Empty = hidden.
     "linkedin_url": "https://www.linkedin.com/company/arcooling/",
     "x_url": "https://x.com/arcooling_in",

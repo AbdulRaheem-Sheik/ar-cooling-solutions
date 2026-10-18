@@ -21,7 +21,13 @@
         "addressRegion": "Telangana",
         "addressCountry": "IN"
       },
-      "areaServed": { "@type": "City", "name": "{{ business.city }}" }{% set profiles = [business.linkedin_url, business.x_url]|select|list %}{% if profiles %},
+      "areaServed": { "@type": "City", "name": "{{ business.city }}" },
+      "openingHoursSpecification": [{
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": {{ business.opening_days|tojson }},
+        "opens": "{{ business.opens }}",
+        "closes": "{{ business.closes }}"
+      }]{% set profiles = [business.linkedin_url, business.x_url]|select|list %}{% if profiles %},
       "sameAs": {{ profiles|tojson }}{% endif %}
     }
   </script>
@@ -41,7 +47,7 @@
       <dl class="hero-stats">
         <div><dt>15+</dt><dd>Years serving {{ business.city }}</dd></div>
         <div><dt>{{ products|length }}</dt><dd>AC &amp; HVAC system types</dd></div>
-        <div><dt>7</dt><dd>Days a week</dd></div>
+        <div><dt>{{ business.opening_days|length }}</dt><dd>Days a week</dd></div>
       </dl>
     </div>
     <div class="hero-visual">

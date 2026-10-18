@@ -36,7 +36,7 @@
       <div><dt>15+</dt><dd>Years serving {{ business.city }}</dd></div>
       <div><dt>{{ product_count }}</dt><dd>AC &amp; HVAC system types supported</dd></div>
       <div><dt>6</dt><dd>Spare-part categories on our parts desk</dd></div>
-      <div><dt>7</dt><dd>Days a week</dd></div>
+      <div><dt>{{ business.opening_days|length }}</dt><dd>Days a week</dd></div>
     </dl>
   </div>
 </section>
@@ -114,7 +114,7 @@
       <p>We serve customers across {{ business.city }}, Secunderabad and the surrounding areas of Telangana. Not sure if we cover your location? Just ask.</p>
       <div class="panel-meta">
         <span>{{ icon("pin") }} {{ business.city }}, Telangana</span>
-        <span>{{ icon("clock") }} Open 7 days a week</span>
+        <span>{{ icon("clock") }} {{ business.hours }}</span>
       </div>
     </div>
   </div>
