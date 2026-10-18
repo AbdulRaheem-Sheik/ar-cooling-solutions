@@ -33,7 +33,7 @@
         {% for key, href, label in nav %}
         <a href="{{ href }}"{% if active == key %} aria-current="page"{% endif %}>{{ label }}</a>
         {% endfor %}
-        <a class="nav-call" href="tel:{{ business.phone_e164 }}">{{ icon("phone") }} {{ business.phone_display }}</a>
+        <a class="nav-call" href="tel:{{ business.phone_e164 }}" title="Call {{ business.phone_display }}">{{ icon("phone") }} Call us</a>
       </nav>
     </div>
   </header>
