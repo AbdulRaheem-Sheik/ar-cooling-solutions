@@ -31,7 +31,7 @@
         <em id="enquiry-selected-meta"></em>
       </span>
     </a>
-    <span class="service-icon" id="enquiry-default-icon">{{ icon("snow") }}</span>
+    <span class="brand-mark enquiry-brand-mark" id="enquiry-default-icon" aria-hidden="true"><img src="{{ url_for('static', filename='images/Cooling-Logo-PNG-Photo.png') }}" alt=""></span>
     <div data-variant="default">
       <h2>Let's find the right fit.</h2>
       <p>Tell us the product or part, the category, and any model details you have. We'll follow up on availability and the next step.</p>
@@ -53,7 +53,7 @@
     <div class="enquiry-aside-contact">
       <span>Need help now?</span>
       <a href="tel:{{ business.phone_e164 }}">{{ icon("phone") }} {{ business.phone_display }}</a>
-      <span>{{ business.city }} · Open 7 days a week</span>
+      <span>{{ business.city }} · Mon - Sat : 9am - 7pm</span>
     </div>
   </aside>
 

@@ -514,6 +514,9 @@ a.contact-card:hover { transform: translateY(-3px); border-color: var(--ring); b
 .enquiry-layout { display: grid; grid-template-columns: minmax(260px, .7fr) minmax(0, 1.5fr); gap: 28px; align-items: start; }
 .enquiry-aside { position: sticky; top: 120px; overflow: hidden; padding: 32px 30px; border: 1px solid var(--maroon-100); border-radius: var(--r-lg); background: var(--accent-tint); color: var(--ink); }
 .enquiry-aside .service-icon { background: #fff; }
+/* The brand logo tile from the header, larger, at the top of the enquiry sidebar. */
+.enquiry-brand-mark { width: 52px; height: 52px; margin-bottom: 22px; border-radius: 16px; }
+.enquiry-brand-mark img { width: 28px; height: 28px; }
 .enquiry-aside > p { color: var(--ink-soft); font-size: 13px; }
 .enquiry-aside .check-list li { color: var(--ink); }
 .enquiry-product { display: flex; align-items: center; gap: 14px; margin-bottom: 24px; padding: 10px 14px 10px 10px; border: 1px solid var(--line); border-radius: var(--r); background: #fff; box-shadow: var(--shadow-sm); transition: border-color 150ms ease; }
