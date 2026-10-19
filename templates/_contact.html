@@ -5,6 +5,16 @@
       <p class="eyebrow">Here when you need us</p>
       <h2>Let's get your cool back.</h2>
       <p>Call or message us about a breakdown, a new installation, an AMC or a spare part. We'll respond with practical next steps.</p>
+      {% if social_profiles %}
+      <div class="contact-socials">
+        <span>Follow us</span>
+        <ul>
+          {% for network, label, url in social_profiles %}
+          <li><a class="contact-social contact-social-{{ network }}" href="{{ url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ business.name }} on {{ label }} (opens in a new tab)">{{ icon(network) }}<span>{{ label }}</span></a></li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
     </div>
     <div class="contact-cards reveal">
       <a class="contact-card" href="tel:{{ business.phone_e164 }}">

@@ -132,6 +132,8 @@ BUSINESS = {
     # Social profiles, shown as buttons on the right edge of every page. Empty = hidden.
     "linkedin_url": "https://www.linkedin.com/company/arcooling/",
     "x_url": "https://x.com/arcooling_in",
+    "facebook_url": "https://www.facebook.com/profile.php?id=61555687123321",
+    "instagram_url": "https://www.instagram.com/arcooling_in/",
     "city": "Hyderabad",
 }
 SPARE_ENQUIRY_CATEGORIES = (
@@ -333,10 +335,22 @@ def add_static_version(endpoint, values):
 SNOW_EFFECT = True   # gentle falling snow in the background of every page; False turns it off
 
 
+def get_social_profiles():
+    """(network, label, url) for each social profile that has a URL, in display order."""
+    networks = [("linkedin", "LinkedIn"), ("x", "X"), ("facebook", "Facebook"), ("instagram", "Instagram")]
+    return [(key, label, BUSINESS[f"{key}_url"]) for key, label in networks if BUSINESS.get(f"{key}_url")]
+
+
 @app.context_processor
 def inject_site_settings():
     """Logos (shown above the footer on every page) and site-wide settings."""
-    return {"brand_logos": BRAND_LOGOS, "client_logos": CLIENT_LOGOS, "site_url": SITE_URL, "snow_effect": SNOW_EFFECT}
+    return {
+        "brand_logos": BRAND_LOGOS,
+        "client_logos": CLIENT_LOGOS,
+        "site_url": SITE_URL,
+        "snow_effect": SNOW_EFFECT,
+        "social_profiles": get_social_profiles(),
+    }
 
 
 @app.template_global()

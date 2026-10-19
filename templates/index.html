@@ -27,7 +27,7 @@
         "dayOfWeek": {{ business.opening_days|tojson }},
         "opens": "{{ business.opens }}",
         "closes": "{{ business.closes }}"
-      }]{% set profiles = [business.linkedin_url, business.x_url]|select|list %}{% if profiles %},
+      }]{% set profiles = social_profiles|map(attribute=2)|list %}{% if profiles %},
       "sameAs": {{ profiles|tojson }}{% endif %}
     }
   </script>

@@ -85,10 +85,9 @@
     </div>
   </footer>
 
-  {% set socials = [("linkedin", business.linkedin_url, "LinkedIn"), ("x", business.x_url, "X")]|selectattr(1)|list %}
-  {% if socials %}
+  {% if social_profiles %}
   <nav class="follow-rail" aria-label="{{ business.name }} on social media">
-    {% for network, url, label in socials %}
+    {% for network, label, url in social_profiles %}
     <a class="follow-link follow-{{ network }}" href="{{ url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ business.name }} on {{ label }} (opens in a new tab)">{{ icon(network) }}<span class="follow-label">Follow us</span></a>
     {% endfor %}
   </nav>
