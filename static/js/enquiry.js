@@ -82,6 +82,32 @@
   }
 
   const buttons = form.querySelectorAll('button[type="submit"]');
+  const typeLabels = { product: "Product", service: "Service", spare: "Spare part", general: "General" };
+
+  // What Web3Forms receives. Settings first, then the enquiry as labelled rows in a fixed
+  // order, so each team's email reads like a table. "email" keeps its name: Web3Forms
+  // uses it as the reply-to address, so replying goes straight to the customer.
+  function emailPayload() {
+    const value = (name) => field(name).value.trim();
+    const rows = [
+      ["Reference", value("reference")],
+      ["Enquiry type", typeLabels[enquiryType()]],
+      ["Enquiring about", value("enquiring_about")],
+      ["Name", value("name")],
+      ["Company", value("company")],
+      ["email", value("email")],
+      ["Mobile", value("phone")],
+      ["Category", value("category")],
+      ["Details", value("details")],
+      ["Comments", value("comments") || "None"],
+      ["Page", value("page_link") || "Enquiry form"],
+    ];
+    const payload = new FormData();
+    for (const name of ["access_key", "subject", "from_name"]) payload.append(name, value(name));
+    if (field("botcheck").checked) payload.append("botcheck", "on");   // spam trap: let Web3Forms reject it
+    for (const [label, text] of rows) payload.append(label, text);
+    return payload;
+  }
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -108,7 +134,7 @@
       const response = await fetch(form.getAttribute("action"), {
         method: "POST",
         headers: { Accept: "application/json" },
-        body: new FormData(form),
+        body: emailPayload(),
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok || !result.success) throw new Error(result.message || `HTTP ${response.status}`);
