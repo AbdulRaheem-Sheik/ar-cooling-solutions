@@ -9,8 +9,9 @@ Live at **https://arcooling.in** (GitHub Pages).
 - `tools/build_static.py` renders every public page to plain HTML in `_site/`.
 - On every push to `main`, the GitHub Action (`.github/workflows/deploy.yml`) runs that
   build and publishes `_site/` to GitHub Pages. There is no server.
-- The enquiry form is sent by the visitor's browser to [Web3Forms](https://web3forms.com),
-  which emails each enquiry (with a reference like `AR-261016-4821`) to enquiry@arcooling.in.
+- The enquiry form is sent by the visitor's browser to [FormSubmit](https://formsubmit.co),
+  which emails each enquiry as a table (with a reference like `AR-261016-4821`) to
+  enquiry@arcooling.in. Change the inbox per enquiry type in `ENQUIRY_INBOXES` in `app.py`.
   The subject and the "Enquiry type" row say whether it is a product, service or spare part.
 
 ## Run it locally
@@ -43,10 +44,9 @@ To preview the exact static site that will be published:
 
 ## Deploying (one-time setup)
 
-1. **Web3Forms key**: at https://web3forms.com enter the email address that should receive
-   enquiries; the key arrives by email. Put it in `.env` as `WEB3FORMS_ACCESS_KEY`.
-2. **GitHub repository variable**: repo **Settings > Secrets and variables > Actions >
-   Variables > New repository variable**: name `WEB3FORMS_ACCESS_KEY`, value = the key.
+1. **Activate the enquiry form** (once per inbox): send one enquiry from the live site.
+   FormSubmit emails that inbox an "Activate form" link; click it. Until then enquiries are held.
+2. *(no keys or repository variables are needed)*
 3. **Enable Pages**: repo **Settings > Pages > Build and deployment > Source: GitHub Actions**.
    (Free GitHub accounts need a public repository for Pages.)
 4. **Push to `main`.** The Actions tab shows the build; it fails loudly if a link is broken

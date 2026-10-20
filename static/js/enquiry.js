@@ -1,5 +1,5 @@
-// Enquiry form for the static site: prefill from the link, send to Web3Forms (which emails
-// the enquiry to the right AR Cooling team), then show the thank-you page.
+// Enquiry form for the static site: prefill from the link, send to FormSubmit (which emails
+// the enquiry to the AR Cooling inbox as a table), then show the thank-you page.
 (() => {
   const form = document.querySelector("[data-enquiry-form]");
   const dataElement = document.getElementById("enquiry-data");
@@ -84,29 +84,29 @@
   const buttons = form.querySelectorAll('button[type="submit"]');
   const typeLabels = { product: "Product", service: "Service", spare: "Spare part", general: "General" };
 
-  // What Web3Forms receives. Settings first, then the enquiry as labelled rows in a fixed
-  // order, so each team's email reads like a table. "email" keeps its name: Web3Forms
-  // uses it as the reply-to address, so replying goes straight to the customer.
+  // What FormSubmit receives: its settings (names starting with "_"), then the enquiry as
+  // labelled rows in a fixed order. "_template: table" makes the email a two-column table;
+  // "_replyto" makes Reply go straight to the customer.
   function emailPayload() {
     const value = (name) => field(name).value.trim();
-    const rows = [
-      ["Reference", value("reference")],
-      ["Enquiry type", typeLabels[enquiryType()]],
-      ["Enquiring about", value("enquiring_about")],
-      ["Name", value("name")],
-      ["Company", value("company")],
-      ["email", value("email")],
-      ["Mobile", value("phone")],
-      ["Category", value("category")],
-      ["Details", value("details")],
-      ["Comments", value("comments") || "None"],
-      ["Page", value("page_link") || "Enquiry form"],
-    ];
-    const payload = new FormData();
-    for (const name of ["access_key", "subject", "from_name"]) payload.append(name, value(name));
-    if (field("botcheck").checked) payload.append("botcheck", "on");   // spam trap: let Web3Forms reject it
-    for (const [label, text] of rows) payload.append(label, text);
-    return payload;
+    return {
+      _subject: value("_subject"),
+      _template: "table",
+      _captcha: "false",
+      _replyto: value("email"),
+      _honey: value("_honey"),   // spam trap: bots fill it, FormSubmit then discards the enquiry
+      "Reference": value("reference"),
+      "Enquiry type": typeLabels[enquiryType()],
+      "Enquiring about": value("enquiring_about"),
+      "Name": value("name"),
+      "Company": value("company"),
+      "Email": value("email"),
+      "Mobile": value("phone"),
+      "Category": value("category"),
+      "Details": value("details"),
+      "Comments": value("comments") || "None",
+      "Page": value("page_link") || "Enquiry form",
+    };
   }
 
   form.addEventListener("submit", async (event) => {
@@ -119,9 +119,9 @@
     field("enquiring_about").value = item ? item.name : field("category").value;
     field("page_link").value = item ? data.siteUrl + item.url : "";
     const subjectType = { spare: "spare part" }[enquiryType()] || enquiryType();
-    field("subject").value = `New ${subjectType} enquiry: ${field("enquiring_about").value} (${reference})`;
-    // Route to the right team inbox: each team's Web3Forms key emails that team.
-    field("access_key").value = data.keys[enquiryType()] || data.keys.general;
+    field("_subject").value = `New ${subjectType} enquiry: ${field("enquiring_about").value} (${reference})`;
+    // The inbox for this enquiry type (set in ENQUIRY_INBOXES in app.py).
+    const endpoint = data.endpoints[enquiryType()] || data.endpoints.general;
 
     buttons.forEach((button) => { button.disabled = true; });
     status.hidden = true;
@@ -130,14 +130,15 @@
     primary.textContent = "Sending…";
 
     try {
-      // getAttribute: reads the HTML action, even if a field named "action" is ever added.
-      const response = await fetch(form.getAttribute("action"), {
+      const response = await fetch(endpoint, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: emailPayload(),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(emailPayload()),
       });
       const result = await response.json().catch(() => ({}));
-      if (!response.ok || !result.success) throw new Error(result.message || `HTTP ${response.status}`);
+      // FormSubmit answers success as the text "true" (or a boolean).
+      const ok = response.ok && String(result.success) === "true";
+      if (!ok) throw new Error(result.message || `HTTP ${response.status}`);
     } catch (error) {
       buttons.forEach((button) => { button.disabled = false; });
       primary.innerHTML = primaryLabel;

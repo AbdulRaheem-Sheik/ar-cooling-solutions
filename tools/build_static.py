@@ -4,7 +4,7 @@ Renders every public page of the Flask app to _site/<page>/index.html, copies th
 files, and adds 404.html, sitemap.xml, robots.txt and CNAME (the custom domain).
 Every internal link is checked; the build fails if any points to a missing page.
 
-    python tools/build_static.py            # build _site/ (needs WEB3FORMS_ACCESS_KEY)
+    python tools/build_static.py            # build _site/
     python tools/build_static.py --serve    # build, then preview at http://127.0.0.1:8000
 
 The GitHub Action in .github/workflows/deploy.yml runs this on every push to main.
@@ -30,19 +30,13 @@ ALWAYS_STATIC = {Path("css"), Path("js")}
 NOT_IN_SITEMAP = {"/enquiry/thank-you/"}
 
 
-def load_app(allow_missing_key):
+def load_app():
     # The live site has no logins, so the build uses a throwaway signing key.
     os.environ.setdefault("SECRET_KEY", secrets.token_hex(32))
     os.environ["AR_DEBUG"] = "0"
     sys.path.insert(0, str(ROOT))
     import app as site  # noqa: E402
 
-    if not site.WEB3FORMS_ACCESS_KEY and not allow_missing_key:
-        sys.exit(
-            "WEB3FORMS_ACCESS_KEY is not set, so the enquiry form could not send anything.\n"
-            "Get a free key at https://web3forms.com and set it in .env (local) or as a\n"
-            "repository variable on GitHub (see README). Use --allow-missing-key for a preview."
-        )
     return site
 
 
@@ -158,10 +152,9 @@ class PagesLikeHandler(http.server.SimpleHTTPRequestHandler):
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--serve", action="store_true", help="preview the build at http://127.0.0.1:8000")
-    parser.add_argument("--allow-missing-key", action="store_true", help="build without the Web3Forms key (preview only)")
     args = parser.parse_args()
 
-    site = load_app(args.allow_missing_key)
+    site = load_app()
     pages = build(site)
     check_links()
     files = sum(1 for f in OUTPUT.rglob("*") if f.is_file())

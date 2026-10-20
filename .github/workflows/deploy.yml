@@ -32,12 +32,6 @@ jobs:
 
       - name: Build static site
         env:
-          # Web3Forms keys are public by design (they appear in the page HTML and can only
-          # email the owner's inbox). A repository variable of the same name overrides this.
-          WEB3FORMS_ACCESS_KEY: ${{ vars.WEB3FORMS_ACCESS_KEY || '926214f8-e5c0-4e71-b7e3-915b0963af1b' }}
-          # All enquiries (products, spare parts, services, other) -> enquiry@arcooling.in.
-          # A repository variable of the same name overrides this.
-          WEB3FORMS_KEY_ENQUIRY: ${{ vars.WEB3FORMS_KEY_ENQUIRY || '926214f8-e5c0-4e71-b7e3-915b0963af1b' }}
           AR_SITE_URL: https://arcooling.in
         run: python tools/build_static.py
 

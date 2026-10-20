@@ -19,29 +19,34 @@ SERVICE_DATA_DIR = DATA_DIR / "services"
 
 # The live site is static (GitHub Pages), built by tools/build_static.py.
 SITE_URL = os.environ.get("AR_SITE_URL", "https://arcooling.in").rstrip("/")
-# Enquiries are emailed to you by Web3Forms (free). Get a key at https://web3forms.com.
-# The key is designed to sit in public HTML: it can only send to your own inbox.
-WEB3FORMS_ACCESS_KEY = os.environ.get("WEB3FORMS_ACCESS_KEY", "").strip()
-
-# Each enquiry type is emailed to its own team. A Web3Forms key delivers only to the address
-# that created it, so every team inbox has its own key. Until a team's key is set, its
-# enquiries use WEB3FORMS_ACCESS_KEY.
-# All enquiry types currently go to one inbox, enquiry@arcooling.in. To route a type to its
-# own team again, give it a different email and key_env (e.g. sales@ / WEB3FORMS_KEY_SALES).
-ENQUIRY_TEAMS = {
-    "product": {"team": "Enquiry", "email": "enquiry@arcooling.in", "key_env": "WEB3FORMS_KEY_ENQUIRY"},
-    "spare": {"team": "Enquiry", "email": "enquiry@arcooling.in", "key_env": "WEB3FORMS_KEY_ENQUIRY"},
-    "service": {"team": "Enquiry", "email": "enquiry@arcooling.in", "key_env": "WEB3FORMS_KEY_ENQUIRY"},
-    "general": {"team": "Enquiry", "email": "enquiry@arcooling.in", "key_env": "WEB3FORMS_KEY_ENQUIRY"},
+# Enquiries are delivered by FormSubmit (https://formsubmit.co, free): the visitor's browser
+# sends the form to formsubmit.co, which emails it to the inbox below as a table. The very
+# first submission makes FormSubmit email that inbox a one-time "Activate form" link.
+# Each enquiry type can go to its own inbox; currently they all go to enquiry@arcooling.in.
+ENQUIRY_INBOXES = {
+    "product": "enquiry@arcooling.in",
+    "spare": "enquiry@arcooling.in",
+    "service": "enquiry@arcooling.in",
+    "general": "enquiry@arcooling.in",
+}
+# Optional: after activation, FormSubmit's email offers a random-string alias for the inbox.
+# Listing it here keeps the real address out of the page source (fewer spam bots).
+FORMSUBMIT_ALIASES = {
+    # "enquiry@arcooling.in": "the-random-string-from-formsubmit",
 }
 
 
-def get_enquiry_keys():
-    """Web3Forms key for each enquiry type, falling back to the shared key."""
-    return {
-        kind: os.environ.get(team["key_env"], "").strip() or WEB3FORMS_ACCESS_KEY
-        for kind, team in ENQUIRY_TEAMS.items()
-    }
+def formsubmit_endpoint(email, ajax=True):
+    """FormSubmit URL for an inbox: /ajax/ for the browser script, plain for the no-JavaScript form."""
+    target = FORMSUBMIT_ALIASES.get(email, email)
+    return f"https://formsubmit.co/{'ajax/' if ajax else ''}{target}"
+
+
+def get_enquiry_endpoints():
+    """Where each enquiry type is sent."""
+    return {kind: formsubmit_endpoint(email) for kind, email in ENQUIRY_INBOXES.items()}
+
+
 # Admin is a local editing tool (it is not part of the static site). It has no built-in
 # default login: it stays disabled until both values are set in .env.
 ADMIN_USERNAME = os.environ.get("AR_ADMIN_USERNAME", "").strip()
@@ -604,7 +609,7 @@ def admin_save(collection, item_name):
 @app.get("/enquiry/")
 def product_enquiry():
     """The enquiry form. It is static: the browser fills it in from the link's query string
-    and sends it to Web3Forms, which emails it to you."""
+    and sends it to FormSubmit, which emails it to the enquiry inbox."""
     product_categories = get_product_categories()
     service_categories = get_service_categories()
     return render_template(
@@ -615,8 +620,8 @@ def product_enquiry():
         spare_categories=SPARE_ENQUIRY_CATEGORIES,
         category_types={c: get_enquiry_type(c) for c in product_categories + service_categories + SPARE_ENQUIRY_CATEGORIES},
         enquiry_items=get_enquiry_items(),
-        web3forms_access_key=WEB3FORMS_ACCESS_KEY,
-        enquiry_keys=get_enquiry_keys(),
+        enquiry_endpoints=get_enquiry_endpoints(),
+        fallback_action=formsubmit_endpoint(ENQUIRY_INBOXES["general"], ajax=False),
     )
 
 
@@ -625,7 +630,7 @@ def enquiry_thanks():
     return render_template("enquiry_thanks.html", business=BUSINESS)
 
 
-PRIVACY_UPDATED = "18 October 2026"   # change when the privacy policy text changes
+PRIVACY_UPDATED = "20 October 2026"   # change when the privacy policy text changes
 
 
 @app.get("/privacy/")
