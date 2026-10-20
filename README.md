@@ -10,8 +10,8 @@ Live at **https://arcooling.in** (GitHub Pages).
 - On every push to `main`, the GitHub Action (`.github/workflows/deploy.yml`) runs that
   build and publishes `_site/` to GitHub Pages. There is no server.
 - The enquiry form is sent by the visitor's browser to [Web3Forms](https://web3forms.com),
-  which emails each enquiry (with a reference like `AR-261016-4821`) to the right team:
-  products and spare parts to sales@, services to services@, other enquiries to enquiry@.
+  which emails each enquiry (with a reference like `AR-261016-4821`) to enquiry@arcooling.in.
+  The subject and the "Enquiry type" row say whether it is a product, service or spare part.
 
 ## Run it locally
 

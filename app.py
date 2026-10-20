@@ -26,10 +26,12 @@ WEB3FORMS_ACCESS_KEY = os.environ.get("WEB3FORMS_ACCESS_KEY", "").strip()
 # Each enquiry type is emailed to its own team. A Web3Forms key delivers only to the address
 # that created it, so every team inbox has its own key. Until a team's key is set, its
 # enquiries use WEB3FORMS_ACCESS_KEY.
+# All enquiry types currently go to one inbox, enquiry@arcooling.in. To route a type to its
+# own team again, give it a different email and key_env (e.g. sales@ / WEB3FORMS_KEY_SALES).
 ENQUIRY_TEAMS = {
-    "product": {"team": "Sales", "email": "sales@arcooling.in", "key_env": "WEB3FORMS_KEY_SALES"},
-    "spare": {"team": "Sales", "email": "sales@arcooling.in", "key_env": "WEB3FORMS_KEY_SALES"},
-    "service": {"team": "Services", "email": "services@arcooling.in", "key_env": "WEB3FORMS_KEY_SERVICES"},
+    "product": {"team": "Enquiry", "email": "enquiry@arcooling.in", "key_env": "WEB3FORMS_KEY_ENQUIRY"},
+    "spare": {"team": "Enquiry", "email": "enquiry@arcooling.in", "key_env": "WEB3FORMS_KEY_ENQUIRY"},
+    "service": {"team": "Enquiry", "email": "enquiry@arcooling.in", "key_env": "WEB3FORMS_KEY_ENQUIRY"},
     "general": {"team": "Enquiry", "email": "enquiry@arcooling.in", "key_env": "WEB3FORMS_KEY_ENQUIRY"},
 }
 

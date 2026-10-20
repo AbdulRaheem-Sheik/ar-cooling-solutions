@@ -35,10 +35,9 @@ jobs:
           # Web3Forms keys are public by design (they appear in the page HTML and can only
           # email the owner's inbox). A repository variable of the same name overrides this.
           WEB3FORMS_ACCESS_KEY: ${{ vars.WEB3FORMS_ACCESS_KEY || 'c17f04ca-f628-4b93-99b0-34c3fff5fc86' }}
-          # One key per team inbox (repository variables of the same names override these).
-          WEB3FORMS_KEY_SALES: ${{ vars.WEB3FORMS_KEY_SALES || '5dddaea2-90f5-4f02-ab02-f12974bc9232' }}        # products + spare parts -> sales@arcooling.in
-          WEB3FORMS_KEY_SERVICES: ${{ vars.WEB3FORMS_KEY_SERVICES || '2b452103-1b9d-4909-8757-85128fe14ff0' }}  # services -> services@arcooling.in
-          WEB3FORMS_KEY_ENQUIRY: ${{ vars.WEB3FORMS_KEY_ENQUIRY || '846406bd-2e1c-41d3-9d9c-da34ad9c92fd' }}    # "Other" / general -> enquiry@arcooling.in
+          # All enquiries (products, spare parts, services, other) -> enquiry@arcooling.in.
+          # A repository variable of the same name overrides this.
+          WEB3FORMS_KEY_ENQUIRY: ${{ vars.WEB3FORMS_KEY_ENQUIRY || '846406bd-2e1c-41d3-9d9c-da34ad9c92fd' }}
           AR_SITE_URL: https://arcooling.in
         run: python tools/build_static.py
 
