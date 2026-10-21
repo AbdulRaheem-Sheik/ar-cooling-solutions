@@ -29,9 +29,11 @@ TARGET_AREA = 0.30         # share of the canvas a logo should cover, for equal 
 ALPHA_FLOOR = 0.05         # fainter pixels than this are treated as background noise
 
 # Logos with a thin frame drawn around the edge: pixels to crop before processing.
-EDGE_CROP = {"mandev.jpg": 8}
+EDGE_CROP = {"mandev.jpg": 8, "biophore.jpg": 8}
 # Logos on a dark background whose white parts must stay visible on a white page.
 RECOLOR_LIGHT = {"vguard.png": (64, 56, 60)}
+# Logos on a patterned background that is part of the brand: kept as a tile.
+KEEP_BACKGROUND = {"wow_momo.jpg"}
 
 
 def pixel_data(image):
@@ -104,7 +106,10 @@ def main():
         for path in sorted(folder.iterdir()):
             if path.suffix.lower() not in {".png", ".jpg", ".jpeg", ".webp"}:
                 continue
-            image = remove_background(Image.open(path), EDGE_CROP.get(path.name, 0))
+            if path.name in KEEP_BACKGROUND:
+                image = Image.open(path).convert("RGBA")
+            else:
+                image = remove_background(Image.open(path), EDGE_CROP.get(path.name, 0))
             if path.name in RECOLOR_LIGHT:
                 image = recolor_light(image, RECOLOR_LIGHT[path.name])
             target = out_dir / f"{path.stem}.png"

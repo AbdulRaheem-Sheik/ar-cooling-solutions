@@ -17,6 +17,8 @@
 {%- endmacro %}
 
 <section class="logo-strips" aria-label="Clients and partners">
+  {#- The clients page already lists every client. -#}
+  {% if active != "clients" %}
   <div class="logo-strip">
     <div class="container partners-heading">
       <p class="eyebrow">Clients who trust us</p>
@@ -24,6 +26,7 @@
     </div>
     {{ logo_marquee(client_logos, "clients", "Our clients", reverse=True) }}
   </div>
+  {% endif %}
   <div class="logo-strip">
     <div class="container partners-heading">
       <p class="eyebrow">Trusted names in cooling</p>

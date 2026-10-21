@@ -43,7 +43,7 @@ def load_app():
 def page_paths(site):
     with site.app.test_request_context():
         paths = [site.url_for(endpoint) for endpoint in
-                 ("home", "products", "services", "spare_parts", "about", "product_enquiry", "enquiry_thanks", "privacy")]
+                 ("home", "products", "services", "spare_parts", "clients", "about", "product_enquiry", "enquiry_thanks", "privacy")]
         paths += [site.url_for("product_detail", slug=p["slug"]) for p in site.get_product_types()]
         paths += [site.url_for("service_detail", slug=s["slug"]) for s in site.get_services()]
     return paths

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% set active = "clients" %}
+
+{% block title %}Our Clients | {{ business.name }}{% endblock %}
+{% block meta_description %}Businesses across {{ business.city }} that trust {{ business.name }} for AC and HVAC installation, maintenance, repair and spare parts.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <p class="chip"><span class="status-dot"></span> Our clients</p>
+    <h1>Trusted by teams that can't afford to <em>overheat.</em></h1>
+    <p>Pharma plants, labs, engineering units, retail and restaurants across {{ business.city }} rely on us to install, maintain and repair the systems that keep them running.</p>
+  </div>
+</section>
+
+<section class="section container">
+  <ul class="client-grid" aria-label="Our clients">
+    {% for name, filename in client_logos.items() %}
+    <li class="client-card reveal">
+      <img src="{{ url_for('static', filename='images/logos/clients/' ~ filename) }}" alt="{{ name }}" width="160" height="60" loading="lazy">
+      <span>{{ name }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+
+{% include "_contact.html" %}
+{% endblock %}

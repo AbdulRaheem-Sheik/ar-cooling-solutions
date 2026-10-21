@@ -227,8 +227,22 @@ BRAND_LOGOS = {
     "Voltas": "voltas.png",
 }
 CLIENT_LOGOS = {
-    "Meil": "meil.png",
+    "Aizant": "aizant.png",
+    "Aureole Pharma-Tech": "aurelo.png",
     "Azad Engineering": "azad.png",
+    "Biophore": "biophore.png",
+    "Charge Infra": "charge_infra.png",
+    "Granules": "granules.png",
+    "Hetero": "hetero.png",
+    "Kreative Organics": "kreative.png",
+    "LuLu": "lulu.png",
+    "Mack Pharmatech": "mack.png",
+    "Maithri": "maithri.png",
+    "MEIL": "meil.png",
+    "Metrochem API": "metrochem.png",
+    "Resolute": "quad.png",
+    "Urban Kisaan": "urban_kisaan.png",
+    "Wow! Momo": "wow_momo.png",
 }
 
 
@@ -464,6 +478,11 @@ def service_detail(slug):
 @app.get("/about/")
 def about():
     return render_template("about.html", business=BUSINESS, product_count=len(get_product_types()))
+
+
+@app.get("/clients/")
+def clients():
+    return render_template("clients.html", business=BUSINESS)
 
 
 @app.get("/parts/")

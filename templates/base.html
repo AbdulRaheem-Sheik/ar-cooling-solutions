@@ -30,7 +30,7 @@
         <span></span><span></span>
       </button>
       <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
-        {% set nav = [("home", "/", "Home"), ("products", "/products/", "Products"), ("services", "/services/", "Services"), ("parts", "/parts/", "Spare parts"), ("about", "/about/", "About us"), ("contact", "/#contact", "Contact")] %}
+        {% set nav = [("home", "/", "Home"), ("products", "/products/", "Products"), ("services", "/services/", "Services"), ("parts", "/parts/", "Spare parts"), ("clients", "/clients/", "Our clients"), ("about", "/about/", "About us"), ("contact", "/#contact", "Contact")] %}
         {% for key, href, label in nav %}
         <a href="{{ href }}"{% if active == key %} aria-current="page"{% endif %}>{{ label }}</a>
         {% endfor %}
@@ -60,6 +60,7 @@
         <a href="/services/">Services</a>
         <a href="/products/">Products</a>
         <a href="/parts/">Spare parts</a>
+        <a href="/clients/">Our clients</a>
         <a href="/about/">About us</a>
         <a href="/enquiry/">Request a quote</a>
       </div>
