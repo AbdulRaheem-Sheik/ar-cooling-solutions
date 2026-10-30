@@ -128,6 +128,9 @@ BUSINESS = {
     "name": "AR Cooling Solutions",
     "phone_display": "+91 88013 81405",
     "phone_e164": "+918801381405",
+    # Second number, shown with the first in the contact section.
+    "phone2_display": "+91 88010 31846",
+    "phone2_e164": "+918801031846",
     "whatsapp_number": "918801381405",
     "email": "enquiry@arcooling.in",
     # Opening hours, shown across the site. Keep opening_days / opens / closes in step
@@ -142,6 +145,13 @@ BUSINESS = {
     "facebook_url": "https://www.facebook.com/profile.php?id=61555687123321",
     "instagram_url": "https://www.instagram.com/arcooling_in/",
     "city": "Hyderabad",
+    # The Google map in the contact section shows the shop's Google Maps listing: its exact
+    # name there, its pin ("latitude,longitude"), the zoom (higher = closer; 17 shows the
+    # street) and the listing's own link for "Open in Google Maps".
+    "map_query": "AR Cooling Solutions - AC Spare Parts & Services",
+    "map_center": "17.4904683,78.4507238",
+    "map_zoom": 17,
+    "map_url": "https://www.google.com/maps?cid=7070758302627232181",
 }
 SPARE_ENQUIRY_CATEGORIES = (
     "Copper coils",
@@ -362,6 +372,25 @@ def get_social_profiles():
     return [(key, label, BUSINESS[f"{key}_url"]) for key, label in networks if BUSINESS.get(f"{key}_url")]
 
 
+def get_nav_menus():
+    """Dropdowns in the main menu, by nav key: (group name, group link, [(item name, item link)])."""
+    products, services = get_product_types(), get_services()
+    return {
+        "products": [
+            (family["short_name"], f"/products/#{family['id']}",
+             [(p["name"], f"/products/{p['slug']}/") for p in products if p.get("family") == family["id"]])
+            for family in PRODUCT_FAMILIES
+        ],
+        "services": [
+            (group["name"], f"/services/#{group['id']}", items)
+            for group in SERVICE_GROUPS
+            if (items := [(s["name"], f"/services/{s['slug']}/") for s in services if s.get("group") == group["id"]])
+        ],
+        # Spare parts have no pages of their own, so the menu lists the categories.
+        "parts": [("Categories", "/parts/", [(c["name"], f"/parts/#{c['slug']}") for c in get_spare_categories()])],
+    }
+
+
 @app.context_processor
 def inject_site_settings():
     """Logos (shown above the footer on every page) and site-wide settings."""
@@ -371,6 +400,10 @@ def inject_site_settings():
         "site_url": SITE_URL,
         "snow_effect": SNOW_EFFECT,
         "social_profiles": get_social_profiles(),
+        "nav_menus": get_nav_menus(),
+        # The quick enquiry form in the contact section (see static/js/contact.js).
+        "contact_endpoint": formsubmit_endpoint(ENQUIRY_INBOXES["general"]),
+        "contact_fallback_action": formsubmit_endpoint(ENQUIRY_INBOXES["general"], ajax=False),
     }
 
 
@@ -477,7 +510,7 @@ def service_detail(slug):
 
 @app.get("/about/")
 def about():
-    return render_template("about.html", business=BUSINESS, product_count=len(get_product_types()))
+    return render_template("about.html", business=BUSINESS)
 
 
 @app.get("/clients/")

@@ -3,13 +3,13 @@
 {% set active = "about" %}
 
 {% block title %}About Us | {{ business.name }}{% endblock %}
-{% block meta_description %}{{ business.name }} is a {{ business.city }}-based AC and HVAC service partner with 15+ years of experience in installation, repair, maintenance and genuine spare parts.{% endblock %}
+{% block meta_description %}{{ business.name }} is a {{ business.city }}-based AC and HVAC service partner for installation, repair, maintenance and genuine spare parts.{% endblock %}
 
 {% block content %}
 <section class="page-hero">
   <div class="container page-hero-inner">
     <p class="chip"><span class="status-dot"></span> About {{ business.name }}</p>
-    <h1>15 years of helping {{ business.city }} stay <em>cool.</em></h1>
+    <h1>Helping {{ business.city }} stay <em>cool.</em></h1>
     <p>We're an AC and HVAC team built on a simple idea: diagnose honestly, use the right parts, and do the work properly so customers aren't calling back for the same problem a month later.</p>
   </div>
 </section>
@@ -18,26 +18,14 @@
   <div class="story-layout">
     <div class="story-media reveal">
       <img src="{{ url_for('static', filename='images/services/installation.jpg') }}" alt="{{ business.name }} technician installing an air conditioning unit" loading="lazy">
-      <div class="about-badge"><b>15+</b><span>years of<br>experience</span></div>
     </div>
     <div class="story-copy reveal">
       <p class="eyebrow">Our story</p>
       <h2>A complete cooling partner, built on experience.</h2>
-      <p>For more than 15 years, {{ business.name }} has helped {{ business.city }} homes and businesses get through long, hot summers. What we do covers the whole life of a system: installations, repairs, Annual Maintenance Contracts, commercial HVAC projects, and a dedicated spare-parts desk.</p>
+      <p>{{ business.name }} helps {{ business.city }} homes and businesses get through long, hot summers. What we do covers the whole life of a system: installations, repairs, Annual Maintenance Contracts, commercial HVAC projects, and a dedicated spare-parts desk.</p>
       <p>Today we support homes, offices, retail stores, restaurants, clinics and industrial facilities across the city. The equipment has changed, from fixed-speed window units to inverter splits, VRV/VRF systems and chilled-water plants, but our approach hasn't.</p>
       <p>We combine installation expertise, prompt repairs, maintenance and access to the right spare parts, so customers get complete solutions instead of temporary fixes.</p>
     </div>
-  </div>
-</section>
-
-<section class="section section-dark">
-  <div class="container">
-    <dl class="stat-band reveal">
-      <div><dt>15+</dt><dd>Years serving {{ business.city }}</dd></div>
-      <div><dt>{{ product_count }}</dt><dd>AC &amp; HVAC system types supported</dd></div>
-      <div><dt>6</dt><dd>Spare-part categories on our parts desk</dd></div>
-      <div><dt>{{ business.opening_days|length }}</dt><dd>Days a week</dd></div>
-    </dl>
   </div>
 </section>
 

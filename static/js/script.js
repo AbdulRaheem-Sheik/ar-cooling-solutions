@@ -51,51 +51,38 @@ if ("IntersectionObserver" in window) {
   revealItems.forEach((item) => item.classList.add("is-visible"));
 }
 
-// Collapsible catalog categories (products, services, spare parts).
-const catalogGroups = [...document.querySelectorAll(".catalog-group")];
-const catalogToggles = document.querySelectorAll("[data-catalog-toggle]");
+// Menu dropdowns (products, services, spare parts). On desktop they also open on hover
+// (CSS); the arrow button opens them on touch screens, with the keyboard and in the phone menu.
+const navItems = [...document.querySelectorAll("[data-nav-item]")];
 
-function syncCatalogToggles() {
-  const allOpen = catalogGroups.length > 0 && catalogGroups.every((group) => group.open);
-  catalogToggles.forEach((button) => {
-    button.setAttribute("aria-expanded", String(allOpen));
-    button.querySelector(".catalog-toggle-label").textContent = allOpen ? "Collapse all" : "Expand all";
-  });
+function setDropdown(item, open) {
+  item.classList.toggle("is-open", open);
+  item.querySelector(".nav-caret").setAttribute("aria-expanded", String(open));
 }
 
-// Open the category that holds a #target (a category or a card inside one).
-function revealCatalogTarget(hash, scroll) {
-  if (!hash || hash === "#") return;
-  let target;
-  try {
-    target = document.querySelector(decodeURIComponent(hash));
-  } catch {
-    return;
-  }
-  const group = target && target.closest(".catalog-group");
-  if (!group) return;
-  group.open = true;
-  if (scroll) target.scrollIntoView({ block: "start" });
-}
-
-if (catalogGroups.length) {
-  catalogGroups.forEach((group) => group.addEventListener("toggle", syncCatalogToggles));
-  catalogToggles.forEach((button) => {
-    button.addEventListener("click", () => {
-      const open = button.getAttribute("aria-expanded") !== "true";
-      catalogGroups.forEach((group) => { group.open = open; });
-      syncCatalogToggles();
-    });
+navItems.forEach((item) => {
+  item.querySelector(".nav-caret").addEventListener("click", () => {
+    const open = !item.classList.contains("is-open");
+    navItems.forEach((other) => setDropdown(other, other === item && open));
   });
+  // After choosing a link, close the dropdown (it would stay open while it has focus).
+  item.querySelector(".nav-menu").addEventListener("click", (event) => {
+    if (!event.target.closest("a")) return;
+    setDropdown(item, false);
+    event.target.closest("a").blur();
+  });
+});
 
-  // Same-page links: open the category before the browser scrolls to it.
+if (navItems.length) {
   document.addEventListener("click", (event) => {
-    const link = event.target.closest('a[href*="#"]');
-    if (link && link.pathname === location.pathname) revealCatalogTarget(link.hash, false);
+    navItems.forEach((item) => { if (!item.contains(event.target)) setDropdown(item, false); });
   });
-  window.addEventListener("hashchange", () => revealCatalogTarget(location.hash, true));
-  revealCatalogTarget(location.hash, true);
-  syncCatalogToggles();
+  document.addEventListener("keydown", (event) => {
+    const item = navItems.find((candidate) => candidate.classList.contains("is-open"));
+    if (event.key !== "Escape" || !item) return;
+    setDropdown(item, false);
+    item.querySelector(".nav-caret").focus();
+  });
 }
 
 const year = document.querySelector("#year");

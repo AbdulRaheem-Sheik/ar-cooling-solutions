@@ -3,7 +3,7 @@
   "slug": "fan-coil-units",
   "family": "central-products",
   "icon": "fan",
-  "image": "",
+  "image": "/static/images/products/fan-coil.jpg",
   "tagline": "Room-level comfort from a central chilled-water plant",
   "description": "Compact terminal units that use chilled water from a central chiller to cool individual rooms and zones.",
   "long_description": "A fan coil unit pulls room air across a chilled-water coil and blows it back into the space. Each FCU has its own thermostat, so hotel rooms, cabins and wards can be controlled individually while the main cooling comes from a central chiller plant. FCUs come as ceiling-concealed, cassette, wall-mounted and floor-standing models.",

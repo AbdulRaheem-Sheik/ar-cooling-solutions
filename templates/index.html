@@ -39,16 +39,11 @@
     <div class="hero-copy">
       <p class="chip"><span class="status-dot"></span> {{ business.city }}'s cooling specialists</p>
       <h1>Comfort that keeps its <em>cool.</em></h1>
-      <p class="hero-intro">Genuine AC parts, honest repairs and careful installation for homes, offices and commercial spaces. We've been keeping {{ business.city }} comfortable for more than 15 years.</p>
+      <p class="hero-intro">From split, cassette and VRV/VRF systems to chillers and AHUs, we supply and install the right AC for every space. We handle repairs, gas refilling, deep cleaning and AMCs, and stock genuine compressors, coils, PCBs and more for homes and businesses across {{ business.city }}.</p>
       <div class="hero-actions">
         <a class="button button-primary" href="tel:{{ business.phone_e164 }}" title="Call {{ business.phone_display }}">{{ icon("phone") }} Call us</a>
         <a class="button button-glass" href="/enquiry/">Request a quote {{ icon("arrow-right") }}</a>
       </div>
-      <dl class="hero-stats">
-        <div><dt>15+</dt><dd>Years serving {{ business.city }}</dd></div>
-        <div><dt>{{ products|length }}</dt><dd>AC &amp; HVAC system types</dd></div>
-        <div><dt>{{ business.opening_days|length }}</dt><dd>Days a week</dd></div>
-      </dl>
     </div>
     <div class="hero-visual">
       <img class="hero-image" src="{{ url_for('static', filename='images/services/installation.jpg') }}" alt="{{ business.name }} technician installing an air conditioner" fetchpriority="high">
@@ -140,7 +135,7 @@
       <div class="why-card reveal">
         <span class="why-icon">{{ icon("users") }}</span>
         <h3>Experienced technicians</h3>
-        <p>15+ years on split, cassette, ductable, VRV/VRF and central systems across the city.</p>
+        <p>Hands-on with split, cassette, ductable, VRV/VRF and central systems across the city.</p>
       </div>
       <div class="why-card reveal">
         <span class="why-icon">{{ icon("building") }}</span>
@@ -185,11 +180,10 @@
   <div class="container about-teaser">
     <div class="about-teaser-media reveal">
       <img src="{{ url_for('static', filename='images/services/commercial.jpg') }}" alt="Commercial HVAC system serviced by {{ business.name }}" loading="lazy">
-      <div class="about-badge"><b>15+</b><span>years of<br>experience</span></div>
     </div>
     <div class="reveal">
       <p class="eyebrow">Real experience. Practical advice.</p>
-      <h2>15 years of helping {{ business.city }} stay cool.</h2>
+      <h2>Helping {{ business.city }} stay cool.</h2>
       <p>{{ business.name }} is a {{ business.city }}-based AC and HVAC service partner for homes, offices, retail spaces and commercial facilities. We bring together installation, prompt repairs, maintenance and the right spare parts, so customers get complete solutions instead of temporary fixes.</p>
       <p>Our approach is simple: honest recommendations, quality workmanship and practical support for the equipment you already have.</p>
       <ul class="check-list">

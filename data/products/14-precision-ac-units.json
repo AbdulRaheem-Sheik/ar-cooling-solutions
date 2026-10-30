@@ -3,7 +3,7 @@
   "slug": "precision-ac-units",
   "family": "central-products",
   "icon": "chip",
-  "image": "",
+  "image": "/static/images/products/precision.jpg",
   "tagline": "Round-the-clock cooling for servers and sensitive equipment",
   "description": "Close-control air conditioners that hold temperature and humidity steady for server rooms, data centres and labs.",
   "long_description": "Precision ACs are built to run 24/7 and hold temperature within about ±1 °C and humidity within a tight band. They move much more air per ton than comfort ACs and handle mostly sensible heat, which is what IT and electronic equipment give off. Redundant units, alarms and remote monitoring keep critical rooms protected.",

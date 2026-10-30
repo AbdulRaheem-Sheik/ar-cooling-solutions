@@ -27,13 +27,13 @@
       <p class="eyebrow">Find a part</p>
       <h2 id="category-heading">Browse by category.</h2>
     </div>
-    <p>Open a category to see the parts we supply. Availability and fit depend on your AC model, so enquire and we'll check compatibility and stock.</p>
+    <p>See the parts we supply in each category. Availability and fit depend on your AC model, so enquire and we'll check compatibility and stock.</p>
   </div>
 
   {{ catalog_toolbar(categories|sum(attribute="parts", start=[])|length, "spare parts in " ~ categories|length ~ " categories") }}
   <div class="catalog">
     {% for category in categories %}
-    {% call catalog_group(category.slug, category.name, category.description, category.icon or "spark", category.parts|length, "parts", open=loop.first) %}
+    {% call catalog_group(category.slug, category.name, category.description, category.icon or "spark", category.parts|length, "parts") %}
     {% if category.long_description or category.signs %}
     <div class="catalog-note">
       {% if category.long_description %}<p>{{ category.long_description }}</p>{% endif %}

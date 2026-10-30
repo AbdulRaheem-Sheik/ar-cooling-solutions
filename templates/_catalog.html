@@ -6,29 +6,24 @@
 {% macro catalog_toolbar(total, noun) -%}
 <div class="catalog-toolbar">
   <p><b>{{ total }}</b> {{ noun }}</p>
-  <button class="catalog-toggle" type="button" data-catalog-toggle aria-expanded="false">
-    <span class="catalog-toggle-label">Expand all</span>
-    <span class="catalog-chevron" aria-hidden="true"></span>
-  </button>
 </div>
 {%- endmacro %}
 
-{#- A collapsible category. Use with {% call catalog_group(...) %}cards{% endcall %}. -#}
-{% macro catalog_group(id, title, description, icon_name, count, noun, open=False) -%}
-<details class="catalog-group reveal" id="{{ id }}"{% if open %} open{% endif %}>
-  <summary class="catalog-summary">
+{#- A category section. Use with {% call catalog_group(...) %}cards{% endcall %}. -#}
+{% macro catalog_group(id, title, description, icon_name, count, noun) -%}
+<section class="catalog-group reveal" id="{{ id }}">
+  <div class="catalog-summary">
     <span class="catalog-icon">{{ icon(icon_name) }}</span>
     <span class="catalog-title">
       <h2>{{ title }}</h2>
       <span>{{ description }}</span>
     </span>
     <span class="catalog-count">{{ count }} {{ noun }}</span>
-    <span class="catalog-chevron" aria-hidden="true"></span>
-  </summary>
+  </div>
   <div class="catalog-body">
     {{ caller() }}
   </div>
-</details>
+</section>
 {%- endmacro %}
 
 {#- One item card. The whole card links to `href`; the Enquire button sits above that link. -#}

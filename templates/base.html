@@ -23,16 +23,34 @@
   <header class="site-header">
     <div class="header-inner">
       <a class="brand" href="/" aria-label="{{ business.name }} home">
-        <span class="brand-mark" aria-hidden="true"><img src="{{ url_for('static', filename='images/Cooling-Logo-PNG-Photo.png') }}" alt=""></span>
-        <span class="brand-text"><b>AR Cooling</b><small>Solutions</small></span>
+        <span class="brand-lockup"><img src="{{ url_for('static', filename='images/ar_logo.jpg') }}" alt=""><span class="brand-text"><b>COOLING</b><small>Solutions</small></span></span>
       </a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation">
         <span></span><span></span>
       </button>
       <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
-        {% set nav = [("home", "/", "Home"), ("products", "/products/", "Products"), ("services", "/services/", "Services"), ("parts", "/parts/", "Spare parts"), ("clients", "/clients/", "Our clients"), ("about", "/about/", "About us"), ("contact", "/#contact", "Contact")] %}
+        {% set nav = [("home", "/", "Home"), ("products", "/products/", "Products"), ("services", "/services/", "Services"), ("parts", "/parts/", "Spare parts"), ("clients", "/clients/", "Our clients"), ("about", "/about/", "About us"), ("contact", "/#contact", "Contact us")] %}
         {% for key, href, label in nav %}
+        {% if nav_menus[key] %}
+        {#- Dropdown: opens on hover on desktop; the arrow button opens it on touch screens and phones. -#}
+        <div class="nav-item" data-nav-item>
+          <a class="nav-link" href="{{ href }}"{% if active == key %} aria-current="page"{% endif %}>{{ label }}</a>
+          <button class="nav-caret" type="button" aria-expanded="false" aria-controls="nav-menu-{{ key }}" aria-label="Show {{ label|lower }}"></button>
+          <div class="nav-menu nav-menu-{{ key }}" id="nav-menu-{{ key }}">
+            {% for group, group_href, items in nav_menus[key] %}
+            <div class="nav-menu-group">
+              <a class="nav-menu-heading" href="{{ group_href }}">{{ group }}</a>
+              <ul>
+                {% for item, item_href in items %}<li><a href="{{ item_href }}">{{ item }}</a></li>{% endfor %}
+              </ul>
+            </div>
+            {% endfor %}
+            <a class="nav-menu-all" href="{{ href }}">View all {{ label|lower }} {{ icon("arrow-right") }}</a>
+          </div>
+        </div>
+        {% else %}
         <a href="{{ href }}"{% if active == key %} aria-current="page"{% endif %}>{{ label }}</a>
+        {% endif %}
         {% endfor %}
         <a class="nav-call" href="tel:{{ business.phone_e164 }}" title="Call {{ business.phone_display }}">{{ icon("phone") }} Call us</a>
       </nav>
@@ -49,8 +67,7 @@
     <div class="footer-inner">
       <div class="footer-brand">
         <a class="brand brand-invert" href="/" aria-label="{{ business.name }} home">
-          <span class="brand-mark" aria-hidden="true"><img src="{{ url_for('static', filename='images/Cooling-Logo-PNG-Photo.png') }}" alt=""></span>
-          <span class="brand-text"><b>AR Cooling</b><small>Solutions · {{ business.city }}</small></span>
+          <span class="brand-lockup"><img src="{{ url_for('static', filename='images/ar_logo.jpg') }}" alt=""><span class="brand-text"><b>COOLING</b><small>Solutions · {{ business.city }}</small></span></span>
         </a>
         <p>AC sales, installation, repair, maintenance and genuine spare parts for homes and businesses across {{ business.city }}, from one team.</p>
       </div>

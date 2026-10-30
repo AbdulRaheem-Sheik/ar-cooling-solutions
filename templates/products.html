@@ -26,14 +26,14 @@
       <p class="eyebrow">Browse by application</p>
       <h2 id="products-heading">Cooling for every kind of space.</h2>
     </div>
-    <p>Open a category to compare the systems in it, then view the details or enquire for a site-specific recommendation.</p>
+    <p>Compare the systems in each category, then view the details or enquire for a site-specific recommendation.</p>
   </div>
 
   {{ catalog_toolbar(products|length, "AC & HVAC systems in " ~ families|length ~ " categories") }}
   <div class="catalog">
     {% for family in families %}
     {% set items = products|selectattr("family", "equalto", family.id)|list %}
-    {% call catalog_group(family.id, family.name, family.description, family.icon, items|length, "systems", open=loop.first) %}
+    {% call catalog_group(family.id, family.name, family.description, family.icon, items|length, "systems") %}
     <div class="product-grid">
       {% for product in items %}
       {{ catalog_card(

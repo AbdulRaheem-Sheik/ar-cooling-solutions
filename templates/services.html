@@ -26,7 +26,7 @@
       <p class="eyebrow">All services</p>
       <h2 id="services-heading">Pick a service to see the details.</h2>
     </div>
-    <p>Open a category to see its services. Each service page covers what's included, how the job is done, the options and common questions.</p>
+    <p>Services are grouped by category. Each service page covers what's included, how the job is done, the options and common questions.</p>
   </div>
 
   {{ catalog_toolbar(services|length, "services in " ~ groups|length ~ " categories") }}
@@ -34,7 +34,7 @@
     {% for group in groups %}
     {% set items = services|selectattr("group", "equalto", group.id)|list %}
     {% if items %}
-    {% call catalog_group(group.id, group.name, group.description, group.icon, items|length, "services" if items|length != 1 else "service", open=loop.first) %}
+    {% call catalog_group(group.id, group.name, group.description, group.icon, items|length, "services" if items|length != 1 else "service") %}
     <div class="product-grid">
       {% for service in items %}
       {{ catalog_card(
