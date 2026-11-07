@@ -169,3 +169,18 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   }, 5500);
 });
 
+// Track Call, WhatsApp and Email taps in Google Analytics
+document.addEventListener('click', function (e) {
+  var link = e.target.closest('a[href]');
+  if (!link || typeof gtag !== 'function') return;
+  var href = link.getAttribute('href') || '';
+  var text = (link.textContent || '').trim().slice(0, 50);
+
+  if (href.indexOf('tel:') === 0) {
+    gtag('event', 'call_click', { link_text: text });
+  } else if (/wa\.me|whatsapp\.com/.test(href)) {
+    gtag('event', 'whatsapp_click', { link_text: text });
+  } else if (href.indexOf('mailto:') === 0) {
+    gtag('event', 'email_click', { link_text: text });
+  }
+});
