@@ -50,18 +50,36 @@
     <div class="product-grid">
       {% for part in category.parts %}
       {% set enquire = spare_enquiry_url(category, part) %}
+      {% set has_page = part.slug and category.slug in spare_detail_endpoints %}
       {{ catalog_card(
-        href=enquire,
+        href=spare_part_url(category, part) if has_page else enquire,
         visual={"name": part.name, "icon": category.icon, "image": part.image or ""},
         title=part.name,
         text=part.detail,
         tagline=category.name,
-        specs=[("Matched by", category.match_by or "Brand and model")],
+        specs=part.card_specs if part.card_specs else [("Type", part.type), ("GWP", part.gwp)] if has_page else [("Matched by", category.match_by or "Brand and model")],
         enquire_href=enquire,
-        link_label="Check fit & price"
+        link_label="View specs" if has_page else "Check fit & price"
       ) }}
       {% endfor %}
     </div>
+    {% if category.slug == "compressors" and compressor_brands %}
+    <div class="brand-models">
+      <div class="brand-models-heading">
+        <h3>Browse compressor models by brand</h3>
+        <a class="card-link" href="{{ url_for('compressors') }}">All compressor models {{ icon("arrow-right") }}</a>
+      </div>
+      <div class="brand-link-grid">
+        {% for brand in compressor_brands %}
+        <a class="brand-link-card" href="{{ url_for('compressors') }}#{{ brand.slug }}">
+          <b>{{ brand.brand }}</b>
+          <span>{{ brand.series|map(attribute="name")|join(" · ") }}</span>
+          <small>{{ brand.series|sum(attribute="models", start=[])|length }} models {{ icon("arrow-right") }}</small>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
     {% endcall %}
     {% endfor %}
   </div>

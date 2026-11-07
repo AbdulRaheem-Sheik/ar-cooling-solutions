@@ -1,0 +1,68 @@
+{
+  "brand": "Others",
+  "slug": "others",
+  "description": "Rotary, inverter and reciprocating compressors from other makers for split, window and light commercial ACs. Exact models are matched to your unit.",
+  "series": [
+    {
+      "name": "Rotary compressors",
+      "type": "Hermetic rotary",
+      "refrigerant": "R22 / R410A / R32",
+      "application": "Split and window ACs",
+      "brands": "GMCC, Highly, LG, Panasonic and others",
+      "description": "Fixed-speed rotary compressors for split and window ACs. We match the replacement to your AC's capacity, refrigerant and the original compressor's mounting and electrical ratings.",
+      "power_supply": ["220–240 V, single-phase, 50 Hz"],
+      "features": [
+        "Compact, quiet and efficient at small capacities",
+        "Matched to the original refrigerant, capacity and mounting",
+        "Usually supplied with a matching run capacitor where needed"
+      ],
+      "models": [
+        {"name": "Rotary compressor 0.75 TR", "slug": "rotary-0-75-tr", "capacity_btuh": 9000},
+        {"name": "Rotary compressor 1 TR", "slug": "rotary-1-tr", "capacity_btuh": 12000},
+        {"name": "Rotary compressor 1.5 TR", "slug": "rotary-1-5-tr", "capacity_btuh": 18000},
+        {"name": "Rotary compressor 2 TR", "slug": "rotary-2-tr", "capacity_btuh": 24000}
+      ]
+    },
+    {
+      "name": "Inverter (BLDC) compressors",
+      "type": "Hermetic rotary, variable speed (BLDC)",
+      "refrigerant": "R410A / R32",
+      "application": "Inverter split ACs",
+      "brands": "GMCC, Highly, LG, Panasonic and others",
+      "description": "Variable-speed brushless DC compressors for inverter split ACs. These must be matched to the outdoor PCB's drive, so we confirm the exact model from your old compressor's label.",
+      "power_supply": ["Driven by the outdoor unit's inverter PCB"],
+      "features": [
+        "Speed varies with load for lower power use",
+        "Must match the inverter drive on the outdoor PCB",
+        "Replacement identified from the original compressor label"
+      ],
+      "models": [
+        {"name": "Inverter compressor 1 TR", "slug": "inverter-1-tr", "capacity_btuh": 12000},
+        {"name": "Inverter compressor 1.5 TR", "slug": "inverter-1-5-tr", "capacity_btuh": 18000},
+        {"name": "Inverter compressor 2 TR", "slug": "inverter-2-tr", "capacity_btuh": 24000}
+      ]
+    },
+    {
+      "name": "Reciprocating compressors",
+      "type": "Hermetic reciprocating",
+      "refrigerant": "R22 / R134a / R404A",
+      "application": "Older ACs, water coolers and light commercial units",
+      "brands": "Tecumseh, Kirloskar and others",
+      "description": "Reciprocating compressors for older ACs and light commercial cooling equipment. We match capacity, refrigerant and mounting to the original unit.",
+      "power_supply": [
+        "220–240 V, single-phase, 50 Hz",
+        "380–415 V, three-phase, 50 Hz (larger models)"
+      ],
+      "features": [
+        "Simple, serviceable design",
+        "Suited to older and light commercial equipment",
+        "Matched to the original refrigerant and mounting"
+      ],
+      "models": [
+        {"name": "Reciprocating compressor 1.5 TR", "slug": "reciprocating-1-5-tr", "capacity_btuh": 18000},
+        {"name": "Reciprocating compressor 2 TR", "slug": "reciprocating-2-tr", "capacity_btuh": 24000},
+        {"name": "Reciprocating compressor 3 TR", "slug": "reciprocating-3-tr", "capacity_btuh": 36000}
+      ]
+    }
+  ]
+}

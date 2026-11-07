@@ -1,0 +1,84 @@
+{
+  "brand": "Danfoss",
+  "slug": "danfoss",
+  "description": "Danfoss Performer scroll and Maneurop reciprocating compressors for package units, chillers and commercial cooling.",
+  "series": [
+    {
+      "name": "Performer SM scroll",
+      "type": "Hermetic scroll",
+      "refrigerant": "R22",
+      "application": "Air conditioning and chillers",
+      "description": "Danfoss Performer scroll compressors for R22 systems, widely used in package units and chillers. The model number is the nominal capacity in thousands of BTU/h (SM120 ≈ 10 TR).",
+      "power_supply": [
+        "Code 4: 380–400 V, three-phase, 50 Hz",
+        "Other voltage codes available on some models"
+      ],
+      "features": [
+        "Can be fitted in tandem or trio sets for larger systems",
+        "Built-in motor protection",
+        "Common in package units and air-cooled chillers"
+      ],
+      "models": [
+        {"model": "SM084", "capacity_btuh": 84000},
+        {"model": "SM090", "capacity_btuh": 90000},
+        {"model": "SM100", "capacity_btuh": 100000},
+        {"model": "SM110", "capacity_btuh": 110000},
+        {"model": "SM120", "capacity_btuh": 120000},
+        {"model": "SM148", "capacity_btuh": 148000},
+        {"model": "SM161", "capacity_btuh": 161000},
+        {"model": "SM175", "capacity_btuh": 175000},
+        {"model": "SM185", "capacity_btuh": 185000}
+      ]
+    },
+    {
+      "name": "Performer SH scroll",
+      "type": "Hermetic scroll",
+      "refrigerant": "R410A",
+      "application": "Air conditioning and chillers",
+      "description": "Danfoss Performer scroll compressors for R410A systems, from package units up to large chillers. The model number is the nominal capacity in thousands of BTU/h.",
+      "power_supply": [
+        "Code 4: 380–400 V, three-phase, 50 Hz",
+        "Other voltage codes available on some models"
+      ],
+      "features": [
+        "Can be fitted in tandem or trio sets for larger systems",
+        "Uses POE oil, as required for HFC refrigerants",
+        "Common in rooftop units, package units and chillers"
+      ],
+      "models": [
+        {"model": "SH090", "capacity_btuh": 90000},
+        {"model": "SH105", "capacity_btuh": 105000},
+        {"model": "SH120", "capacity_btuh": 120000},
+        {"model": "SH140", "capacity_btuh": 140000},
+        {"model": "SH161", "capacity_btuh": 161000},
+        {"model": "SH184", "capacity_btuh": 184000},
+        {"model": "SH240", "capacity_btuh": 240000},
+        {"model": "SH295", "capacity_btuh": 295000},
+        {"model": "SH380", "capacity_btuh": 380000},
+        {"model": "SH485", "capacity_btuh": 485000}
+      ]
+    },
+    {
+      "name": "Maneurop MTZ reciprocating",
+      "type": "Hermetic reciprocating",
+      "refrigerant": "R404A / R507 / R134a / R407C",
+      "application": "Medium and high temperature: cold rooms, chillers and commercial cooling",
+      "description": "Danfoss Maneurop MTZ reciprocating compressors for commercial refrigeration and air conditioning. Capacity depends heavily on refrigerant and operating temperatures, so we size them from your unit's existing model.",
+      "power_supply": [
+        "Code 4: 380–400 V, three-phase, 50 Hz",
+        "Code 5: 230 V, single-phase, 50 Hz (smaller models)"
+      ],
+      "features": [
+        "Robust design for medium and high temperature duty",
+        "Uses POE oil",
+        "Used in cold rooms, water chillers and commercial cooling"
+      ],
+      "models": [
+        {"model": "MTZ18"}, {"model": "MTZ22"}, {"model": "MTZ28"}, {"model": "MTZ32"},
+        {"model": "MTZ36"}, {"model": "MTZ40"}, {"model": "MTZ44"}, {"model": "MTZ50"},
+        {"model": "MTZ56"}, {"model": "MTZ64"}, {"model": "MTZ72"}, {"model": "MTZ80"},
+        {"model": "MTZ100"}, {"model": "MTZ125"}, {"model": "MTZ144"}, {"model": "MTZ160"}
+      ]
+    }
+  ]
+}

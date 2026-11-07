@@ -2,15 +2,1268 @@
   "name": "Copper coils",
   "slug": "copper-coils",
   "icon": "coil",
-  "description": "Refrigerant tubing for split AC installations and repairs.",
-  "long_description": "Soft-drawn copper tubing in pancake coils carries refrigerant between the indoor and outdoor units. The right diameter and wall thickness protect against leaks and pressure loss, especially with high-pressure refrigerants like R32 and R410A.",
+  "description": "Soft annealed coils, hard copper tubes and fittings for refrigerant lines.",
+  "long_description": "Copper tube carries refrigerant between the indoor and outdoor units and around larger systems. We supply soft annealed coils for split and ductable line sets, hard copper tubes for long runs and VRF piping, and the fittings to join them, from 6.35 mm to 50.80 mm OD in the wall thickness your refrigerant needs.",
   "match_by": "Pipe OD, wall thickness and length",
   "parts": [
-    {"name": "Pancake copper coils", "detail": "Soft-drawn coils in 3/16\" to 7/8\" OD for refrigerant lines."},
-    {"name": "Liquid & suction line pairs", "detail": "Matched pipe pairs for split AC indoor–outdoor connections."},
-    {"name": "Insulation sleeves & tape", "detail": "Nitrile insulation and wrapping tape to stop sweating and heat gain."},
-    {"name": "Flare nuts & brazing consumables", "detail": "Flare nuts, brazing rods and flux for leak-free joints."}
+    {
+      "name": "Soft annealed copper coils",
+      "slug": "soft-annealed",
+      "detail": "Flexible annealed copper in pancake and level-wound coils, for split and ductable AC line sets.",
+      "card_specs": [
+        [
+          "OD range",
+          "6.35–50.80 mm"
+        ],
+        [
+          "Wall",
+          "0.61–1.65 mm"
+        ]
+      ],
+      "summary": "Soft annealed (O temper) copper tube is heat-treated so it bends by hand or with a bender and can be flared. It is the standard tube for split AC and ductable refrigerant lines, supplied in coils that are cleaned, dehydrated and sealed at both ends.",
+      "facts": [
+        [
+          "OD range",
+          "6.35–50.80 mm (1/4″–2″)"
+        ],
+        [
+          "Wall thickness",
+          "0.61–1.65 mm"
+        ],
+        [
+          "Temper",
+          "Soft annealed (O / R220)"
+        ]
+      ],
+      "specs": [
+        [
+          "Brand",
+          "Mexflow (Mehta Tubes)"
+        ],
+        [
+          "Material",
+          "Phosphorus-deoxidised copper, Cu-DHP (C12200), min. 99.9% Cu + Ag"
+        ],
+        [
+          "Temper",
+          "Soft annealed: O60 (ASTM) / R220 (EN)"
+        ],
+        [
+          "Outside diameter",
+          "6.35 mm (1/4″) to 50.80 mm (2″)"
+        ],
+        [
+          "Wall thickness",
+          "0.61 mm to 1.65 mm, depending on OD"
+        ],
+        [
+          "Tensile strength",
+          "Min. 220 MPa"
+        ],
+        [
+          "Elongation",
+          "Min. 40%"
+        ],
+        [
+          "Hardness",
+          "Approx. 40–60 HV"
+        ],
+        [
+          "Supply form",
+          "Pancake coils, 15 m to 100 m"
+        ],
+        [
+          "Internal cleanliness",
+          "Cleaned and dehydrated, ends capped or sealed"
+        ],
+        [
+          "Joining",
+          "Flaring, brazing, swaging"
+        ],
+        [
+          "Standards",
+          "IS · BS · EN · ASTM · AS · JIS (incl. ASTM B280, EN 12735-1)"
+        ]
+      ],
+      "notes": [
+        "For R32 and R410A, choose a wall rated for their higher pressure (at least 0.8 mm for 1/4″–1/2″ and 1.0 mm for 5/8″ is a common AC maker minimum)",
+        "Keep coil ends sealed until use so moisture and dirt stay out",
+        "Insulate both liquid and suction lines to stop sweating and heat gain"
+      ],
+      "size_chart": [
+        {
+          "nominal_od": "1/4",
+          "od_mm": "6.35",
+          "wall_mm": [
+            "0.61",
+            "0.71",
+            "0.81"
+          ]
+        },
+        {
+          "nominal_od": "5/16",
+          "od_mm": "7.94",
+          "wall_mm": [
+            "0.61",
+            "0.71",
+            "0.81"
+          ]
+        },
+        {
+          "nominal_od": "3/8",
+          "od_mm": "9.52",
+          "wall_mm": [
+            "0.61",
+            "0.71",
+            "0.81"
+          ]
+        },
+        {
+          "nominal_od": "1/2",
+          "od_mm": "12.70",
+          "wall_mm": [
+            "0.71",
+            "0.81",
+            "0.91"
+          ]
+        },
+        {
+          "nominal_od": "5/8",
+          "od_mm": "15.88",
+          "wall_mm": [
+            "0.81",
+            "0.91",
+            "1.00"
+          ]
+        },
+        {
+          "nominal_od": "3/4",
+          "od_mm": "19.05",
+          "wall_mm": [
+            "0.81",
+            "0.91",
+            "1.00",
+            "1.22"
+          ]
+        },
+        {
+          "nominal_od": "7/8",
+          "od_mm": "22.22",
+          "wall_mm": [
+            "0.91",
+            "1.00",
+            "1.22"
+          ]
+        },
+        {
+          "nominal_od": "1",
+          "od_mm": "25.40",
+          "wall_mm": [
+            "1.00",
+            "1.22"
+          ]
+        },
+        {
+          "nominal_od": "1-1/8",
+          "od_mm": "28.58",
+          "wall_mm": [
+            "1.00",
+            "1.22",
+            "1.27"
+          ]
+        },
+        {
+          "nominal_od": "1-1/4",
+          "od_mm": "31.75",
+          "wall_mm": [
+            "1.22",
+            "1.27"
+          ]
+        },
+        {
+          "nominal_od": "1-3/8",
+          "od_mm": "34.92",
+          "wall_mm": [
+            "1.22",
+            "1.40"
+          ]
+        },
+        {
+          "nominal_od": "1-1/2",
+          "od_mm": "38.10",
+          "wall_mm": [
+            "1.22",
+            "1.40"
+          ]
+        },
+        {
+          "nominal_od": "1-5/8",
+          "od_mm": "41.28",
+          "wall_mm": [
+            "1.22",
+            "1.52"
+          ]
+        },
+        {
+          "nominal_od": "1-3/4",
+          "od_mm": "44.45",
+          "wall_mm": [
+            "1.40",
+            "1.52"
+          ]
+        },
+        {
+          "nominal_od": "2",
+          "od_mm": "50.80",
+          "wall_mm": [
+            "1.52",
+            "1.65"
+          ]
+        }
+      ],
+      "uses": [
+        {
+          "name": "Copper coils for VRV / VRF",
+          "detail": "Soft coils for the branch and indoor-unit runs of VRV and VRF systems.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed)"
+            ],
+            [
+              "OD",
+              "4.76–22.22 mm (3/16″–7/8″)"
+            ],
+            [
+              "Min. wall",
+              "0.508 mm (0.020″)"
+            ],
+            [
+              "Supply",
+              "Coils, 15–100 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-coils.html"
+        },
+        {
+          "name": "Copper coils for split AC",
+          "detail": "Soft coils for the liquid and suction lines between indoor and outdoor units.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed)"
+            ],
+            [
+              "OD",
+              "4.76–22.22 mm (3/16″–7/8″)"
+            ],
+            [
+              "Min. wall",
+              "0.508 mm (0.020″)"
+            ],
+            [
+              "Supply",
+              "Coils, 15–100 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-coils.html"
+        },
+        {
+          "name": "Bare copper tubes for instrumentation",
+          "detail": "Bare soft coils for instrument impulse lines and steam tracing.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed)"
+            ],
+            [
+              "OD",
+              "4.76–22.22 mm (3/16″–7/8″)"
+            ],
+            [
+              "Min. wall",
+              "0.508 mm (0.020″)"
+            ],
+            [
+              "Supply",
+              "Coils, 15–100 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-coils.html"
+        },
+        {
+          "name": "PVC-coated copper tubes for instrumentation",
+          "detail": "PVC-sheathed coils for instrumentation and steam tracing where the tube needs protection.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "4.76–22.22 mm (3/16″–7/8″)"
+            ],
+            [
+              "Min. wall",
+              "0.508 mm (0.020″)"
+            ],
+            [
+              "Supply",
+              "Coils, 15–100 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-coils.html"
+        }
+      ],
+      "brand": "Mexflow by Mehta Tubes"
+    },
+    {
+      "name": "Hard copper tubes",
+      "slug": "hard-drawn",
+      "detail": "Straight copper tubes in hard, half-hard and soft tempers, for HVAC, medical gas, plumbing and industry.",
+      "card_specs": [
+        [
+          "OD range",
+          "6.35–50.80 mm"
+        ],
+        [
+          "Wall",
+          "0.61–1.65 mm"
+        ]
+      ],
+      "summary": "Straight-length copper tube, supplied hard drawn for rigid, self-supporting runs, and also in half-hard, quarter-hard and soft tempers. Beyond AC and refrigeration it is used for medical gas, plumbing, household gas, heat exchangers, solar and industrial applications.",
+      "facts": [
+        [
+          "OD range",
+          "6.35–50.80 mm (1/4″–2″)"
+        ],
+        [
+          "Wall thickness",
+          "0.61–1.65 mm"
+        ],
+        [
+          "Temper",
+          "Hard drawn (H / R290)"
+        ]
+      ],
+      "specs": [
+        [
+          "Brand",
+          "Mexflow (Mehta Tubes)"
+        ],
+        [
+          "Material",
+          "Phosphorus-deoxidised copper, Cu-DHP (C12200), min. 99.9% Cu + Ag"
+        ],
+        [
+          "Temper",
+          "Hard drawn: H58 (ASTM) / R290 (EN); also half hard, quarter hard and soft"
+        ],
+        [
+          "Outside diameter",
+          "6.35 mm (1/4″) to 50.80 mm (2″)"
+        ],
+        [
+          "Wall thickness",
+          "0.61 mm to 1.65 mm, depending on OD"
+        ],
+        [
+          "Tensile strength",
+          "Min. 290 MPa"
+        ],
+        [
+          "Elongation",
+          "Min. 3%"
+        ],
+        [
+          "Hardness",
+          "Min. 100 HV"
+        ],
+        [
+          "Supply form",
+          "Straight lengths up to 6 m (up to 15 m for heat exchanger tube)"
+        ],
+        [
+          "Internal cleanliness",
+          "Cleaned and dehydrated, ends capped"
+        ],
+        [
+          "Joining",
+          "Brazing with socket fittings (cannot be flared or bent cold)"
+        ],
+        [
+          "Standards",
+          "IS · BS · EN · ASTM · AS · JIS (incl. ASTM B280, EN 12735-1, EN 13348 for MGPS)"
+        ]
+      ],
+      "notes": [
+        "Rigid tube stays straight and looks neat on long, clamped runs",
+        "Plan direction changes with elbows, since hard copper cracks if bent cold",
+        "Braze with a nitrogen purge to stop scale forming inside the pipe"
+      ],
+      "size_chart": [
+        {
+          "nominal_od": "1/4",
+          "od_mm": "6.35",
+          "wall_mm": [
+            "0.61",
+            "0.71",
+            "0.81"
+          ]
+        },
+        {
+          "nominal_od": "5/16",
+          "od_mm": "7.94",
+          "wall_mm": [
+            "0.61",
+            "0.71",
+            "0.81"
+          ]
+        },
+        {
+          "nominal_od": "3/8",
+          "od_mm": "9.52",
+          "wall_mm": [
+            "0.61",
+            "0.71",
+            "0.81"
+          ]
+        },
+        {
+          "nominal_od": "1/2",
+          "od_mm": "12.70",
+          "wall_mm": [
+            "0.71",
+            "0.81",
+            "0.91"
+          ]
+        },
+        {
+          "nominal_od": "5/8",
+          "od_mm": "15.88",
+          "wall_mm": [
+            "0.81",
+            "0.91",
+            "1.00"
+          ]
+        },
+        {
+          "nominal_od": "3/4",
+          "od_mm": "19.05",
+          "wall_mm": [
+            "0.81",
+            "0.91",
+            "1.00",
+            "1.22"
+          ]
+        },
+        {
+          "nominal_od": "7/8",
+          "od_mm": "22.22",
+          "wall_mm": [
+            "0.91",
+            "1.00",
+            "1.22"
+          ]
+        },
+        {
+          "nominal_od": "1",
+          "od_mm": "25.40",
+          "wall_mm": [
+            "1.00",
+            "1.22"
+          ]
+        },
+        {
+          "nominal_od": "1-1/8",
+          "od_mm": "28.58",
+          "wall_mm": [
+            "1.00",
+            "1.22",
+            "1.27"
+          ]
+        },
+        {
+          "nominal_od": "1-1/4",
+          "od_mm": "31.75",
+          "wall_mm": [
+            "1.22",
+            "1.27"
+          ]
+        },
+        {
+          "nominal_od": "1-3/8",
+          "od_mm": "34.92",
+          "wall_mm": [
+            "1.22",
+            "1.40"
+          ]
+        },
+        {
+          "nominal_od": "1-1/2",
+          "od_mm": "38.10",
+          "wall_mm": [
+            "1.22",
+            "1.40"
+          ]
+        },
+        {
+          "nominal_od": "1-5/8",
+          "od_mm": "41.28",
+          "wall_mm": [
+            "1.22",
+            "1.52"
+          ]
+        },
+        {
+          "nominal_od": "1-3/4",
+          "od_mm": "44.45",
+          "wall_mm": [
+            "1.40",
+            "1.52"
+          ]
+        },
+        {
+          "nominal_od": "2",
+          "od_mm": "50.80",
+          "wall_mm": [
+            "1.52",
+            "1.65"
+          ]
+        }
+      ],
+      "uses": [
+        {
+          "name": "Copper tubes for VRV / VRF",
+          "detail": "Straight tube for VRV and VRF headers, risers and branch piping.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "4.76–104.78 mm (3/16″–4-1/8″)"
+            ],
+            [
+              "Min. wall",
+              "0.508 mm (0.020″)"
+            ],
+            [
+              "Supply",
+              "Straight up to 6 m; coils up to 15.24 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-tubes.html"
+        },
+        {
+          "name": "Copper tubes for split & duct AC",
+          "detail": "Straight tube for split, ductable and package AC refrigerant lines.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "4.76–104.78 mm (3/16″–4-1/8″)"
+            ],
+            [
+              "Min. wall",
+              "0.508 mm (0.020″)"
+            ],
+            [
+              "Supply",
+              "Straight up to 6 m; coils up to 15.24 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-tubes.html"
+        },
+        {
+          "name": "Copper tubes for cold storage",
+          "detail": "Straight tube for cold room and cold storage refrigeration piping.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "4.76–104.78 mm (3/16″–4-1/8″)"
+            ],
+            [
+              "Min. wall",
+              "0.508 mm (0.020″)"
+            ],
+            [
+              "Supply",
+              "Straight up to 6 m; coils up to 15.24 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-tubes.html"
+        },
+        {
+          "name": "Low fin tubes for evaporators & chillers",
+          "detail": "Externally finned tube that adds surface area for heat transfer in shell-and-tube evaporators and chillers.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "9.53–25.40 mm (3/8″–1″)"
+            ],
+            [
+              "Min. wall",
+              "1.067 mm (0.042″)"
+            ],
+            [
+              "Supply",
+              "Straight, up to 7 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-tubes.html#copper-low-fin-tubes-evaporators-chillers"
+        },
+        {
+          "name": "Degreased tubes for medical gas (MGPS)",
+          "detail": "Cleaned and degreased tube for hospital oxygen, medical air and vacuum pipelines, to EN 13348.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "7.94–206 mm (5/16″–8″)"
+            ],
+            [
+              "Min. wall",
+              "0.635 mm (0.025″)"
+            ],
+            [
+              "Supply",
+              "Straight, up to 6 m"
+            ],
+            [
+              "Standard",
+              "EN 13348"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/degreased-copper-tubes-mgps.html"
+        },
+        {
+          "name": "Copper tubes for plumbing",
+          "detail": "Durable, corrosion-resistant tube for building water supply.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "4.76–219 mm (3/16″–6-1/4″)"
+            ],
+            [
+              "Min. wall",
+              "0.635 mm (0.025″)"
+            ],
+            [
+              "Supply",
+              "Straight, up to 6 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/degreased-copper-tubes-mgps.html"
+        },
+        {
+          "name": "Copper tubes for water & sanitation",
+          "detail": "Tube for potable water and sanitation lines; copper discourages bacterial growth.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "4.76–219 mm (3/16″–6-1/4″)"
+            ],
+            [
+              "Min. wall",
+              "0.635 mm (0.025″)"
+            ],
+            [
+              "Supply",
+              "Straight, up to 6 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/degreased-copper-tubes-mgps.html"
+        },
+        {
+          "name": "Copper tubes for hot & cold water",
+          "detail": "Tube for domestic and commercial hot and cold water systems.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "4.76–219 mm (3/16″–6-1/4″)"
+            ],
+            [
+              "Min. wall",
+              "0.635 mm (0.025″)"
+            ],
+            [
+              "Supply",
+              "Straight, up to 6 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-tubes-heat-exchanger-condensers.html"
+        },
+        {
+          "name": "Copper tubes for household gas",
+          "detail": "Tube for piped LPG and PNG lines in homes and kitchens.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "9.53–15.88 mm (3/8″–5/8″)"
+            ],
+            [
+              "Min. wall",
+              "0.635 mm (0.025″)"
+            ],
+            [
+              "Supply",
+              "Straight, up to 6 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-tubes-household-gas.html"
+        },
+        {
+          "name": "Copper tubes for heat exchangers & condensers",
+          "detail": "Tube for shell-and-tube heat exchangers, condensers and industrial plant.",
+          "specs": [
+            [
+              "Grade",
+              "C10100 (OFE), C10200 (OF), C12200 (DHP), C12000 (DLP)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "4.76–219 mm (3/16″–6-1/4″)"
+            ],
+            [
+              "Min. wall",
+              "0.635 mm (0.025″)"
+            ],
+            [
+              "Supply",
+              "Straight, up to 15 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-tubes-heat-exchanger-condensers.html"
+        },
+        {
+          "name": "Copper tubes for solar",
+          "detail": "Tube for solar water heaters and solar thermal collectors.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "4.76–219 mm (3/16″–6-1/4″)"
+            ],
+            [
+              "Supply",
+              "Straight lengths"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-tubes-heat-exchanger-condensers.html"
+        },
+        {
+          "name": "Copper tubes for sugar industries",
+          "detail": "Tube for evaporators and juice heaters in sugar mills.",
+          "specs": [
+            [
+              "Grade",
+              "C12000 (DLP copper)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "4.76–219 mm (3/16″–6-1/4″)"
+            ],
+            [
+              "Min. wall",
+              "0.635 mm (0.025″)"
+            ],
+            [
+              "Supply",
+              "Straight, up to 12 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-tubes-household-gas.html"
+        },
+        {
+          "name": "Copper bus tubes for general engineering",
+          "detail": "High-conductivity tube for electrical bus tubes and general engineering.",
+          "specs": [
+            [
+              "Grade",
+              "C10100 (OFE), C10200 (OF), C11000 (ETP)"
+            ],
+            [
+              "Temper",
+              "Soft (annealed), hard, half hard, quarter hard"
+            ],
+            [
+              "OD",
+              "4.76–219 mm (3/16″–6-1/4″)"
+            ],
+            [
+              "Min. wall",
+              "0.635 mm (0.025″)"
+            ],
+            [
+              "Supply",
+              "Straight, up to 12 m"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-tubes-household-gas.html"
+        }
+      ],
+      "brand": "Mexflow by Mehta Tubes"
+    },
+    {
+      "name": "Copper fittings",
+      "slug": "fittings",
+      "detail": "End-feed elbows, tees, couplers and reducers, plus brazing rods, for HVACR, medical gas and plumbing.",
+      "card_specs": [
+        [
+          "Sizes",
+          "6.35–50.80 mm"
+        ],
+        [
+          "Wall",
+          "0.71–1.65 mm"
+        ]
+      ],
+      "summary": "Wrought copper fittings join and branch refrigerant lines. They are made from the same Cu-DHP copper as the tube, with brazing sockets sized to fit standard ACR tube, and are cleaned for refrigeration use.",
+      "facts": [
+        [
+          "Sizes",
+          "6.35–50.80 mm (1/4″–2″)"
+        ],
+        [
+          "Wall thickness",
+          "0.71–1.65 mm"
+        ],
+        [
+          "Ends",
+          "Brazing sockets"
+        ]
+      ],
+      "specs": [
+        [
+          "Brand",
+          "Mexflow (Mehta Tubes)"
+        ],
+        [
+          "Material",
+          "Wrought copper, Cu-DHP (C12200)"
+        ],
+        [
+          "Sizes",
+          "To suit 6.35 mm (1/4″) to 50.80 mm (2″) OD tube"
+        ],
+        [
+          "Wall thickness",
+          "0.71 mm to 1.65 mm, matched to the tube size"
+        ],
+        [
+          "Ends",
+          "Socket (female) ends for brazing; spigot (male) ends on some types"
+        ],
+        [
+          "Pressure rating",
+          "To suit the matching tube wall"
+        ],
+        [
+          "Cleanliness",
+          "Degreased and cleaned for refrigeration use"
+        ],
+        [
+          "Joining",
+          "Brazing (silver or phosphor-copper alloy)"
+        ],
+        [
+          "Standards",
+          "ASME B16.22 (HVACR) · EN 1254 (plumbing, medical gas)"
+        ]
+      ],
+      "fitting_types": [
+        {
+          "name": "90° elbows",
+          "detail": "Short and long radius, for changing direction"
+        },
+        {
+          "name": "45° elbows",
+          "detail": "For gentle offsets"
+        },
+        {
+          "name": "U-bends / return bends",
+          "detail": "180° turns in coils and close runs"
+        },
+        {
+          "name": "Equal tees",
+          "detail": "Branch lines of the same size"
+        },
+        {
+          "name": "Reducing tees",
+          "detail": "Branch lines of a smaller size"
+        },
+        {
+          "name": "Couplers (sockets)",
+          "detail": "Join two tubes of the same size"
+        },
+        {
+          "name": "Reducers",
+          "detail": "Join tubes of different sizes"
+        },
+        {
+          "name": "End caps",
+          "detail": "Seal the end of a tube"
+        },
+        {
+          "name": "Y-joints / branch kits",
+          "detail": "Refnet-style branches for VRF and multi-split systems"
+        },
+        {
+          "name": "Flare nuts & unions",
+          "detail": "Mechanical joints to unit service valves"
+        }
+      ],
+      "notes": [
+        "Choose fittings rated for the same pressure as the tube, especially for R32 and R410A",
+        "Long radius elbows reduce pressure drop on suction lines",
+        "Clean and deburr tube ends before brazing for a full, leak-free joint"
+      ],
+      "size_chart": [
+        {
+          "nominal_od": "1/4",
+          "od_mm": "6.35",
+          "wall_mm": [
+            "0.71",
+            "0.81"
+          ]
+        },
+        {
+          "nominal_od": "5/16",
+          "od_mm": "7.94",
+          "wall_mm": [
+            "0.71",
+            "0.81"
+          ]
+        },
+        {
+          "nominal_od": "3/8",
+          "od_mm": "9.52",
+          "wall_mm": [
+            "0.71",
+            "0.81"
+          ]
+        },
+        {
+          "nominal_od": "1/2",
+          "od_mm": "12.70",
+          "wall_mm": [
+            "0.81",
+            "0.91"
+          ]
+        },
+        {
+          "nominal_od": "5/8",
+          "od_mm": "15.88",
+          "wall_mm": [
+            "0.91",
+            "1.00"
+          ]
+        },
+        {
+          "nominal_od": "3/4",
+          "od_mm": "19.05",
+          "wall_mm": [
+            "0.91",
+            "1.00",
+            "1.22"
+          ]
+        },
+        {
+          "nominal_od": "7/8",
+          "od_mm": "22.22",
+          "wall_mm": [
+            "1.00",
+            "1.22"
+          ]
+        },
+        {
+          "nominal_od": "1",
+          "od_mm": "25.40",
+          "wall_mm": [
+            "1.00",
+            "1.22"
+          ]
+        },
+        {
+          "nominal_od": "1-1/8",
+          "od_mm": "28.58",
+          "wall_mm": [
+            "1.22",
+            "1.27"
+          ]
+        },
+        {
+          "nominal_od": "1-1/4",
+          "od_mm": "31.75",
+          "wall_mm": [
+            "1.22",
+            "1.27"
+          ]
+        },
+        {
+          "nominal_od": "1-3/8",
+          "od_mm": "34.92",
+          "wall_mm": [
+            "1.22",
+            "1.40"
+          ]
+        },
+        {
+          "nominal_od": "1-1/2",
+          "od_mm": "38.10",
+          "wall_mm": [
+            "1.22",
+            "1.40"
+          ]
+        },
+        {
+          "nominal_od": "1-5/8",
+          "od_mm": "41.28",
+          "wall_mm": [
+            "1.22",
+            "1.52"
+          ]
+        },
+        {
+          "nominal_od": "1-3/4",
+          "od_mm": "44.45",
+          "wall_mm": [
+            "1.40",
+            "1.52"
+          ]
+        },
+        {
+          "nominal_od": "2",
+          "od_mm": "50.80",
+          "wall_mm": [
+            "1.52",
+            "1.65"
+          ]
+        }
+      ],
+      "uses": [
+        {
+          "name": "Copper fittings for HVACR",
+          "detail": "End-feed elbows, tees, couplers, reducer couplers and reducer tees for refrigerant piping.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Sizes",
+              "6.35–104.76 mm (1/4″–4-1/8″)"
+            ],
+            [
+              "Ends",
+              "End-feed (brazing)"
+            ],
+            [
+              "Standard",
+              "ASME B16.22"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-accessories.html"
+        },
+        {
+          "name": "Copper fittings for medical gas (MGPS)",
+          "detail": "Degreased end-feed fittings for medical gas pipelines.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Sizes",
+              "8–108 mm"
+            ],
+            [
+              "Ends",
+              "End-feed, degreased"
+            ],
+            [
+              "Standard",
+              "EN 1254"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-accessories.html"
+        },
+        {
+          "name": "Copper fittings for plumbing",
+          "detail": "End-feed elbows, tees, couplers and reducers for water lines.",
+          "specs": [
+            [
+              "Grade",
+              "C12200 (DHP copper)"
+            ],
+            [
+              "Sizes",
+              "8–108 mm"
+            ],
+            [
+              "Ends",
+              "End-feed"
+            ],
+            [
+              "Standard",
+              "EN 1254"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-accessories.html"
+        },
+        {
+          "name": "Copper brazing rods for HVACR",
+          "detail": "Phosphor-copper flat rods that flow into tight joint gaps on copper-to-copper refrigerant joints.",
+          "specs": [
+            [
+              "Alloy",
+              "92.5% Cu, 7.5% P"
+            ],
+            [
+              "Specification",
+              "CP 202"
+            ],
+            [
+              "Size",
+              "1.5 mm flat, 1 ft long"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-accessories.html"
+        },
+        {
+          "name": "Silver brazing rods for medical gas",
+          "detail": "Silver-copper brazing rods for medical gas pipeline joints.",
+          "specs": [
+            [
+              "Alloy",
+              "Silver-copper (Ag bearing)"
+            ],
+            [
+              "Specification",
+              "CP 105 / CP 104"
+            ],
+            [
+              "Size",
+              "2 mm square, 1 ft long"
+            ]
+          ],
+          "source_url": "https://www.mehtatubes.com/copper-accessories.html"
+        }
+      ],
+      "brand": "Mexflow by Mehta Tubes"
+    },
+    {
+      "name": "Insulation sleeves & tape",
+      "detail": "Nitrile insulation and wrapping tape to stop sweating and heat gain."
+    },
+    {
+      "name": "Brazing consumables",
+      "detail": "Brazing rods, flux and nitrogen-purge kits for leak-free joints."
+    }
   ],
-  "signs": ["New installation or AC relocation", "Oil stains or frost on pipe joints", "Repeated gas loss after refills"],
+  "signs": [
+    "New installation or AC relocation",
+    "Oil stains or frost on pipe joints",
+    "Repeated gas loss after refills"
+  ],
   "enquiry_category": "Copper coils"
 }

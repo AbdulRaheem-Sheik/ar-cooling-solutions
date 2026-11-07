@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_product.html" import product_image %}
+{% set active = "parts" %}
+{% set enquire = spare_enquiry_url(category, item) %}
+{% set siblings = category.parts|selectattr("slug")|list %}
+
+{% block title %}{{ item.name }} | {{ business.name }}, {{ business.city }}{% endblock %}
+{% block meta_description %}{{ item.detail }} Sizes, wall thickness and specifications from {{ business.name }}, {{ business.city }}.{% endblock %}
+
+{% block content %}
+<section class="page-hero product-hero">
+  <div class="container product-hero-inner">
+    <div class="product-hero-copy">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/parts/">Spare parts</a>
+        <span aria-hidden="true">/</span><a href="/parts/#{{ category.slug }}">{{ category.name }}</a>
+        <span aria-hidden="true">/</span><span aria-current="page">{{ item.name }}</span>
+      </nav>
+      <p class="chip"><span class="status-dot"></span> {{ category.name }}</p>
+      <h1>{{ item.name }}</h1>
+      <p>{{ item.summary }}</p>
+      <dl class="product-facts">
+        {% for label, value in item.facts %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}
+      </dl>
+      <div class="hero-actions">
+        <a class="button button-primary" href="{{ enquire }}">Enquire about {{ item.name|lower }} {{ icon("arrow-right") }}</a>
+        <a class="button button-glass" href="https://wa.me/{{ business.whatsapp_number }}?text={{ ('Hi AR Cooling Solutions, I would like a quote for ' ~ item.name|lower ~ '.')|urlencode }}" target="_blank" rel="noopener noreferrer">{{ icon("chat") }} WhatsApp</a>
+      </div>
+    </div>
+    <figure class="product-hero-media">
+      {{ product_image({"name": item.name, "icon": category.icon, "image": item.image or ""}, lazy=False) }}
+    </figure>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="product-overview">
+    <div class="reveal">
+      <p class="eyebrow">Specifications</p>
+      <h2>{{ item.name }} at a glance.</h2>
+      <div class="table-wrap">
+        <table class="compare-table spec-table">
+          <tbody>
+            {% for label, value in item.specs %}
+            <tr><th scope="row">{{ label }}</th><td>{{ value }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="fine-print">Typical figures. Stocked sizes, wall thicknesses and lengths vary by brand and batch, so we confirm them with your quote.</p>
+    </div>
+    <div class="reveal">
+      <p class="eyebrow">Applications</p>
+      <h2>Where it's used.</h2>
+      <ul class="tag-list">
+        {% for application in (item.uses|map(attribute="name") if item.uses else item.applications) %}<li>{{ application }}</li>{% endfor %}
+      </ul>
+      {% if item.brand %}<p class="fine-print">Ranges below are from {{ item.brand }}, whose copper we supply.</p>{% endif %}
+      {% if item.notes %}
+      <h3 class="gas-subhead">Good practice</h3>
+      <ul class="check-list check-list-compact">
+        {% for note in item.notes %}<li>{{ icon("info") }} {{ note }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">Size guide</p>
+        <h2>Outside diameter and wall thickness.</h2>
+      </div>
+      <p>Sizes from 6.35 mm (1/4″) to 50.80 mm (2″). Pick the size, then a wall thickness rated for your refrigerant; R32 and R410A need the heavier walls.</p>
+    </div>
+    <div class="table-wrap reveal">
+      <table class="compare-table size-table">
+        <thead><tr><th scope="col">Nominal OD</th><th scope="col">OD (mm)</th><th scope="col">Wall thickness (mm)</th><th scope="col"><span class="visually-hidden">Enquire</span></th></tr></thead>
+        <tbody>
+          {% for size in item.size_chart %}
+          <tr>
+            <th scope="row">{{ size.nominal_od }}″</th>
+            <td>{{ size.od_mm }}</td>
+            <td><span class="wall-list">{% for wall in size.wall_mm %}<span>{{ wall }}</span>{% endfor %}</span></td>
+            <td><a class="card-link" href="{{ spare_enquiry_url(category, {'name': item.name ~ ' – ' ~ size.nominal_od ~ '″ (' ~ size.od_mm ~ ' mm)'}) }}">Enquire {{ icon("arrow-right") }}</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{% if item.uses %}
+<section class="section container" id="applications">
+  <div class="section-heading reveal">
+    <div>
+      <p class="eyebrow">By application{% if item.brand %} · {{ item.brand }}{% endif %}</p>
+      <h2>{{ item.name }} for every job.</h2>
+    </div>
+    <p>Pick the application to enquire. Grades, tempers and size ranges are the manufacturer's published figures; we confirm exact sizes and stock with your quote.</p>
+  </div>
+  <div class="use-grid">
+    {% for use in item.uses %}
+    <article class="use-card reveal">
+      <h3>{{ use.name }}</h3>
+      <p>{{ use.detail }}</p>
+      <dl>
+        {% for label, value in use.specs %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}
+      </dl>
+      <div class="use-card-foot">
+        <a class="button button-primary button-sm" href="{{ spare_enquiry_url(category, use) }}">Enquire</a>
+        {% if use.source_url %}<a class="card-link" href="{{ use.source_url }}" target="_blank" rel="noopener noreferrer">Maker's specs {{ icon("arrow-right") }}</a>{% endif %}
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if item.fitting_types %}
+<section class="section container">
+  <div class="section-heading reveal">
+    <div>
+      <p class="eyebrow">Fitting types</p>
+      <h2>What we supply.</h2>
+    </div>
+    <p>All types are available across the size range above, with wall thickness matched to the tube.</p>
+  </div>
+  <div class="variant-grid">
+    {% for fitting in item.fitting_types %}
+    <a class="variant-card reveal" href="{{ spare_enquiry_url(category, {'name': 'Copper ' ~ fitting.name}) }}">
+      <span class="variant-icon">{{ icon(category.icon) }}</span>
+      <b>{{ fitting.name }}</b>
+      <span>{{ fitting.detail }}</span>
+      <span class="card-link">Enquire {{ icon("arrow-right") }}</span>
+    </a>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<section class="section {% if item.fitting_types %}section-tint{% else %}container{% endif %}">
+  <div class="{% if item.fitting_types %}container{% endif %}">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">{{ category.name }}</p>
+        <h2>Other copper products.</h2>
+      </div>
+      <a class="button button-outline" href="/parts/#{{ category.slug }}">All copper products {{ icon("arrow-right") }}</a>
+    </div>
+    <div class="brand-link-grid">
+      {% for other in siblings if other.slug != item.slug %}
+      <a class="brand-link-card" href="{{ spare_part_url(category, other) }}">
+        <b>{{ other.name }}</b>
+        <span>{{ other.detail }}</span>
+        <small>View specs {{ icon("arrow-right") }}</small>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="cta-panel reveal">
+    <div>
+      <p class="eyebrow">Get a quote</p>
+      <h2>Need {{ item.name|lower }}?</h2>
+      <p>Tell us the sizes, wall thickness and length or quantity you need, or your AC model, and we'll confirm stock and price.</p>
+    </div>
+    <div class="button-row">
+      <a class="button button-light" href="{{ enquire }}">Enquire now {{ icon("arrow-right") }}</a>
+      <a class="button button-glass" href="tel:{{ business.phone_e164 }}" title="Call {{ business.phone_display }}">{{ icon("phone") }} Call us</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

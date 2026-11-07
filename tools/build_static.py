@@ -46,6 +46,11 @@ def page_paths(site):
                  ("home", "products", "services", "spare_parts", "clients", "about", "product_enquiry", "enquiry_thanks", "privacy")]
         paths += [site.url_for("product_detail", slug=p["slug"]) for p in site.get_product_types()]
         paths += [site.url_for("service_detail", slug=s["slug"]) for s in site.get_services()]
+        paths.append(site.url_for("compressors"))
+        paths += [site.url_for("compressor_detail", slug=m["slug"]) for m in site.get_compressor_models()]
+        paths += [site.url_for("gas_detail", slug=g["slug"]) for g in site.get_spare_category("gases")["parts"]]
+        paths += [site.url_for("copper_detail", slug=c["slug"])
+                  for c in site.get_spare_category("copper-coils")["parts"] if c.get("slug")]
     return paths
 
 

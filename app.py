@@ -16,6 +16,8 @@ DATA_DIR = BASE_DIR / "data"
 PRODUCT_DATA_DIR = DATA_DIR / "products"
 SPARE_DATA_DIR = DATA_DIR / "spares"
 SERVICE_DATA_DIR = DATA_DIR / "services"
+# Compressor models by brand (Copeland, Danfoss, Others), shown at /parts/compressors/.
+COMPRESSOR_DATA_DIR = DATA_DIR / "compressors"
 
 # The live site is static (GitHub Pages), built by tools/build_static.py.
 SITE_URL = os.environ.get("AR_SITE_URL", "https://arcooling.in").rstrip("/")
@@ -99,10 +101,60 @@ def get_featured_spare():
     return load_json_file(SPARE_DATA_DIR / "featured-spare.json")
 
 
+def get_compressor_brands():
+    """Brands with their series and models. Each model gets its brand, series, slug and
+    display name filled in, so templates and routes can use any model on its own."""
+    brands = load_json_records(COMPRESSOR_DATA_DIR)
+    for brand in brands:
+        for series in brand["series"]:
+            for model in series["models"]:
+                # Models with a maker's code get name/slug from it; generic ones set their own.
+                if "model" in model:
+                    model.setdefault("name", f"{brand['brand']} {model['model']}")
+                    model.setdefault("slug", f"{brand['slug']}-{model['model'].lower()}")
+                model["brand"], model["series"] = brand, series
+                model["capacity"] = format_capacity(model.get("capacity_btuh"))
+    return brands
+
+
+def get_compressor_models():
+    return [model for brand in get_compressor_brands() for series in brand["series"] for model in series["models"]]
+
+
+def get_compressor_model(slug):
+    return next((model for model in get_compressor_models() if model["slug"] == slug), None)
+
+
+def format_capacity(btuh):
+    """'~6.75 TR' from BTU/h (1 TR = 12,000 BTU/h), or '' when unknown."""
+    if not btuh:
+        return ""
+    return f"~{btuh / 12000:.2f}".rstrip("0").rstrip(".") + " TR"
+
+
+def compressor_specs(model):
+    """(label, value) rows for a compressor model page. A model's own "specs" list
+    (label/value pairs) overrides or adds to the rows built from its series."""
+    series, btuh = model["series"], model.get("capacity_btuh")
+    specs = {
+        "Brand": series.get("brands") or model["brand"]["brand"],
+        "Series": series["name"],
+        "Model": model.get("model") or "Matched to your unit",
+        "Compressor type": series["type"],
+        "Refrigerant": series["refrigerant"],
+        "Nominal capacity": f"{btuh:,} BTU/h · {model['capacity']} · ~{btuh * 0.000293071:.1f} kW" if btuh else "Depends on refrigerant and operating conditions",
+        "Application": series["application"],
+        "Power supply": series.get("power_supply") or "On request",   # a list shows one per line
+    }
+    specs.update({spec["label"]: spec["value"] for spec in model.get("specs", [])})
+    return list(specs.items())
+
+
 COLLECTION_DIRS = {
     "products": PRODUCT_DATA_DIR,
     "spares": SPARE_DATA_DIR,
     "services": SERVICE_DATA_DIR,
+    "compressors": COMPRESSOR_DATA_DIR,
 }
 
 
@@ -161,6 +213,7 @@ SPARE_ENQUIRY_CATEGORIES = (
     "PCBs",
     "Remote controls",
     "Filters",
+    "Refrigerant gases",
 )
 PRODUCT_FAMILIES = (
     {
@@ -298,9 +351,15 @@ def get_enquiry_items():
         for part in category.get("parts", []):
             items[f"part:{part['name']}"] = {
                 "name": part["name"], "image": part.get("image") or "", "icon": category.get("icon") or "spark",
-                "url": url_for("spare_parts") + f"#{category['slug']}",
+                "url": spare_part_url(category, part),
                 "meta": category["name"], "kind": "part",
             }
+    for model in get_compressor_models():
+        items[f"part:{model['name']}"] = {
+            "name": model["name"], "image": model.get("image") or "", "icon": "compressor",
+            "url": url_for("compressor_detail", slug=model["slug"]),
+            "meta": " · ".join(filter(None, (model["series"]["name"], model["capacity"]))), "kind": "part",
+        }
     return items
 
 
@@ -387,7 +446,11 @@ def get_nav_menus():
             if (items := [(s["name"], f"/services/{s['slug']}/") for s in services if s.get("group") == group["id"]])
         ],
         # Spare parts have no pages of their own, so the menu lists the categories.
-        "parts": [("Categories", "/parts/", [(c["name"], f"/parts/#{c['slug']}") for c in get_spare_categories()])],
+        "parts": [
+            ("Categories", "/parts/", [(c["name"], f"/parts/#{c['slug']}") for c in get_spare_categories()]),
+            ("Compressor models", "/parts/compressors/",
+             [(b["brand"], f"/parts/compressors/#{b['slug']}") for b in get_compressor_brands()]),
+        ],
     }
 
 
@@ -461,6 +524,24 @@ def spare_enquiry_url(category, part=None):
     return url_for("product_enquiry", **params)
 
 
+# Spare-part categories whose parts have a page of their own: category slug -> endpoint.
+SPARE_DETAIL_ENDPOINTS = {"gases": "gas_detail", "copper-coils": "copper_detail"}
+app.add_template_global(SPARE_DETAIL_ENDPOINTS, "spare_detail_endpoints")
+
+
+@app.template_global()
+def spare_part_url(category, part):
+    """A part's own page if it has one, otherwise its category on the spare parts page."""
+    endpoint = SPARE_DETAIL_ENDPOINTS.get(category["slug"])
+    if endpoint and part.get("slug"):
+        return url_for(endpoint, slug=part["slug"])
+    return url_for("spare_parts") + f"#{category['slug']}"
+
+
+def get_spare_category(slug):
+    return next((c for c in get_spare_categories() if c["slug"] == slug), None)
+
+
 def admin_required(view):
     def wrapped(*args, **kwargs):
         if not session.get("admin_logged_in"):
@@ -525,7 +606,54 @@ def spare_parts():
         business=BUSINESS,
         categories=get_spare_categories(),
         featured_spare=get_featured_spare(),
+        compressor_brands=get_compressor_brands(),
     )
+
+
+def get_compressor_category():
+    return get_spare_category("compressors")
+
+
+@app.get("/parts/compressors/")
+def compressors():
+    return render_template(
+        "compressors.html",
+        business=BUSINESS,
+        category=get_compressor_category(),
+        brands=get_compressor_brands(),
+    )
+
+
+@app.get("/parts/compressors/<slug>/")
+def compressor_detail(slug):
+    model = get_compressor_model(slug)
+    if model is None:
+        abort(404)
+    return render_template(
+        "compressor_detail.html",
+        business=BUSINESS,
+        category=get_compressor_category(),
+        model=model,
+        specs=compressor_specs(model),
+    )
+
+
+@app.get("/parts/copper-coils/<slug>/")
+def copper_detail(slug):
+    category = get_spare_category("copper-coils")
+    item = next((p for p in category["parts"] if p.get("slug") == slug), None)
+    if item is None:
+        abort(404)
+    return render_template("copper_detail.html", business=BUSINESS, category=category, item=item)
+
+
+@app.get("/parts/gases/<slug>/")
+def gas_detail(slug):
+    category = get_spare_category("gases")
+    gas = next((g for g in category["parts"] if g.get("slug") == slug), None)
+    if gas is None:
+        abort(404)
+    return render_template("gas_detail.html", business=BUSINESS, category=category, gas=gas)
 
 
 @app.get("/products/")
@@ -567,6 +695,7 @@ def admin_dashboard():
         business=BUSINESS,
         products=product_entries,
         spares=spare_entries,
+        compressor_brands=get_compressor_brands(),
         services=get_services(),
     )
 

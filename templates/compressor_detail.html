@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_product.html" import product_image %}
+{% set active = "parts" %}
+{% set brand, series = model.brand, model.series %}
+{% set enquire = spare_enquiry_url(category, model) %}
+
+{% block title %}{{ model.name }} compressor | {{ business.name }}, {{ business.city }}{% endblock %}
+{% block meta_description %}{{ model.name }} {{ series.name }} compressor{% if model.capacity %} ({{ model.capacity }}){% endif %}, {{ series.refrigerant }}. Specifications, price and availability from {{ business.name }}, {{ business.city }}.{% endblock %}
+
+{% block content %}
+<section class="page-hero product-hero">
+  <div class="container product-hero-inner">
+    <div class="product-hero-copy">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/parts/">Spare parts</a>
+        <span aria-hidden="true">/</span><a href="{{ url_for('compressors') }}">Compressors</a>
+        <span aria-hidden="true">/</span><a href="{{ url_for('compressors') }}#{{ brand.slug }}">{{ brand.brand }}</a>
+        <span aria-hidden="true">/</span><span aria-current="page">{{ model.model or model.name }}</span>
+      </nav>
+      <p class="chip"><span class="status-dot"></span> {{ brand.brand }} · {{ series.name }}</p>
+      <h1>{{ model.name }}</h1>
+      <p>{{ series.description }}</p>
+      <dl class="product-facts">
+        <div><dt>Capacity</dt><dd>{{ model.capacity or "On request" }}</dd></div>
+        <div><dt>Refrigerant</dt><dd>{{ series.refrigerant }}</dd></div>
+        <div><dt>Type</dt><dd>{{ series.type }}</dd></div>
+      </dl>
+      <div class="hero-actions">
+        <a class="button button-primary" href="{{ enquire }}">Enquire about this compressor {{ icon("arrow-right") }}</a>
+        <a class="button button-glass" href="https://wa.me/{{ business.whatsapp_number }}?text={{ ('Hi AR Cooling Solutions, I would like a quote for the ' ~ model.name ~ ' compressor.')|urlencode }}" target="_blank" rel="noopener noreferrer">{{ icon("chat") }} WhatsApp</a>
+      </div>
+    </div>
+    <figure class="product-hero-media">
+      {{ product_image({"name": model.name, "icon": "compressor", "image": model.image or ""}, lazy=False) }}
+    </figure>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="product-overview">
+    <div class="reveal">
+      <p class="eyebrow">Specifications</p>
+      <h2>{{ model.model or model.name }} at a glance.</h2>
+      <div class="table-wrap">
+        <table class="compare-table spec-table">
+          <tbody>
+            {% for label, value in specs %}
+            <tr><th scope="row">{{ label }}</th><td>{% if value is string %}{{ value }}{% else %}{% for line in value %}{{ line }}{% if not loop.last %}<br>{% endif %}{% endfor %}{% endif %}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="fine-print">Nominal figures for the series. Capacity, current and connections vary with voltage version and operating conditions, so we confirm them against your old compressor's nameplate before supply.</p>
+    </div>
+    <div class="reveal">
+      <p class="eyebrow">About this series</p>
+      <h2>Why it's used.</h2>
+      {% if series.features %}
+      <ul class="check-list">
+        {% for feature in series.features %}
+        <li>{{ icon("check") }} {{ feature }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      <div class="fit-note"><span class="fit-note-icon">{{ icon("info") }}</span><p><b>Check compatibility</b>Share your AC make and model, plus a photo of the old compressor's label (model code, voltage and refrigerant), and we'll confirm this is the right replacement.</p></div>
+    </div>
+  </div>
+</section>
+
+{% if series.models|length > 1 %}
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">{{ brand.brand }} · {{ series.name }}</p>
+        <h2>Other models in this series.</h2>
+      </div>
+      <a class="button button-outline" href="{{ url_for('compressors') }}#{{ brand.slug }}">All {{ brand.brand }} models {{ icon("arrow-right") }}</a>
+    </div>
+    <div class="model-grid">
+      {% for other in series.models if other.slug != model.slug %}
+      <a class="model-card" href="{{ url_for('compressor_detail', slug=other.slug) }}">
+        <b>{{ other.model or other.name }}</b>
+        <span>{{ other.capacity or "Capacity on request" }}</span>
+        <small>View specs {{ icon("arrow-right") }}</small>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section container">
+  <div class="cta-panel reveal">
+    <div>
+      <p class="eyebrow">Get a quote</p>
+      <h2>Need a {{ model.name }}?</h2>
+      <p>Your enquiry is prefilled with this compressor. Add your AC details and we'll confirm fit, price and availability.</p>
+    </div>
+    <div class="button-row">
+      <a class="button button-light" href="{{ enquire }}">Enquire now {{ icon("arrow-right") }}</a>
+      <a class="button button-glass" href="tel:{{ business.phone_e164 }}" title="Call {{ business.phone_display }}">{{ icon("phone") }} Call us</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

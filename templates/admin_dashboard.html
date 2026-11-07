@@ -86,6 +86,25 @@
       </section>
 
       <section class="admin-panel">
+        <h2>Compressor models</h2>
+        <div class="admin-list">
+          {% for brand in compressor_brands %}
+            <div class="admin-item">
+              <div>
+                <strong>{{ brand.brand }}</strong>
+                <span>{{ brand.description }}</span>
+              </div>
+              <div class="admin-actions">
+                <a class="edit" href="{{ url_for('admin_edit', collection='compressors', item_name=brand.slug) }}">Edit</a>
+              </div>
+            </div>
+          {% else %}
+            <div class="admin-empty">No compressor brands found.</div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="admin-panel">
         <h2>Services</h2>
         <div class="admin-list">
           {% if services %}

@@ -1,0 +1,70 @@
+{
+  "brand": "Copeland",
+  "slug": "copeland",
+  "description": "Copeland (formerly Emerson Climate Technologies) scroll compressors for ductable, package and precision AC units.",
+  "series": [
+    {
+      "name": "ZR scroll",
+      "type": "Hermetic scroll",
+      "refrigerant": "R22 / R407C",
+      "application": "Air conditioning and heat pumps",
+      "description": "Copeland's long-running scroll range for R22 and R407C systems. The number in the model code is the nominal cooling capacity in thousands of BTU/h (ZR81 ≈ 81,000 BTU/h).",
+      "power_supply": [
+        "PFJ: 220–240 V, single-phase, 50 Hz (smaller K3 models)",
+        "TFD: 380–420 V, three-phase, 50 Hz"
+      ],
+      "features": [
+        "Compliant scroll design tolerates liquid and debris better than reciprocating compressors",
+        "Fewer moving parts, lower noise and vibration",
+        "Common replacement in ductable, package and precision AC units"
+      ],
+      "models": [
+        {"model": "ZR28K3", "capacity_btuh": 28000},
+        {"model": "ZR34K3", "capacity_btuh": 34000},
+        {"model": "ZR42K3", "capacity_btuh": 42000},
+        {"model": "ZR48K3", "capacity_btuh": 48000},
+        {"model": "ZR61KC", "capacity_btuh": 61000},
+        {"model": "ZR72KC", "capacity_btuh": 72000},
+        {"model": "ZR81KC", "capacity_btuh": 81000},
+        {"model": "ZR94KC", "capacity_btuh": 94000},
+        {"model": "ZR108KC", "capacity_btuh": 108000},
+        {"model": "ZR125KC", "capacity_btuh": 125000},
+        {"model": "ZR144KC", "capacity_btuh": 144000},
+        {"model": "ZR160KC", "capacity_btuh": 160000},
+        {"model": "ZR190KC", "capacity_btuh": 190000}
+      ]
+    },
+    {
+      "name": "ZP scroll",
+      "type": "Hermetic scroll",
+      "refrigerant": "R410A",
+      "application": "Air conditioning and heat pumps",
+      "description": "Copeland's scroll range for R410A systems, used in newer ductable, package and rooftop units. The model number is the nominal capacity in thousands of BTU/h.",
+      "power_supply": [
+        "PFV: 220–240 V, single-phase, 50 Hz (smaller K5E models)",
+        "TFD: 380–420 V, three-phase, 50 Hz"
+      ],
+      "features": [
+        "Designed for the higher pressures of R410A",
+        "Uses POE oil, as required for HFC refrigerants",
+        "Common in newer ductable, package and rooftop units"
+      ],
+      "models": [
+        {"model": "ZP24K5E", "capacity_btuh": 24000},
+        {"model": "ZP29K5E", "capacity_btuh": 29000},
+        {"model": "ZP36K5E", "capacity_btuh": 36000},
+        {"model": "ZP42K5E", "capacity_btuh": 42000},
+        {"model": "ZP54K5E", "capacity_btuh": 54000},
+        {"model": "ZP61KCE", "capacity_btuh": 61000},
+        {"model": "ZP72KCE", "capacity_btuh": 72000},
+        {"model": "ZP83KCE", "capacity_btuh": 83000},
+        {"model": "ZP91KCE", "capacity_btuh": 91000},
+        {"model": "ZP104KCE", "capacity_btuh": 104000},
+        {"model": "ZP120KCE", "capacity_btuh": 120000},
+        {"model": "ZP137KCE", "capacity_btuh": 137000},
+        {"model": "ZP154KCE", "capacity_btuh": 154000},
+        {"model": "ZP182KCE", "capacity_btuh": 182000}
+      ]
+    }
+  ]
+}

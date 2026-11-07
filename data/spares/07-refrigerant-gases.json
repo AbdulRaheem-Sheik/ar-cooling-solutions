@@ -1,0 +1,243 @@
+{
+  "name": "Refrigerant gases",
+  "slug": "gases",
+  "icon": "cylinder",
+  "description": "Refrigerant gas for AC, chiller and refrigeration systems, from leading brands.",
+  "long_description": "Every cooling system is built for one refrigerant, and topping up or recharging with the right gas, in the right amount, keeps it efficient and safe. We supply sealed cylinders of the common AC and refrigeration gases from established makers such as SRF (Floron), Gujarat Fluorochemicals, Navin Fluorine (Mafron), Honeywell (Genetron, Solstice), Chemours (Freon, Opteon) and Arkema (Forane).",
+  "match_by": "The refrigerant on your unit's nameplate",
+  "parts": [
+    {
+      "name": "R32",
+      "slug": "r32",
+      "detail": "Lower-GWP refrigerant used in most new inverter split ACs.",
+      "chemical_name": "Difluoromethane (CH₂F₂)",
+      "type": "HFC, single component",
+      "composition": "100% R32",
+      "odp": "0",
+      "gwp": "675",
+      "boiling_point": "−51.7 °C",
+      "glide": "None",
+      "safety_class": "A2L (mildly flammable)",
+      "oil": "POE (polyolester)",
+      "charging": "Liquid or vapour",
+      "applications": ["Inverter and fixed-speed split ACs", "Window ACs", "Cassette and light commercial units", "Heat pumps"],
+      "brands": ["Floron (SRF)", "GFL", "Daikin", "Honeywell"],
+      "notes": [
+        "Mildly flammable: use R32-rated tools, a vacuum pump suited to A2L gases, and good ventilation",
+        "Never top up an R22 or R410A unit with R32"
+      ]
+    },
+    {
+      "name": "R410A",
+      "slug": "r410a",
+      "detail": "High-pressure HFC blend for split, ductable and VRF systems.",
+      "chemical_name": "Blend of R32 and R125",
+      "type": "HFC blend, near-azeotropic",
+      "composition": "R32 / R125 (50 / 50 by weight)",
+      "odp": "0",
+      "gwp": "2088",
+      "boiling_point": "−51.6 °C",
+      "glide": "Under 0.2 K (negligible)",
+      "safety_class": "A1 (non-flammable)",
+      "oil": "POE (polyolester)",
+      "charging": "Liquid only (blend)",
+      "applications": ["Split and multi-split ACs", "Ductable and package units", "VRF / VRV systems", "Heat pumps"],
+      "brands": ["Genetron AZ-20 (Honeywell)", "Freon 410A (Chemours)", "Forane 410A (Arkema)", "Floron (SRF)", "GFL"],
+      "notes": [
+        "Runs at about 1.6 times the pressure of R22: use R410A-rated gauges and hoses",
+        "Charge as liquid so the blend stays in the right proportions"
+      ]
+    },
+    {
+      "name": "R22",
+      "slug": "r22",
+      "detail": "HCFC used in older ACs; being phased out, for servicing existing units.",
+      "chemical_name": "Chlorodifluoromethane (CHClF₂)",
+      "type": "HCFC, single component",
+      "composition": "100% R22",
+      "odp": "0.055",
+      "gwp": "1810",
+      "boiling_point": "−40.8 °C",
+      "glide": "None",
+      "safety_class": "A1 (non-flammable)",
+      "oil": "Mineral or alkylbenzene",
+      "charging": "Liquid or vapour",
+      "applications": ["Older split and window ACs", "Older ductable and package units", "Older chillers and cold rooms"],
+      "brands": ["Floron (SRF)", "Mafron (Navin Fluorine)", "GFL", "Genetron (Honeywell)", "Freon (Chemours)"],
+      "notes": [
+        "Being phased out under the Montreal Protocol because it harms the ozone layer; supplied for servicing existing systems",
+        "When a major repair is due, ask us about replacing the unit with an R32 or R410A system"
+      ]
+    },
+    {
+      "name": "R407C",
+      "slug": "r407c",
+      "detail": "Non-ozone-depleting blend used in place of R22 in package units and chillers.",
+      "chemical_name": "Blend of R32, R125 and R134a",
+      "type": "HFC blend, zeotropic",
+      "composition": "R32 / R125 / R134a (23 / 25 / 52 by weight)",
+      "odp": "0",
+      "gwp": "1774",
+      "boiling_point": "−43.6 °C (bubble point)",
+      "glide": "About 7 K",
+      "safety_class": "A1 (non-flammable)",
+      "oil": "POE (polyolester)",
+      "charging": "Liquid only (blend)",
+      "applications": ["Package and ductable units", "Air-cooled chillers", "Heat pumps", "R22 system retrofits (with oil change)"],
+      "brands": ["Genetron 407C (Honeywell)", "Freon 407C (Chemours)", "Forane 407C (Arkema)", "Floron (SRF)"],
+      "notes": [
+        "High temperature glide: always charge as liquid, and recharge fully after a leak rather than topping up",
+        "Retrofitting an R22 system needs an oil change to POE"
+      ]
+    },
+    {
+      "name": "R134a",
+      "slug": "r134a",
+      "detail": "Medium-pressure HFC for chillers, car ACs and water coolers.",
+      "chemical_name": "1,1,1,2-Tetrafluoroethane (CH₂FCF₃)",
+      "type": "HFC, single component",
+      "composition": "100% R134a",
+      "odp": "0",
+      "gwp": "1430",
+      "boiling_point": "−26.3 °C",
+      "glide": "None",
+      "safety_class": "A1 (non-flammable)",
+      "oil": "POE (PAG in car ACs)",
+      "charging": "Liquid or vapour",
+      "applications": ["Screw and centrifugal chillers", "Car and bus ACs", "Water coolers and bottle coolers", "Older domestic refrigerators"],
+      "brands": ["Floron (SRF)", "GFL", "Genetron 134a (Honeywell)", "Freon 134a (Chemours)", "Forane 134a (Arkema)"],
+      "notes": [
+        "Lower operating pressure than R22 or R410A",
+        "Car ACs need PAG oil; stationary systems use POE"
+      ]
+    },
+    {
+      "name": "R404A",
+      "slug": "r404a",
+      "detail": "Blend for low and medium temperature refrigeration and cold rooms.",
+      "chemical_name": "Blend of R125, R143a and R134a",
+      "type": "HFC blend, near-azeotropic",
+      "composition": "R125 / R143a / R134a (44 / 52 / 4 by weight)",
+      "odp": "0",
+      "gwp": "3922",
+      "boiling_point": "−46.6 °C (bubble point)",
+      "glide": "About 0.7 K",
+      "safety_class": "A1 (non-flammable)",
+      "oil": "POE (polyolester)",
+      "charging": "Liquid only (blend)",
+      "applications": ["Cold rooms and cold storage", "Deep freezers and display cabinets", "Ice machines", "Transport refrigeration"],
+      "brands": ["Genetron 404A (Honeywell)", "Freon 404A (Chemours)", "Forane 404A (Arkema)", "Floron (SRF)"],
+      "notes": [
+        "Very high GWP: lower-GWP alternatives are being adopted for new refrigeration equipment",
+        "Charge as liquid"
+      ]
+    },
+    {
+      "name": "R507A",
+      "slug": "r507a",
+      "detail": "Azeotropic blend for low temperature cold storage and freezers.",
+      "chemical_name": "Blend of R125 and R143a",
+      "type": "HFC blend, azeotropic",
+      "composition": "R125 / R143a (50 / 50 by weight)",
+      "odp": "0",
+      "gwp": "3985",
+      "boiling_point": "−47.1 °C",
+      "glide": "None (azeotrope)",
+      "safety_class": "A1 (non-flammable)",
+      "oil": "POE (polyolester)",
+      "charging": "Liquid recommended",
+      "applications": ["Low temperature cold storage", "Blast freezers", "Commercial freezers", "Ice plants"],
+      "brands": ["Genetron AZ-50 (Honeywell)", "Forane 507 (Arkema)", "Floron (SRF)"],
+      "notes": [
+        "Behaves like a single gas, so small top-ups do not shift the blend",
+        "Often used interchangeably with R404A in low temperature systems; check the compressor's approval first"
+      ]
+    },
+    {
+      "name": "R454B",
+      "slug": "r454b",
+      "detail": "Lower-GWP replacement for R410A in new ductable and package units.",
+      "chemical_name": "Blend of R32 and R1234yf",
+      "type": "HFO / HFC blend",
+      "composition": "R32 / R1234yf (68.9 / 31.1 by weight)",
+      "odp": "0",
+      "gwp": "466",
+      "boiling_point": "−50.9 °C (bubble point)",
+      "glide": "About 1 K",
+      "safety_class": "A2L (mildly flammable)",
+      "oil": "POE (polyolester)",
+      "charging": "Liquid only (blend)",
+      "applications": ["New ductable and package units", "Rooftop units", "Heat pumps", "Chillers designed for R454B"],
+      "brands": ["Opteon XL41 (Chemours)", "Solstice 454B (Honeywell)"],
+      "notes": [
+        "Only for equipment designed for R454B; it is not a drop-in for R410A systems",
+        "Mildly flammable: use A2L-rated tools and good ventilation"
+      ]
+    },
+    {
+      "name": "R290 (propane)",
+      "slug": "r290",
+      "detail": "Natural hydrocarbon refrigerant with very low GWP.",
+      "chemical_name": "Propane (C₃H₈), refrigerant grade",
+      "type": "Hydrocarbon (HC), natural refrigerant",
+      "composition": "Refrigerant-grade propane (HC-290)",
+      "odp": "0",
+      "gwp": "3",
+      "boiling_point": "−42.1 °C",
+      "glide": "None",
+      "safety_class": "A3 (highly flammable)",
+      "oil": "As specified by the compressor maker (mineral, POE or PAO)",
+      "charging": "By weight, with small charges",
+      "applications": ["Energy-efficient split ACs designed for R290", "Commercial display cabinets and visi-coolers", "Deep freezers", "Heat pumps"],
+      "brands": ["Refrigerant-grade HC-290 from authorised suppliers"],
+      "notes": [
+        "Highly flammable: only for equipment built for R290, handled by trained technicians",
+        "Never use LPG cooking gas as a substitute; refrigerant grade is purified and dried"
+      ]
+    },
+    {
+      "name": "R600a (isobutane)",
+      "slug": "r600a",
+      "detail": "Hydrocarbon refrigerant used in most modern domestic refrigerators.",
+      "chemical_name": "Isobutane (C₄H₁₀), refrigerant grade",
+      "type": "Hydrocarbon (HC), natural refrigerant",
+      "composition": "Refrigerant-grade isobutane (HC-600a)",
+      "odp": "0",
+      "gwp": "3",
+      "boiling_point": "−11.7 °C",
+      "glide": "None",
+      "safety_class": "A3 (highly flammable)",
+      "oil": "Mineral",
+      "charging": "By weight, with very small charges (grams)",
+      "applications": ["Domestic refrigerators", "Small chest freezers", "Water dispensers"],
+      "brands": ["Refrigerant-grade HC-600a from authorised suppliers"],
+      "notes": [
+        "Highly flammable: only for appliances built for R600a",
+        "Charges are small, so use an accurate scale"
+      ]
+    },
+    {
+      "name": "R1234yf",
+      "slug": "r1234yf",
+      "detail": "Ultra-low-GWP HFO replacing R134a in new car ACs.",
+      "chemical_name": "2,3,3,3-Tetrafluoropropene (CF₃CF=CH₂)",
+      "type": "HFO, single component",
+      "composition": "100% R1234yf",
+      "odp": "0",
+      "gwp": "4",
+      "boiling_point": "−29.5 °C",
+      "glide": "None",
+      "safety_class": "A2L (mildly flammable)",
+      "oil": "PAG (as specified by the vehicle maker)",
+      "charging": "Liquid or vapour, by weight",
+      "applications": ["New car ACs", "Some chillers and commercial refrigeration"],
+      "brands": ["Opteon YF (Chemours)", "Solstice yf (Honeywell)"],
+      "notes": [
+        "Only for systems designed for R1234yf; car AC service ports differ from R134a",
+        "Mildly flammable: use A2L-rated equipment"
+      ]
+    }
+  ],
+  "signs": ["AC runs but cooling is weak", "Ice forming on the indoor coil or pipes", "Hissing sound or oily marks at joints (possible leak)"],
+  "enquiry_category": "Refrigerant gases"
+}

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_product.html" import product_image %}
+{% set active = "parts" %}
+{% set enquire = spare_enquiry_url(category, gas) %}
+{% set specs = [
+  ("Chemical name", gas.chemical_name),
+  ("Type", gas.type),
+  ("Composition", gas.composition),
+  ("Ozone depletion potential (ODP)", gas.odp),
+  ("Global warming potential (GWP, 100 yr)", gas.gwp),
+  ("Boiling point at 1 atm", gas.boiling_point),
+  ("Temperature glide", gas.glide),
+  ("Safety class (ASHRAE 34)", gas.safety_class),
+  ("Compatible oil", gas.oil),
+  ("Charging", gas.charging),
+] %}
+
+{% block title %}{{ gas.name }} refrigerant gas | {{ business.name }}, {{ business.city }}{% endblock %}
+{% block meta_description %}{{ gas.name }} refrigerant gas: {{ gas.detail }} Specifications, applications and brands from {{ business.name }}, {{ business.city }}.{% endblock %}
+
+{% block content %}
+<section class="page-hero product-hero">
+  <div class="container product-hero-inner">
+    <div class="product-hero-copy">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/parts/">Spare parts</a>
+        <span aria-hidden="true">/</span><a href="/parts/#{{ category.slug }}">{{ category.name }}</a>
+        <span aria-hidden="true">/</span><span aria-current="page">{{ gas.name }}</span>
+      </nav>
+      <p class="chip"><span class="status-dot"></span> Refrigerant gas · {{ gas.type }}</p>
+      <h1>{{ gas.name }}</h1>
+      <p>{{ gas.detail }}</p>
+      <dl class="product-facts">
+        <div><dt>GWP</dt><dd>{{ gas.gwp }}</dd></div>
+        <div><dt>ODP</dt><dd>{{ gas.odp }}</dd></div>
+        <div><dt>Safety class</dt><dd>{{ gas.safety_class }}</dd></div>
+      </dl>
+      <div class="hero-actions">
+        <a class="button button-primary" href="{{ enquire }}">Enquire about {{ gas.name }} {{ icon("arrow-right") }}</a>
+        <a class="button button-glass" href="https://wa.me/{{ business.whatsapp_number }}?text={{ ('Hi AR Cooling Solutions, I would like a quote for ' ~ gas.name ~ ' refrigerant gas.')|urlencode }}" target="_blank" rel="noopener noreferrer">{{ icon("chat") }} WhatsApp</a>
+      </div>
+    </div>
+    <figure class="product-hero-media">
+      {{ product_image({"name": gas.name ~ " refrigerant gas", "icon": category.icon, "image": gas.image or ""}, lazy=False) }}
+    </figure>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="product-overview">
+    <div class="reveal">
+      <p class="eyebrow">Specifications</p>
+      <h2>{{ gas.name }} properties.</h2>
+      <div class="table-wrap">
+        <table class="compare-table spec-table">
+          <tbody>
+            {% for label, value in specs if value %}
+            <tr><th scope="row">{{ label }}</th><td>{{ value }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="fine-print">GWP values are 100-year figures from the IPCC Fourth Assessment Report (AR4), as used in most regulations. Check the cylinder label and your unit's nameplate before charging.</p>
+    </div>
+    <div class="reveal">
+      <p class="eyebrow">Applications</p>
+      <h2>Where it's used.</h2>
+      <ul class="tag-list">
+        {% for application in gas.applications %}<li>{{ application }}</li>{% endfor %}
+      </ul>
+      {% if gas.brands %}
+      <h3 class="gas-subhead">Brands we supply</h3>
+      <ul class="tag-list">
+        {% for brand in gas.brands %}<li>{{ brand }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+      {% if gas.notes %}
+      <h3 class="gas-subhead">Handling notes</h3>
+      <ul class="check-list check-list-compact">
+        {% for note in gas.notes %}<li>{{ icon("info") }} {{ note }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">Compare</p>
+        <h2>All refrigerant gases we supply.</h2>
+      </div>
+      <p>Always use the refrigerant your system was designed for. Mixing gases or charging the wrong one can damage the compressor.</p>
+    </div>
+    <div class="table-wrap reveal">
+      <table class="compare-table">
+        <thead><tr><th scope="col">Gas</th><th scope="col">Type</th><th scope="col">GWP</th><th scope="col">Safety</th><th scope="col">Typical use</th></tr></thead>
+        <tbody>
+          {% for other in category.parts %}
+          <tr{% if other.slug == gas.slug %} class="is-current"{% endif %}>
+            <th scope="row">{% if other.slug == gas.slug %}{{ other.name }}{% else %}<a href="{{ spare_part_url(category, other) }}">{{ other.name }}</a>{% endif %}</th>
+            <td>{{ other.type }}</td>
+            <td>{{ other.gwp }}</td>
+            <td>{{ other.safety_class.split(" ")[0] }}</td>
+            <td>{{ other.applications[0] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="cta-panel reveal">
+    <div>
+      <p class="eyebrow">Get a quote</p>
+      <h2>Need {{ gas.name }}?</h2>
+      <p>Your enquiry is prefilled with this gas. Tell us the cylinder size or quantity, or book a gas top-up and leak check with our technicians.</p>
+    </div>
+    <div class="button-row">
+      <a class="button button-light" href="{{ enquire }}">Enquire now {{ icon("arrow-right") }}</a>
+      <a class="button button-glass" href="tel:{{ business.phone_e164 }}" title="Call {{ business.phone_display }}">{{ icon("phone") }} Call us</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

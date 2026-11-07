@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_catalog.html" import catalog_toolbar, catalog_group %}
+{% set active = "parts" %}
+{% set all_models = brands|sum(attribute="series", start=[])|sum(attribute="models", start=[]) %}
+
+{% block title %}AC Compressors: Copeland, Danfoss &amp; more | {{ business.name }}{% endblock %}
+{% block meta_description %}Copeland, Danfoss and other AC compressors from {{ business.name }}, {{ business.city }}. Scroll, rotary, inverter and reciprocating models matched to your unit.{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container page-hero-inner">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="/parts/">Spare parts</a>
+      <span aria-hidden="true">/</span><span aria-current="page">Compressors</span>
+    </nav>
+    <p class="chip"><span class="status-dot"></span> Compressors · {{ business.city }}</p>
+    <h1>Compressors, <em>by brand.</em></h1>
+    <p>{{ category.long_description }} Pick a model to see its specifications, or send us your old compressor's nameplate and we'll match it.</p>
+    <nav class="jump-links" aria-label="Jump to a brand">
+      {% for brand in brands %}
+      <a href="#{{ brand.slug }}">{{ icon("compressor") }} {{ brand.brand }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</section>
+
+<section class="section container" aria-label="Compressor models">
+  {{ catalog_toolbar(all_models|length, "compressor models from " ~ brands|length ~ " brand groups") }}
+  <div class="catalog">
+    {% for brand in brands %}
+    {% call catalog_group(brand.slug, brand.brand, brand.description, "compressor", brand.series|sum(attribute="models", start=[])|length, "models") %}
+    {% for series in brand.series %}
+    <div class="model-series">
+      <div class="model-series-head">
+        <h3>{{ series.name }}</h3>
+        <span class="model-series-tag">{{ series.refrigerant }}</span>
+        <span class="model-series-tag">{{ series.application }}</span>
+      </div>
+      <p class="model-series-desc">{{ series.description }}{% if series.brands %} Brands: {{ series.brands }}.{% endif %}</p>
+      <div class="model-grid">
+        {% for model in series.models %}
+        <a class="model-card" href="{{ url_for('compressor_detail', slug=model.slug) }}">
+          <b>{{ model.model or model.name }}</b>
+          <span>{{ model.capacity or "Capacity on request" }}</span>
+          <small>View specs {{ icon("arrow-right") }}</small>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+    {% endcall %}
+    {% endfor %}
+  </div>
+  <p class="fine-print">Capacities are approximate nominal ratings worked out from the model number (1 TR = 12,000 BTU/h). We confirm the exact model, voltage and part code against your old compressor's nameplate.</p>
+</section>
+
+<section class="section container">
+  <div class="cta-panel reveal">
+    <div>
+      <p class="eyebrow">Don't see your model?</p>
+      <h2>Send us the nameplate.</h2>
+      <p>A photo of the old compressor's label is usually enough for us to find the right replacement.</p>
+    </div>
+    <div class="button-row">
+      <a class="button button-light" href="{{ spare_enquiry_url(category) }}">Enquire about a compressor {{ icon("arrow-right") }}</a>
+      <a class="button button-glass" href="tel:{{ business.phone_e164 }}" title="Call {{ business.phone_display }}">{{ icon("phone") }} Call us</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

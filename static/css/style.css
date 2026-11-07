@@ -435,6 +435,51 @@ a.contact-card:hover { transform: translateY(-3px); border-color: var(--ring); b
 .catalog-note p { margin: 0; color: var(--ink-soft); font-size: 13px; }
 .catalog-note h4 { margin-top: 0; }
 .catalog-note .sign-list { margin-bottom: 0; }
+.brand-models { margin-top: 24px; }
+.brand-models-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 24px; margin-bottom: 14px; }
+.brand-models-heading h3 { margin: 0; font-size: 17px; }
+.brand-link-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.brand-link-card { display: grid; gap: 4px; padding: 18px 20px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface-2); transition: border-color 150ms ease, transform 150ms var(--ease); }
+.brand-link-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.brand-link-card b { color: var(--accent); font: 700 16px var(--font-display); }
+.brand-link-card span { color: var(--ink-soft); font-size: 12px; }
+.brand-link-card small { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; color: var(--ink); font-size: 11.5px; font-weight: 600; }
+
+/* ---------- Compressor models (/parts/compressors/) ---------- */
+.model-series + .model-series { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--line); }
+.model-series-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.model-series-head h3 { margin: 0 6px 0 0; font-size: 17px; }
+.model-series-tag { padding: 3px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 11px; font-weight: 600; }
+.model-series-desc { max-width: 760px; margin: 8px 0 16px; color: var(--ink-soft); font-size: 12.5px; }
+.model-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.model-card { display: grid; gap: 3px; padding: 14px 16px; border: 1px solid var(--line); border-radius: var(--r-sm); background: var(--surface); box-shadow: var(--shadow-sm); transition: border-color 150ms ease, transform 150ms var(--ease), box-shadow 150ms ease; }
+.model-card:hover { border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-2px); }
+.model-card b { font: 700 14px var(--font-display); letter-spacing: -0.01em; }
+.model-card span { color: var(--ink-soft); font-size: 12px; }
+.model-card small { display: inline-flex; align-items: center; gap: 5px; margin-top: 6px; color: var(--accent); font-size: 11px; font-weight: 600; }
+.model-card small .icon, .brand-link-card small .icon { width: 13px; height: 13px; }
+
+/* ---------- Refrigerant gas pages (/parts/gases/<gas>/) ---------- */
+.gas-subhead { margin: 28px 0 0; font-size: 15px; }
+.gas-subhead + .check-list { margin-top: 14px; }
+.compare-table tbody tr.is-current { background: var(--accent-tint); }
+.compare-table tbody tr.is-current th { color: var(--accent); }
+
+/* ---------- Copper coil pages (/parts/copper-coils/<type>/) ---------- */
+.size-table td:last-child { text-align: right; white-space: nowrap; }
+.wall-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.wall-list span { padding: 3px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); color: var(--ink); font-size: 12px; font-weight: 600; }
+.use-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.use-card { display: flex; flex-direction: column; padding: 22px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); box-shadow: var(--shadow-sm); transition: border-color 200ms ease, box-shadow 200ms ease; }
+.use-card:hover { border-color: var(--ring); box-shadow: var(--shadow); }
+.use-card h3 { margin: 0 0 6px; font-size: 16px; }
+.use-card > p { margin: 0 0 14px; color: var(--ink-soft); font-size: 12.5px; }
+.use-card dl { display: grid; gap: 8px; margin: 0 0 16px; padding: 12px 14px; border-radius: var(--r-sm); background: var(--surface-2); }
+.use-card dl div { display: grid; grid-template-columns: 82px minmax(0, 1fr); gap: 10px; font-size: 12px; }
+.use-card dt { color: var(--muted); font-weight: 600; }
+.use-card dd { margin: 0; color: var(--ink); font-weight: 500; }
+.use-card-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* ---------- Item cards (shared by products, services, parts, related items) ---------- */
 .product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
@@ -685,6 +730,7 @@ a.contact-card:hover { transform: translateY(-3px); border-color: var(--ring); b
   .about-teaser-media, .story-media { margin: 14px 20px 0 14px; }
   .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .catalog-note { grid-template-columns: 1fr; }
+  .brand-link-grid { grid-template-columns: 1fr; }
   .split-panels { grid-template-columns: 1fr; }
   .parts-banner { grid-template-columns: 1fr; padding: 40px 32px; }
   .cta-panel { grid-template-columns: 1fr; padding: 40px 32px; }
