@@ -53,7 +53,7 @@
       {% set has_page = part.slug and category.slug in spare_detail_endpoints %}
       {{ catalog_card(
         href=spare_part_url(category, part) if has_page else enquire,
-        visual={"name": part.name, "icon": category.icon, "image": part.image or ""},
+        visual={"name": part.name, "slug": part.slug, "icon": category.icon, "image": part.image or "", "alt": part.name ~ " (" ~ category.name|lower ~ ")"},
         title=part.name,
         text=part.detail,
         tagline=category.name,

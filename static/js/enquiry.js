@@ -40,17 +40,21 @@
     card.href = item.url;
     document.getElementById("enquiry-selected-name").textContent = item.name;
     document.getElementById("enquiry-selected-meta").textContent = item.meta || "";
+    const showIcon = () => {
+      const template = document.querySelector(`template[data-icon="${CSS.escape(item.icon)}"]`);
+      if (template) {
+        media.replaceChildren(template.content.cloneNode(true));
+        media.firstElementChild.setAttribute("aria-label", item.name);
+      }
+    };
     if (item.image) {
       const image = document.createElement("img");
       image.src = item.image;
       image.alt = item.name;
+      image.addEventListener("error", showIcon);   // photo missing: fall back to the icon
       media.append(image);
     } else {
-      const template = document.querySelector(`template[data-icon="${CSS.escape(item.icon)}"]`);
-      if (template) {
-        media.append(template.content.cloneNode(true));
-        media.firstElementChild.setAttribute("aria-label", item.name);
-      }
+      showIcon();
     }
     card.hidden = false;
     document.getElementById("enquiry-default-icon").hidden = true;

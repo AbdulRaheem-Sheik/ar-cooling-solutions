@@ -1,10 +1,15 @@
 {% extends "base.html" %}
 {% from "_icons.html" import icon %}
 {% from "_product.html" import product_image %}
+{% from "_faq.html" import faq_section, faq_schema_script %}
 {% set active = "services" %}
 
 {% block title %}{{ service.name }} in {{ business.city }} | {{ business.name }}{% endblock %}
 {% block meta_description %}{{ service.summary }} {{ service.name }} by {{ business.name }}, {{ business.city }}.{% endblock %}
+
+{% block head %}{% if service.faqs %}
+  {{ faq_schema_script(service.faqs) }}
+{% endif %}{% endblock %}
 
 {% block content %}
 <section class="page-hero product-hero">
@@ -109,23 +114,7 @@
 {% endif %}
 
 {% if service.faqs %}
-<section class="section container">
-  <div class="faq-layout">
-    <div class="reveal">
-      <p class="eyebrow">Questions</p>
-      <h2>{{ service.name }}: common questions.</h2>
-      <p class="muted">Something else on your mind? Call {{ business.phone_display }} or send an enquiry.</p>
-    </div>
-    <div class="faq-list reveal">
-      {% for faq in service.faqs %}
-      <details{% if loop.first %} open{% endif %}>
-        <summary>{{ faq.question }}</summary>
-        <p>{{ faq.answer }}</p>
-      </details>
-      {% endfor %}
-    </div>
-  </div>
-</section>
+{{ faq_section(service.name ~ ": common questions.", "Something else on your mind? Call " ~ business.phone_display ~ " or send an enquiry.", service.faqs, "service-faq") }}
 {% endif %}
 
 {% if related %}

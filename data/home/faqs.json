@@ -1,0 +1,11 @@
+{
+  "_note": "Questions on the home page, also given to Google as FAQPage structured data. Keep answers accurate.",
+  "items": [
+    {"question": "Which areas of Hyderabad do you cover?", "answer": "We serve homes and businesses across Hyderabad and nearby areas. Share your location when you call or enquire and we'll confirm the visit."},
+    {"question": "Which AC brands do you service?", "answer": "All major brands, including Daikin, Voltas, Blue Star, LG, Samsung, Carrier, Hitachi, Mitsubishi, O General, Panasonic, Lloyd and Haier, whichever brand and wherever you bought the unit."},
+    {"question": "What are your working hours?", "answer": "Monday to Saturday, 9am to 7pm. You can send an enquiry or WhatsApp message at any time and we'll reply during working hours."},
+    {"question": "Do you sell genuine spare parts?", "answer": "Yes. We stock compressors, capacitors, fan motors, PCBs, copper coils, refrigerant gases, filters and remotes. Share your AC's brand and model number and we'll check fit and availability before you buy."},
+    {"question": "Do you offer annual maintenance contracts (AMC)?", "answer": "Yes, for homes, offices, shops and commercial sites. An AMC covers scheduled servicing visits so faults are caught early and your system runs efficiently all year."},
+    {"question": "Will I get a quote before work starts?", "answer": "Always. A technician inspects the unit, explains the cause and the parts needed, and gives you a clear quote. Work starts only after you agree."}
+  ]
+}

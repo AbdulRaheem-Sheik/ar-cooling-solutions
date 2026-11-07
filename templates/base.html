@@ -2,11 +2,42 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <!-- Google tag -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-WZFNQQXC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
   <meta name="description" content="{% block meta_description %}{{ business.name }} provides AC and HVAC products, genuine spare parts, installation, repair and maintenance across {{ business.city }}.{% endblock %}">
   <title>{% block title %}{{ business.name }}{% endblock %}</title>
+  {#- Link previews on WhatsApp, Facebook, LinkedIn and X: the 1200x630 banner (with the logo), then the logo itself. -#}
+  {%- set page_url = site_url ~ request.path %}
+  {%- set banner_url = site_url ~ url_for('static', filename=og_banner) %}
+  <link rel="canonical" href="{{ page_url }}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ business.name }}">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:url" content="{{ page_url }}">
+  <meta property="og:title" content="{{ self.title() }}">
+  <meta property="og:description" content="{{ self.meta_description() }}">
+  <meta property="og:image" content="{{ banner_url }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ business.name }}: AC &amp; HVAC sales, service and spare parts in {{ business.city }}">
+  <meta property="og:image" content="{{ site_url ~ url_for('static', filename='images/ar_logo.jpg') }}">
+  <meta name="twitter:card" content="summary_large_image">
+  {%- set x_handle = business.x_url.rstrip('/').rsplit('/', 1)[-1] if business.x_url %}
+  {%- if x_handle %}
+  <meta name="twitter:site" content="@{{ x_handle }}">
+  {%- endif %}
+  <meta name="twitter:title" content="{{ self.title() }}">
+  <meta name="twitter:description" content="{{ self.meta_description() }}">
+  <meta name="twitter:image" content="{{ banner_url }}">
+  <meta name="twitter:image:alt" content="{{ business.name }}: AC &amp; HVAC sales, service and spare parts in {{ business.city }}">
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" sizes="16x16 32x32 48x48">
   <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -110,6 +141,12 @@
     {% endfor %}
   </nav>
   {% endif %}
-  <a class="floating-whatsapp" href="https://wa.me/{{ business.whatsapp_number }}?text=Hi%20AR%20Cooling%20Solutions%2C%20I%27d%20like%20to%20enquire." target="_blank" rel="noopener noreferrer" aria-label="Message {{ business.name }} on WhatsApp">{{ icon("chat") }}<span class="floating-label">WhatsApp us</span></a>
+  {%- set whatsapp_url = "https://wa.me/" ~ business.whatsapp_number ~ "?text=Hi%20AR%20Cooling%20Solutions%2C%20I%27d%20like%20to%20enquire." %}
+  <a class="floating-whatsapp" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer" aria-label="Message {{ business.name }} on WhatsApp">{{ icon("chat") }}<span class="floating-label">WhatsApp us</span></a>
+  {#- Phones only: Call and WhatsApp fixed to the bottom of the screen (replaces the floating button). -#}
+  <nav class="mobile-cta" aria-label="Contact {{ business.name }}">
+    <a class="mobile-cta-call" href="tel:{{ business.phone_e164 }}">{{ icon("phone") }} Call</a>
+    <a class="mobile-cta-whatsapp" href="{{ whatsapp_url }}" target="_blank" rel="noopener noreferrer">{{ icon("chat") }} WhatsApp</a>
+  </nav>
 </body>
 </html>

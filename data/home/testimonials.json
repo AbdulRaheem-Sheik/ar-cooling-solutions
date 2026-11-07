@@ -1,0 +1,47 @@
+{
+  "_note": "Customer reviews on the home page. These are SAMPLES: replace each with a real review (with the customer's permission) and remove \"sample\": true. Samples never appear on the live site.",
+  "items": [
+    {
+      "name": "Ravi Kumar",
+      "area": "Kukatpally",
+      "rating": 5,
+      "quote": "Our split AC stopped cooling in peak summer. The technician found a gas leak at the flare joint, fixed it and explained everything before refilling. Cooling has been perfect since.",
+      "sample": true
+    },
+    {
+      "name": "Priya Reddy",
+      "area": "Madhapur",
+      "rating": 5,
+      "quote": "We have an AMC for the office cassette units. Visits happen on schedule and we get a short report each time. No more surprise breakdowns.",
+      "sample": true
+    },
+    {
+      "name": "Suresh Naidu",
+      "area": "Gachibowli",
+      "rating": 5,
+      "quote": "They installed two new splits in our flat with neat concealed piping. Clean work, fair quote and no hidden charges.",
+      "sample": true
+    },
+    {
+      "name": "Ayesha Khan",
+      "area": "Secunderabad",
+      "rating": 4,
+      "quote": "Needed a compressor for an older unit that other shops couldn't match. They had the right model and fitted it the same week.",
+      "sample": true
+    },
+    {
+      "name": "Kiran Rao",
+      "area": "Kondapur",
+      "rating": 5,
+      "quote": "The deep cleaning made a real difference. The bad smell is gone and the AC cools the room much faster now.",
+      "sample": true
+    },
+    {
+      "name": "Mohammed Imran",
+      "area": "Begumpet",
+      "rating": 5,
+      "quote": "Quick response when our shop's ductable unit tripped. They traced it to a failed capacitor and had it running again within hours.",
+      "sample": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "_note": "Counters below the home page hero (they count up when scrolled into view).",
+  "items": [
+    {"label": "Years of experience", "value": 15, "suffix": "+"},
+    {"label": "Business clients", "value": 100, "suffix": "+"},
+    {"label": "Brands supported", "value": 25, "suffix": "+"}
+  ]
+}

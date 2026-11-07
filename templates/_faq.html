@@ -1,0 +1,26 @@
+{#- FAQ accordion (one answer open at a time) and its FAQPage structured data for Google.
+    The schema goes in the page's head block: {{ faq_schema_script(faqs) }}. -#}
+
+{% macro faq_section(heading, intro, faqs, group) -%}
+<section class="section container" id="faq">
+  <div class="faq-layout">
+    <div class="reveal">
+      <p class="eyebrow">Questions</p>
+      <h2>{{ heading }}</h2>
+      <p class="muted">{{ intro }}</p>
+    </div>
+    <div class="faq-list reveal">
+      {% for faq in faqs %}
+      <details name="{{ group }}"{% if loop.first %} open{% endif %}>
+        <summary>{{ faq.question }}</summary>
+        <p>{{ faq.answer }}</p>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{%- endmacro %}
+
+{% macro faq_schema_script(faqs) -%}
+<script type="application/ld+json">{{ faq_schema(faqs)|tojson }}</script>
+{%- endmacro %}

@@ -101,6 +101,22 @@ def get_featured_spare():
     return load_json_file(SPARE_DATA_DIR / "featured-spare.json")
 
 
+# Home page content: counters, reviews and FAQs (data/home/*.json).
+# Entries marked "sample": true are stand-ins for real content. They show in the local
+# preview (with a "Sample" badge) but never in the static build that goes live.
+HOME_DATA_DIR = DATA_DIR / "home"
+SHOW_SAMPLE_CONTENT = os.environ.get("AR_STATIC_BUILD") != "1"
+
+
+def load_home_items(name):
+    items = load_json_file(HOME_DATA_DIR / f"{name}.json")["items"]
+    return [item for item in items if SHOW_SAMPLE_CONTENT or not item.get("sample")]
+
+
+def slugify(text):
+    return "-".join("".join(c if c.isalnum() else " " for c in text.lower()).split())
+
+
 def get_compressor_brands():
     """Brands with their series and models. Each model gets its brand, series, slug and
     display name filled in, so templates and routes can use any model on its own."""
@@ -336,27 +352,27 @@ def get_enquiry_items():
     items = {}
     for product in get_product_types():
         items[f"product:{product['slug']}"] = {
-            "name": product["name"], "image": product.get("image") or "", "icon": product.get("icon") or "snow",
+            "name": product["name"], "image": item_image(product), "icon": product.get("icon") or "snow",
             "url": url_for("product_detail", slug=product["slug"]),
             "meta": " · ".join(filter(None, (product.get("capacity"), product.get("use_case")))),
             "kind": "product",
         }
     for service in get_services():
         items[f"service:{service['slug']}"] = {
-            "name": service["name"], "image": service.get("image") or "", "icon": service.get("icon") or "wrench",
+            "name": service["name"], "image": item_image(service), "icon": service.get("icon") or "wrench",
             "url": url_for("service_detail", slug=service["slug"]),
             "meta": service.get("duration", ""), "kind": "service",
         }
     for category in get_spare_categories():
         for part in category.get("parts", []):
             items[f"part:{part['name']}"] = {
-                "name": part["name"], "image": part.get("image") or "", "icon": category.get("icon") or "spark",
+                "name": part["name"], "image": item_image(part), "icon": category.get("icon") or "spark",
                 "url": spare_part_url(category, part),
                 "meta": category["name"], "kind": "part",
             }
     for model in get_compressor_models():
         items[f"part:{model['name']}"] = {
-            "name": model["name"], "image": model.get("image") or "", "icon": "compressor",
+            "name": model["name"], "image": item_image(model), "icon": "compressor",
             "url": url_for("compressor_detail", slug=model["slug"]),
             "meta": " · ".join(filter(None, (model["series"]["name"], model["capacity"]))), "kind": "part",
         }
@@ -424,6 +440,35 @@ def add_static_version(endpoint, values):
 
 SNOW_EFFECT = True   # gentle falling snow in the background of every page; False turns it off
 
+# Item photos without an "image" in the data file: drop static/images/<slug>.webp in and
+# the card shows it. Until then the card keeps its icon placeholder.
+OG_BANNER = "images/og-banner.jpg"   # 1200x630 share image, made by tools/make_og_banner.py
+
+
+@app.template_global()
+def faq_schema(faqs):
+    """FAQPage structured data (schema.org) for Google, from question/answer pairs."""
+    return {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": faq["question"], "acceptedAnswer": {"@type": "Answer", "text": faq["answer"]}}
+            for faq in faqs
+        ],
+    }
+
+
+@app.template_global()
+def item_image(item):
+    """Photo URL for a product, service or part: its own "image", else /static/images/<slug>.webp
+    when that file exists, else "" (the icon placeholder is shown)."""
+    if item.get("image"):
+        return item["image"]
+    filename = f"images/{item.get('slug') or slugify(item['name'])}.webp"
+    if (STATIC_DIR / filename).is_file():
+        return url_for("static", filename=filename)
+    return ""
+
 
 def get_social_profiles():
     """(network, label, url) for each social profile that has a URL, in display order."""
@@ -462,6 +507,7 @@ def inject_site_settings():
         "client_logos": CLIENT_LOGOS,
         "site_url": SITE_URL,
         "snow_effect": SNOW_EFFECT,
+        "og_banner": OG_BANNER,
         "social_profiles": get_social_profiles(),
         "nav_menus": get_nav_menus(),
         # The quick enquiry form in the contact section (see static/js/contact.js).
@@ -559,6 +605,9 @@ def home():
         business=BUSINESS,
         services=get_services(),
         products=get_product_types(),
+        stats=load_home_items("stats"),
+        testimonials=load_home_items("testimonials"),
+        faqs=load_home_items("faqs"),
     )
 
 

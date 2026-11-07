@@ -29,7 +29,7 @@
       </div>
     </div>
     <figure class="product-hero-media">
-      {{ product_image({"name": item.name, "icon": category.icon, "image": item.image or ""}, lazy=False) }}
+      {{ product_image({"name": item.name, "slug": item.slug, "icon": category.icon, "image": item.image or ""}, lazy=False) }}
     </figure>
   </div>
 </section>

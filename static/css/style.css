@@ -19,6 +19,9 @@
   --accent-soft: var(--maroon-100);
   --accent-tint: var(--maroon-50);
   --ring: rgb(123 26 48 / 28%);
+  /* Gold from the logo's "R": review stars, counters and other small highlights. */
+  --gold: #c9973f;
+  --gold-soft: #f7ecd8;
 
   --ink: #1d1a1c;
   --ink-soft: #57525a;
@@ -409,13 +412,51 @@ a.contact-card:hover { transform: translateY(-3px); border-color: var(--ring); b
 .follow-facebook:hover, .follow-facebook:focus-visible { background: #0b5ed7; }
 .follow-instagram { background: linear-gradient(45deg, #f58529, #dd2a7b 50%, #8134af); box-shadow: 0 14px 30px -12px rgb(221 42 123 / 60%); }
 .follow-instagram:hover, .follow-instagram:focus-visible { background: linear-gradient(45deg, #e0761f, #c41f6c 50%, #6f2a99); }
-/* Falling snow (static/js/snow.js): over the page but under the header and floating buttons; never blocks clicks. */
-.snowfall { position: fixed; inset: 0; z-index: 20; pointer-events: none; }
+/* Falling snow (static/js/snow.js): behind all page content, so it never covers text or photos; never blocks clicks. */
+.snowfall { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
 .floating-whatsapp { position: fixed; z-index: 25; right: 24px; bottom: 24px; width: 60px; height: 60px; display: grid; place-items: center; border-radius: 20px; background: var(--whatsapp); color: #fff; box-shadow: 0 16px 32px -10px rgb(31 174 91 / 70%); transition: transform 200ms var(--ease), border-radius 200ms var(--ease); }
 .floating-whatsapp:hover { transform: translateY(-3px) scale(1.04); border-radius: 50%; }
 .floating-whatsapp .icon { width: 28px; height: 28px; }
 .floating-label { position: absolute; right: 72px; padding: 8px 14px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 11px; font-weight: 600; white-space: nowrap; opacity: 0; pointer-events: none; transform: translateX(6px); transition: opacity 160ms ease, transform 160ms ease; box-shadow: var(--shadow); }
 .floating-whatsapp:hover .floating-label, .floating-whatsapp:focus-visible .floating-label { opacity: 1; transform: translateX(0); }
+
+/* Phones only: Call / WhatsApp bar fixed to the bottom of the screen (shown in the 600px media query). */
+.mobile-cta { display: none; }
+
+/* ---------- Home: counters below the hero ---------- */
+.counters { border-bottom: 1px solid var(--line); background: var(--surface); }
+.counter-grid { display: grid; grid-auto-columns: minmax(0, 1fr); grid-auto-flow: column; margin-block: 0; }
+.counter { padding: 30px 24px; text-align: center; }
+.counter + .counter { border-left: 1px solid var(--line); }
+.counter dt { color: var(--accent); font: 700 clamp(30px, 3.4vw, 42px)/1 var(--font-display); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.counter dt::after { display: block; width: 28px; height: 3px; margin: 14px auto 0; border-radius: 3px; background: var(--gold); content: ""; }
+.counter dd { margin: 12px 0 0; color: var(--ink-soft); font-size: 12.5px; font-weight: 500; }
+/* Marks stand-in content in the local preview (it is left out of the live site). */
+.sample-badge { display: inline-block; padding: 2px 8px; border-radius: 999px; background: var(--gold-soft); color: #7a5414; font: 700 10px/1.5 var(--font-body); letter-spacing: .06em; text-transform: uppercase; vertical-align: middle; }
+
+/* ---------- Home: reviews carousel ---------- */
+.carousel-track { display: flex; gap: 18px; margin: 0; padding: 4px 2px 8px; overflow-x: auto; list-style: none; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-track:focus-visible { outline-offset: 4px; }
+.review-card { flex: 0 0 calc((100% - 36px) / 3); display: flex; flex-direction: column; gap: 16px; padding: 28px 26px 24px; border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); box-shadow: var(--shadow-sm); scroll-snap-align: start; }
+.review-stars { display: flex; gap: 3px; color: var(--line-strong); }
+.review-stars .is-on { color: var(--gold); }
+.review-stars .icon { width: 18px; height: 18px; }
+.review-card blockquote { flex: 1; margin: 0; color: var(--ink); font-size: 13.5px; line-height: 1.7; }
+.review-card blockquote::before { content: "\201C"; }
+.review-card blockquote::after { content: "\201D"; }
+.review-author { display: flex; align-items: center; gap: 12px; margin: 0; padding-top: 16px; border-top: 1px solid var(--line); }
+.review-author > span:nth-child(2) { display: grid; flex: 1; min-width: 0; }
+.review-author b { font: 600 13px/1.3 var(--font-display); }
+.review-author small { color: var(--muted); font-size: 11.5px; }
+.review-avatar { width: 40px; height: 40px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 50%; background: var(--grad); color: #fff; font: 700 15px var(--font-display); box-shadow: inset 0 0 0 2px var(--gold); }
+.carousel-controls { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 22px; }
+.carousel-button { width: 42px; height: 42px; display: grid; place-items: center; padding: 0; border: 1px solid var(--line-strong); border-radius: 50%; background: #fff; color: var(--accent); cursor: pointer; box-shadow: var(--shadow-sm); transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease; }
+.carousel-button:hover { border-color: var(--accent); background: var(--accent); color: #fff; }
+.carousel-button[data-carousel-prev] .icon { transform: rotate(180deg); }
+.carousel-dots { display: flex; gap: 8px; }
+.carousel-dot { width: 9px; height: 9px; padding: 0; border: 0; border-radius: 999px; background: var(--line-strong); cursor: pointer; transition: width 250ms var(--ease), background-color 200ms ease; }
+.carousel-dot[aria-current="true"] { width: 26px; background: var(--gold); }
 
 /* ---------- Catalog: collapsible categories (products, services, parts) ---------- */
 .catalog-toolbar { margin-bottom: 16px; color: var(--muted); font-size: 12.5px; }
@@ -670,6 +711,15 @@ a.contact-card:hover { transform: translateY(-3px); border-color: var(--ring); b
 .enquiry-reference code { color: var(--ink); font: 600 11.5px var(--font-body); overflow-wrap: anywhere; }
 .enquiry-success .button-row { justify-content: center; }
 
+/* ---------- Maroon top edge on every card / tile ----------
+   Placed after the card rules (and repeated for :hover) so hover border colours don't replace it. */
+.service-card, .why-card, .steps li, .product-card, .variant-card, .sign-card, .audience-card, .stat-band div, .panel,
+.review-card, .client-card, .use-card, .model-card, .brand-link-card, .contact-card, .range-item, .enquiry-aside, .enquiry-success,
+.service-card:hover, .why-card:hover, .steps li:hover, .product-card:hover, .variant-card:hover, .sign-card:hover, .audience-card:hover,
+.client-card:hover, .use-card:hover, .model-card:hover, .brand-link-card:hover, a.contact-card:hover, .range-item:hover { border-top: 3px solid var(--accent); }
+/* The maroon-filled first service card gets a gold edge instead, so it still shows. */
+.service-grid > .service-card:first-child { border-top-color: var(--gold); }
+
 /* ---------- Scroll reveal ---------- */
 .js .reveal { opacity: 0; transform: translateY(20px); transition: opacity 650ms var(--ease), transform 650ms var(--ease); }
 .js .reveal.is-visible { opacity: 1; transform: none; }
@@ -735,6 +785,10 @@ a.contact-card:hover { transform: translateY(-3px); border-color: var(--ring); b
   .parts-banner { grid-template-columns: 1fr; padding: 40px 32px; }
   .cta-panel { grid-template-columns: 1fr; padding: 40px 32px; }
   .steps-light { grid-template-columns: 1fr; }
+  .counter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: row; }
+  .counter:nth-child(3) { border-left: 0; }
+  .counter:nth-child(n + 3) { border-top: 1px solid var(--line); }
+  .review-card { flex-basis: calc((100% - 18px) / 2); }
 }
 
 @media (max-width: 600px) {
@@ -802,7 +856,16 @@ a.contact-card:hover { transform: translateY(-3px); border-color: var(--ring); b
   .client-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
   .client-card { padding: 22px 12px 16px; }
   .marquee-track .partner-logo { margin-right: 32px; }
-  .floating-whatsapp { right: 16px; bottom: 16px; width: 56px; height: 56px; }
+  .counter { padding: 22px 12px; }
+  .review-card { flex-basis: 100%; padding: 24px 20px 20px; }
+  /* The bottom Call / WhatsApp bar replaces the floating WhatsApp button; the page gets room for it. */
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom)); }
+  .floating-whatsapp { display: none; }
+  .mobile-cta { position: fixed; z-index: 28; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 10px 12px calc(10px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); background: rgb(255 255 255 / 96%); box-shadow: 0 -10px 30px -16px rgb(29 26 28 / 30%); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .mobile-cta a { min-height: 44px; display: inline-flex; justify-content: center; align-items: center; gap: 8px; border-radius: 999px; color: #fff; font: 600 14px/1 var(--font-body); }
+  .mobile-cta .icon { width: 18px; height: 18px; }
+  .mobile-cta-call { background: var(--accent); box-shadow: var(--glow); }
+  .mobile-cta-whatsapp { background: var(--whatsapp); box-shadow: 0 10px 24px -12px rgb(31 174 91 / 70%); }
   .follow-rail { gap: 6px; }
   .follow-link { padding: 11px 10px 11px 11px; border-radius: 12px 0 0 12px; }
   .follow-link .icon { width: 20px; height: 20px; }

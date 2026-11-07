@@ -25,7 +25,8 @@ ROOT = Path(__file__).resolve().parent.parent
 OUTPUT = ROOT / "_site"
 # Always published; other static files (images) only when a built page references them,
 # so unused originals and spare photos never bloat the site.
-ALWAYS_STATIC = {Path("css"), Path("js")}
+# The share banner is only linked by absolute URL (og:image), so it is listed here too.
+ALWAYS_STATIC = {Path("css"), Path("js"), Path("images/og-banner.jpg")}
 # Pages that should not be listed for search engines.
 NOT_IN_SITEMAP = {"/enquiry/thank-you/"}
 
@@ -34,6 +35,7 @@ def load_app():
     # The live site has no logins, so the build uses a throwaway signing key.
     os.environ.setdefault("SECRET_KEY", secrets.token_hex(32))
     os.environ["AR_DEBUG"] = "0"
+    os.environ["AR_STATIC_BUILD"] = "1"   # leaves out sample content (see SHOW_SAMPLE_CONTENT in app.py)
     sys.path.insert(0, str(ROOT))
     import app as site  # noqa: E402
 

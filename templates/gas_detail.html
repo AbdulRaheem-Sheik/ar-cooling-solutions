@@ -42,7 +42,7 @@
       </div>
     </div>
     <figure class="product-hero-media">
-      {{ product_image({"name": gas.name ~ " refrigerant gas", "icon": category.icon, "image": gas.image or ""}, lazy=False) }}
+      {{ product_image({"name": gas.name, "slug": gas.slug, "alt": gas.name ~ " refrigerant gas cylinder", "icon": category.icon, "image": gas.image or ""}, lazy=False) }}
     </figure>
   </div>
 </section>

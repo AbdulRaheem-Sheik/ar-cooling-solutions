@@ -1,10 +1,12 @@
 {% from "_icons.html" import icon %}
 
-{#- Product photo, or a branded icon placeholder when no image is set. -#}
+{#- Item photo: its "image", or static/images/<slug>.webp when that file exists (see item_image
+    in app.py). If there is no photo, or it fails to load, the branded icon placeholder shows. -#}
 {% macro product_image(product, lazy=True) -%}
-{%- if product.image -%}
-<img src="{{ product.image }}" alt="{{ product.name }}"{% if lazy %} loading="lazy"{% endif %}>
-{%- else -%}
-<span class="product-placeholder" role="img" aria-label="{{ product.name }}">{{ icon(product.icon or "snow") }}</span>
+{%- set src = item_image(product) -%}
+{%- set alt = product.alt or product.name -%}
+{%- if src -%}
+<img src="{{ src }}" alt="{{ alt }}"{% if lazy %} loading="lazy" decoding="async"{% endif %} onerror="this.hidden=true;this.nextElementSibling.hidden=false">
 {%- endif -%}
+<span class="product-placeholder" role="img" aria-label="{{ alt }}"{% if src %} hidden{% endif %}>{{ icon(product.icon or "snow") }}</span>
 {%- endmacro %}

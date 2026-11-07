@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% from "_icons.html" import icon %}
 {% from "_product.html" import product_image %}
+{% from "_faq.html" import faq_section, faq_schema_script %}
 {% set active = "home" %}
 
 {% block title %}{{ business.name }} | AC &amp; HVAC Service and Parts in {{ business.city }}{% endblock %}
@@ -31,6 +32,7 @@
       "sameAs": {{ profiles|tojson }}{% endif %}
     }
   </script>
+  {% if faqs %}{{ faq_schema_script(faqs) }}{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -65,6 +67,20 @@
     </div>
   </div>
 </section>
+
+{% if stats %}
+{#- Counters: the real number is in the page; script.js counts up to it when it scrolls into view. -#}
+<section class="counters" aria-label="{{ business.name }} in numbers">
+  <dl class="container counter-grid">
+    {% for stat in stats %}
+    <div class="counter">
+      <dt><span data-count-to="{{ stat.value }}">{{ "{:,}".format(stat.value) }}</span>{{ stat.suffix }}</dt>
+      <dd>{{ stat.label }}{% if stat.sample %} <span class="sample-badge">Sample</span>{% endif %}</dd>
+    </div>
+    {% endfor %}
+  </dl>
+</section>
+{% endif %}
 
 <section class="section container" id="services">
   <div class="section-heading reveal">
@@ -164,6 +180,42 @@
   </div>
 </section>
 
+{% if testimonials %}
+<section class="section section-tint" id="reviews">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">Customer reviews</p>
+        <h2>What {{ business.city }} says about us.</h2>
+      </div>
+      <p>Homes, offices and shops across the city trust us with their cooling. Here's what some of them told us.</p>
+    </div>
+    <div class="carousel reveal" data-carousel>
+      <ul class="carousel-track" data-carousel-track aria-label="Customer reviews" tabindex="0">
+        {% for review in testimonials %}
+        <li class="review-card">
+          <span class="review-stars" role="img" aria-label="Rated {{ review.rating }} out of 5">
+            {% for n in range(5) %}<span class="{{ 'is-on' if n < review.rating }}">{{ icon("star") }}</span>{% endfor %}
+          </span>
+          <blockquote>{{ review.quote }}</blockquote>
+          <p class="review-author">
+            <span class="review-avatar" aria-hidden="true">{{ review.name[:1] }}</span>
+            <span><b>{{ review.name }}</b><small>{{ review.area }}, {{ business.city }}</small></span>
+            {% if review.sample %}<span class="sample-badge">Sample</span>{% endif %}
+          </p>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="carousel-controls">
+        <button class="carousel-button" type="button" data-carousel-prev aria-label="Previous reviews">{{ icon("arrow-right") }}</button>
+        <div class="carousel-dots" data-carousel-dots></div>
+        <button class="carousel-button" type="button" data-carousel-next aria-label="Next reviews">{{ icon("arrow-right") }}</button>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
 <section class="section container" id="parts">
   <div class="parts-banner reveal">
     <span class="parts-banner-icon">{{ icon("compressor") }}</span>
@@ -195,6 +247,10 @@
     </div>
   </div>
 </section>
+
+{% if faqs %}
+{{ faq_section("Answers before you call.", "Something else on your mind? Call " ~ business.phone_display ~ " or WhatsApp us.", faqs, "home-faq") }}
+{% endif %}
 
 {% include "_contact.html" %}
 {% endblock %}

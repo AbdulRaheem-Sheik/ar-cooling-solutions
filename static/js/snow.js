@@ -1,10 +1,12 @@
 // Gentle falling snow drawn on one fixed canvas. Clicks pass straight through it.
-// Turned off for visitors who prefer reduced motion or have data saver on.
-// Enable or disable for the whole site with SNOW_EFFECT in app.py.
+// It sits behind the page content (see .snowfall in style.css), so it shows only in the gaps.
+// Turned off on phones and tablets (speed), and for visitors who prefer reduced motion or
+// have data saver on. Enable or disable for the whole site with SNOW_EFFECT in app.py.
 (() => {
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const smallScreen = window.matchMedia("(max-width: 900px), (pointer: coarse)").matches;
   const saveData = navigator.connection && navigator.connection.saveData;
-  if (reduceMotion || saveData) return;
+  if (reduceMotion || smallScreen || saveData) return;
 
   const canvas = document.createElement("canvas");
   canvas.className = "snowfall";
