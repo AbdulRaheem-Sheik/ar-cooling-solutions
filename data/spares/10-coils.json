@@ -1,0 +1,14 @@
+{
+  "name": "Condenser & evaporator coils",
+  "slug": "coils",
+  "icon": "snow",
+  "description": "Replacement heat exchanger coils for indoor and outdoor units.",
+  "long_description": "Condenser coils release heat outdoors and evaporator coils absorb it indoors. Corrosion, leaks and damaged fins reduce cooling and waste power. We supply copper-tube, aluminium-fin coils matched to the original size, rows and connections for split, ductable and commercial units.",
+  "match_by": "Unit model, coil dimensions and number of rows",
+  "parts": [
+    {"name": "Condenser coils", "detail": "Outdoor coils for split, ductable and package units."},
+    {"name": "Evaporator coils", "detail": "Indoor cooling coils for split, cassette, ductable and AHU units."}
+  ],
+  "signs": ["Gas leaks keep coming back from the coil", "Corroded or badly damaged fins", "Weak cooling even with the correct gas charge"],
+  "enquiry_category": "Coils"
+}

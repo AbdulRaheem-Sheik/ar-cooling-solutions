@@ -1,0 +1,14 @@
+{
+  "name": "Filter driers & accumulators",
+  "slug": "filter-driers-accumulators",
+  "icon": "filter",
+  "description": "Keep moisture, dirt and liquid refrigerant away from the compressor.",
+  "long_description": "Filter driers trap moisture, acid and debris in the refrigerant, and should be replaced whenever the system is opened for repair. Suction accumulators stop liquid refrigerant from reaching the compressor. Both protect the compressor from early failure.",
+  "match_by": "Connection size, type and refrigerant",
+  "parts": [
+    {"name": "Filter driers", "detail": "Liquid line and suction line driers in flare and solder types."},
+    {"name": "Suction accumulators", "detail": "Protect the compressor from liquid refrigerant at start-up."}
+  ],
+  "signs": ["Frost or a temperature drop across the drier", "System opened for a leak or compressor repair", "Compressor knocking at start-up"],
+  "enquiry_category": "Filter driers & accumulators"
+}

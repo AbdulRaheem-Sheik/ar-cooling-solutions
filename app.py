@@ -230,6 +230,10 @@ SPARE_ENQUIRY_CATEGORIES = (
     "Remote controls",
     "Filters",
     "Refrigerant gases",
+    "Valves",
+    "Filter driers & accumulators",
+    "Coils",
+    "Controllers",
 )
 PRODUCT_FAMILIES = (
     {

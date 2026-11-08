@@ -1,0 +1,17 @@
+{
+  "name": "Valves",
+  "slug": "valves",
+  "icon": "gauge",
+  "description": "Expansion, solenoid, ball, shut-off and non-return valves.",
+  "long_description": "Valves meter and control the flow of refrigerant around the system. A stuck expansion valve, a leaking solenoid or a passing check valve can cause weak cooling, flooding or pressure problems. We supply replacements matched to the refrigerant, capacity and connection size.",
+  "match_by": "Refrigerant, capacity and connection size",
+  "parts": [
+    {"name": "Expansion valves", "detail": "Thermostatic and electronic valves that meter refrigerant into the evaporator."},
+    {"name": "Solenoid valves", "detail": "Liquid line solenoid valves and coils for pump-down and flow control."},
+    {"name": "Ball valves", "detail": "Full-bore refrigerant ball valves for isolating parts of the system."},
+    {"name": "Hand shut-off valves", "detail": "Manual valves for isolating lines during service and repairs."},
+    {"name": "NRV (non-return) valves", "detail": "Check valves that stop refrigerant flowing backwards."}
+  ],
+  "signs": ["Evaporator frosting up or flooding", "Suction pressure too low or too high", "System will not pump down or hold pressure"],
+  "enquiry_category": "Valves"
+}
