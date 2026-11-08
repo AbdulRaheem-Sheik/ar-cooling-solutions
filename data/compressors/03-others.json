@@ -17,10 +17,10 @@
         "Usually supplied with a matching run capacitor where needed"
       ],
       "models": [
-        {"name": "Rotary compressor 0.75 TR", "slug": "rotary-0-75-tr", "capacity_btuh": 9000},
-        {"name": "Rotary compressor 1 TR", "slug": "rotary-1-tr", "capacity_btuh": 12000},
-        {"name": "Rotary compressor 1.5 TR", "slug": "rotary-1-5-tr", "capacity_btuh": 18000},
-        {"name": "Rotary compressor 2 TR", "slug": "rotary-2-tr", "capacity_btuh": 24000}
+        {"name": "Rotary compressor 0.75 TR", "slug": "rotary-0-75-tr", "image": "/static/images/spares/rotary_compressors.jpg", "capacity_btuh": 9000},
+        {"name": "Rotary compressor 1 TR", "slug": "rotary-1-tr", "image": "/static/images/spares/rotary_compressors.jpg", "capacity_btuh": 12000},
+        {"name": "Rotary compressor 1.5 TR", "slug": "rotary-1-5-tr", "image": "/static/images/spares/rotary_compressors.jpg", "capacity_btuh": 18000},
+        {"name": "Rotary compressor 2 TR", "slug": "rotary-2-tr", "image": "/static/images/spares/rotary_compressors.jpg", "capacity_btuh": 24000}
       ]
     },
     {
