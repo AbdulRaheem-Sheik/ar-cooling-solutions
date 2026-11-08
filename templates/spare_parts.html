@@ -88,14 +88,8 @@
 <section class="section section-tint" id="featured-coil" aria-labelledby="featured-spare-title">
   <div class="container featured-spare-inner">
     <div class="coil-visual reveal">
-      {# To show a real photo, add static/images/copper-pancake-coil.jpg and replace the placeholder below with:
-      <img src="{{ url_for('static', filename='images/copper-pancake-coil.jpg') }}" alt="Copper pancake coil for split AC" width="720" height="720" loading="lazy"> #}
-      <div class="media-placeholder media-placeholder-tall" role="img" aria-label="Product photo placeholder for a copper pancake coil">
-        {{ icon("coil", "media-placeholder-icon") }}
-        <span>Product photo goes here</span>
-        <small>Add an authorized coil image to static/images/</small>
-      </div>
-      <p class="caption">Photo placeholder · Split AC copper coil</p>
+      <img class="coil-photo" src="{{ url_for('static', filename='images/spares/copper_range.jpg') }}" alt="Soft copper coils, hard copper tubes and copper fittings" width="1200" height="1264" loading="lazy" decoding="async">
+      <p class="caption">Soft copper coils, hard copper tubes and copper fittings</p>
     </div>
     <div class="featured-spare-copy reveal">
       <p class="eyebrow">Featured part · {{ featured_spare.category }}</p>

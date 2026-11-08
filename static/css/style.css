@@ -626,6 +626,7 @@ a.contact-card:hover { transform: translateY(-3px); border-color: var(--ring); b
 /* ---------- Spare parts: featured coil ---------- */
 .featured-spare-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
 .coil-visual { position: sticky; top: 120px; }
+.coil-photo { display: block; width: 100%; height: auto; border-radius: var(--r-lg); }
 .featured-spare-copy h2 { margin-bottom: 16px; }
 .fit-note { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 24px; padding: 18px 20px; border: 1px solid var(--maroon-100); border-radius: var(--r); background: var(--accent-tint); }
 .fit-note-icon { color: var(--accent); }
