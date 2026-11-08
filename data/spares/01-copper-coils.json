@@ -1257,12 +1257,140 @@
     {
       "name": "Insulation sleeves & tape",
       "image": "/static/images/spares/insulation_sleeves_tape.jpg",
-      "detail": "Nitrile insulation and wrapping tape to stop sweating and heat gain."
+      "slug": "insulation-sleeves-tape",
+      "detail": "Nitrile insulation and wrapping tape to stop sweating and heat gain.",
+      "card_specs": [
+        [
+          "Material",
+          "Nitrile rubber (NBR)"
+        ],
+        [
+          "Wall",
+          "6–19 mm"
+        ]
+      ],
+      "summary": "Closed-cell nitrile rubber insulation for refrigerant pipes, with wrapping tape to finish the line set. Insulation stops the suction line sweating and dripping, and keeps heat out so the AC cools efficiently.",
+      "facts": [
+        [
+          "Material",
+          "Closed-cell nitrile rubber"
+        ],
+        [
+          "Wall",
+          "6–19 mm"
+        ],
+        [
+          "Fits",
+          "1/4″–2-1/8″ pipe"
+        ]
+      ],
+      "specs": [
+        [
+          "Material",
+          "Closed-cell elastomeric nitrile rubber (NBR)"
+        ],
+        [
+          "Wall thickness",
+          "Common 6, 9, 13 and 19 mm"
+        ],
+        [
+          "Pipe sizes",
+          "Bore to suit 1/4″ to 2-1/8″ copper pipe"
+        ],
+        [
+          "Lengths",
+          "Usually 1.8–2 m tubes; sheets and rolls for large pipes"
+        ],
+        [
+          "Thermal conductivity",
+          "Typically about 0.034–0.036 W/m·K"
+        ],
+        [
+          "Temperature range",
+          "About −40 to +105 °C"
+        ],
+        [
+          "Tape",
+          "PVC wrapping tape and self-adhesive insulation tape"
+        ]
+      ],
+      "notes": [
+        "Insulate both the liquid and suction lines on split ACs",
+        "Seal all joints with adhesive or tape so moisture can't get under the insulation",
+        "Use thicker walls for long runs or very humid areas"
+      ],
+      "applications": [
+        "Split AC line sets",
+        "Ductable & VRF piping",
+        "Chilled-water pipes"
+      ]
     },
     {
       "name": "Brazing consumables",
       "image": "/static/images/spares/brazing_consumables.jpg",
-      "detail": "Brazing rods, flux and nitrogen-purge kits for leak-free joints."
+      "slug": "brazing-consumables",
+      "detail": "Brazing rods, flux and nitrogen-purge kits for leak-free joints.",
+      "card_specs": [
+        [
+          "Rods",
+          "0–15% silver"
+        ],
+        [
+          "Includes",
+          "Flux & gas"
+        ]
+      ],
+      "summary": "Brazing rods, flux and gas for strong, leak-free copper joints. Copper-to-copper joints use self-fluxing phosphor-copper rods; copper-to-brass and copper-to-steel joints need silver rods with flux.",
+      "facts": [
+        [
+          "Rods",
+          "Phosphor-copper & silver"
+        ],
+        [
+          "Flux",
+          "For brass & steel joints"
+        ],
+        [
+          "Gas",
+          "Oxy-fuel, LPG/MAPP, nitrogen"
+        ]
+      ],
+      "specs": [
+        [
+          "Copper-to-copper",
+          "Phosphor-copper rods with 0–15% silver; self-fluxing"
+        ],
+        [
+          "Copper-to-brass / steel",
+          "Silver brazing rods (higher silver) with brazing flux"
+        ],
+        [
+          "Rod forms",
+          "Flat or round rods, usually about 500 mm long"
+        ],
+        [
+          "Flux",
+          "Paste flux for silver brazing"
+        ],
+        [
+          "Nitrogen purge",
+          "Oxygen-free nitrogen flowing through the pipe while brazing"
+        ],
+        [
+          "Heat source",
+          "Oxy-acetylene, oxy-LPG or MAPP/LPG torches"
+        ]
+      ],
+      "notes": [
+        "Purge with nitrogen while brazing to stop black oxide scale forming inside the pipe",
+        "Never use phosphor-copper rods on steel; use silver rods and flux",
+        "Clean off flux residue after brazing"
+      ],
+      "applications": [
+        "AC installation",
+        "Compressor & coil replacement",
+        "Leak repairs"
+      ]
     }
   ],
   "signs": [

@@ -6,11 +6,270 @@
   "long_description": "Indoor blower motors move air across the cooling coil, and outdoor fan motors carry heat away from the condenser. A weak or noisy motor reduces cooling and strains the compressor. We supply motors matched by shaft size, rotation, RPM and mounting.",
   "match_by": "Shaft size, rotation, RPM and mounting",
   "parts": [
-    {"name": "Indoor blower motors", "detail": "Cross-flow blower motors for wall-mounted indoor units."},
-    {"name": "Outdoor condenser fan motors", "detail": "Motors that carry heat away from the outdoor coil."},
-    {"name": "BLDC / DC inverter fan motors", "detail": "Variable-speed motors for inverter ACs."},
-    {"name": "Fan blades & blower wheels", "detail": "Replacement blades and cross-flow wheels."}
+    {
+      "name": "Indoor blower motors",
+      "slug": "indoor-blower-motors",
+      "detail": "Cross-flow blower motors for wall-mounted indoor units.",
+      "card_specs": [
+        [
+          "Type",
+          "PSC (AC) or BLDC"
+        ],
+        [
+          "Supply",
+          "230 V AC"
+        ]
+      ],
+      "summary": "The indoor blower motor turns the cross-flow blower wheel that moves air through the indoor coil. We supply AC (PSC) and DC (BLDC) motors matched to your unit's model, shaft and mounting.",
+      "facts": [
+        [
+          "Type",
+          "PSC or BLDC"
+        ],
+        [
+          "Speeds",
+          "Multi-speed or variable"
+        ],
+        [
+          "Matched by",
+          "Model & motor code"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Single-phase PSC with capacitor, or brushless DC (BLDC)"
+        ],
+        [
+          "Supply",
+          "220–240 V, 50 Hz (PSC); DC bus from the indoor PCB (BLDC)"
+        ],
+        [
+          "Output",
+          "Typically 10–60 W for split ACs"
+        ],
+        [
+          "Speeds",
+          "3–4 tapped speeds (PSC) or variable (BLDC)"
+        ],
+        [
+          "Shaft",
+          "Usually 8 mm, one end"
+        ],
+        [
+          "Mounting",
+          "Rubber end-mounts or cradle, per unit model"
+        ],
+        [
+          "Feedback",
+          "Hall sensor or speed signal on many models"
+        ]
+      ],
+      "notes": [
+        "Share the motor code from its label: wiring and connectors differ by brand",
+        "A slow or noisy blower can also be a dirty wheel or failed capacitor"
+      ],
+      "applications": [
+        "Split AC indoor units",
+        "Cassette units"
+      ]
+    },
+    {
+      "name": "Outdoor condenser fan motors",
+      "slug": "outdoor-condenser-fan-motors",
+      "detail": "Motors that carry heat away from the outdoor coil.",
+      "card_specs": [
+        [
+          "Output",
+          "30–250 W"
+        ],
+        [
+          "Supply",
+          "1-phase · 3-phase"
+        ]
+      ],
+      "summary": "Condenser fan motors drive the outdoor fan that moves air through the condenser coil. A failed or slow fan quickly causes high pressure and tripping.",
+      "facts": [
+        [
+          "Type",
+          "PSC (AC) or BLDC"
+        ],
+        [
+          "Output",
+          "30–250 W"
+        ],
+        [
+          "Speed",
+          "Approx. 700–900 rpm"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Single-phase PSC with capacitor, three-phase, or BLDC"
+        ],
+        [
+          "Output",
+          "About 30–80 W for split ACs; up to 250 W and above for larger units"
+        ],
+        [
+          "Supply",
+          "220–240 V, 1-phase, 50 Hz; 380–415 V, 3-phase on larger units"
+        ],
+        [
+          "Speed",
+          "About 700–900 rpm (1 or 2 speeds)"
+        ],
+        [
+          "Shaft",
+          "Usually 8–12.7 mm"
+        ],
+        [
+          "Mounting",
+          "Bracket or through-bolt, per unit model"
+        ],
+        [
+          "Protection",
+          "Built-in thermal overload"
+        ]
+      ],
+      "notes": [
+        "Match output, speed, rotation direction, shaft size and mounting"
+      ],
+      "applications": [
+        "Split AC outdoor units",
+        "Ductable & package units"
+      ]
+    },
+    {
+      "name": "BLDC / DC inverter fan motors",
+      "slug": "bldc-dc-inverter-fan-motors",
+      "detail": "Variable-speed motors for inverter ACs.",
+      "card_specs": [
+        [
+          "Type",
+          "Brushless DC"
+        ],
+        [
+          "Control",
+          "Vsp speed signal"
+        ]
+      ],
+      "summary": "Inverter ACs use brushless DC fan motors with built-in drive electronics. The PCB sets the speed with a control signal, giving quiet, efficient variable-speed airflow.",
+      "facts": [
+        [
+          "Type",
+          "Brushless DC"
+        ],
+        [
+          "Speed",
+          "Variable"
+        ],
+        [
+          "Matched by",
+          "Motor code"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Brushless DC with built-in driver"
+        ],
+        [
+          "Power",
+          "High-voltage DC bus, typically about 280–340 V DC"
+        ],
+        [
+          "Control supply",
+          "Typically 15 V DC"
+        ],
+        [
+          "Speed control",
+          "Vsp voltage signal from the PCB"
+        ],
+        [
+          "Feedback",
+          "FG speed pulse back to the PCB"
+        ],
+        [
+          "Connector",
+          "5-pin plug on most models (pin-out varies by brand)"
+        ]
+      ],
+      "notes": [
+        "Pin-outs differ between brands: match the motor code, not just the size",
+        "A fan fault code can also come from the PCB's drive circuit"
+      ],
+      "applications": [
+        "Inverter split ACs (indoor & outdoor)",
+        "Inverter cassette units"
+      ]
+    },
+    {
+      "name": "Fan blades & blower wheels",
+      "slug": "fan-blades-blower-wheels",
+      "detail": "Replacement blades and cross-flow wheels.",
+      "card_specs": [
+        [
+          "Types",
+          "Axial · cross-flow"
+        ],
+        [
+          "Matched by",
+          "Size & bore"
+        ]
+      ],
+      "summary": "Outdoor units use axial propeller fan blades; indoor units use long cross-flow blower wheels. Cracked or unbalanced fans cause noise, vibration and poor airflow.",
+      "facts": [
+        [
+          "Outdoor",
+          "Axial fan blades"
+        ],
+        [
+          "Indoor",
+          "Cross-flow wheels"
+        ],
+        [
+          "Material",
+          "Reinforced plastic"
+        ]
+      ],
+      "specs": [
+        [
+          "Outdoor fan blades",
+          "Axial, usually 3 blades; sized by diameter"
+        ],
+        [
+          "Indoor blower wheels",
+          "Cross-flow; sized by length and diameter"
+        ],
+        [
+          "Material",
+          "AS / ABS or glass-fibre reinforced plastic"
+        ],
+        [
+          "Bore",
+          "Matched to the motor shaft (commonly 8 mm), with D-flat or set screw"
+        ],
+        [
+          "Rotation",
+          "Clockwise or anticlockwise, per unit"
+        ]
+      ],
+      "notes": [
+        "Share diameter, length, bore and the unit model, or a photo of the old part"
+      ],
+      "applications": [
+        "Split ACs",
+        "Window ACs",
+        "Outdoor units"
+      ]
+    }
   ],
-  "signs": ["Grinding or rattling noise", "Weak airflow from the indoor unit", "Outdoor fan not spinning while the AC runs"],
+  "signs": [
+    "Grinding or rattling noise",
+    "Weak airflow from the indoor unit",
+    "Outdoor fan not spinning while the AC runs"
+  ],
   "enquiry_category": "Fan motors"
 }

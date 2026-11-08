@@ -50,7 +50,7 @@
     <div class="product-grid">
       {% for part in category.parts %}
       {% set enquire = spare_enquiry_url(category, part) %}
-      {% set has_page = part.slug and category.slug in spare_detail_endpoints %}
+      {% set has_page = part.slug and (category.slug in spare_detail_endpoints or part.specs) %}
       {{ catalog_card(
         href=spare_part_url(category, part) if has_page else enquire,
         visual={"name": part.name, "slug": part.slug, "icon": category.icon, "image": part.image or "", "alt": part.name ~ " (" ~ category.name|lower ~ ")"},

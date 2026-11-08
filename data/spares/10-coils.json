@@ -6,9 +6,142 @@
   "long_description": "Condenser coils release heat outdoors and evaporator coils absorb it indoors. Corrosion, leaks and damaged fins reduce cooling and waste power. We supply copper-tube, aluminium-fin coils matched to the original size, rows and connections for split, ductable and commercial units.",
   "match_by": "Unit model, coil dimensions and number of rows",
   "parts": [
-    {"name": "Condenser coils", "detail": "Outdoor coils for split, ductable and package units."},
-    {"name": "Evaporator coils", "detail": "Indoor cooling coils for split, cassette, ductable and AHU units."}
+    {
+      "name": "Condenser coils",
+      "slug": "condenser-coils",
+      "detail": "Outdoor coils for split, ductable and package units.",
+      "card_specs": [
+        [
+          "Tube",
+          "Copper, 7–9.52 mm"
+        ],
+        [
+          "Fins",
+          "Aluminium"
+        ]
+      ],
+      "summary": "Condenser coils release the heat removed from the room to outside air. We supply copper-tube, aluminium-fin coils matched to the original size, rows and connections, including coated options for coastal and polluted areas.",
+      "facts": [
+        [
+          "Tube",
+          "Copper"
+        ],
+        [
+          "Fins",
+          "Aluminium"
+        ],
+        [
+          "Made to",
+          "Original size & rows"
+        ]
+      ],
+      "specs": [
+        [
+          "Tube",
+          "Copper, commonly 7 mm or 9.52 mm (3/8″) OD"
+        ],
+        [
+          "Fins",
+          "Aluminium, plain or coated (blue/gold fin)"
+        ],
+        [
+          "Rows",
+          "1–4 rows, to match the original"
+        ],
+        [
+          "Fin density",
+          "Typically 14–20 fins per inch"
+        ],
+        [
+          "Circuits & connections",
+          "Matched to the original header and pipe sizes"
+        ],
+        [
+          "Testing",
+          "Pressure and leak tested before dispatch"
+        ]
+      ],
+      "notes": [
+        "Share the unit model, or the coil's length, height, rows and connection sizes",
+        "Coated fins last longer near the sea or in industrial areas"
+      ],
+      "applications": [
+        "Split AC outdoor units",
+        "Ductable & package units",
+        "Commercial condensing units"
+      ]
+    },
+    {
+      "name": "Evaporator coils",
+      "slug": "evaporator-coils",
+      "detail": "Indoor cooling coils for split, cassette, ductable and AHU units.",
+      "card_specs": [
+        [
+          "Tube",
+          "Copper"
+        ],
+        [
+          "Fins",
+          "Hydrophilic aluminium"
+        ]
+      ],
+      "summary": "Evaporator (cooling) coils absorb heat from room air inside the indoor unit. Leaks and corrosion in the coil are a common cause of repeated gas loss.",
+      "facts": [
+        [
+          "Tube",
+          "Copper"
+        ],
+        [
+          "Fins",
+          "Hydrophilic aluminium"
+        ],
+        [
+          "Types",
+          "DX · chilled water"
+        ]
+      ],
+      "specs": [
+        [
+          "Tube",
+          "Copper, commonly 7 mm or 9.52 mm (3/8″) OD"
+        ],
+        [
+          "Fins",
+          "Aluminium with hydrophilic coating for drainage"
+        ],
+        [
+          "Rows",
+          "2–6 rows, to match the original"
+        ],
+        [
+          "Fin density",
+          "Typically 12–16 fins per inch"
+        ],
+        [
+          "Types",
+          "DX coils for split, cassette and ductable units; chilled-water coils for AHUs and FCUs"
+        ],
+        [
+          "Testing",
+          "Pressure and leak tested before dispatch"
+        ]
+      ],
+      "notes": [
+        "Share the unit model, or the coil's size, rows and connections",
+        "Clean coils and drain pans regularly to prevent corrosion and smells"
+      ],
+      "applications": [
+        "Split AC indoor units",
+        "Cassette units",
+        "Ductable units",
+        "AHUs & FCUs"
+      ]
+    }
   ],
-  "signs": ["Gas leaks keep coming back from the coil", "Corroded or badly damaged fins", "Weak cooling even with the correct gas charge"],
+  "signs": [
+    "Gas leaks keep coming back from the coil",
+    "Corroded or badly damaged fins",
+    "Weak cooling even with the correct gas charge"
+  ],
   "enquiry_category": "Coils"
 }

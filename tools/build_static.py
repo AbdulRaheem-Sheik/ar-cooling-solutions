@@ -53,6 +53,7 @@ def page_paths(site):
         paths += [site.url_for("gas_detail", slug=g["slug"]) for g in site.get_spare_category("gases")["parts"]]
         paths += [site.url_for("copper_detail", slug=c["slug"])
                   for c in site.get_spare_category("copper-coils")["parts"] if c.get("slug")]
+        paths += [site.spare_part_url(c, p) for c, p in site.get_spec_parts()]
     return paths
 
 

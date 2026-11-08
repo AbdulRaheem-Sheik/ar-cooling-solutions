@@ -585,7 +585,21 @@ def spare_part_url(category, part):
     endpoint = SPARE_DETAIL_ENDPOINTS.get(category["slug"])
     if endpoint and part.get("slug"):
         return url_for(endpoint, slug=part["slug"])
+    if part.get("slug") and part.get("specs"):
+        if category["slug"] == "compressors":  # shares /parts/compressors/ with the model pages
+            return url_for("compressor_detail", slug=part["slug"])
+        return url_for("part_detail", category_slug=category["slug"], slug=part["slug"])
     return url_for("spare_parts") + f"#{category['slug']}"
+
+
+def get_spec_parts():
+    """(category, part) for every spare part with its own specification page (part_detail.html)."""
+    return [(c, p) for c in get_spare_categories() if c["slug"] not in SPARE_DETAIL_ENDPOINTS
+            for p in c["parts"] if p.get("slug") and p.get("specs")]
+
+
+def render_part_detail(category, item):
+    return render_template("part_detail.html", business=BUSINESS, category=category, item=item)
 
 
 def get_spare_category(slug):
@@ -681,7 +695,12 @@ def compressors():
 def compressor_detail(slug):
     model = get_compressor_model(slug)
     if model is None:
-        abort(404)
+        # compressor types (rotary, scroll, ...) have spec pages at the same level as the models
+        category = get_compressor_category()
+        item = next((p for p in category["parts"] if p.get("slug") == slug and p.get("specs")), None)
+        if item is None:
+            abort(404)
+        return render_part_detail(category, item)
     return render_template(
         "compressor_detail.html",
         business=BUSINESS,
@@ -697,6 +716,8 @@ def copper_detail(slug):
     item = next((p for p in category["parts"] if p.get("slug") == slug), None)
     if item is None:
         abort(404)
+    if not item.get("size_chart"):  # accessories without a size guide use the general spec page
+        return render_part_detail(category, item)
     return render_template("copper_detail.html", business=BUSINESS, category=category, item=item)
 
 
@@ -707,6 +728,17 @@ def gas_detail(slug):
     if gas is None:
         abort(404)
     return render_template("gas_detail.html", business=BUSINESS, category=category, gas=gas)
+
+
+@app.get("/parts/<category_slug>/<slug>/")
+def part_detail(category_slug, slug):
+    category = get_spare_category(category_slug)
+    if category is None or category_slug in SPARE_DETAIL_ENDPOINTS:
+        abort(404)
+    item = next((p for p in category["parts"] if p.get("slug") == slug and p.get("specs")), None)
+    if item is None:
+        abort(404)
+    return render_part_detail(category, item)
 
 
 @app.get("/products/")

@@ -6,11 +6,237 @@
   "long_description": "Clean filters keep airflow strong, protect the cooling coil and improve indoor air. A working remote keeps everyday control simple. These small parts make a noticeable difference to comfort and running cost.",
   "match_by": "Brand and model number",
   "parts": [
-    {"name": "Mesh & dust filters", "detail": "Washable air filters for indoor units."},
-    {"name": "Carbon & anti-bacterial filters", "detail": "Extra filtration for odours and cleaner air."},
-    {"name": "Original & universal remotes", "detail": "Brand-original or compatible universal remotes."},
-    {"name": "Drain pipes & small fittings", "detail": "Drain hoses, clamps and small installation fittings."}
+    {
+      "name": "Mesh & dust filters",
+      "slug": "mesh-dust-filters",
+      "detail": "Washable air filters for indoor units.",
+      "card_specs": [
+        [
+          "Material",
+          "Plastic mesh"
+        ],
+        [
+          "Care",
+          "Washable"
+        ]
+      ],
+      "summary": "Washable mesh filters in the indoor unit catch dust before it reaches the coil. Clean filters keep airflow, cooling and efficiency up.",
+      "facts": [
+        [
+          "Material",
+          "Polypropylene / nylon mesh"
+        ],
+        [
+          "Care",
+          "Washable"
+        ],
+        [
+          "Matched by",
+          "Unit model"
+        ]
+      ],
+      "specs": [
+        [
+          "Material",
+          "Polypropylene or nylon mesh in a plastic frame"
+        ],
+        [
+          "Fit",
+          "Model-specific size and clips"
+        ],
+        [
+          "Care",
+          "Wash with water; dry fully before refitting"
+        ],
+        [
+          "Cleaning interval",
+          "Every 2–4 weeks in heavy use"
+        ]
+      ],
+      "notes": [
+        "Replace torn or warped filters; running without filters clogs the coil"
+      ],
+      "applications": [
+        "Split ACs",
+        "Window ACs",
+        "Cassette units"
+      ]
+    },
+    {
+      "name": "Carbon & anti-bacterial filters",
+      "slug": "carbon-antibacterial-filters",
+      "detail": "Extra filtration for odours and cleaner air.",
+      "card_specs": [
+        [
+          "Types",
+          "Carbon · anti-bacterial"
+        ],
+        [
+          "Fit",
+          "Clip-on"
+        ]
+      ],
+      "summary": "Add-on filters that clip onto the main mesh filter. Activated carbon reduces odours; anti-bacterial and allergen filters help keep indoor air cleaner.",
+      "facts": [
+        [
+          "Types",
+          "Carbon · anti-bacterial"
+        ],
+        [
+          "Fit",
+          "Clip-on"
+        ],
+        [
+          "Life",
+          "Approx. 6–12 months"
+        ]
+      ],
+      "specs": [
+        [
+          "Types",
+          "Activated carbon, anti-bacterial and anti-allergen media"
+        ],
+        [
+          "Fit",
+          "Clips onto the main filter frame; sized per model"
+        ],
+        [
+          "Replacement",
+          "About every 6–12 months, depending on use"
+        ],
+        [
+          "Care",
+          "Most are not washable: replace when dirty"
+        ]
+      ],
+      "notes": [
+        "Share your AC model so we supply the right size and frame"
+      ],
+      "applications": [
+        "Split AC indoor units"
+      ]
+    },
+    {
+      "name": "Original & universal remotes",
+      "slug": "original-universal-remotes",
+      "detail": "Brand-original or compatible universal remotes.",
+      "card_specs": [
+        [
+          "Options",
+          "Original · universal"
+        ],
+        [
+          "Signal",
+          "Infrared"
+        ]
+      ],
+      "summary": "Replacement remotes for all common AC brands. Original remotes give every function; universal remotes cover most brands with a code or auto-search.",
+      "facts": [
+        [
+          "Signal",
+          "Infrared"
+        ],
+        [
+          "Batteries",
+          "2 × AAA"
+        ],
+        [
+          "Options",
+          "Original · universal"
+        ]
+      ],
+      "specs": [
+        [
+          "Options",
+          "Original (brand) remotes or universal multi-brand remotes"
+        ],
+        [
+          "Signal",
+          "Infrared, line of sight"
+        ],
+        [
+          "Range",
+          "About 6–8 m"
+        ],
+        [
+          "Power",
+          "2 × AAA batteries (most models)"
+        ],
+        [
+          "Setup",
+          "Universal remotes: brand code or auto-search"
+        ]
+      ],
+      "notes": [
+        "Inverter and special functions work best with the original remote"
+      ],
+      "applications": [
+        "Split ACs",
+        "Window ACs",
+        "Cassette units"
+      ]
+    },
+    {
+      "name": "Drain pipes & small fittings",
+      "slug": "drain-pipes-small-fittings",
+      "detail": "Drain hoses, clamps and small installation fittings.",
+      "card_specs": [
+        [
+          "Hose",
+          "Approx. 16 mm"
+        ],
+        [
+          "Includes",
+          "Joiners & clamps"
+        ]
+      ],
+      "summary": "Drain hoses, extensions, joiners and clamps for taking condensate water away from the indoor unit. Blocked or sagging drains are the most common cause of water dripping from an AC.",
+      "facts": [
+        [
+          "Hose",
+          "Flexible PVC"
+        ],
+        [
+          "Size",
+          "Approx. 16 mm ID"
+        ],
+        [
+          "Options",
+          "Plain or insulated"
+        ]
+      ],
+      "specs": [
+        [
+          "Drain hose",
+          "Flexible or corrugated PVC, about 16 mm internal diameter for split ACs"
+        ],
+        [
+          "Insulated hose",
+          "For drains running through cooled spaces, to stop sweating"
+        ],
+        [
+          "Fittings",
+          "Joiners, extensions, elbows, adaptors and clamps"
+        ],
+        [
+          "Rigid drains",
+          "PVC pipe and fittings for cassette and ductable units"
+        ]
+      ],
+      "notes": [
+        "Keep a steady downward slope with no dips; a drain pump is needed where gravity drainage isn't possible"
+      ],
+      "applications": [
+        "Split ACs",
+        "Cassette units",
+        "Ductable units"
+      ]
+    }
   ],
-  "signs": ["Torn or clogged filter mesh", "Dusty or musty smell from the vents", "Lost, damaged or unresponsive remote"],
+  "signs": [
+    "Torn or clogged filter mesh",
+    "Dusty or musty smell from the vents",
+    "Lost, damaged or unresponsive remote"
+  ],
   "enquiry_category": "Filters"
 }

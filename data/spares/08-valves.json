@@ -6,12 +6,339 @@
   "long_description": "Valves meter and control the flow of refrigerant around the system. A stuck expansion valve, a leaking solenoid or a passing check valve can cause weak cooling, flooding or pressure problems. We supply replacements matched to the refrigerant, capacity and connection size.",
   "match_by": "Refrigerant, capacity and connection size",
   "parts": [
-    {"name": "Expansion valves", "detail": "Thermostatic and electronic valves that meter refrigerant into the evaporator."},
-    {"name": "Solenoid valves", "detail": "Liquid line solenoid valves and coils for pump-down and flow control."},
-    {"name": "Ball valves", "detail": "Full-bore refrigerant ball valves for isolating parts of the system."},
-    {"name": "Hand shut-off valves", "detail": "Manual valves for isolating lines during service and repairs."},
-    {"name": "NRV (non-return) valves", "detail": "Check valves that stop refrigerant flowing backwards."}
+    {
+      "name": "Expansion valves",
+      "slug": "expansion-valves",
+      "detail": "Thermostatic and electronic valves that meter refrigerant into the evaporator.",
+      "card_specs": [
+        [
+          "Types",
+          "TXV · EEV"
+        ],
+        [
+          "Matched by",
+          "Refrigerant & capacity"
+        ]
+      ],
+      "summary": "Expansion valves control how much refrigerant enters the evaporator, keeping the coil fully used without flooding the compressor. Thermostatic valves (TXV) work from a sensing bulb; electronic valves (EEV) are driven by the PCB.",
+      "facts": [
+        [
+          "Types",
+          "Thermostatic · electronic"
+        ],
+        [
+          "Matched by",
+          "Refrigerant & capacity"
+        ],
+        [
+          "Connections",
+          "Flare · solder"
+        ]
+      ],
+      "specs": [
+        [
+          "Types",
+          "Thermostatic (TXV) with internal or external equaliser; electronic (EEV) with stepper motor"
+        ],
+        [
+          "Refrigerants",
+          "R22, R134a, R404A, R407C, R410A, R32 (valve or orifice specific to the gas)"
+        ],
+        [
+          "Capacity",
+          "Selected by orifice size to suit the system capacity"
+        ],
+        [
+          "Connections",
+          "Flare or solder (ODF), straight or angle"
+        ],
+        [
+          "Superheat",
+          "Adjustable on most TXVs"
+        ],
+        [
+          "EEV coil",
+          "12 V DC stepper coil on most AC models"
+        ],
+        [
+          "Brands",
+          "Danfoss, Emerson (Alco), Sanhua, Saginomiya and others"
+        ]
+      ],
+      "notes": [
+        "Fit the TXV bulb firmly on the suction line and insulate it",
+        "Wet-wrap the valve body when brazing to avoid heat damage"
+      ],
+      "applications": [
+        "Ductable & package units",
+        "Cold rooms",
+        "Chillers",
+        "VRF & inverter units (EEV)"
+      ]
+    },
+    {
+      "name": "Solenoid valves",
+      "slug": "solenoid-valves",
+      "detail": "Liquid line solenoid valves and coils for pump-down and flow control.",
+      "card_specs": [
+        [
+          "Type",
+          "Normally closed"
+        ],
+        [
+          "Coil",
+          "230 V AC · 24 V"
+        ]
+      ],
+      "summary": "Solenoid valves open and close a refrigerant line electrically. They are used on liquid lines for pump-down, and on hot gas, suction and bypass lines.",
+      "facts": [
+        [
+          "Type",
+          "Normally closed (NC)"
+        ],
+        [
+          "Coil",
+          "230 V AC or 24 V"
+        ],
+        [
+          "Connections",
+          "Flare · solder"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Normally closed (NC) as standard; normally open on request"
+        ],
+        [
+          "Operation",
+          "Direct-acting (small sizes) or servo-operated"
+        ],
+        [
+          "Coil voltage",
+          "220–240 V AC 50 Hz; 24 V AC/DC available"
+        ],
+        [
+          "Connections",
+          "Flare or solder, about 1/4″ to 1-1/8″"
+        ],
+        [
+          "Refrigerants",
+          "HCFC and HFC refrigerants (check the valve rating)"
+        ],
+        [
+          "Coil",
+          "Replaceable separately from the valve body"
+        ],
+        [
+          "Brands",
+          "Danfoss, Castel, Emerson, Sanhua and others"
+        ]
+      ],
+      "notes": [
+        "Mount with the arrow in the direction of flow and the coil above the valve"
+      ],
+      "applications": [
+        "Liquid line pump-down",
+        "Cold rooms",
+        "Hot gas bypass"
+      ]
+    },
+    {
+      "name": "Ball valves",
+      "slug": "ball-valves",
+      "detail": "Full-bore refrigerant ball valves for isolating parts of the system.",
+      "card_specs": [
+        [
+          "Bore",
+          "Full bore"
+        ],
+        [
+          "Sizes",
+          "1/4″–2-1/8″"
+        ]
+      ],
+      "summary": "Refrigerant ball valves give a quick quarter-turn shut-off with very little pressure drop. They isolate parts of the system for service without losing the whole charge.",
+      "facts": [
+        [
+          "Bore",
+          "Full bore"
+        ],
+        [
+          "Flow",
+          "Bi-directional"
+        ],
+        [
+          "Connections",
+          "Solder (ODF)"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Full-bore, bi-directional ball valve"
+        ],
+        [
+          "Body",
+          "Brass, with copper solder extensions"
+        ],
+        [
+          "Sizes",
+          "Approximately 1/4″ to 2-1/8″ ODF"
+        ],
+        [
+          "Access port",
+          "With or without a Schrader service port"
+        ],
+        [
+          "Working pressure",
+          "Up to about 45 bar on HFC-rated valves (check rating)"
+        ],
+        [
+          "Operation",
+          "Quarter-turn, with sealing cap"
+        ]
+      ],
+      "notes": [
+        "Keep the cap fitted: it is the secondary seal against leaks"
+      ],
+      "applications": [
+        "Service isolation",
+        "Chillers",
+        "Cold rooms",
+        "Commercial systems"
+      ]
+    },
+    {
+      "name": "Hand shut-off valves",
+      "slug": "hand-shut-off-valves",
+      "detail": "Manual valves for isolating lines during service and repairs.",
+      "card_specs": [
+        [
+          "Type",
+          "Manual stop valve"
+        ],
+        [
+          "Pattern",
+          "Straight · angle"
+        ]
+      ],
+      "summary": "Manual hand shut-off (stop) valves isolate lines, receivers and components during service. They are built for refrigerant pressures and seal tightly over many years.",
+      "facts": [
+        [
+          "Type",
+          "Manual stop valve"
+        ],
+        [
+          "Pattern",
+          "Straight · angle"
+        ],
+        [
+          "Connections",
+          "Flare · solder"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Manual globe-type stop valve, packed or capped stem"
+        ],
+        [
+          "Pattern",
+          "Straight-through or angle"
+        ],
+        [
+          "Connections",
+          "Flare or solder (ODF)"
+        ],
+        [
+          "Body",
+          "Brass or steel, depending on size"
+        ],
+        [
+          "Use",
+          "Liquid, suction and receiver isolation"
+        ],
+        [
+          "Brands",
+          "Danfoss, Castel and others"
+        ]
+      ],
+      "notes": [
+        "Back-seat the valve fully open in service and refit the cap"
+      ],
+      "applications": [
+        "Receivers",
+        "Commercial refrigeration",
+        "Chillers"
+      ]
+    },
+    {
+      "name": "NRV (non-return) valves",
+      "slug": "nrv-non-return-valves",
+      "detail": "Check valves that stop refrigerant flowing backwards.",
+      "card_specs": [
+        [
+          "Type",
+          "Check valve"
+        ],
+        [
+          "Connections",
+          "Flare · solder"
+        ]
+      ],
+      "summary": "Non-return (check) valves let refrigerant flow one way only. They prevent backflow between parallel compressors or evaporators, in heat pump circuits and on hot gas lines.",
+      "facts": [
+        [
+          "Type",
+          "Check valve"
+        ],
+        [
+          "Flow",
+          "One direction"
+        ],
+        [
+          "Connections",
+          "Flare · solder"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Spring-loaded piston or disc check valve"
+        ],
+        [
+          "Flow",
+          "One direction only (arrow on body)"
+        ],
+        [
+          "Connections",
+          "Flare or solder, about 1/4″ to 1-1/8″"
+        ],
+        [
+          "Opening pressure",
+          "Low opening differential (a fraction of a bar)"
+        ],
+        [
+          "Mounting",
+          "Straight-through; some types must be fitted in a set orientation"
+        ]
+      ],
+      "notes": [
+        "Check the flow arrow and any mounting-position limits before brazing"
+      ],
+      "applications": [
+        "Parallel compressors",
+        "Heat pumps",
+        "Hot gas lines",
+        "Multi-evaporator systems"
+      ]
+    }
   ],
-  "signs": ["Evaporator frosting up or flooding", "Suction pressure too low or too high", "System will not pump down or hold pressure"],
+  "signs": [
+    "Evaporator frosting up or flooding",
+    "Suction pressure too low or too high",
+    "System will not pump down or hold pressure"
+  ],
   "enquiry_category": "Valves"
 }

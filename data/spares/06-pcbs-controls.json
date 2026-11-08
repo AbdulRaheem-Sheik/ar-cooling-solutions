@@ -6,12 +6,313 @@
   "long_description": "Modern ACs depend on control boards to manage sensors, timers, inverter drives and safety cut-outs. Voltage fluctuations and moisture are common causes of failure. We help source model-specific PCBs, sensors and display boards, and Subzero digital temperature controllers for refrigeration.",
   "match_by": "Brand, model number and board part code",
   "parts": [
-    {"name": "Indoor & outdoor unit PCBs", "detail": "Main control boards for indoor and outdoor units."},
-    {"name": "Inverter drive boards", "detail": "Compressor drive boards for inverter ACs."},
-    {"name": "Temperature & coil sensors", "detail": "Room, coil and discharge thermistors."},
-    {"name": "Display panels & receivers", "detail": "Display boards and remote signal receivers."},
-    {"name": "Subzero digital controllers", "detail": "Digital temperature controllers for cold rooms, chillers and refrigerated counters."}
+    {
+      "name": "Indoor & outdoor unit PCBs",
+      "slug": "indoor-outdoor-unit-pcbs",
+      "detail": "Main control boards for indoor and outdoor units.",
+      "card_specs": [
+        [
+          "Type",
+          "Original or universal"
+        ],
+        [
+          "Matched by",
+          "Board part code"
+        ]
+      ],
+      "summary": "The control PCB reads the sensors and remote, and switches the compressor, fans and swing motor. We source model-specific original boards, and universal boards for many fixed-speed split ACs.",
+      "facts": [
+        [
+          "Supply",
+          "230 V AC"
+        ],
+        [
+          "Options",
+          "Original · universal"
+        ],
+        [
+          "Matched by",
+          "Board part code"
+        ]
+      ],
+      "specs": [
+        [
+          "Types",
+          "Indoor main boards, outdoor control boards, power boards"
+        ],
+        [
+          "Supply",
+          "220–240 V, 50 Hz"
+        ],
+        [
+          "Options",
+          "Original (OEM) boards, or universal kits with remote and sensors"
+        ],
+        [
+          "Identification",
+          "Brand, model number and the part code printed on the board"
+        ],
+        [
+          "Connections",
+          "Sensors, display, swing motor, fan motor, compressor relay"
+        ]
+      ],
+      "notes": [
+        "Send a clear photo of the board and its part code",
+        "Protect the new board with a voltage stabiliser where supply is unstable"
+      ],
+      "applications": [
+        "Split ACs",
+        "Window ACs",
+        "Cassette units"
+      ]
+    },
+    {
+      "name": "Inverter drive boards",
+      "slug": "inverter-drive-boards",
+      "detail": "Compressor drive boards for inverter ACs.",
+      "card_specs": [
+        [
+          "Contains",
+          "IPM module"
+        ],
+        [
+          "Matched by",
+          "Board part code"
+        ]
+      ],
+      "summary": "The inverter drive board turns the mains supply into a DC bus, then into a variable-frequency three-phase output for the compressor (and often the fan). It is the heart of an inverter outdoor unit.",
+      "facts": [
+        [
+          "Drives",
+          "Compressor & DC fan"
+        ],
+        [
+          "Key part",
+          "IPM module"
+        ],
+        [
+          "Matched by",
+          "Board part code"
+        ]
+      ],
+      "specs": [
+        [
+          "Function",
+          "Rectifier, PFC and inverter stage for the compressor"
+        ],
+        [
+          "Power module",
+          "IPM (intelligent power module) on a heat sink"
+        ],
+        [
+          "DC bus",
+          "Typically about 280–400 V DC"
+        ],
+        [
+          "Outputs",
+          "Three-phase drive to the BLDC compressor; DC fan drive on many models"
+        ],
+        [
+          "Identification",
+          "Brand, outdoor model and board part code"
+        ]
+      ],
+      "notes": [
+        "Read the fault code first: compressor, sensor and supply faults can look like board faults",
+        "Large capacitors hold a charge: let the board discharge before handling"
+      ],
+      "applications": [
+        "Inverter split ACs",
+        "Inverter cassette units",
+        "VRF outdoor units"
+      ]
+    },
+    {
+      "name": "Temperature & coil sensors",
+      "slug": "temperature-coil-sensors",
+      "detail": "Room, coil and discharge thermistors.",
+      "card_specs": [
+        [
+          "Type",
+          "NTC thermistor"
+        ],
+        [
+          "Values",
+          "5–50 kΩ"
+        ]
+      ],
+      "summary": "NTC thermistor sensors measure room, indoor coil, outdoor coil and discharge temperatures. A faulty sensor gives wrong readings, error codes or poor control.",
+      "facts": [
+        [
+          "Type",
+          "NTC thermistor"
+        ],
+        [
+          "Common values",
+          "10 kΩ · 15 kΩ · 20 kΩ"
+        ],
+        [
+          "Uses",
+          "Room · coil · discharge"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "NTC thermistor in an epoxy or copper probe"
+        ],
+        [
+          "Resistance at 25 °C",
+          "Common values 5, 10, 15, 20 and 50 kΩ (discharge sensors often 50 kΩ)"
+        ],
+        [
+          "Positions",
+          "Room air, indoor coil, outdoor coil, discharge pipe"
+        ],
+        [
+          "Lead",
+          "Twin-core lead, usually with a 2-pin plug"
+        ],
+        [
+          "Checking",
+          "Measure resistance with a multimeter and compare with the maker's chart"
+        ]
+      ],
+      "notes": [
+        "Match resistance value, probe type and plug, not just the cable length"
+      ],
+      "applications": [
+        "Split & inverter ACs",
+        "Cassette & ductable units"
+      ]
+    },
+    {
+      "name": "Display panels & receivers",
+      "slug": "display-panels-receivers",
+      "detail": "Display boards and remote signal receivers.",
+      "card_specs": [
+        [
+          "Receiver",
+          "Infrared, 38 kHz"
+        ],
+        [
+          "Matched by",
+          "Model & board code"
+        ]
+      ],
+      "summary": "The display board shows temperature and status, and its infrared receiver picks up the remote's signal. If the unit stops responding to the remote, the receiver is a common culprit.",
+      "facts": [
+        [
+          "Receiver",
+          "Infrared"
+        ],
+        [
+          "Display",
+          "LED or LCD"
+        ],
+        [
+          "Matched by",
+          "Model & board code"
+        ]
+      ],
+      "specs": [
+        [
+          "Receiver",
+          "Infrared receiver module, typically 38 kHz carrier"
+        ],
+        [
+          "Display",
+          "LED digits and indicator lights, per model"
+        ],
+        [
+          "Connection",
+          "Ribbon cable or multi-pin lead to the main PCB"
+        ],
+        [
+          "Identification",
+          "Unit model and part code on the board"
+        ]
+      ],
+      "notes": [
+        "Check the remote's batteries and test it with a phone camera before changing the receiver"
+      ],
+      "applications": [
+        "Split AC indoor units",
+        "Cassette panels"
+      ]
+    },
+    {
+      "name": "Subzero digital controllers",
+      "slug": "subzero-digital-controllers",
+      "detail": "Digital temperature controllers for cold rooms, chillers and refrigerated counters.",
+      "card_specs": [
+        [
+          "Type",
+          "Digital temperature"
+        ],
+        [
+          "Mounting",
+          "Panel mount"
+        ]
+      ],
+      "summary": "Subzero digital temperature controllers switch the compressor, defrost and fans to hold a set temperature. They are widely used in cold rooms, chillers, visi-coolers and display counters.",
+      "facts": [
+        [
+          "Brand",
+          "Subzero"
+        ],
+        [
+          "Use",
+          "Refrigeration control"
+        ],
+        [
+          "Mounting",
+          "Panel mount"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Digital temperature controller with LED display"
+        ],
+        [
+          "Sensor",
+          "NTC or PTC probe, supplied with the controller"
+        ],
+        [
+          "Outputs",
+          "Relay outputs for compressor; defrost and fan on multi-output models"
+        ],
+        [
+          "Supply",
+          "230 V AC on most models; low-voltage versions available"
+        ],
+        [
+          "Features",
+          "Set point, differential, defrost timing and alarms, depending on model"
+        ],
+        [
+          "Mounting",
+          "Front-panel mounting with standard cut-out"
+        ]
+      ],
+      "notes": [
+        "Share the model number on the old controller, or the outputs you need",
+        "Use a contactor if the compressor current is above the relay rating"
+      ],
+      "applications": [
+        "Cold rooms",
+        "Water chillers",
+        "Visi-coolers",
+        "Display counters"
+      ]
+    }
   ],
-  "signs": ["Error code or blinking lights on the display", "Unit does not respond to the remote", "AC switches off at random"],
+  "signs": [
+    "Error code or blinking lights on the display",
+    "Unit does not respond to the remote",
+    "AC switches off at random"
+  ],
   "enquiry_category": "PCBs"
 }

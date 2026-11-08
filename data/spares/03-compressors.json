@@ -6,11 +6,305 @@
   "long_description": "The compressor is the heart of every AC: it pressurises refrigerant and drives the cooling cycle. We help match rotary, reciprocating and scroll compressors to your unit's capacity, refrigerant and electrical supply so the replacement runs reliably.",
   "match_by": "Capacity, refrigerant and power supply",
   "parts": [
-    {"name": "Rotary compressors", "image": "/static/images/spares/rotary_compressors.jpg", "detail": "For split and window ACs, typically up to about 2 TR."},
-    {"name": "Reciprocating compressors", "image": "/static/images/spares/reciprocating_compressors.jpg", "detail": "For older and some commercial units."},
-    {"name": "Scroll compressors", "image": "/static/images/spares/scroll_compressors.jpg", "detail": "For higher-tonnage ductable, package and commercial systems."},
-    {"name": "Inverter (BLDC) compressors", "image": "/static/images/spares/inverter_bldc_compressors.jpg", "detail": "Variable-speed compressors for inverter split ACs."}
+    {
+      "name": "Rotary compressors",
+      "image": "/static/images/spares/rotary_compressors.jpg",
+      "slug": "rotary-compressors",
+      "detail": "For split and window ACs, typically up to about 2 TR.",
+      "card_specs": [
+        [
+          "Capacity",
+          "0.75–2 TR"
+        ],
+        [
+          "Supply",
+          "230 V, 1-phase"
+        ]
+      ],
+      "summary": "Fixed-speed hermetic rotary compressors are the standard in split and window ACs. They are compact, quiet and efficient at small capacities. We match the replacement to your AC's refrigerant, capacity, mounting and electrical supply.",
+      "facts": [
+        [
+          "Type",
+          "Hermetic rotary"
+        ],
+        [
+          "Capacity",
+          "0.75–2 TR"
+        ],
+        [
+          "Refrigerants",
+          "R22 · R410A · R32"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Hermetic rolling-piston rotary, fixed speed"
+        ],
+        [
+          "Capacity",
+          "0.75–2 TR (about 9,000–24,000 BTU/h)"
+        ],
+        [
+          "Refrigerants",
+          "R22, R410A or R32 (must match the system)"
+        ],
+        [
+          "Power supply",
+          "220–240 V, single-phase, 50 Hz"
+        ],
+        [
+          "Motor",
+          "PSC motor with external run capacitor"
+        ],
+        [
+          "Accumulator",
+          "Suction accumulator mounted on the shell"
+        ],
+        [
+          "Oil",
+          "Mineral oil for R22; POE or PVE for R410A and R32"
+        ],
+        [
+          "Mounting",
+          "Three-foot base with rubber grommets"
+        ],
+        [
+          "Brands",
+          "GMCC, Highly, LG, Panasonic and others"
+        ]
+      ],
+      "notes": [
+        "Replace like for like: same refrigerant, capacity and electrical supply",
+        "Fit a new run capacitor and filter drier, then vacuum and recharge by weight",
+        "Find out why the old compressor failed before fitting the new one"
+      ],
+      "applications": [
+        "Split ACs",
+        "Window ACs",
+        "Small cassette units"
+      ]
+    },
+    {
+      "name": "Reciprocating compressors",
+      "image": "/static/images/spares/reciprocating_compressors.jpg",
+      "slug": "reciprocating-compressors",
+      "detail": "For older and some commercial units.",
+      "card_specs": [
+        [
+          "Capacity",
+          "1.5–3 TR"
+        ],
+        [
+          "Type",
+          "Hermetic piston"
+        ]
+      ],
+      "summary": "Hermetic reciprocating compressors use a piston and valves to compress refrigerant. They are simple and serviceable, and are still found in older ACs, water coolers and light commercial refrigeration.",
+      "facts": [
+        [
+          "Type",
+          "Hermetic reciprocating"
+        ],
+        [
+          "Capacity",
+          "1.5–3 TR"
+        ],
+        [
+          "Refrigerants",
+          "R22 · R134a · R404A"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Hermetic reciprocating (piston)"
+        ],
+        [
+          "Capacity",
+          "1.5–3 TR for AC duty"
+        ],
+        [
+          "Refrigerants",
+          "R22, R134a or R404A (must match the system)"
+        ],
+        [
+          "Power supply",
+          "220–240 V, 1-phase, 50 Hz; 380–415 V, 3-phase on larger models"
+        ],
+        [
+          "Starting",
+          "Run capacitor, or start capacitor and relay on hard-starting models"
+        ],
+        [
+          "Oil",
+          "Mineral or alkylbenzene for R22; POE for R134a and R404A"
+        ],
+        [
+          "Mounting",
+          "Four-foot base with rubber grommets"
+        ],
+        [
+          "Brands",
+          "Tecumseh, Kirloskar and others"
+        ]
+      ],
+      "notes": [
+        "Match refrigerant, capacity, voltage and evaporating temperature range (AC or refrigeration duty)",
+        "Replace the start components and filter drier with the compressor"
+      ],
+      "applications": [
+        "Older window & split ACs",
+        "Water coolers",
+        "Light commercial units"
+      ]
+    },
+    {
+      "name": "Scroll compressors",
+      "image": "/static/images/spares/scroll_compressors.jpg",
+      "slug": "scroll-compressors",
+      "detail": "For higher-tonnage ductable, package and commercial systems.",
+      "card_specs": [
+        [
+          "Capacity",
+          "2–40 TR"
+        ],
+        [
+          "Supply",
+          "1-phase · 3-phase"
+        ]
+      ],
+      "summary": "Scroll compressors use two interleaved spirals to compress refrigerant smoothly, with few moving parts. They are used in ductable, package and VRF outdoor units, rooftop units and chillers. See the Copeland and Danfoss model lists for exact models.",
+      "facts": [
+        [
+          "Type",
+          "Hermetic scroll"
+        ],
+        [
+          "Capacity",
+          "2–40 TR"
+        ],
+        [
+          "Refrigerants",
+          "R22 · R407C · R410A"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Hermetic scroll"
+        ],
+        [
+          "Capacity",
+          "About 24,000–485,000 BTU/h (2–40 TR) across the ranges we supply"
+        ],
+        [
+          "Refrigerants",
+          "R22 / R407C (Copeland ZR, Danfoss SM); R410A (Copeland ZP, Danfoss SH)"
+        ],
+        [
+          "Power supply",
+          "220–240 V, 1-phase on smaller models; 380–420 V, 3-phase"
+        ],
+        [
+          "Oil",
+          "Mineral oil (R22 models); POE (R407C and R410A models)"
+        ],
+        [
+          "Mounting",
+          "Four-foot base with grommets; suitable for tandem sets on some models"
+        ],
+        [
+          "Brands",
+          "Copeland (Emerson), Danfoss Performer"
+        ]
+      ],
+      "notes": [
+        "Three-phase scrolls run backwards if two phases are swapped: check rotation at start-up",
+        "Model number shows nominal capacity in thousands of BTU/h (e.g. ZR81 ≈ 81,000 BTU/h)"
+      ],
+      "applications": [
+        "Ductable units",
+        "Package units",
+        "Rooftop units",
+        "Chillers"
+      ]
+    },
+    {
+      "name": "Inverter (BLDC) compressors",
+      "image": "/static/images/spares/inverter_bldc_compressors.jpg",
+      "slug": "inverter-bldc-compressors",
+      "detail": "Variable-speed compressors for inverter split ACs.",
+      "card_specs": [
+        [
+          "Capacity",
+          "1–2 TR"
+        ],
+        [
+          "Drive",
+          "Inverter PCB"
+        ]
+      ],
+      "summary": "Inverter compressors use a brushless DC motor whose speed varies with the cooling load, cutting power use. They are driven by the outdoor unit's inverter board, so the replacement must match the original compressor and its drive.",
+      "facts": [
+        [
+          "Type",
+          "Variable-speed rotary (BLDC)"
+        ],
+        [
+          "Capacity",
+          "1–2 TR"
+        ],
+        [
+          "Refrigerants",
+          "R410A · R32"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Hermetic rotary, variable speed"
+        ],
+        [
+          "Motor",
+          "Brushless DC (permanent magnet)"
+        ],
+        [
+          "Capacity",
+          "1–2 TR inverter split ACs"
+        ],
+        [
+          "Refrigerants",
+          "R410A or R32 (must match the system)"
+        ],
+        [
+          "Power supply",
+          "Three-phase variable-frequency output from the inverter PCB"
+        ],
+        [
+          "Oil",
+          "POE or PVE, as specified by the maker"
+        ],
+        [
+          "Brands",
+          "GMCC, Highly, LG, Panasonic and others"
+        ]
+      ],
+      "notes": [
+        "Identify the replacement from the model code on the original compressor label",
+        "Motor characteristics must suit the inverter drive, or the board will show a fault",
+        "Check the inverter PCB and IPM before condemning the compressor"
+      ],
+      "applications": [
+        "Inverter split ACs",
+        "Inverter cassette units"
+      ]
+    }
   ],
-  "signs": ["Outdoor unit hums but does not start", "Breaker trips when the AC switches on", "Fan runs but air stays warm"],
+  "signs": [
+    "Outdoor unit hums but does not start",
+    "Breaker trips when the AC switches on",
+    "Fan runs but air stays warm"
+  ],
   "enquiry_category": "Compressors"
 }

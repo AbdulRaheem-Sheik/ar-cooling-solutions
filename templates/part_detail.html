@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% from "_icons.html" import icon %}
+{% from "_product.html" import product_image %}
+{% set active = "parts" %}
+{% set enquire = spare_enquiry_url(category, item) %}
+{% set siblings = category.parts|selectattr("slug")|list %}
+
+{% block title %}{{ item.name }} | {{ business.name }}, {{ business.city }}{% endblock %}
+{% block meta_description %}{{ item.detail }} Specifications, types and fit details from {{ business.name }}, {{ business.city }}.{% endblock %}
+
+{% block content %}
+<section class="page-hero product-hero">
+  <div class="container product-hero-inner">
+    <div class="product-hero-copy">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <a href="/parts/">Spare parts</a>
+        <span aria-hidden="true">/</span><a href="/parts/#{{ category.slug }}">{{ category.name }}</a>
+        <span aria-hidden="true">/</span><span aria-current="page">{{ item.name }}</span>
+      </nav>
+      <p class="chip"><span class="status-dot"></span> {{ category.name }}</p>
+      <h1>{{ item.name }}</h1>
+      <p>{{ item.summary }}</p>
+      {% if item.facts %}
+      <dl class="product-facts">
+        {% for label, value in item.facts %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}
+      </dl>
+      {% endif %}
+      <div class="hero-actions">
+        <a class="button button-primary" href="{{ enquire }}">Check fit &amp; price {{ icon("arrow-right") }}</a>
+        <a class="button button-glass" href="https://wa.me/{{ business.whatsapp_number }}?text={{ ('Hi AR Cooling Solutions, I would like to check fit and price for ' ~ item.name|lower ~ '.')|urlencode }}" target="_blank" rel="noopener noreferrer">{{ icon("chat") }} WhatsApp</a>
+      </div>
+    </div>
+    <figure class="product-hero-media">
+      {{ product_image({"name": item.name, "slug": item.slug, "icon": category.icon, "image": item.image or ""}, lazy=False) }}
+    </figure>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="product-overview">
+    <div class="reveal">
+      <p class="eyebrow">Specifications</p>
+      <h2>{{ item.name }} at a glance.</h2>
+      <div class="table-wrap">
+        <table class="compare-table spec-table">
+          <tbody>
+            {% for label, value in item.specs %}
+            <tr><th scope="row">{{ label }}</th><td>{{ value }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="fine-print">Typical ratings and ranges. The exact part depends on your unit, so we confirm the specification, brand and stock with your quote.</p>
+    </div>
+    <div class="reveal">
+      {% if item.applications %}
+      <p class="eyebrow">Applications</p>
+      <h2>Where it's used.</h2>
+      <ul class="tag-list">
+        {% for application in item.applications %}<li>{{ application }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+      <h3 class="gas-subhead">To match your part, share</h3>
+      <ul class="check-list check-list-compact">
+        <li>{{ icon("check") }} {{ category.match_by or "Brand and model" }}</li>
+        <li>{{ icon("check") }} Your AC or unit make and model</li>
+        <li>{{ icon("check") }} A photo of the old part and its label, if you have one</li>
+      </ul>
+      {% if item.notes %}
+      <h3 class="gas-subhead">Good to know</h3>
+      <ul class="check-list check-list-compact">
+        {% for note in item.notes %}<li>{{ icon("info") }} {{ note }}</li>{% endfor %}
+      </ul>
+      {% endif %}
+      {% if category.slug == "compressors" %}
+      <p><a class="card-link" href="{{ url_for('compressors') }}">Browse compressor models by brand {{ icon("arrow-right") }}</a></p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if siblings|length > 1 %}
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-heading reveal">
+      <div>
+        <p class="eyebrow">{{ category.name }}</p>
+        <h2>More in {{ category.name|lower }}.</h2>
+      </div>
+      <a class="button button-outline" href="/parts/#{{ category.slug }}">All {{ category.name|lower }} {{ icon("arrow-right") }}</a>
+    </div>
+    <div class="brand-link-grid">
+      {% for other in siblings if other.slug != item.slug %}
+      <a class="brand-link-card" href="{{ spare_part_url(category, other) }}">
+        <b>{{ other.name }}</b>
+        <span>{{ other.detail }}</span>
+        <small>View specs {{ icon("arrow-right") }}</small>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="section container">
+  <div class="cta-panel reveal">
+    <div>
+      <p class="eyebrow">Get a quote</p>
+      <h2>Need {{ item.name|lower }}?</h2>
+      <p>Share your unit's make and model, or a photo of the old part, and we'll confirm the right replacement, price and availability.</p>
+    </div>
+    <div class="button-row">
+      <a class="button button-light" href="{{ enquire }}">Enquire now {{ icon("arrow-right") }}</a>
+      <a class="button button-glass" href="tel:{{ business.phone_e164 }}" title="Call {{ business.phone_display }}">{{ icon("phone") }} Call us</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

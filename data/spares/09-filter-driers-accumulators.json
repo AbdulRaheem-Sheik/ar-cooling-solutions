@@ -6,9 +6,136 @@
   "long_description": "Filter driers trap moisture, acid and debris in the refrigerant, and should be replaced whenever the system is opened for repair. Suction accumulators stop liquid refrigerant from reaching the compressor. Both protect the compressor from early failure.",
   "match_by": "Connection size, type and refrigerant",
   "parts": [
-    {"name": "Filter driers", "detail": "Liquid line and suction line driers in flare and solder types."},
-    {"name": "Suction accumulators", "detail": "Protect the compressor from liquid refrigerant at start-up."}
+    {
+      "name": "Filter driers",
+      "slug": "filter-driers",
+      "detail": "Liquid line and suction line driers in flare and solder types.",
+      "card_specs": [
+        [
+          "Core",
+          "Molecular sieve"
+        ],
+        [
+          "Types",
+          "Liquid · bi-flow · suction"
+        ]
+      ],
+      "summary": "Filter driers remove moisture, acid and dirt from the refrigerant. Moisture causes ice blockages and acid that damages compressors, so a new drier should be fitted every time the system is opened.",
+      "facts": [
+        [
+          "Core",
+          "Molecular sieve"
+        ],
+        [
+          "Types",
+          "Liquid line · bi-flow"
+        ],
+        [
+          "Connections",
+          "Flare · solder"
+        ]
+      ],
+      "specs": [
+        [
+          "Desiccant",
+          "Molecular sieve, with activated alumina for acid on some types"
+        ],
+        [
+          "Types",
+          "Liquid line (one-way), bi-flow (heat pumps), suction line (clean-up)"
+        ],
+        [
+          "Small units",
+          "Copper capillary driers for split and window ACs"
+        ],
+        [
+          "Connections",
+          "Flare or solder, about 1/4″ to 1-1/8″"
+        ],
+        [
+          "Refrigerants",
+          "Compatible with HCFC and HFC refrigerants"
+        ],
+        [
+          "Brands",
+          "Danfoss, Emerson, Sanhua and others"
+        ]
+      ],
+      "notes": [
+        "Fit the drier last and keep it sealed until then: it starts absorbing moisture once opened",
+        "Use a bi-flow drier on heat pump systems"
+      ],
+      "applications": [
+        "All AC & refrigeration repairs",
+        "Compressor replacement",
+        "Gas leak repairs"
+      ]
+    },
+    {
+      "name": "Suction accumulators",
+      "slug": "suction-accumulators",
+      "detail": "Protect the compressor from liquid refrigerant at start-up.",
+      "card_specs": [
+        [
+          "Body",
+          "Steel shell"
+        ],
+        [
+          "Matched by",
+          "Capacity & connections"
+        ]
+      ],
+      "summary": "Suction accumulators sit before the compressor and hold back liquid refrigerant and oil, letting only vapour through. They protect the compressor from liquid slugging, especially in heat pumps and systems with long pipe runs.",
+      "facts": [
+        [
+          "Body",
+          "Steel shell"
+        ],
+        [
+          "Oil return",
+          "Metered orifice"
+        ],
+        [
+          "Connections",
+          "Solder (ODF)"
+        ]
+      ],
+      "specs": [
+        [
+          "Construction",
+          "Steel shell with U-tube outlet and oil-return orifice"
+        ],
+        [
+          "Sizing",
+          "By system capacity, refrigerant charge and connection size"
+        ],
+        [
+          "Connections",
+          "Copper solder (ODF)"
+        ],
+        [
+          "Finish",
+          "Painted against corrosion"
+        ],
+        [
+          "Refrigerants",
+          "HCFC and HFC refrigerants"
+        ]
+      ],
+      "notes": [
+        "Mount vertically, close to the compressor suction"
+      ],
+      "applications": [
+        "Heat pumps",
+        "Ductable & package units",
+        "Commercial refrigeration"
+      ]
+    }
   ],
-  "signs": ["Frost or a temperature drop across the drier", "System opened for a leak or compressor repair", "Compressor knocking at start-up"],
+  "signs": [
+    "Frost or a temperature drop across the drier",
+    "System opened for a leak or compressor repair",
+    "Compressor knocking at start-up"
+  ],
   "enquiry_category": "Filter driers & accumulators"
 }

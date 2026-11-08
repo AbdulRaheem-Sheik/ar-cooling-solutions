@@ -6,11 +6,275 @@
   "long_description": "Capacitors give compressors and fan motors the extra push they need to start and stay running. They are one of the most common failure points in hot weather, and a correctly rated replacement (µF and voltage) is often a quick, low-cost fix.",
   "match_by": "µF rating and voltage",
   "parts": [
-    {"name": "Compressor run capacitors", "detail": "Keep the compressor running efficiently once started."},
-    {"name": "Fan motor capacitors", "detail": "For indoor blower and outdoor condenser fan motors."},
-    {"name": "Dual-run capacitors", "detail": "One unit serving both compressor and fan."},
-    {"name": "Start capacitors & relays", "detail": "Extra starting torque for hard-starting compressors."}
+    {
+      "name": "Compressor run capacitors",
+      "slug": "compressor-run-capacitors",
+      "detail": "Keep the compressor running efficiently once started.",
+      "card_specs": [
+        [
+          "Capacitance",
+          "20–60 µF"
+        ],
+        [
+          "Voltage",
+          "440/450 V AC"
+        ]
+      ],
+      "summary": "Run capacitors stay in circuit while the compressor runs, giving its motor the phase shift it needs to start and run efficiently. A weak capacitor causes hard starting, high current and overheating.",
+      "facts": [
+        [
+          "Capacitance",
+          "20–60 µF (common)"
+        ],
+        [
+          "Voltage",
+          "440/450 V AC"
+        ],
+        [
+          "Tolerance",
+          "±5%"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Metallised polypropylene film, motor-run duty"
+        ],
+        [
+          "Capacitance",
+          "Common AC values 20–60 µF; others to order"
+        ],
+        [
+          "Tolerance",
+          "±5%"
+        ],
+        [
+          "Rated voltage",
+          "440/450 V AC (370 V AC on some units)"
+        ],
+        [
+          "Frequency",
+          "50/60 Hz"
+        ],
+        [
+          "Case",
+          "Round aluminium or plastic can"
+        ],
+        [
+          "Terminals",
+          "Quick-connect tabs, 2–4 per pole"
+        ],
+        [
+          "Standard",
+          "IEC 60252-1"
+        ]
+      ],
+      "notes": [
+        "Replace with the same µF value; the voltage can be the same or higher, never lower",
+        "Discharge the old capacitor before handling it"
+      ],
+      "applications": [
+        "Rotary & reciprocating compressors",
+        "Split & window ACs"
+      ]
+    },
+    {
+      "name": "Fan motor capacitors",
+      "slug": "fan-motor-capacitors",
+      "detail": "For indoor blower and outdoor condenser fan motors.",
+      "card_specs": [
+        [
+          "Capacitance",
+          "1–10 µF"
+        ],
+        [
+          "Voltage",
+          "440/450 V AC"
+        ]
+      ],
+      "summary": "Small run capacitors for indoor blower and outdoor condenser fan motors. A failed fan capacitor is a common reason for a fan that hums, runs slowly or only starts after a push.",
+      "facts": [
+        [
+          "Capacitance",
+          "1–10 µF"
+        ],
+        [
+          "Voltage",
+          "440/450 V AC"
+        ],
+        [
+          "Case",
+          "Rectangular or round"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Metallised polypropylene film, motor-run duty"
+        ],
+        [
+          "Capacitance",
+          "Indoor fans usually 1–3 µF; outdoor fans 2–10 µF"
+        ],
+        [
+          "Tolerance",
+          "±5%"
+        ],
+        [
+          "Rated voltage",
+          "440/450 V AC"
+        ],
+        [
+          "Case",
+          "Rectangular plastic box or small round can"
+        ],
+        [
+          "Connection",
+          "Wire leads or quick-connect tabs"
+        ]
+      ],
+      "notes": [
+        "Match the µF value printed on the old capacitor or the motor nameplate"
+      ],
+      "applications": [
+        "Indoor blower motors",
+        "Outdoor condenser fan motors"
+      ]
+    },
+    {
+      "name": "Dual-run capacitors",
+      "slug": "dual-run-capacitors",
+      "detail": "One unit serving both compressor and fan.",
+      "card_specs": [
+        [
+          "Capacitance",
+          "e.g. 35 + 5 µF"
+        ],
+        [
+          "Terminals",
+          "C · HERM · FAN"
+        ]
+      ],
+      "summary": "A dual-run capacitor combines the compressor and fan capacitors in one can, with a shared common terminal. They are common in outdoor units and window ACs.",
+      "facts": [
+        [
+          "Sections",
+          "Compressor + fan"
+        ],
+        [
+          "Voltage",
+          "440/450 V AC"
+        ],
+        [
+          "Terminals",
+          "3"
+        ]
+      ],
+      "specs": [
+        [
+          "Type",
+          "Metallised polypropylene film, two sections in one can"
+        ],
+        [
+          "Capacitance",
+          "Compressor section 20–60 µF + fan section 2–10 µF (e.g. 35 + 5 µF)"
+        ],
+        [
+          "Tolerance",
+          "±5%"
+        ],
+        [
+          "Rated voltage",
+          "440/450 V AC"
+        ],
+        [
+          "Terminals",
+          "C (common), HERM (compressor), FAN"
+        ],
+        [
+          "Case",
+          "Round aluminium can"
+        ]
+      ],
+      "notes": [
+        "Both sections must match the original values",
+        "Mark the wires before removing the old capacitor so they go back on the right terminals"
+      ],
+      "applications": [
+        "Outdoor units",
+        "Window ACs"
+      ]
+    },
+    {
+      "name": "Start capacitors & relays",
+      "slug": "start-capacitors-relays",
+      "detail": "Extra starting torque for hard-starting compressors.",
+      "card_specs": [
+        [
+          "Capacitance",
+          "Approx. 50–400 µF"
+        ],
+        [
+          "Duty",
+          "Start only"
+        ]
+      ],
+      "summary": "Start capacitors give a compressor extra torque for the first moment of starting, then a relay or PTC starter takes them out of circuit. They help compressors that struggle to start under load or on low voltage.",
+      "facts": [
+        [
+          "Type",
+          "Non-polar electrolytic"
+        ],
+        [
+          "Duty",
+          "Intermittent (start only)"
+        ],
+        [
+          "Voltage",
+          "220–330 V AC"
+        ]
+      ],
+      "specs": [
+        [
+          "Capacitor type",
+          "Non-polar electrolytic, motor-start duty"
+        ],
+        [
+          "Capacitance",
+          "Rated as a range, e.g. 88–108 µF or 189–227 µF"
+        ],
+        [
+          "Rated voltage",
+          "220–330 V AC"
+        ],
+        [
+          "Duty",
+          "A few seconds per start; not for continuous use"
+        ],
+        [
+          "Relays",
+          "Potential (voltage) relays, current relays and PTC starters"
+        ],
+        [
+          "Hard-start kits",
+          "Capacitor and relay combined, for single-phase compressors"
+        ]
+      ],
+      "notes": [
+        "A start capacitor left in circuit will overheat and fail: check the relay too",
+        "Match the relay type and pick-up voltage to the compressor"
+      ],
+      "applications": [
+        "Reciprocating compressors",
+        "Hard-starting rotary compressors",
+        "Refrigeration units"
+      ]
+    }
   ],
-  "signs": ["Clicking sound but no start", "Fan spins slowly or needs a push", "Swollen or leaking capacitor body"],
+  "signs": [
+    "Clicking sound but no start",
+    "Fan spins slowly or needs a push",
+    "Swollen or leaking capacitor body"
+  ],
   "enquiry_category": "Capacitors"
 }
