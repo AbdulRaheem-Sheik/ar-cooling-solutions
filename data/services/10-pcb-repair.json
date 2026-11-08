@@ -3,7 +3,7 @@
   "slug": "pcb-repair",
   "group": "repairs",
   "icon": "chip",
-  "image": "",
+  "image": "/static/images/services/pcb_repair.jpg",
   "tagline": "Board-level repair for inverter and smart ACs",
   "summary": "Repair or replacement of indoor and outdoor control boards, sensors and displays.",
   "description": "Modern inverter ACs rely on electronic boards to control the compressor, fans and sensors. Voltage fluctuations, moisture and age can damage them, causing error codes or a dead unit. We diagnose the fault, repair boards at component level where possible, or replace them with compatible boards.",

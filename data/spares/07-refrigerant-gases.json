@@ -8,6 +8,7 @@
   "parts": [
     {
       "name": "R32",
+      "image": "/static/images/spares/r32.jpg",
       "slug": "r32",
       "detail": "Lower-GWP refrigerant used in most new inverter split ACs.",
       "chemical_name": "Difluoromethane (CH₂F₂)",
@@ -29,6 +30,7 @@
     },
     {
       "name": "R410A",
+      "image": "/static/images/spares/r410a.jpg",
       "slug": "r410a",
       "detail": "High-pressure HFC blend for split, ductable and VRF systems.",
       "chemical_name": "Blend of R32 and R125",
@@ -50,6 +52,7 @@
     },
     {
       "name": "R22",
+      "image": "/static/images/spares/r22.jpg",
       "slug": "r22",
       "detail": "HCFC used in older ACs; being phased out, for servicing existing units.",
       "chemical_name": "Chlorodifluoromethane (CHClF₂)",
@@ -71,6 +74,7 @@
     },
     {
       "name": "R407C",
+      "image": "/static/images/spares/r407c.jpg",
       "slug": "r407c",
       "detail": "Non-ozone-depleting blend used in place of R22 in package units and chillers.",
       "chemical_name": "Blend of R32, R125 and R134a",
@@ -92,6 +96,7 @@
     },
     {
       "name": "R134a",
+      "image": "/static/images/spares/r134a.jpg",
       "slug": "r134a",
       "detail": "Medium-pressure HFC for chillers, car ACs and water coolers.",
       "chemical_name": "1,1,1,2-Tetrafluoroethane (CH₂FCF₃)",
@@ -113,6 +118,7 @@
     },
     {
       "name": "R404A",
+      "image": "/static/images/spares/r404a.jpg",
       "slug": "r404a",
       "detail": "Blend for low and medium temperature refrigeration and cold rooms.",
       "chemical_name": "Blend of R125, R143a and R134a",
@@ -134,6 +140,7 @@
     },
     {
       "name": "R507A",
+      "image": "/static/images/spares/r507a.jpg",
       "slug": "r507a",
       "detail": "Azeotropic blend for low temperature cold storage and freezers.",
       "chemical_name": "Blend of R125 and R143a",
@@ -155,6 +162,7 @@
     },
     {
       "name": "R454B",
+      "image": "/static/images/spares/r454b.jpg",
       "slug": "r454b",
       "detail": "Lower-GWP replacement for R410A in new ductable and package units.",
       "chemical_name": "Blend of R32 and R1234yf",
@@ -176,6 +184,7 @@
     },
     {
       "name": "R290 (propane)",
+      "image": "/static/images/spares/r290.jpg",
       "slug": "r290",
       "detail": "Natural hydrocarbon refrigerant with very low GWP.",
       "chemical_name": "Propane (C₃H₈), refrigerant grade",
@@ -197,6 +206,7 @@
     },
     {
       "name": "R600a (isobutane)",
+      "image": "/static/images/spares/r600a.jpg",
       "slug": "r600a",
       "detail": "Hydrocarbon refrigerant used in most modern domestic refrigerators.",
       "chemical_name": "Isobutane (C₄H₁₀), refrigerant grade",
@@ -218,6 +228,7 @@
     },
     {
       "name": "R1234yf",
+      "image": "/static/images/spares/r1234yf.jpg",
       "slug": "r1234yf",
       "detail": "Ultra-low-GWP HFO replacing R134a in new car ACs.",
       "chemical_name": "2,3,3,3-Tetrafluoropropene (CF₃CF=CH₂)",

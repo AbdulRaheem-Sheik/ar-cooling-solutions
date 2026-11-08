@@ -6,10 +6,10 @@
   "long_description": "The compressor is the heart of every AC: it pressurises refrigerant and drives the cooling cycle. We help match rotary, reciprocating and scroll compressors to your unit's capacity, refrigerant and electrical supply so the replacement runs reliably.",
   "match_by": "Capacity, refrigerant and power supply",
   "parts": [
-    {"name": "Rotary compressors", "detail": "For split and window ACs, typically up to about 2 TR."},
-    {"name": "Reciprocating compressors", "detail": "For older and some commercial units."},
-    {"name": "Scroll compressors", "detail": "For higher-tonnage ductable, package and commercial systems."},
-    {"name": "Inverter (BLDC) compressors", "detail": "Variable-speed compressors for inverter split ACs."}
+    {"name": "Rotary compressors", "image": "/static/images/spares/rotary_compressors.jpg", "detail": "For split and window ACs, typically up to about 2 TR."},
+    {"name": "Reciprocating compressors", "image": "/static/images/spares/reciprocating_compressors.jpg", "detail": "For older and some commercial units."},
+    {"name": "Scroll compressors", "image": "/static/images/spares/scroll_compressors.jpg", "detail": "For higher-tonnage ductable, package and commercial systems."},
+    {"name": "Inverter (BLDC) compressors", "image": "/static/images/spares/inverter_bldc_compressors.jpg", "detail": "Variable-speed compressors for inverter split ACs."}
   ],
   "signs": ["Outdoor unit hums but does not start", "Breaker trips when the AC switches on", "Fan runs but air stays warm"],
   "enquiry_category": "Compressors"

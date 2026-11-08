@@ -8,6 +8,7 @@
   "parts": [
     {
       "name": "Soft annealed copper coils",
+      "image": "/static/images/spares/soft_annealed_copper_coils.jpg",
       "slug": "soft-annealed",
       "detail": "Flexible annealed copper in pancake and level-wound coils, for split and ductable AC line sets.",
       "card_specs": [
@@ -335,6 +336,7 @@
     },
     {
       "name": "Hard copper tubes",
+      "image": "/static/images/spares/hard_copper_tubes.jpg",
       "slug": "hard-drawn",
       "detail": "Straight copper tubes in hard, half-hard and soft tempers, for HVAC, medical gas, plumbing and industry.",
       "card_specs": [
@@ -905,6 +907,7 @@
     },
     {
       "name": "Copper fittings",
+      "image": "/static/images/spares/copper_fittings.jpg",
       "slug": "fittings",
       "detail": "End-feed elbows, tees, couplers and reducers, plus brazing rods, for HVACR, medical gas and plumbing.",
       "card_specs": [
@@ -1253,10 +1256,12 @@
     },
     {
       "name": "Insulation sleeves & tape",
+      "image": "/static/images/spares/insulation_sleeves_tape.jpg",
       "detail": "Nitrile insulation and wrapping tape to stop sweating and heat gain."
     },
     {
       "name": "Brazing consumables",
+      "image": "/static/images/spares/brazing_consumables.jpg",
       "detail": "Brazing rods, flux and nitrogen-purge kits for leak-free joints."
     }
   ],

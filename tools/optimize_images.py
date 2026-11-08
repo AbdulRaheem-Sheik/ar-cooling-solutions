@@ -16,7 +16,7 @@ from pathlib import Path
 from PIL import Image, ImageOps
 
 ROOT = Path(__file__).resolve().parent.parent
-FOLDERS = [ROOT / "static" / "images" / "products", ROOT / "static" / "images" / "services"]
+FOLDERS = [ROOT / "static" / "images" / folder for folder in ("products", "services", "spares")]
 MAX_SIDE = 1600      # sharp on large and high-resolution screens; cards show ~400 px
 QUALITY = 82         # visually identical to the original for photos
 WARN_PNG_KB = 300    # large PNG photos should be converted to JPEG (and the data file updated)
