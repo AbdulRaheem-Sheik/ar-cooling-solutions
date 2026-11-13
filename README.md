@@ -41,6 +41,7 @@ To preview the exact static site that will be published:
 | Product / service photos | put them in `static/images/products/` or `services/`, set `"image"` in the data file, then run `python tools/optimize_images.py` (needs `pip install pillow`) |
 | Partner and client logos | add the image, run `python tools/process_logos.py` (needs `pip install pillow`), add it to `BRAND_LOGOS` / `CLIENT_LOGOS` in `app.py` |
 | Colours, fonts, layout | `static/css/style.css` |
+| Social media posts | add the post to `data/social/posts.json`, run `python tools/make_social_posts.py` to draw its pictures; the build publishes a share page at `/go/<id>/` that shows the picture as a link card and sends visitors on to the post's page |
 
 ## Deploying (one-time setup)
 

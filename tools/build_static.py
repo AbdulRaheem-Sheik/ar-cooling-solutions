@@ -11,7 +11,9 @@ The GitHub Action in .github/workflows/deploy.yml runs this on every push to mai
 """
 
 import argparse
+import html
 import http.server
+import json
 import os
 import re
 import secrets
@@ -26,7 +28,8 @@ OUTPUT = ROOT / "_site"
 # Always published; other static files (images) only when a built page references them,
 # so unused originals and spare photos never bloat the site.
 # The share banner is only linked by absolute URL (og:image), so it is listed here too.
-ALWAYS_STATIC = {Path("css"), Path("js"), Path("images/og-banner.jpg")}
+# The social post pictures are likewise only linked by absolute URL (see build_share_pages).
+ALWAYS_STATIC = {Path("css"), Path("js"), Path("images/og-banner.jpg"), Path("images/social")}
 # Pages that should not be listed for search engines.
 NOT_IN_SITEMAP = {"/enquiry/thank-you/"}
 
@@ -63,6 +66,53 @@ def output_file(path):
     return OUTPUT / path.strip("/") / "index.html" if path.strip("/") else OUTPUT / "index.html"
 
 
+def build_share_pages(site):
+    """One small page per social media post (data/social/posts.json) at /go/<id>/.
+    X, Facebook and LinkedIn read its tags to show the post's picture as a link card;
+    a visitor who clicks the card is sent straight on to the post's page on the site.
+    The pictures are drawn by tools/make_social_posts.py."""
+    posts_file = ROOT / "data" / "social" / "posts.json"
+    if not posts_file.is_file():
+        return
+    for post in json.loads(posts_file.read_text(encoding="utf-8")):
+        if not (ROOT / "static" / "images" / "social" / post["image"]).is_file():
+            sys.exit(f"Social post {post['id']}: picture {post['image']} is missing; run tools/make_social_posts.py.")
+        share_url = f"{site.SITE_URL}/go/{post['id']}/"
+        image_url = f"{site.SITE_URL}/static/images/social/{post['image']}"
+        title, description, target = (html.escape(post[k], quote=True) for k in ("title", "description", "target"))
+        page = f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title} | AR Cooling Solutions</title>
+  <meta name="description" content="{description}">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="{site.SITE_URL}{target}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AR Cooling Solutions">
+  <meta property="og:url" content="{share_url}">
+  <meta property="og:title" content="{title}">
+  <meta property="og:description" content="{description}">
+  <meta property="og:image" content="{image_url}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{title}">
+  <meta name="twitter:description" content="{description}">
+  <meta name="twitter:image" content="{image_url}">
+  <script>location.replace("{target}");</script>
+</head>
+<body style="font-family:system-ui,sans-serif;text-align:center;padding:3rem 1rem">
+  <p><a href="{target}">Continue to AR Cooling Solutions</a></p>
+</body>
+</html>
+"""
+        destination = output_file(f"/go/{post['id']}/")
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(page, encoding="utf-8")
+
+
 def build(site):
     if OUTPUT.exists():
         shutil.rmtree(OUTPUT)
@@ -81,9 +131,11 @@ def build(site):
     not_found = client.get("/this-page-does-not-exist/")
     (OUTPUT / "404.html").write_bytes(not_found.data)
 
+    build_share_pages(site)
+
     referenced = set()
-    for html in OUTPUT.rglob("*.html"):
-        for url in re.findall(r'(?:href|src)="/static/([^"?#]+)', html.read_text(encoding="utf-8")):
+    for page_file in OUTPUT.rglob("*.html"):
+        for url in re.findall(r'(?:href|src)="/static/([^"?#]+)', page_file.read_text(encoding="utf-8")):
             referenced.add(Path(unquote(url)))
     static_out = OUTPUT / "static"
     for source in (ROOT / "static").rglob("*"):
@@ -119,8 +171,8 @@ def build(site):
 def check_links():
     """Every href/src that points inside the site must resolve to a built file."""
     broken = []
-    for html in OUTPUT.rglob("*.html"):
-        for url in re.findall(r'(?:href|src)="([^"]+)"', html.read_text(encoding="utf-8")):
+    for page_file in OUTPUT.rglob("*.html"):
+        for url in re.findall(r'(?:href|src)="([^"]+)"', page_file.read_text(encoding="utf-8")):
             parts = urlsplit(url)
             if parts.scheme or parts.netloc or url.startswith(("#", "mailto:", "tel:")):
                 continue
@@ -133,7 +185,7 @@ def check_links():
                 ok = (OUTPUT / path.lstrip("/")).is_file()  # a file such as /static/css/style.css
             if not ok:
                 hint = " (page links must end with /)" if output_file(path + "/").is_file() else ""
-                broken.append(f"{html.relative_to(OUTPUT)} -> {url}{hint}")
+                broken.append(f"{page_file.relative_to(OUTPUT)} -> {url}{hint}")
     if broken:
         sys.exit("Broken internal links:\n  " + "\n  ".join(sorted(set(broken))))
 

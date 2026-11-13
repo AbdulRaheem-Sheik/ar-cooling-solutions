@@ -1,0 +1,49 @@
+[
+  {
+    "id": "2026-11-13-1",
+    "date": "2026-11-13",
+    "kind": "service",
+    "target": "/services/deep-cleaning/",
+    "title": "AC not cooling like before? Book a deep clean",
+    "description": "Jet wash of the indoor coil and filters, blower and drain line cleaned out. AR Cooling Solutions, Hyderabad.",
+    "image": "2026_11_13_1_deep_cleaning.jpg",
+    "photo": "services/deep_cleaning.jpg",
+    "tag": "AC Service",
+    "headline": "AC not cooling like before? |Book a deep clean.",
+    "bullets": ["Jet wash of the indoor coil and filters", "Blower and drain line cleaned out", "Split, window and cassette ACs, all major brands"],
+    "caption": "AC not cooling like before? Dust on the coil is usually the reason. Our deep clean jet-washes the indoor coil and filters and clears the blower and drain line. Book a visit in Hyderabad.",
+    "hashtags": "#arcooling #ACService #ACDeepCleaning #ACRepair #HVAC #Hyderabad #AirConditioner"
+  },
+  {
+    "id": "2026-11-13-2",
+    "date": "2026-11-13",
+    "kind": "sales",
+    "target": "/products/split-ac-units/",
+    "title": "New AC? We supply it and install it right",
+    "description": "Split, window, cassette and ductable units from Daikin, Voltas, Blue Star, LG and more, supplied and installed across Hyderabad.",
+    "image": "2026_11_13_2_split_ac_sales.jpg",
+    "photo": "products/split.jpg",
+    "photo_position": "center 30%",
+    "tag": "AC Sales",
+    "headline": "New AC? We supply it |and install it right.",
+    "bullets": ["Split, window, cassette and ductable units", "Daikin, Voltas, Blue Star, LG and more", "Supply and installation across Hyderabad"],
+    "caption": "Buying a new AC? We supply split, window, cassette and ductable units from Daikin, Voltas, Blue Star, LG and more, and install them properly.",
+    "hashtags": "#arcooling #ACSales #SplitAC #ACInstallation #HVAC #Hyderabad #AirConditioner"
+  },
+  {
+    "id": "2026-11-13-3",
+    "date": "2026-11-13",
+    "kind": "spare parts",
+    "target": "/parts/compressors/",
+    "title": "Compressor down? Get the right replacement",
+    "description": "Scroll, rotary and reciprocating compressors from Copeland, Danfoss and other brands. AR Cooling Solutions, Hyderabad.",
+    "image": "2026_11_13_3_compressors.jpg",
+    "photo": "spares/scroll_compressors.jpg",
+    "photo_fit": "contain",
+    "tag": "Spare Parts",
+    "headline": "Compressor down? |Get the right replacement.",
+    "bullets": ["Scroll, rotary and reciprocating compressors", "Copeland, Danfoss and other brands", "For technicians, contractors and facility teams"],
+    "caption": "Compressor down? We stock scroll, rotary and reciprocating compressors from Copeland, Danfoss and other brands for technicians, contractors and facility teams.",
+    "hashtags": "#arcooling #ACSpareParts #Compressor #Copeland #Danfoss #HVAC #Refrigeration #Hyderabad"
+  }
+]
