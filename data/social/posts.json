@@ -45,5 +45,21 @@
     "bullets": ["Scroll, rotary and reciprocating compressors", "Copeland, Danfoss and other brands", "For technicians, contractors and facility teams"],
     "caption": "Compressor down? We stock scroll, rotary and reciprocating compressors from Copeland, Danfoss and other brands for technicians, contractors and facility teams.",
     "hashtags": "#arcooling #ACSpareParts #Compressor #Copeland #Danfoss #HVAC #Refrigeration #Hyderabad"
+  },
+  {
+    "id": "2026-11-14-1",
+    "date": "2026-11-14",
+    "kind": "service",
+    "target": "/services/gas-refilling/",
+    "title": "AC cooling weak? Fix the leak, then refill the gas",
+    "description": "Leak detection and repair, system vacuuming and accurate charging for R22, R32 and R410A. AR Cooling Solutions, Hyderabad.",
+    "image": "2026_11_14_1_gas_refilling.jpg",
+    "photo": "services/gas-refill.jpg",
+    "photo_position": "center 62%",
+    "tag": "AC Service",
+    "headline": "AC cooling weak? |Fix the leak, then refill.",
+    "bullets": ["Leak detection and repair before refilling", "System vacuumed to remove air and moisture", "Accurate charging for R22, R32 and R410A"],
+    "caption": "AC runs but cooling is weak? Low refrigerant usually means there is a leak. We find and repair the leak first, then vacuum the system and charge the correct refrigerant by weight and pressure. Book a gas refilling visit in Hyderabad.",
+    "hashtags": "#arcooling #ACGasRefilling #ACService #ACRepair #HVAC #Hyderabad #AirConditioner"
   }
 ]
