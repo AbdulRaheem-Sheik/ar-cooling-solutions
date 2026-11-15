@@ -91,5 +91,21 @@
     "bullets": ["Site survey and capacity advice", "Copper piping, insulation and drain lines", "Vacuuming, leak check and cooling test"],
     "caption": "Bought a new AC, or replacing an old one? A good installation decides how well it performs for years. We survey the space, plan where the indoor and outdoor units go, fit proper copper piping, then vacuum, leak test and check the cooling before handover. We install all major brands, wherever you bought the unit.",
     "hashtags": "#arcooling #ACInstallation #ACService #SplitAC #HVAC #Hyderabad #AirConditioner"
+  },
+  {
+    "id": "2026-11-15-3",
+    "date": "2026-11-15",
+    "kind": "spare parts",
+    "target": "/parts/gases/r32/",
+    "title": "Charging an R32 AC? Use the right gas",
+    "description": "Sealed R32 refrigerant cylinders for inverter split ACs, from established makers. AR Cooling Solutions, Hyderabad.",
+    "image": "2026_11_15_3_r32_refrigerant.jpg",
+    "photo": "spares/r32.jpg",
+    "photo_fit": "contain",
+    "tag": "Spare Parts",
+    "headline": "Charging an R32 AC? |Use the right gas.",
+    "bullets": ["R32 for new inverter split ACs", "Sealed cylinders from established makers", "Match the gas to the unit's nameplate"],
+    "caption": "Servicing an inverter split AC? Most new ones run on R32. We supply sealed R32 cylinders from established makers such as SRF (Floron) and GFL. R32 is mildly flammable, so use R32-rated tools and good ventilation, and never top up an R22 or R410A unit with it. Check the unit's nameplate and tell us the gas you need.",
+    "hashtags": "#arcooling #R32 #RefrigerantGas #ACSpareParts #ACService #HVAC #Refrigeration #Hyderabad"
   }
 ]

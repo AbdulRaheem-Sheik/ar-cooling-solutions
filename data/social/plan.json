@@ -1,0 +1,182 @@
+{
+  "note": "Rolling 7-day plan for the scheduled social posts. Topics come only from data/services, data/products, data/spares and data/compressors; no topic repeats within 14 days of posts.json. Extend when fewer than 3 days are left.",
+  "updated": "2026-11-15",
+  "plan": [
+    {
+      "date": "2026-11-15",
+      "slot": 3,
+      "kind": "spare parts",
+      "topic": "R32 refrigerant gas",
+      "target": "/parts/gases/r32/",
+      "audience": "technicians"
+    },
+    {
+      "date": "2026-11-16",
+      "slot": 1,
+      "kind": "service",
+      "topic": "AC repair",
+      "target": "/services/repair/",
+      "audience": "homes"
+    },
+    {
+      "date": "2026-11-16",
+      "slot": 2,
+      "kind": "sales",
+      "topic": "Cassette AC units",
+      "target": "/products/cassette-ac-units/",
+      "audience": "offices"
+    },
+    {
+      "date": "2026-11-16",
+      "slot": 3,
+      "kind": "spare parts",
+      "topic": "Rotary compressors",
+      "target": "/parts/compressors/rotary-compressors/",
+      "audience": "technicians"
+    },
+    {
+      "date": "2026-11-17",
+      "slot": 1,
+      "kind": "service",
+      "topic": "AMC and maintenance",
+      "target": "/services/maintenance/",
+      "audience": "offices"
+    },
+    {
+      "date": "2026-11-17",
+      "slot": 2,
+      "kind": "sales",
+      "topic": "Water chillers",
+      "target": "/products/water-chillers/",
+      "audience": "industry"
+    },
+    {
+      "date": "2026-11-17",
+      "slot": 3,
+      "kind": "spare parts",
+      "topic": "Copper fittings",
+      "target": "/parts/copper-coils/fittings/",
+      "audience": "contractors"
+    },
+    {
+      "date": "2026-11-18",
+      "slot": 1,
+      "kind": "service",
+      "topic": "PCB and inverter board repair",
+      "target": "/services/pcb-repair/",
+      "audience": "homes"
+    },
+    {
+      "date": "2026-11-18",
+      "slot": 2,
+      "kind": "sales",
+      "topic": "Window AC units",
+      "target": "/products/window-ac-units/",
+      "audience": "homes"
+    },
+    {
+      "date": "2026-11-18",
+      "slot": 3,
+      "kind": "spare parts",
+      "topic": "R410A refrigerant gas",
+      "target": "/parts/gases/r410a/",
+      "audience": "technicians"
+    },
+    {
+      "date": "2026-11-19",
+      "slot": 1,
+      "kind": "service",
+      "topic": "Commercial HVAC projects",
+      "target": "/services/commercial-hvac/",
+      "audience": "industry"
+    },
+    {
+      "date": "2026-11-19",
+      "slot": 2,
+      "kind": "sales",
+      "topic": "Ductable AC units",
+      "target": "/products/ductable-ac-units/",
+      "audience": "offices"
+    },
+    {
+      "date": "2026-11-19",
+      "slot": 3,
+      "kind": "spare parts",
+      "topic": "Reciprocating compressors",
+      "target": "/parts/compressors/reciprocating-compressors/",
+      "audience": "industry"
+    },
+    {
+      "date": "2026-11-20",
+      "slot": 1,
+      "kind": "service",
+      "topic": "Uninstallation and relocation",
+      "target": "/services/relocation/",
+      "audience": "homes"
+    },
+    {
+      "date": "2026-11-20",
+      "slot": 2,
+      "kind": "sales",
+      "topic": "Precision AC units",
+      "target": "/products/precision-ac-units/",
+      "audience": "industry"
+    },
+    {
+      "date": "2026-11-20",
+      "slot": 3,
+      "kind": "spare parts",
+      "topic": "Insulation sleeves and tape",
+      "target": "/parts/copper-coils/insulation-sleeves-tape/",
+      "audience": "contractors"
+    },
+    {
+      "date": "2026-11-21",
+      "slot": 1,
+      "kind": "service",
+      "topic": "Duct cleaning",
+      "target": "/services/duct-cleaning/",
+      "audience": "offices"
+    },
+    {
+      "date": "2026-11-21",
+      "slot": 2,
+      "kind": "sales",
+      "topic": "Tower AC units",
+      "target": "/products/tower-ac-units/",
+      "audience": "homes"
+    },
+    {
+      "date": "2026-11-21",
+      "slot": 3,
+      "kind": "spare parts",
+      "topic": "Inverter BLDC compressors",
+      "target": "/parts/compressors/inverter-bldc-compressors/",
+      "audience": "technicians"
+    },
+    {
+      "date": "2026-11-22",
+      "slot": 1,
+      "kind": "service",
+      "topic": "Compressor replacement",
+      "target": "/services/compressor-replacement/",
+      "audience": "homes"
+    },
+    {
+      "date": "2026-11-22",
+      "slot": 2,
+      "kind": "sales",
+      "topic": "AHU units",
+      "target": "/products/ahu-units/",
+      "audience": "industry"
+    },
+    {
+      "date": "2026-11-22",
+      "slot": 3,
+      "kind": "spare parts",
+      "topic": "R22 refrigerant gas",
+      "target": "/parts/gases/r22/",
+      "audience": "technicians"
+    }
+  ]
+}
