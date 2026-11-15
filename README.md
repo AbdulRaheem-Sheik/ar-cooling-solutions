@@ -23,8 +23,26 @@ copy .env.example .env        # then fill in the values (see comments in the fil
 .venv\Scripts\python app.py   # preview at http://127.0.0.1:5000
 ```
 
-The admin editor (`/admin`) runs only locally: edit products, services or spares there,
-then commit and push; the live site rebuilds automatically.
+The admin editor (`/admin`) runs only locally for now. It edits the content database
+(below); to publish an edit, export it to `data/`, then commit and push, and the live site
+rebuilds automatically.
+
+### Content database
+
+The app reads products, services, spare parts, compressor models and home page items from
+a SQLite database (`store.py`), a single file at `instance/ar_cooling.db` (not committed;
+`AR_DATABASE_PATH` moves it). The first time the app runs, it fills the database from the
+JSON files in `data/`. Every admin save keeps the previous version, so edits can be undone.
+
+```
+.venv\Scripts\python store.py export            # write admin edits back to data/ (then commit)
+.venv\Scripts\python store.py import --replace  # reload the database from data/ (after a git pull; discards unexported admin edits)
+.venv\Scripts\python store.py history spares 01-copper-coils
+.venv\Scripts\python store.py restore spares 01-copper-coils <version-id>
+```
+
+The static build always starts from `data/`, never from your local database, so only
+what is committed goes live.
 
 To preview the exact static site that will be published:
 
@@ -36,7 +54,7 @@ To preview the exact static site that will be published:
 
 | What | Where |
 |---|---|
-| Products, services, spare parts | `data/products/`, `data/services/`, `data/spares/` (or the local admin) |
+| Products, services, spare parts | `data/products/`, `data/services/`, `data/spares/`, then `python store.py import --replace` to see them locally (or edit in the local admin and `python store.py export`) |
 | Business name, phone, email, city | `BUSINESS` in `app.py` |
 | Product / service photos | put them in `static/images/products/` or `services/`, set `"image"` in the data file, then run `python tools/optimize_images.py` (needs `pip install pillow`) |
 | Partner and client logos | add the image, run `python tools/process_logos.py` (needs `pip install pillow`), add it to `BRAND_LOGOS` / `CLIENT_LOGOS` in `app.py` |
