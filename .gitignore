@@ -6,6 +6,9 @@ __pycache__/
 # Customer enquiries contain personal data; keep the folders, not the files.
 enquiries/**/*.json
 
+# Content database (store.py); data/ holds the committed copy
+instance/
+
 # Static build output (published by GitHub Actions, not committed)
 _site/
 

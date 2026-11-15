@@ -19,6 +19,7 @@ import re
 import secrets
 import shutil
 import sys
+import tempfile
 from datetime import date
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -39,6 +40,9 @@ def load_app():
     os.environ.setdefault("SECRET_KEY", secrets.token_hex(32))
     os.environ["AR_DEBUG"] = "0"
     os.environ["AR_STATIC_BUILD"] = "1"   # leaves out sample content (see SHOW_SAMPLE_CONTENT in app.py)
+    # Build from the JSON files in data/ (what is committed), never from a local database
+    # with unexported admin edits: a fresh throwaway database is filled from data/.
+    os.environ["AR_DATABASE_PATH"] = str(Path(tempfile.mkdtemp(prefix="ar-build-")) / "build.db")
     sys.path.insert(0, str(ROOT))
     import app as site  # noqa: E402
 

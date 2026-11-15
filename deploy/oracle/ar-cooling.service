@@ -1,0 +1,25 @@
+# Runs the website (serve.py) on the Oracle Cloud server: starts at boot, restarts if it stops.
+# Installed by setup.sh to /etc/systemd/system/ar-cooling.service.
+[Unit]
+Description=AR Cooling Solutions website
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=arcooling
+Group=arcooling
+WorkingDirectory=/opt/ar-cooling
+EnvironmentFile=/etc/ar-cooling.env
+ExecStart=/opt/ar-cooling/.venv/bin/python serve.py
+Restart=always
+RestartSec=3
+
+# Hardening: the app can only write to its database folder.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+ReadWritePaths=/var/lib/ar-cooling
+
+[Install]
+WantedBy=multi-user.target

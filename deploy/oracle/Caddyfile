@@ -1,0 +1,20 @@
+# Caddy settings for the Oracle Cloud server. setup.sh replaces {DOMAIN} and installs this
+# as /etc/caddy/Caddyfile. Caddy gets and renews the HTTPS certificate on its own.
+
+# The website, over HTTPS.
+{DOMAIN} {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:8080
+}
+
+# www. goes to the main address.
+www.{DOMAIN} {
+	redir https://{DOMAIN}{uri} permanent
+}
+
+# Plain http://<server IP>, for testing before the domain points here.
+# Admin login does not work this way (its cookie is HTTPS-only); use the domain for that.
+http:// {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:8080
+}

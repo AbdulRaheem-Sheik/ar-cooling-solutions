@@ -12,12 +12,10 @@ from flask_wtf.csrf import CSRFError, CSRFProtect
 BASE_DIR = Path(__file__).resolve().parent
 # Settings and secrets come from the environment; locally they live in .env (never committed).
 load_dotenv(BASE_DIR / ".env")
-DATA_DIR = BASE_DIR / "data"
-PRODUCT_DATA_DIR = DATA_DIR / "products"
-SPARE_DATA_DIR = DATA_DIR / "spares"
-SERVICE_DATA_DIR = DATA_DIR / "services"
-# Compressor models by brand (Copeland, Danfoss, Others), shown at /parts/compressors/.
-COMPRESSOR_DATA_DIR = DATA_DIR / "compressors"
+
+# Content (products, services, spare parts, compressor models, home page items) lives in a
+# SQLite database (store.py), first filled from the JSON files in data/.
+import store  # noqa: E402  (after load_dotenv, so AR_DATABASE_PATH from .env applies)
 
 # The live site is static (GitHub Pages), built by tools/build_static.py.
 SITE_URL = os.environ.get("AR_SITE_URL", "https://arcooling.in").rstrip("/")
@@ -49,30 +47,17 @@ def get_enquiry_endpoints():
     return {kind: formsubmit_endpoint(email) for kind, email in ENQUIRY_INBOXES.items()}
 
 
-# Admin is a local editing tool (it is not part of the static site). It has no built-in
-# default login: it stays disabled until both values are set in .env.
+# Admin edits the content database. It is not part of the static site, so it only works
+# where the Flask app itself runs. It has no built-in default login: it stays disabled
+# until both values are set in .env (or the host's environment settings).
 ADMIN_USERNAME = os.environ.get("AR_ADMIN_USERNAME", "").strip()
 ADMIN_PASSWORD = os.environ.get("AR_ADMIN_PASSWORD", "")
 ADMIN_MIN_PASSWORD_LENGTH = 12
 ADMIN_ENABLED = bool(ADMIN_USERNAME) and len(ADMIN_PASSWORD) >= ADMIN_MIN_PASSWORD_LENGTH
 
 
-def load_json_file(file_path):
-    with file_path.open("r", encoding="utf-8") as file:
-        return json.load(file)
-
-
-def load_json_records(folder_path, exclude_names=()):
-    records = []
-    for file_path in sorted(folder_path.glob("*.json")):
-        if file_path.name in exclude_names:
-            continue
-        records.append(load_json_file(file_path))
-    return tuple(records)
-
-
 def get_product_types():
-    return load_json_records(PRODUCT_DATA_DIR)
+    return store.all_records("products")
 
 
 def get_product(slug):
@@ -83,11 +68,11 @@ def get_product(slug):
 
 
 def get_spare_categories():
-    return load_json_records(SPARE_DATA_DIR, exclude_names=("featured-spare.json",))
+    return store.all_records("spares")
 
 
 def get_services():
-    return load_json_records(SERVICE_DATA_DIR)
+    return store.all_records("services")
 
 
 def get_service(slug):
@@ -98,18 +83,17 @@ def get_service(slug):
 
 
 def get_featured_spare():
-    return load_json_file(SPARE_DATA_DIR / "featured-spare.json")
+    return store.get_record("site", "featured-spare")
 
 
 # Home page content: counters, reviews and FAQs (data/home/*.json).
 # Entries marked "sample": true are stand-ins for real content. They show in the local
 # preview (with a "Sample" badge) but never in the static build that goes live.
-HOME_DATA_DIR = DATA_DIR / "home"
 SHOW_SAMPLE_CONTENT = os.environ.get("AR_STATIC_BUILD") != "1"
 
 
 def load_home_items(name):
-    items = load_json_file(HOME_DATA_DIR / f"{name}.json")["items"]
+    items = store.get_record("home", name)["items"]
     return [item for item in items if SHOW_SAMPLE_CONTENT or not item.get("sample")]
 
 
@@ -120,7 +104,7 @@ def slugify(text):
 def get_compressor_brands():
     """Brands with their series and models. Each model gets its brand, series, slug and
     display name filled in, so templates and routes can use any model on its own."""
-    brands = load_json_records(COMPRESSOR_DATA_DIR)
+    brands = store.all_records("compressors")
     for brand in brands:
         for series in brand["series"]:
             for model in series["models"]:
@@ -166,30 +150,15 @@ def compressor_specs(model):
     return list(specs.items())
 
 
-COLLECTION_DIRS = {
-    "products": PRODUCT_DATA_DIR,
-    "spares": SPARE_DATA_DIR,
-    "services": SERVICE_DATA_DIR,
-    "compressors": COMPRESSOR_DATA_DIR,
-}
+# Collections the admin can edit.
+EDITABLE_COLLECTIONS = ("products", "spares", "services", "compressors")
 
 
-def resolve_data_file(collection, item_name):
-    data_dir = COLLECTION_DIRS.get(collection)
-    if data_dir is None:
+def resolve_record_name(collection, item_name):
+    """The database name of an editable record, from its name or slug (None if not found)."""
+    if collection not in EDITABLE_COLLECTIONS:
         return None
-
-    exact_path = data_dir / f"{item_name}.json"
-    if exact_path.exists():
-        return exact_path
-
-    for file_path in sorted(data_dir.glob("*.json")):
-        if file_path.name == "featured-spare.json":
-            continue
-        record = load_json_file(file_path)
-        if record.get("slug") == item_name:
-            return file_path
-    return None
+    return store.find_name(collection, item_name)
 
 
 BUSINESS = {
@@ -415,6 +384,15 @@ app.config.update(
     # Form tokens last as long as the browser session, so a form left open isn't rejected.
     WTF_CSRF_TIME_LIMIT=None,
 )
+
+# On the server, Caddy handles HTTPS and passes requests on to the app (deploy/oracle/).
+# AR_BEHIND_PROXY=1 makes the app trust Caddy's "the visitor used https" headers, and only
+# send the admin login cookie over HTTPS. Leave it unset when running on your own PC.
+if os.environ.get("AR_BEHIND_PROXY") == "1":
+    from werkzeug.middleware.proxy_fix import ProxyFix
+
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
+    app.config["SESSION_COOKIE_SECURE"] = True
 
 # Every admin POST form must carry a token from our own pages (blocks forged cross-site submissions).
 csrf = CSRFProtect(app)
@@ -769,7 +747,9 @@ def product_detail(slug):
     )
 
 
-@app.get("/admin")
+# Admin addresses also work with a trailing slash (/admin/, /admin/login/), as typed or
+# autocompleted; public pages keep one address each, which search engines prefer.
+@app.get("/admin", strict_slashes=False)
 @admin_required
 def admin_dashboard():
     product_entries = get_product_types()
@@ -790,7 +770,7 @@ ADMIN_DISABLED_MESSAGE = (
 )
 
 
-@app.get("/admin/login")
+@app.get("/admin/login", strict_slashes=False)
 def admin_login():
     error = None if ADMIN_ENABLED else ADMIN_DISABLED_MESSAGE
     return render_template("admin_login.html", business=BUSINESS, error=error)
@@ -829,17 +809,17 @@ def admin_logout():
 @app.get("/admin/<collection>/<item_name>/edit")
 @admin_required
 def admin_edit(collection, item_name):
-    file_path = resolve_data_file(collection, item_name)
-    if file_path is None:
+    name = resolve_record_name(collection, item_name)
+    if name is None:
         return redirect(url_for("admin_dashboard"))
 
-    record = load_json_file(file_path)
+    record = store.get_record(collection, name)
     json_text = json.dumps(record, indent=2, ensure_ascii=False)
     return render_template(
         "admin_edit.html",
         business=BUSINESS,
         collection=collection,
-        item_name=file_path.stem,
+        item_name=name,
         json_text=json_text,
     )
 
@@ -847,27 +827,26 @@ def admin_edit(collection, item_name):
 @app.post("/admin/<collection>/<item_name>/edit")
 @admin_required
 def admin_save(collection, item_name):
-    file_path = resolve_data_file(collection, item_name)
-    if file_path is None:
+    name = resolve_record_name(collection, item_name)
+    if name is None:
         return redirect(url_for("admin_dashboard"))
 
     raw_json = request.form.get("json_data", "")
     try:
         parsed = json.loads(raw_json)
     except json.JSONDecodeError:
+        parsed = None
+    if not isinstance(parsed, dict):   # every record is a JSON object; anything else would break the pages
         return render_template(
             "admin_edit.html",
             business=BUSINESS,
             collection=collection,
-            item_name=file_path.stem,
+            item_name=name,
             json_text=raw_json,
             error="Invalid JSON. Please correct the content and try again.",
         )
 
-    with file_path.open("w", encoding="utf-8") as file:
-        json.dump(parsed, file, indent=2, ensure_ascii=False)
-        file.write("\n")
-
+    store.save_record(collection, name, parsed)   # the previous version is kept in the edit history
     return redirect(url_for("admin_dashboard"))
 
 
