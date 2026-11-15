@@ -8,3 +8,6 @@ enquiries/**/*.json
 
 # Static build output (published by GitHub Actions, not committed)
 _site/
+
+# Local editor settings
+.vscode/
