@@ -56,7 +56,6 @@
       <ul class="tag-list">
         {% for application in (item.uses|map(attribute="name") if item.uses else item.applications) %}<li>{{ application }}</li>{% endfor %}
       </ul>
-      {% if item.brand %}<p class="fine-print">Ranges below are from {{ item.brand }}, whose copper we supply.</p>{% endif %}
       {% if item.notes %}
       <h3 class="gas-subhead">Good practice</h3>
       <ul class="check-list check-list-compact">
@@ -98,10 +97,10 @@
 <section class="section container" id="applications">
   <div class="section-heading reveal">
     <div>
-      <p class="eyebrow">By application{% if item.brand %} · {{ item.brand }}{% endif %}</p>
+      <p class="eyebrow">By application</p>
       <h2>{{ item.name }} for every job.</h2>
     </div>
-    <p>Pick the application to enquire. Grades, tempers and size ranges are the manufacturer's published figures; we confirm exact sizes and stock with your quote.</p>
+    <p>Our specifications for each application. Pick one to enquire; we confirm exact sizes and stock with your quote.</p>
   </div>
   <div class="use-grid">
     {% for use in item.uses %}
@@ -112,9 +111,7 @@
         {% for label, value in use.specs %}<div><dt>{{ label }}</dt><dd>{{ value }}</dd></div>{% endfor %}
       </dl>
       <div class="use-card-foot">
-        <a class="button button-primary button-sm" href="{{ spare_enquiry_url(category, use) }}">Enquire</a>
-        {% if use.source_url %}<a class="card-link" href="{{ use.source_url }}" target="_blank" rel="noopener noreferrer">Maker's specs {{ icon("arrow-right") }}</a>{% endif %}
-      </div>
+        <a class="button button-primary button-sm" href="{{ spare_enquiry_url(category, use) }}">Enquire</a>      </div>
     </article>
     {% endfor %}
   </div>

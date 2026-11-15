@@ -38,10 +38,6 @@
       ],
       "specs": [
         [
-          "Brand",
-          "Mexflow (Mehta Tubes)"
-        ],
-        [
           "Material",
           "Phosphorus-deoxidised copper, Cu-DHP (C12200), min. 99.9% Cu + Ag"
         ],
@@ -247,8 +243,7 @@
               "Supply",
               "Coils, 15–100 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-coils.html"
+          ]
         },
         {
           "name": "Copper coils for split AC",
@@ -274,8 +269,7 @@
               "Supply",
               "Coils, 15–100 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-coils.html"
+          ]
         },
         {
           "name": "Bare copper tubes for instrumentation",
@@ -301,8 +295,7 @@
               "Supply",
               "Coils, 15–100 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-coils.html"
+          ]
         },
         {
           "name": "PVC-coated copper tubes for instrumentation",
@@ -328,11 +321,9 @@
               "Supply",
               "Coils, 15–100 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-coils.html"
+          ]
         }
-      ],
-      "brand": "Mexflow by Mehta Tubes"
+      ]
     },
     {
       "name": "Hard copper tubes",
@@ -365,10 +356,6 @@
         ]
       ],
       "specs": [
-        [
-          "Brand",
-          "Mexflow (Mehta Tubes)"
-        ],
         [
           "Material",
           "Phosphorus-deoxidised copper, Cu-DHP (C12200), min. 99.9% Cu + Ag"
@@ -575,8 +562,7 @@
               "Supply",
               "Straight up to 6 m; coils up to 15.24 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-tubes.html"
+          ]
         },
         {
           "name": "Copper tubes for split & duct AC",
@@ -602,8 +588,7 @@
               "Supply",
               "Straight up to 6 m; coils up to 15.24 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-tubes.html"
+          ]
         },
         {
           "name": "Copper tubes for cold storage",
@@ -629,8 +614,7 @@
               "Supply",
               "Straight up to 6 m; coils up to 15.24 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-tubes.html"
+          ]
         },
         {
           "name": "Low fin tubes for evaporators & chillers",
@@ -656,8 +640,7 @@
               "Supply",
               "Straight, up to 7 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-tubes.html#copper-low-fin-tubes-evaporators-chillers"
+          ]
         },
         {
           "name": "Degreased tubes for medical gas (MGPS)",
@@ -687,8 +670,7 @@
               "Standard",
               "EN 13348"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/degreased-copper-tubes-mgps.html"
+          ]
         },
         {
           "name": "Copper tubes for plumbing",
@@ -714,8 +696,7 @@
               "Supply",
               "Straight, up to 6 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/degreased-copper-tubes-mgps.html"
+          ]
         },
         {
           "name": "Copper tubes for water & sanitation",
@@ -741,8 +722,7 @@
               "Supply",
               "Straight, up to 6 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/degreased-copper-tubes-mgps.html"
+          ]
         },
         {
           "name": "Copper tubes for hot & cold water",
@@ -768,8 +748,7 @@
               "Supply",
               "Straight, up to 6 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-tubes-heat-exchanger-condensers.html"
+          ]
         },
         {
           "name": "Copper tubes for household gas",
@@ -795,8 +774,7 @@
               "Supply",
               "Straight, up to 6 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-tubes-household-gas.html"
+          ]
         },
         {
           "name": "Copper tubes for heat exchangers & condensers",
@@ -822,8 +800,7 @@
               "Supply",
               "Straight, up to 15 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-tubes-heat-exchanger-condensers.html"
+          ]
         },
         {
           "name": "Copper tubes for solar",
@@ -845,8 +822,7 @@
               "Supply",
               "Straight lengths"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-tubes-heat-exchanger-condensers.html"
+          ]
         },
         {
           "name": "Copper tubes for sugar industries",
@@ -872,8 +848,7 @@
               "Supply",
               "Straight, up to 12 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-tubes-household-gas.html"
+          ]
         },
         {
           "name": "Copper bus tubes for general engineering",
@@ -899,11 +874,9 @@
               "Supply",
               "Straight, up to 12 m"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-tubes-household-gas.html"
+          ]
         }
-      ],
-      "brand": "Mexflow by Mehta Tubes"
+      ]
     },
     {
       "name": "Copper fittings",
@@ -936,10 +909,6 @@
         ]
       ],
       "specs": [
-        [
-          "Brand",
-          "Mexflow (Mehta Tubes)"
-        ],
         [
           "Material",
           "Wrought copper, Cu-DHP (C12200)"
@@ -1164,8 +1133,7 @@
               "Standard",
               "ASME B16.22"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-accessories.html"
+          ]
         },
         {
           "name": "Copper fittings for medical gas (MGPS)",
@@ -1187,8 +1155,7 @@
               "Standard",
               "EN 1254"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-accessories.html"
+          ]
         },
         {
           "name": "Copper fittings for plumbing",
@@ -1210,8 +1177,7 @@
               "Standard",
               "EN 1254"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-accessories.html"
+          ]
         },
         {
           "name": "Copper brazing rods for HVACR",
@@ -1229,8 +1195,7 @@
               "Size",
               "1.5 mm flat, 1 ft long"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-accessories.html"
+          ]
         },
         {
           "name": "Silver brazing rods for medical gas",
@@ -1248,11 +1213,9 @@
               "Size",
               "2 mm square, 1 ft long"
             ]
-          ],
-          "source_url": "https://www.mehtatubes.com/copper-accessories.html"
+          ]
         }
-      ],
-      "brand": "Mexflow by Mehta Tubes"
+      ]
     },
     {
       "name": "Insulation sleeves & tape",

@@ -297,7 +297,6 @@ BRAND_LOGOS = {
     "LG": "lg.png",
     "Lloyd": "llyod.png",
     "Mandev": "mandev.png",
-    "Mexflow": "mexflow.png",
     "Mitsubishi Electric": "mistubushi_electric.png",
     "Mitsubishi Heavy Industries": "mistubushi_heavy.png",
     "Panasonic": "panasonic.png",
