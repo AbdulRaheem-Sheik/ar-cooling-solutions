@@ -44,6 +44,15 @@ JSON files in `data/`. Every admin save keeps the previous version, so edits can
 The static build always starts from `data/`, never from your local database, so only
 what is committed goes live.
 
+To run it the way a live server does (Waitress, no auto-reload), at http://127.0.0.1:8080:
+
+```
+.venv\Scripts\python serve.py
+```
+
+To move the whole site (with a working `/admin`) onto a free Oracle Cloud server instead of
+GitHub Pages, follow [deploy/oracle/README.md](deploy/oracle/README.md).
+
 To preview the exact static site that will be published:
 
 ```

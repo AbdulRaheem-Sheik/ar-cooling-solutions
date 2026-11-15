@@ -385,6 +385,15 @@ app.config.update(
     WTF_CSRF_TIME_LIMIT=None,
 )
 
+# On the server, Caddy handles HTTPS and passes requests on to the app (deploy/oracle/).
+# AR_BEHIND_PROXY=1 makes the app trust Caddy's "the visitor used https" headers, and only
+# send the admin login cookie over HTTPS. Leave it unset when running on your own PC.
+if os.environ.get("AR_BEHIND_PROXY") == "1":
+    from werkzeug.middleware.proxy_fix import ProxyFix
+
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1)
+    app.config["SESSION_COOKIE_SECURE"] = True
+
 # Every admin POST form must carry a token from our own pages (blocks forged cross-site submissions).
 csrf = CSRFProtect(app)
 
