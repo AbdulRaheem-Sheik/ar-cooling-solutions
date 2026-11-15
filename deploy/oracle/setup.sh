@@ -33,6 +33,18 @@ main() {   # everything runs inside a function, so updating this file mid-run is
     exit 1
   fi
 
+  step "Adding swap space (spare memory on disk, for 1 GB servers)"
+  if ! swapon --show | grep -q /swapfile; then
+    if [[ ! -f /swapfile ]]; then
+      fallocate -l 2G /swapfile
+      chmod 600 /swapfile
+      mkswap /swapfile >/dev/null
+    fi
+    swapon /swapfile
+    grep -q '^/swapfile ' /etc/fstab || echo '/swapfile none swap sw 0 0' >> /etc/fstab
+  fi
+  free -h | sed -n '1,3p'
+
   step "Installing system packages (Python, git, Caddy)"
   export DEBIAN_FRONTEND=noninteractive
   apt-get update -q
