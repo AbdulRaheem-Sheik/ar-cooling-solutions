@@ -747,7 +747,9 @@ def product_detail(slug):
     )
 
 
-@app.get("/admin")
+# Admin addresses also work with a trailing slash (/admin/, /admin/login/), as typed or
+# autocompleted; public pages keep one address each, which search engines prefer.
+@app.get("/admin", strict_slashes=False)
 @admin_required
 def admin_dashboard():
     product_entries = get_product_types()
@@ -768,7 +770,7 @@ ADMIN_DISABLED_MESSAGE = (
 )
 
 
-@app.get("/admin/login")
+@app.get("/admin/login", strict_slashes=False)
 def admin_login():
     error = None if ADMIN_ENABLED else ADMIN_DISABLED_MESSAGE
     return render_template("admin_login.html", business=BUSINESS, error=error)
