@@ -81,4 +81,5 @@ and a missing live file is now a failure instead of a NOTE.
   `/sitemap.xml/` and `/favicon.ico/` give 404.
 
 ## Commits
-See the final report (hash of the commit on `fix/live-sitemap-robots`).
+- `641b4bd` Serve sitemap.xml, robots.txt and favicon.ico from the app (code + 01/02/03 docs)
+- follow-up commit: record the commit hash in 03-implementation.md
