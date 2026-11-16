@@ -23,7 +23,7 @@ The Mobile number check was not working in current browsers, so I fixed it (see 
 
 ## Requirements covered
 - R1–R4: `required` attributes in `product_enquiry.html`. Email has `type="email"` but no `required`. `_replyto` is only sent when there is an address (`emailPayload()`).
-- R5: same rule (`[0-9+\(\)\- ]{7,24}`), and the browser now actually applies it (see Deviations).
+- R5: same characters and length (`[0-9+\(\)\- ]{7,24}`), and the browser now actually applies it (see Deviations). Since rework round 2 it must also contain at least 7 digits.
 - R6: `#area` (maxlength 120, `autocomplete="address-level3"`).
 - R7, R10 (AC10): Day/Time selects with the owner's choices. The date min/max are set in the browser with `isoLocal` (no UTC bug). Sundays are allowed.
 - R8: `#visit-time-note`, tied to the fieldset with `aria-describedby`.
@@ -57,6 +57,7 @@ The Mobile number check was not working in current browsers, so I fixed it (see 
   - The date box is hidden on load, with min 2026-11-16 and max 2026-12-16.
   - An empty form is blocked on name, phone and category. `name@` is blocked. `abc` in Mobile is blocked on both forms.
   - Contact form without email: "Email address": "Not given" and no `_replyto`. With an email: `_replyto` is set.
+- Rework round 2: the Mobile hint (`title`) now ends "with at least 7 digits" so the browser message explains the new 7-digit rule.
 - Screenshots at 375px, 320px (in iframes, because headless Edge will not go below a 504px viewport) and 1280px: no layout break. The visit-time selects stack on phones and sit side by side on desktop. "Optional" is grey.
 
 ## What the tester's real sends (T1–T4) should look like
@@ -89,9 +90,11 @@ trivial, so it is fixed too. Nothing was sent to FormSubmit.
     digit; same 7–24 length and characters as before, same v-mode-safe escaping).
     Checked in headless Edge (v-mode): "   " and "       " are blocked; "abc" still blocked;
     "+91 98765 43210" and "(040) 1234-5678" still accepted.
-  - JS path: both scripts call `clearBlank(["name", "phone"])` before `reportValidity()`. A
-    value of only spaces is emptied, so the browser shows its usual "Please fill in this
-    field" message (the same as an empty field) rather than the pattern message.
+  - JS path: *(corrected in round 2)* this round added a `clearBlank()` step meant to empty
+    a value of only spaces so the browser would say "Please fill in this field". It never
+    ran: the browser checks `pattern` before the script's submit handler is called, so the
+    visitor sees "Please match the requested format." plus the box's hint. That message is
+    clear enough, so round 2 removed the dead code (see below).
 - **Defect 3 (cosmetic): Company box 19px lower than Email at ~601px.**
   New `.form-field-bottom { align-content: end; }` in `static/css/style.css`, applied to the
   Email and Company fields in `templates/product_enquiry.html`, so both boxes sit on the same
@@ -100,6 +103,31 @@ trivial, so it is fixed too. Nothing was sent to FormSubmit.
 Checks: `node --check` on both scripts; `.venv/Scripts/python tools/check_site.py` → ALL CHECKS PASSED.
 
 **For the tester:** AC17 needs a real (or stubbed) successful send then Back, on /enquiry/
-and on the home page form. AC18: "   " in Name gives the usual required message on both
-forms with JS; with JS off the pattern blocks it ("Please enter your name"). Recheck the
-Email/Company row at 601px and that the stacked layout at ≤600px is unchanged.
+and on the home page form. AC18: "   " in Name is blocked on both forms, with and without JS,
+by the pattern ("Please match the requested format." / "Please enter your name"; corrected
+in round 2). Recheck the Email/Company row at 601px and that the stacked layout at ≤600px is
+unchanged.
+
+### Round 2 (after "Retest (round 1)" in 04-test-report.md and the owner decisions in 01)
+Two small clean-ups the owner asked for. Nothing was sent to FormSubmit.
+
+- **Defect 5: `clearBlank()` never ran.** Removed from `static/js/enquiry.js` and
+  `static/js/contact.js` (the function and its call). The forms have no `novalidate`, so the
+  browser's `required`/`pattern` check runs before the submit handler; spaces-only names and
+  mobiles are blocked there, with and without JS, with "Please match the requested format."
+  and the box's hint. The round-1 entry above is corrected. Nothing changes for the visitor.
+- **Defect 6: "      1" was accepted as a mobile.** Both `templates/product_enquiry.html` and
+  `templates/_contact.html` now use
+  `pattern="(?=(?:[^0-9]*[0-9]){7})[0-9+\(\)\- ]{7,24}"`: the look-ahead needs at least 7
+  digits anywhere in the value; the allowed characters, 7–24 length and v-mode-safe escaping
+  are unchanged. It is a plain HTML check, so it works without JavaScript too. The hint
+  (`title`) is now "Digits, spaces and + ( ) - only, with at least 7 digits", so the visitor
+  knows why a short number is refused (small wording change, not in the design). The Jinja
+  comment above each box says why the look-ahead is there.
+  Checked in headless Edge 157 (v-mode), with the inputs copied from the pages the app
+  renders for /enquiry/ and / : passes `+91 98765 43210`, `040-1234 5678`,
+  `(040) 1234-5678`, `9876543210`, `1234567`; blocked (`Please match the requested format.`)
+  `"      1"`, `abc`, `12`, `+-() ()-`, 7 spaces, `123456`, `123 456`. Name `"   "` and
+  `" 	  "` still blocked; `"  Tester  "` still passes.
+
+Checks: `node --check` on both scripts; `.venv/Scripts/python tools/check_site.py` → ALL CHECKS PASSED.

@@ -144,14 +144,6 @@
   }
 
   // ---- Submit ---------------------------------------------------------------------
-  // A name or mobile of only spaces is emptied so the browser shows its usual "fill in this
-  // field" message. (Without JavaScript the pattern on those boxes blocks it instead.)
-  function clearBlank(names) {
-    names.forEach((name) => {
-      if (field(name).value && !field(name).value.trim()) field(name).value = "";
-    });
-  }
-
   function makeReference() {
     const now = new Date();
     const pad = (n) => String(n).padStart(2, "0");
@@ -219,7 +211,6 @@
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    clearBlank(["name", "phone"]);
     if (!form.reportValidity()) return;
 
     const reference = makeReference();
