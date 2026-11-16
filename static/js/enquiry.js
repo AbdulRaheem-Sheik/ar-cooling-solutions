@@ -68,6 +68,81 @@
   showVariant();
   field("category").addEventListener("change", showVariant);
 
+  // ---- Preferred visit time ---------------------------------------------------------
+  // The date box is only for "Pick a date". It is visible in the HTML so it works without
+  // JavaScript; here it is hidden until needed and limited to today .. 30 days ahead.
+  const visitDay = field("visit_day");
+  const visitTime = field("visit_time");
+  const visitDate = field("visit_date");
+  const visitDateWrap = form.querySelector("[data-visit-date]");
+  const PICK_A_DATE = "Pick a date";
+
+  // YYYY-MM-DD in the visitor's own time zone. toISOString() would use UTC, which in India
+  // gives yesterday's date between midnight and 5:30am.
+  function isoLocal(date) {
+    const pad = (n) => String(n).padStart(2, "0");
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+  }
+
+  function daysFromToday(days) {
+    const date = new Date();
+    date.setDate(date.getDate() + days);
+    return date;
+  }
+
+  // A hidden field that is required or out of range would block the form with a message the
+  // visitor can't see, so the hidden date is always cleared and made optional.
+  function syncVisitDate() {
+    const picking = visitDay.value === PICK_A_DATE;
+    visitDateWrap.hidden = !picking;
+    visitDate.required = picking;
+    if (!picking) visitDate.value = "";
+    visitDate.setCustomValidity("");
+  }
+
+  visitDate.min = isoLocal(new Date());
+  visitDate.max = isoLocal(daysFromToday(30));
+  syncVisitDate();
+  visitDay.addEventListener("change", syncVisitDate);
+  // Coming back with the Back button, the browser may restore the old choices.
+  window.addEventListener("pageshow", syncVisitDate);
+  visitDate.addEventListener("invalid", () => {
+    if (visitDate.validity.valueMissing) visitDate.setCustomValidity("Choose a date, or pick another day option.");
+  });
+  ["input", "change"].forEach((type) => visitDate.addEventListener(type, () => {
+    visitDate.setCustomValidity("");
+    if (visitDate.value && visitDay.value !== PICK_A_DATE) {
+      visitDay.value = PICK_A_DATE;
+      syncVisitDate();
+    }
+  }));
+
+  // e.g. "Tue 17 Nov" (or "Tue 17 Nov 2026" for a picked date).
+  function shortDate(date, withYear) {
+    const options = { weekday: "short", day: "numeric", month: "short" };
+    if (withYear) options.year = "numeric";
+    return date.toLocaleDateString("en-IN", options).replace(/,/g, "");
+  }
+
+  // One readable line for the email, e.g. "Tomorrow (Tue 17 Nov), Morning (9am–12pm)".
+  // Today/Tomorrow get the real date because the team may read the email the next day.
+  function visitTimeText() {
+    const day = visitDay.value;
+    const time = visitTime.value;
+    const anyDay = day === "No preference";
+    const anyTime = time === "Any time";
+    if (anyDay && anyTime) return "Not given";
+
+    let dayText = "Any day";
+    if (day === "Today") dayText = `Today (${shortDate(new Date())})`;
+    else if (day === "Tomorrow") dayText = `Tomorrow (${shortDate(daysFromToday(1))})`;
+    else if (day === PICK_A_DATE && visitDate.value) {
+      const [y, m, d] = visitDate.value.split("-").map(Number);
+      dayText = shortDate(new Date(y, m - 1, d), true);   // local date, not UTC
+    }
+    return `${dayText}, ${anyTime ? "any time" : time}`;
+  }
+
   // ---- Submit ---------------------------------------------------------------------
   function makeReference() {
     const now = new Date();
@@ -86,31 +161,52 @@
   }
 
   const buttons = form.querySelectorAll('button[type="submit"]');
+  const primary = form.querySelector('button[value="submit"]');
+  const primaryLabel = primary.innerHTML;
+
+  function resetButtons() {
+    buttons.forEach((button) => { button.disabled = false; });
+    primary.innerHTML = primaryLabel;
+  }
+  // After a send, Back can bring this page out of the browser's cache exactly as it was left:
+  // button disabled and saying "Sending…". Make it usable again.
+  window.addEventListener("pageshow", (event) => { if (event.persisted) resetButtons(); });
+
   const typeLabels = { product: "Product", service: "Service", spare: "Spare part", general: "General" };
 
   // What FormSubmit receives: its settings (names starting with "_"), then the enquiry as
-  // labelled rows in a fixed order. "_template: table" makes the email a two-column table;
-  // "_replyto" makes Reply go straight to the customer.
+  // labelled rows in a fixed order, call-back details first. "_template: table" makes the
+  // email a two-column table. Empty optional fields say "Not given" so every email has the
+  // same rows.
+  const orNotGiven = (text) => text || "Not given";
+
   function emailPayload() {
     const value = (name) => field(name).value.trim();
-    return {
+    const email = value("email_address");
+    const payload = {
       _subject: value("_subject"),
       _template: "table",
       _captcha: "false",
-      _replyto: value("email"),
       _honey: value("_honey"),   // spam trap: bots fill it, FormSubmit then discards the enquiry
       "Reference": value("reference"),
       "Enquiry type": typeLabels[enquiryType()],
       "Enquiring about": value("enquiring_about"),
       "Name": value("name"),
-      "Company": value("company"),
-      "Email": value("email"),
       "Mobile": value("phone"),
+      "Area / locality": orNotGiven(value("area")),
+      "Preferred visit time": visitTimeText(),
       "Category": value("category"),
-      "Details": value("details"),
+      "Details": orNotGiven(value("details")),
       "Comments": value("comments") || "None",
+      // Not called "Email": FormSubmit could take a field by that name for the Reply-To.
+      "Email address": orNotGiven(email),
+      "Company": orNotGiven(value("company")),
       "Page": value("page_link") || "Enquiry form",
     };
+    // "_replyto" makes Reply go straight to the customer. Only sent when there is an
+    // address, so the email never gets an empty or "Not given" Reply-To.
+    if (email) payload._replyto = email;
+    return payload;
   }
 
   form.addEventListener("submit", async (event) => {
@@ -129,8 +225,6 @@
 
     buttons.forEach((button) => { button.disabled = true; });
     status.hidden = true;
-    const primary = form.querySelector('button[value="submit"]');
-    const primaryLabel = primary.innerHTML;
     primary.textContent = "Sending…";
 
     try {
@@ -144,8 +238,7 @@
       const ok = response.ok && String(result.success) === "true";
       if (!ok) throw new Error(result.message || `HTTP ${response.status}`);
     } catch (error) {
-      buttons.forEach((button) => { button.disabled = false; });
-      primary.innerHTML = primaryLabel;
+      resetButtons();
       showError(`Sorry, your enquiry couldn't be sent (${error.message}). Please try again, or call us on ${data.phone}.`);
       return;
     }

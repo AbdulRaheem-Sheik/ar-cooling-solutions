@@ -8,6 +8,16 @@
   const value = (name) => field(name).value.trim();
   const status = form.querySelector("[data-contact-status]");
   const button = form.querySelector('button[type="submit"]');
+  const label = button.innerHTML;
+
+  // After a send, Back can bring this page out of the browser's cache exactly as it was left:
+  // button disabled and saying "Sending…". Make it usable again.
+  window.addEventListener("pageshow", (event) => {
+    if (!event.persisted) return;
+    button.disabled = false;
+    button.innerHTML = label;
+  });
+
   const typeKeys = { Service: "service", Product: "product", "Spare part": "spare" };
 
   function makeReference() {
@@ -23,25 +33,28 @@
 
     const reference = makeReference();
     const topic = value("topic");
+    const email = value("email_address");
     const payload = {
       _subject: `New enquiry from the contact section: ${topic} (${reference})`,
       _template: "table",
       _captcha: "false",
-      _replyto: value("email"),
       _honey: value("_honey"),
       "Reference": reference,
       "Enquiry type": "Quick enquiry",
       "Looking for": topic,
       "Name": value("name"),
-      "Email": value("email"),
+      // Not called "Email": FormSubmit could take a field by that name for the Reply-To.
+      "Email address": email || "Not given",
       "Mobile": value("phone"),
       "Message": value("message"),
       "Page": window.location.href,
     };
+    // Reply goes straight to the customer, but only when they gave an address: an empty or
+    // "Not given" Reply-To would be broken.
+    if (email) payload._replyto = email;
 
     button.disabled = true;
     status.hidden = true;
-    const label = button.innerHTML;
     button.textContent = "Sending…";
 
     try {

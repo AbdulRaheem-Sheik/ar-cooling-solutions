@@ -47,7 +47,7 @@
       <ul class="check-list check-list-compact">
         <li>{{ icon("check") }} AC brand, type and capacity</li>
         <li>{{ icon("check") }} The problem you're seeing, if any</li>
-        <li>{{ icon("check") }} Your area and preferred visit time</li>
+        <li>{{ icon("check") }} When suits you: pick a day and time in the form</li>
       </ul>
     </div>
     <div class="enquiry-aside-contact">
@@ -78,25 +78,22 @@
 
     <div class="form-errors" id="form-status" role="alert" hidden></div>
 
+    {#- Phone order (one column): the three required fields first, so a visitor can stop
+        after them and press Submit; then the optional ones, most useful for a call-back first. -#}
     <div class="form-grid">
       <div class="form-field">
-        <label for="name">Full name <span aria-hidden="true">*</span></label>
-        <input id="name" name="name" type="text" autocomplete="name" maxlength="120" required>
+        <label for="name">Full name <span class="required-mark" aria-hidden="true">*</span></label>
+        <input id="name" name="name" type="text" autocomplete="name" maxlength="120" pattern=".*\S.*" title="Please enter your name" required>
       </div>
       <div class="form-field">
-        <label for="company">Company name <span aria-hidden="true">*</span></label>
-        <input id="company" name="company" type="text" autocomplete="organization" maxlength="150" required>
-      </div>
-      <div class="form-field">
-        <label for="email">Email address <span aria-hidden="true">*</span></label>
-        <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required>
-      </div>
-      <div class="form-field">
-        <label for="phone">Mobile number <span aria-hidden="true">*</span></label>
-        <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" pattern="[0-9+()\- ]{7,24}" title="Digits, spaces and + ( ) - only" required>
+        <label for="phone">Mobile number <span class="required-mark" aria-hidden="true">*</span></label>
+        {#- The (?=...) part needs at least 7 digits, so "      1" or "+-() ()-" is refused even
+            without JavaScript. ( ) and - are escaped: browsers check patterns in strict "v" mode
+            and ignore a pattern with bare brackets, which would let any text through. -#}
+        <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" pattern="(?=(?:[^0-9]*[0-9]){7})[0-9+\(\)\- ]{7,24}" title="Digits, spaces and + ( ) - only, with at least 7 digits" required>
       </div>
       <div class="form-field form-field-full">
-        <label for="category">Enquiry category <span aria-hidden="true">*</span></label>
+        <label for="category">Enquiry category <span class="required-mark" aria-hidden="true">*</span></label>
         <select id="category" name="category" required>
           <option value="" disabled selected>Choose a category</option>
           <optgroup label="AC &amp; HVAC systems">
@@ -112,8 +109,55 @@
         </select>
       </div>
       <div class="form-field form-field-full">
-        <label for="details">Product / service details <span aria-hidden="true">*</span></label>
-        <textarea id="details" name="details" rows="4" maxlength="1000" placeholder="Product or part name, AC brand/model, capacity, quantity, or the problem you're seeing" required></textarea>
+        <label for="details">Product / service details <span class="optional-label">Optional</span></label>
+        <textarea id="details" name="details" rows="4" maxlength="1000" placeholder="AC brand/model, capacity, quantity, or the problem you're seeing"></textarea>
+      </div>
+      <div class="form-field form-field-full">
+        <label for="area">Area / locality <span class="optional-label">Optional</span></label>
+        <input id="area" name="area" type="text" autocomplete="address-level3" maxlength="120" placeholder="e.g. Kukatpally, Banjara Hills">
+      </div>
+      {#- A request, not a booking: the team phones to confirm. Option values are the readable
+          text, so the no-JavaScript email reads well too. The date box is visible without
+          JavaScript; enquiry.js hides it until "Pick a date" is chosen and sets its limits. -#}
+      <fieldset class="form-field form-field-full visit-time" aria-describedby="visit-time-note">
+        <legend>Preferred visit time <span class="optional-label">Optional</span></legend>
+        <div class="form-grid">
+          <div class="form-field">
+            <label for="visit-day">Day</label>
+            <select id="visit-day" name="visit_day">
+              <option value="No preference" selected>No preference</option>
+              <option value="Today">Today</option>
+              <option value="Tomorrow">Tomorrow</option>
+              <option value="Pick a date">Pick a date</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label for="visit-time">Time of day</label>
+            <select id="visit-time" name="visit_time">
+              <option value="Any time" selected>Any time</option>
+              <option value="Morning (9am–12pm)">Morning (9am–12pm)</option>
+              <option value="Afternoon (12pm–4pm)">Afternoon (12pm–4pm)</option>
+              <option value="Evening (4pm–7pm)">Evening (4pm–7pm)</option>
+            </select>
+          </div>
+          <div class="form-field form-field-full" data-visit-date>
+            <label for="visit-date">Date <span class="optional-label">if you chose "Pick a date"</span></label>
+            <input id="visit-date" name="visit_date" type="date">
+          </div>
+        </div>
+        <p class="form-hint" id="visit-time-note">We're open Mon–Sat, 9am–7pm. We'll call you to confirm the time.</p>
+      </fieldset>
+      {#- Named email_address, not email: FormSubmit treats a field called "email" as the
+          Reply-To, and without JavaScript an empty one would still be posted. -#}
+      {#- form-field-bottom: the long Company label can wrap on mid-size screens; lining both
+          boxes up at the bottom keeps them level. -#}
+      <div class="form-field form-field-bottom">
+        <label for="email">Email address <span class="optional-label">Optional</span></label>
+        <input id="email" name="email_address" type="email" autocomplete="email" maxlength="254">
+      </div>
+      <div class="form-field form-field-bottom">
+        <label for="company">Company name (if it's for a business) <span class="optional-label">Optional</span></label>
+        <input id="company" name="company" type="text" autocomplete="organization" maxlength="150">
       </div>
       <div class="form-field form-field-full">
         <label for="comments">Comments <span class="optional-label">Optional</span></label>
@@ -122,7 +166,7 @@
     </div>
 
     <div class="form-submit-row">
-      <p>Your enquiry is emailed to our team and we'll reply by phone or email. See our <a href="{{ url_for('privacy') }}">privacy policy</a>.</p>
+      <p>Your enquiry is emailed to our team. We'll call you back on your mobile (or reply by email if you give one). See our <a href="{{ url_for('privacy') }}">privacy policy</a>.</p>
       <div class="form-actions">
         <button class="button button-primary" type="submit" value="submit">Submit enquiry {{ icon("arrow-right") }}</button>
       </div>
