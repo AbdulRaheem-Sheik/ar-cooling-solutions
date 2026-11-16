@@ -68,6 +68,7 @@ All four go to `https://formsubmit.co/ajax/enquiry@arcooling.in` (T3 posts to th
 
 ## Commits
 - `03ceabd` Quicker enquiry form: only name, mobile and category required (code, docs 01–03 and the research backlog)
+- `b44287b` Enquiry forms: reset the button after Back, block names/mobiles of only spaces (rework round 1, plus 04-test-report.md and updated 01)
 
 ## Rework log
 ### Round 1 (after 04-test-report.md and the owner decisions adding R29/R30, AC17/AC18)
