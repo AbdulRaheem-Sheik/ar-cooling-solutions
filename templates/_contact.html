@@ -62,19 +62,23 @@
 
       <div class="form-grid">
         <div class="form-field">
-          <label for="contact-name">Full name <span aria-hidden="true">*</span></label>
+          <label for="contact-name">Full name <span class="required-mark" aria-hidden="true">*</span></label>
           <input id="contact-name" name="name" type="text" autocomplete="name" maxlength="120" required>
         </div>
         <div class="form-field">
-          <label for="contact-phone">Mobile number <span aria-hidden="true">*</span></label>
-          <input id="contact-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" pattern="[0-9+()\- ]{7,24}" title="Digits, spaces and + ( ) - only" required>
+          <label for="contact-phone">Mobile number <span class="required-mark" aria-hidden="true">*</span></label>
+          {#- ( ) and - are escaped: browsers check patterns in strict "v" mode and ignore a pattern
+              with bare brackets, which would let any text through. -#}
+          <input id="contact-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" pattern="[0-9+\(\)\- ]{7,24}" title="Digits, spaces and + ( ) - only" required>
         </div>
         <div class="form-field">
-          <label for="contact-email">Email address <span aria-hidden="true">*</span></label>
-          <input id="contact-email" name="email" type="email" autocomplete="email" maxlength="254" required>
+          <label for="contact-email">Email address <span class="optional-label">Optional</span></label>
+          {#- Named email_address, not email: FormSubmit treats a field called "email" as the
+              Reply-To, and without JavaScript an empty one would still be posted. -#}
+          <input id="contact-email" name="email_address" type="email" autocomplete="email" maxlength="254">
         </div>
         <div class="form-field">
-          <label for="contact-topic">Looking for <span aria-hidden="true">*</span></label>
+          <label for="contact-topic">Looking for <span class="required-mark" aria-hidden="true">*</span></label>
           <select id="contact-topic" name="topic" required>
             <option value="" disabled selected>Choose one</option>
             <option value="Service">Service or repair</option>
@@ -85,13 +89,13 @@
           </select>
         </div>
         <div class="form-field form-field-full">
-          <label for="contact-message">Message <span aria-hidden="true">*</span></label>
+          <label for="contact-message">Message <span class="required-mark" aria-hidden="true">*</span></label>
           <textarea id="contact-message" name="message" rows="3" maxlength="1000" placeholder="AC brand/model, capacity, your area, or the problem you're seeing" required></textarea>
         </div>
       </div>
 
       <div class="form-submit-row">
-        <p>Your enquiry is emailed to our team and we'll reply by phone or email. See our <a href="{{ url_for('privacy') }}">privacy policy</a>.</p>
+        <p>Your enquiry is emailed to our team. We'll call you back on your mobile (or reply by email if you give one). See our <a href="{{ url_for('privacy') }}">privacy policy</a>.</p>
         <div class="form-actions">
           <button class="button button-primary" type="submit">Send enquiry {{ icon("arrow-right") }}</button>
         </div>

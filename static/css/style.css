@@ -686,7 +686,8 @@ a.contact-card:hover { transform: translateY(-3px); border-color: var(--ring); b
 .form-heading .eyebrow { margin-bottom: 6px; }
 .form-heading h2 { margin: 0; font-size: 18px; }
 .required-note { color: var(--muted); font-size: 11px; }
-.required-note b, .form-field label > span:first-child { color: var(--danger); }
+/* Only the explicit mark is red, so the grey "Optional" tag never picks up the colour. */
+.required-note b, .required-mark { color: var(--danger); }
 .form-errors { margin-bottom: 22px; padding: 14px 18px; border: 1px solid #f3c8c4; border-radius: var(--r-sm); background: #fff4f2; color: #7a2a24; font-size: 12px; }
 .form-errors p { margin-bottom: 4px; font-weight: 700; }
 .form-errors ul { margin: 0; padding-left: 20px; }
@@ -695,6 +696,11 @@ a.contact-card:hover { transform: translateY(-3px); border-color: var(--ring); b
 .form-field-full { grid-column: 1 / -1; }
 .form-field label { color: var(--ink); font-size: 12px; font-weight: 600; }
 .form-field .optional-label { padding-left: 6px; color: var(--muted); font-size: 11px; font-weight: 500; }
+/* Preferred visit time: a fieldset (so screen readers group Day / Time / Date under its
+   legend) that looks like any other field. */
+.visit-time { margin: 0; padding: 0; border: 0; min-width: 0; }
+.visit-time legend { padding: 0; margin-bottom: 8px; color: var(--ink); font-size: 12px; font-weight: 600; }
+.form-hint { margin: 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
 .form-field input, .form-field select, .form-field textarea { width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid var(--line-strong); border-radius: 14px; background: #fff; color: var(--ink); font: 400 13px/1.5 var(--font-body); transition: border-color 150ms ease, box-shadow 150ms ease; }
 .form-field textarea { min-height: 110px; resize: vertical; }
 .form-field input::placeholder, .form-field textarea::placeholder { color: #a39ca1; }
