@@ -107,5 +107,20 @@
     "bullets": ["R32 for new inverter split ACs", "Sealed cylinders from established makers", "Match the gas to the unit's nameplate"],
     "caption": "Servicing an inverter split AC? Most new ones run on R32. We supply sealed R32 cylinders from established makers such as SRF (Floron) and GFL. R32 is mildly flammable, so use R32-rated tools and good ventilation, and never top up an R22 or R410A unit with it. Check the unit's nameplate and tell us the gas you need.",
     "hashtags": "#arcooling #R32 #RefrigerantGas #ACSpareParts #ACService #HVAC #Refrigeration #Hyderabad"
+  },
+  {
+    "id": "2026-11-16-1",
+    "date": "2026-11-16",
+    "kind": "service",
+    "target": "/services/repair/",
+    "title": "AC not cooling? We find the real fault first",
+    "description": "Fault finding and repair for ACs that are not cooling, leaking water, tripping or showing an error code. AR Cooling Solutions, Hyderabad.",
+    "image": "2026_11_16_1_ac_repair.jpg",
+    "photo": "services/repair.jpg",
+    "tag": "AC Service",
+    "headline": "AC not cooling? |We find the real fault.",
+    "bullets": ["Electrical, gas and airflow checks", "Fault explained and quoted before work", "Correctly rated, genuine spare parts"],
+    "caption": "AC running but the air isn't cold? Water dripping, the breaker tripping or an error code on the display? We find the actual cause before replacing anything. Our technicians test the electrical, refrigerant and airflow sides, explain what they find and quote before starting work. Then we fix it with correctly rated, genuine spare parts and check the cooling before we leave. All AC types and major brands.",
+    "hashtags": "#arcooling #ACRepair #ACService #ACNotCooling #HVAC #Hyderabad #AirConditioner"
   }
 ]
