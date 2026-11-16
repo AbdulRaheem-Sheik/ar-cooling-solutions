@@ -67,7 +67,7 @@ All four go to `https://formsubmit.co/ajax/enquiry@arcooling.in` (T3 posts to th
 - **T4** (JS, home page contact form, no email). Subject `New enquiry from the contact section: <topic> (AR-…)`. Rows: Reference, Enquiry type = Quick enquiry, Looking for, Name, Email address = **Not given**, Mobile, Message, Page. No `_replyto`. The thank-you page shows the reference.
 
 ## Commits
-- see the final report (single commit on `feature/quick-enquiry-form`)
+- `03ceabd` Quicker enquiry form: only name, mobile and category required (code, docs 01–03 and the research backlog)
 
 ## Rework log
 - (none, first implementation)
