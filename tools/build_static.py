@@ -11,9 +11,7 @@ The GitHub Action in .github/workflows/deploy.yml runs this on every push to mai
 """
 
 import argparse
-import html
 import http.server
-import json
 import os
 import re
 import secrets
@@ -74,47 +72,14 @@ def build_share_pages(site):
     """One small page per social media post (data/social/posts.json) at /go/<id>/.
     X, Facebook and LinkedIn read its tags to show the post's picture as a link card;
     a visitor who clicks the card is sent straight on to the post's page on the site.
-    The pictures are drawn by tools/make_social_posts.py."""
-    posts_file = ROOT / "data" / "social" / "posts.json"
-    if not posts_file.is_file():
-        return
-    for post in json.loads(posts_file.read_text(encoding="utf-8")):
-        if not (ROOT / "static" / "images" / "social" / post["image"]).is_file():
+    The pictures are drawn by tools/make_social_posts.py; the page itself comes from
+    render_share_page in app.py, which also serves it on the live server."""
+    for post in site.get_social_posts():
+        if not site.social_post_image_exists(post):
             sys.exit(f"Social post {post['id']}: picture {post['image']} is missing; run tools/make_social_posts.py.")
-        share_url = f"{site.SITE_URL}/go/{post['id']}/"
-        image_url = f"{site.SITE_URL}/static/images/social/{post['image']}"
-        title, description, target = (html.escape(post[k], quote=True) for k in ("title", "description", "target"))
-        page = f"""<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{title} | AR Cooling Solutions</title>
-  <meta name="description" content="{description}">
-  <meta name="robots" content="noindex, follow">
-  <link rel="canonical" href="{site.SITE_URL}{target}">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="AR Cooling Solutions">
-  <meta property="og:url" content="{share_url}">
-  <meta property="og:title" content="{title}">
-  <meta property="og:description" content="{description}">
-  <meta property="og:image" content="{image_url}">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{title}">
-  <meta name="twitter:description" content="{description}">
-  <meta name="twitter:image" content="{image_url}">
-  <script>location.replace("{target}");</script>
-</head>
-<body style="font-family:system-ui,sans-serif;text-align:center;padding:3rem 1rem">
-  <p><a href="{target}">Continue to AR Cooling Solutions</a></p>
-</body>
-</html>
-"""
         destination = output_file(f"/go/{post['id']}/")
         destination.parent.mkdir(parents=True, exist_ok=True)
-        destination.write_text(page, encoding="utf-8")
+        destination.write_text(site.render_share_page(post), encoding="utf-8")
 
 
 def build(site):

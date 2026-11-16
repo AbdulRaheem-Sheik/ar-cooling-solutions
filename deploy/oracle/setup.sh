@@ -105,6 +105,12 @@ EOF
   systemctl enable -q ar-cooling
   systemctl restart ar-cooling
 
+  step "Turning on automatic updates from GitHub (every 5 minutes)"
+  install -m 644 "$APP_DIR/deploy/oracle/ar-cooling-update.service" /etc/systemd/system/ar-cooling-update.service
+  install -m 644 "$APP_DIR/deploy/oracle/ar-cooling-update.timer" /etc/systemd/system/ar-cooling-update.timer
+  systemctl daemon-reload
+  systemctl enable -q --now ar-cooling-update.timer
+
   step "Configuring Caddy (HTTPS) for $domain"
   sed "s/{DOMAIN}/$domain/g" "$APP_DIR/deploy/oracle/Caddyfile" > /etc/caddy/Caddyfile
   caddy validate --config /etc/caddy/Caddyfile --adapter caddyfile >/dev/null

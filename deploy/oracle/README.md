@@ -94,7 +94,10 @@ site (or keep it as a fallback until you're confident).
 
 | Task | Command (on the server) |
 |---|---|
-| Deploy new code from GitHub | `sudo bash /opt/ar-cooling/deploy/oracle/setup.sh arcooling.in main` |
+| Deploy new code from GitHub | Automatic: the server checks `main` every 5 minutes and updates itself |
+| Deploy right now | `sudo systemctl start ar-cooling-update` |
+| See recent automatic updates | `sudo journalctl -u ar-cooling-update -n 20` |
+| Apply changes to the server setup (Caddyfile, service files) | `sudo bash /opt/ar-cooling/deploy/oracle/setup.sh arcooling.in main` |
 | See the app's logs | `sudo journalctl -u ar-cooling -f` |
 | Restart the app | `sudo systemctl restart ar-cooling` |
 | Back up the database to your PC | from PowerShell: `scp -i <key> ubuntu@<IP>:/var/lib/ar-cooling/ar_cooling.db .` |

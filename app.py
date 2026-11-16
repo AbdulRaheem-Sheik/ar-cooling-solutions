@@ -1,4 +1,5 @@
 import hashlib
+import html
 import json
 import os
 import secrets
@@ -880,6 +881,67 @@ PRIVACY_UPDATED = "20 October 2026"   # change when the privacy policy text chan
 @app.get("/privacy/")
 def privacy():
     return render_template("privacy.html", business=BUSINESS, privacy_updated=PRIVACY_UPDATED)
+
+
+# Social media posts (data/social/posts.json, pictures drawn by tools/make_social_posts.py).
+# Each post gets a small share page at /go/<id>/: X, Facebook and LinkedIn read its tags to
+# show the post's picture as a link card, and a visitor who clicks the card is sent straight
+# on to the post's page on the site. Posts stay in the JSON file (not the content database),
+# so a new post goes live as soon as it is pushed.
+SOCIAL_POSTS_FILE = BASE_DIR / "data" / "social" / "posts.json"
+
+
+def get_social_posts():
+    if not SOCIAL_POSTS_FILE.is_file():
+        return []
+    return json.loads(SOCIAL_POSTS_FILE.read_text(encoding="utf-8"))
+
+
+def social_post_image_exists(post):
+    return (STATIC_DIR / "images" / "social" / post["image"]).is_file()
+
+
+def render_share_page(post):
+    """The share page for one social post, as HTML."""
+    share_url = f"{SITE_URL}/go/{post['id']}/"
+    image_url = f"{SITE_URL}/static/images/social/{post['image']}"
+    title, description, target = (html.escape(post[k], quote=True) for k in ("title", "description", "target"))
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title} | AR Cooling Solutions</title>
+  <meta name="description" content="{description}">
+  <meta name="robots" content="noindex, follow">
+  <link rel="canonical" href="{SITE_URL}{target}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="AR Cooling Solutions">
+  <meta property="og:url" content="{share_url}">
+  <meta property="og:title" content="{title}">
+  <meta property="og:description" content="{description}">
+  <meta property="og:image" content="{image_url}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{title}">
+  <meta name="twitter:description" content="{description}">
+  <meta name="twitter:image" content="{image_url}">
+  <script>location.replace("{target}");</script>
+</head>
+<body style="font-family:system-ui,sans-serif;text-align:center;padding:3rem 1rem">
+  <p><a href="{target}">Continue to AR Cooling Solutions</a></p>
+</body>
+</html>
+"""
+
+
+@app.get("/go/<post_id>/")
+def share_page(post_id):
+    post = next((p for p in get_social_posts() if p.get("id") == post_id), None)
+    if post is None or not social_post_image_exists(post):
+        abort(404)
+    return render_share_page(post)
 
 
 @app.errorhandler(404)
