@@ -1,4 +1,6 @@
-# Test report: Quicker enquiry form for home customers (backlog N1) — FAIL (retest round 1: Part A passed; Part B stopped at T2, no code defect found)
+# Test report: Quicker enquiry form for home customers (backlog N1) — PASS (retest round 2: Part A passed; delivery ACs AC4, AC8, AC9, AC11 deferred to the deployer's post-merge sends by owner decision)
+
+> The current verdict is in "Retest (round 2)" at the end. The sections below are the history of round 0 and round 1.
 
 **In short:** Part A (local checks, no real sends) **passed**: every check that can be done without a
 real email works. Part B (real sends) **stopped after the first send**. FormSubmit answered T1 with
@@ -205,3 +207,81 @@ Defects 1–3 from round 0: **fixed** (checked above). Defect 4 (activation): re
    - **(b)** Merge, then do the remaining sends (T2–T4) on https://arcooling.in straight after going live. If any one fails, revert.
 
 **Verdict: FAIL.** Every acceptance criterion that can be checked locally passes, including the new AC17 and AC18. But the required real-send proof is incomplete: T1 was accepted (delivery pending the owner's check), T2 got no answer, and T3/T4 were not sent.
+
+---
+
+# Retest (round 2) — PASS (Part A passed; delivery ACs deferred to post-merge sends by owner decision)
+
+**In short:** both clean-ups work. A mobile number now needs at least 7 digits on both forms,
+with and without JavaScript. `"      1"`, `"123456"`, `"123 456"`, 7 spaces and `abc` are all
+blocked, focus goes to Mobile and nothing is sent. Normal numbers are still accepted. The unused
+`clearBlank` code is gone and nothing changed for the visitor: names made only of spaces are still
+blocked. The button resets after Back (AC17), the "couldn't be sent" message still works (AC15),
+and every earlier check still passes, as does `check_site.py`. **No real sends were made**: the
+owner moved them to after the merge.
+
+## Environment
+- Branch `feature/quick-enquiry-form` at `ebabe96` (rework code in `22189b8`). Working tree clean; no code edited.
+- `serve.py` (Waitress) on `http://127.0.0.1:8791` with a new throwaway database (`AR_DATABASE_PATH` = temp file in the session scratchpad), a 40+ character test `SECRET_KEY` and throwaway admin credentials. The server was stopped afterwards.
+- Headless Edge driven over DevTools, the same harness as rounds 0/1 (scripts in the session scratchpad `tester\` folder: `r4.py` is new for round 2; `r1.py`, `t2/t3/t4/t9/t9b/t10/t13/t14.py` were re-run). Phone viewport 375×800. **formsubmit.co was mapped to a dead port and also blocked by DevTools**, and Google Analytics/Tag Manager were blocked. No request reached FormSubmit. "Successful send" = the test-only stub that answers `{"success":"true"}` without any network call.
+
+## Regression
+`.venv/Scripts/python tools/check_site.py` → **ALL CHECKS PASSED**. That covers public pages, share pages, sitemap/robots/favicon, admin (locked, token, wrong password, no-token login refused, edit page, no-token save refused) and the static build ("Built 153 pages + 404 into _site/ … All internal links and sitemap OK"). The built `_site/enquiry/index.html` and `_site/index.html` both contain the new mobile pattern `(?=(?:[^0-9]*[0-9]){7})[0-9+\(\)\- ]{7,24}` and the name pattern `.*\S.*`.
+
+## Round 2 fixes
+| Item | Result | Evidence |
+|---|---|---|
+| Defect 6: a mobile needs at least 7 digits | **PASS** | `r4.py`: /enquiry/ and the home contact form, each with JS on **and** scripts disabled (4 runs). **Blocked** in all 4 runs: focus on Mobile, "Please match the requested format.", 0 requests to FormSubmit, 0 payloads built. Values: `"      1"`, `"123456"`, `"123 456"`, `"       "` (7 spaces), `abc`, `12`, `"+-() ()-"`, `"+91 1234"` (6 digits), and a 25-character number. **Accepted** in all 4 runs: `+91 98765 43210`, `(040) 1234-5678`, `040-1234 5678`, `9876543210`, `1234567`, `"  123 4567  "` and the 24-character `+91 (040) 1234-5678 9012`. With JS the mobile is sent trimmed (e.g. `"123 4567"`). Both pages show the new hint `title="Digits, spaces and + ( ) - only, with at least 7 digits"`. |
+| Defect 5: dead `clearBlank` code | **PASS** | `clearBlank` appears 0 times in `static/js/enquiry.js` and `static/js/contact.js`. Neither form has `novalidate`. Spaces-only names are still blocked (next row). The round-1 note in 03 is now correct. |
+| AC18 (names of only spaces) | **PASS** | `r4.py`, same 4 runs: Name `"   "` and `" \t  "` are blocked with focus on Name, "Please match the requested format.", nothing sent. `"  Tester  "` is accepted (sent as "Tester" with JS), and so are `Zoë` and `A`. |
+| AC17 (Back resets the button) | **PASS** | `r1.py`. /enquiry/ (Pick a date + 21 Nov, then Tomorrow): stubbed send → `/enquiry/thank-you/` → Back. `persisted: true`, button `disabled: false`, text "Submit enquiry". Values are kept: date `2026-11-21` visible and required, min `2026-11-16`; with Tomorrow the date box is hidden and not required. Resend → thank-you page. Home form: "Send enquiry", `disabled: false` after Back, and the resend reaches the thank-you page. |
+| AC15 (failed send) | **PASS** | `r1.py` with FormSubmit blocked. Both forms show "Sorry, your enquiry couldn't be sent (Failed to fetch). Please try again, or call us on +91 88013 81405.", the button is enabled and its label is restored. `t13.py` offline: the button reads "Sending…" during the send, then the message appears (`role="alert"`), nothing is stored, and a retry sends again. |
+
+## Quick regression of earlier ACs (re-run of the round-0/1 scripts)
+- **AC2/AC3 (`t2.py`):** empty Name, Mobile and Category are each blocked with focus on the field ("Please fill out this field." / "Please select an item in the list."). `abc`, `12`, 25 digits and `name@` are blocked. `+91 98765 43210`, `040-1234 5678` and `(040) 1234-5678` are accepted.
+- **Payload and row order (`t3.py`):**
+  - Minimal send. Keys: `_subject, _template, _captcha, _honey, Reference, Enquiry type, Enquiring about, Name, Mobile, Area / locality, Preferred visit time, Category, Details, Comments, Email address, Company, Page` (R15 order). Area, visit time, Details, Email and Company are "Not given", Comments "None", Page "Enquiry form". **No `_replyto`.**
+  - Full send from the Repair page's link: Area "Kukatpally", "Tomorrow (Tue 17 Nov), Morning (9am–12pm)", subject "New service enquiry: Repair (AR-261116-…)", `_replyto` = the given email (last key).
+- **Prefills (AC8, `t3.py`):**
+  - Repair: card "Repair", eyebrow "Service enquiry", title "Enquire about Repair", category Repair, Details and Comments prefilled.
+  - Split AC units: "Product enquiry", subject "New product enquiry: Split AC units (…)".
+  - Copeland ZR28K3: "Spare part enquiry", category Compressors, subject "New spare part enquiry: Copeland ZR28K3 (…)".
+  - Stubbed success: the thank-you page shows the name, the topic and the reference. Session storage holds only `{name, about, type, reference}` (AC12). No non-GET request went to the site itself.
+- **Visit date (AC10, `t4.py`, `t14.py`):**
+  - min is `2026-11-16` and max `2026-12-16`.
+  - Blocked: Pick a date with no date ("Choose a date, or pick another day option."), 15 Nov ("must be 16-11-2026 or later") and 17 Dec ("must be 16-12-2026 or earlier").
+  - Accepted: 16 Dec, Sunday 22 Nov with Evening, Today + Afternoon, Any day + Morning, Tomorrow + any time.
+  - Typing a date switches the day to Pick a date. Going back to No preference sends "Not given".
+  - Back from /privacy/ and from the thank-you page keeps a consistent state.
+  - With the clock at 02:00 IST on 16 Nov (still 15 Nov in UTC), min is still `2026-11-16` (`t14.py`). (The clock part of `t13.py` is an old harness attempt that `t14.py` replaced. It is not a product result.)
+- **Home contact form (AC11, `t9.py`/`t9b.py`):**
+  - No email: "Email address": "Not given" and no `_replyto`. With email: `_replyto` = the email, as the last key.
+  - `name@`, `abc` and an empty form are blocked.
+  - Stubbed success → thank-you page "Spare part enquiry received" with reference `AR-261116-…`.
+  - Required marks are red, "Optional" is grey.
+- **No-JS markup (AC9 markup, `t10.py`):** posts to `https://formsubmit.co/enquiry@arcooling.in` with `_next=https://arcooling.in/enquiry/thank-you/`. The date box is visible, and an empty name is blocked. The captured (blocked) body has `area`, `visit_day`, `visit_time`, `visit_date`, `email_address` and no `email` field. As designed, there is no min date without JS.
+
+## Edge cases
+- `/enquiry/nope/` and `/go/does-not-exist/` → 404.
+- `/enquiry`, `/enquiry/thank-you` and `/privacy` → 308 to the trailing-slash URL. `/`, `/enquiry/`, `/enquiry/thank-you/` and `/privacy/` → 200.
+- `/admin` and `/admin/` → 302 to `/admin/login`.
+- Admin login POST without a CSRF token → 400.
+- Neither /enquiry/ nor / has a `name="email"` field.
+- Mobile length limits: 24 characters accepted, 25 blocked (when set by script; typing stops at `maxlength=24`). Leading and trailing spaces around a 7-digit number are accepted and trimmed on the JS path.
+
+## Acceptance criteria status (round 2)
+| AC | Status |
+|---|---|
+| AC1 | PASS locally (payload, thank-you page, reference). T1 was delivered (owner confirmed). |
+| AC2, AC3, AC6, AC7, AC10, AC12, AC13, AC14, AC16 | PASS (re-checked above or unchanged since round 1, with `check_site.py` passing) |
+| AC5 | PASS by owner decision: on T1, Reply goes to a FormSubmit address, accepted as FormSubmit's normal behaviour |
+| AC15, AC17, AC18 | PASS (re-run above) |
+| AC4, AC8, AC9, AC11 | Local parts PASS (payload, prefills, subjects, no-JS markup, `_replyto`). **Delivery: deferred to the deployer's post-merge sends (owner decision).** That is 3 sends labelled "TEST – please ignore" from https://arcooling.in (T2 again, T3, T4), with the same stop rule. |
+
+## Defects (round 2)
+- Defect 5 (dead `clearBlank` code / wrong note): **fixed**.
+- Defect 6 (`"      1"` accepted as a mobile): **fixed**.
+- Defect 7 (real sends incomplete): **moved by the owner** to the deployer's post-merge check. It is no longer a blocker for this branch.
+- **No new defects found.**
+
+**Verdict: PASS.** Part A passes in full, including the round-2 fixes. AC4, AC8, AC9 and AC11 (delivery) are deferred to the deployer's post-merge sends (owner decision). If any of those sends fails, the deployer should follow the stop rule and the owner decides whether to revert.
