@@ -3,10 +3,11 @@ import html
 import json
 import os
 import secrets
+from datetime import date
 from pathlib import Path
 
 from dotenv import load_dotenv
-from flask import Flask, abort, redirect, render_template, request, session, url_for
+from flask import Flask, Response, abort, redirect, render_template, request, send_from_directory, session, url_for
 from flask_wtf.csrf import CSRFError, CSRFProtect
 
 
@@ -944,6 +945,68 @@ def share_page(post_id):
     return render_share_page(post)
 
 
+# Pages that render but should not be offered to search engines.
+NOT_IN_SITEMAP = {"/enquiry/thank-you/"}
+
+
+def public_page_paths():
+    """Every public page; a new kind of page must be added here, which puts it in the static
+    build, the site check and the sitemap at once.
+    Uses url_for, so call it inside a request (a live request already is one)."""
+    paths = [url_for(endpoint) for endpoint in
+             ("home", "products", "services", "spare_parts", "clients", "about", "product_enquiry", "enquiry_thanks", "privacy")]
+    paths += [url_for("product_detail", slug=p["slug"]) for p in get_product_types()]
+    paths += [url_for("service_detail", slug=s["slug"]) for s in get_services()]
+    paths.append(url_for("compressors"))
+    paths += [url_for("compressor_detail", slug=m["slug"]) for m in get_compressor_models()]
+    paths += [url_for("gas_detail", slug=g["slug"]) for g in get_spare_category("gases")["parts"]]
+    paths += [url_for("copper_detail", slug=c["slug"])
+              for c in get_spare_category("copper-coils")["parts"] if c.get("slug")]
+    paths += [spare_part_url(c, p) for c, p in get_spec_parts()]
+    # Two records with the same slug must not list the same address twice.
+    return list(dict.fromkeys(paths))
+
+
+def sitemap_paths():
+    return [path for path in public_page_paths() if path not in NOT_IN_SITEMAP]
+
+
+def render_sitemap():
+    """sitemap.xml for search engines, built from the current content on every request,
+    so pages added or renamed in admin are listed straight away.
+    lastmod is today's date, as the GitHub Pages build always did."""
+    today = date.today().isoformat()
+    # Escaped so a slug typed in admin with "&" or "<" cannot break the XML.
+    urls = "".join(
+        f"  <url><loc>{html.escape(SITE_URL + path, quote=False)}</loc><lastmod>{today}</lastmod></url>\n"
+        for path in sitemap_paths()
+    )
+    return ('<?xml version="1.0" encoding="UTF-8"?>\n'
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n")
+
+
+def render_robots_txt():
+    """robots.txt: everything may be crawled except admin (the login is still the real lock)."""
+    return f"User-agent: *\nAllow: /\nDisallow: /admin\n\nSitemap: {SITE_URL}/sitemap.xml\n"
+
+
+@app.get("/sitemap.xml")
+def sitemap():
+    return Response(render_sitemap(), mimetype="application/xml")
+
+
+@app.get("/robots.txt")
+def robots_txt():
+    return Response(render_robots_txt(), mimetype="text/plain")
+
+
+@app.get("/favicon.ico")
+def favicon():
+    # Some browsers and tools ask for /favicon.ico without reading the page's <link> tags.
+    # The type is fixed so it does not depend on the server's own list of file types.
+    return send_from_directory(STATIC_DIR, "favicon.ico", mimetype="image/vnd.microsoft.icon", max_age=86400)
+
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("404.html", business=BUSINESS), 404
@@ -967,6 +1030,6 @@ def handle_csrf_error(error):
 
 
 if __name__ == "__main__":
-    # Local preview and admin editing. The live site is the static build (tools/build_static.py).
+    # Local preview and admin editing. The live site runs serve.py on the Oracle server.
     # Debug mode (auto-reload, error console) is on only when AR_DEBUG=1 in your local .env.
     app.run(debug=os.environ.get("AR_DEBUG", "0") == "1")

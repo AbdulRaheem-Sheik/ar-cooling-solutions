@@ -1,7 +1,8 @@
 """Build the static website for GitHub Pages.
 
 Renders every public page of the Flask app to _site/<page>/index.html, copies the static
-files, and adds 404.html, sitemap.xml, robots.txt and CNAME (the custom domain).
+files, and adds 404.html and CNAME (the custom domain). sitemap.xml, robots.txt and
+favicon.ico are fetched from the app's own routes, so they match what the live server serves.
 Every internal link is checked; the build fails if any points to a missing page.
 
     python tools/build_static.py            # build _site/
@@ -18,7 +19,7 @@ import secrets
 import shutil
 import sys
 import tempfile
-from datetime import date
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
 
@@ -29,8 +30,9 @@ OUTPUT = ROOT / "_site"
 # The share banner is only linked by absolute URL (og:image), so it is listed here too.
 # The social post pictures are likewise only linked by absolute URL (see build_share_pages).
 ALWAYS_STATIC = {Path("css"), Path("js"), Path("images/og-banner.jpg"), Path("images/social")}
-# Pages that should not be listed for search engines.
-NOT_IN_SITEMAP = {"/enquiry/thank-you/"}
+# Files at the site root that the app serves itself (see the routes in app.py).
+ROOT_FILES = ("sitemap.xml", "robots.txt", "favicon.ico")
+SITEMAP_NS = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
 
 
 def load_app():
@@ -48,18 +50,10 @@ def load_app():
 
 
 def page_paths(site):
+    """Every public page. The list itself lives in app.py, so the build, the site check and
+    the live sitemap can never disagree about which pages exist."""
     with site.app.test_request_context():
-        paths = [site.url_for(endpoint) for endpoint in
-                 ("home", "products", "services", "spare_parts", "clients", "about", "product_enquiry", "enquiry_thanks", "privacy")]
-        paths += [site.url_for("product_detail", slug=p["slug"]) for p in site.get_product_types()]
-        paths += [site.url_for("service_detail", slug=s["slug"]) for s in site.get_services()]
-        paths.append(site.url_for("compressors"))
-        paths += [site.url_for("compressor_detail", slug=m["slug"]) for m in site.get_compressor_models()]
-        paths += [site.url_for("gas_detail", slug=g["slug"]) for g in site.get_spare_category("gases")["parts"]]
-        paths += [site.url_for("copper_detail", slug=c["slug"])
-                  for c in site.get_spare_category("copper-coils")["parts"] if c.get("slug")]
-        paths += [site.spare_part_url(c, p) for c, p in site.get_spec_parts()]
-    return paths
+        return site.public_page_paths()
 
 
 def output_file(path):
@@ -117,22 +111,14 @@ def build(site):
         destination.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(source, destination)
 
-    # Some browsers and tools ask for /favicon.ico without reading the page's <link> tags.
-    shutil.copy2(ROOT / "static" / "favicon.ico", OUTPUT / "favicon.ico")
+    # The same routes the live server answers, so the static copy cannot drift from it.
+    for filename in ROOT_FILES:
+        response = client.get(f"/{filename}")
+        if response.status_code != 200:
+            sys.exit(f"/{filename} returned {response.status_code}; fix it before publishing.")
+        (OUTPUT / filename).write_bytes(response.data)
 
-    site_url = site.SITE_URL
-    today = date.today().isoformat()
-    urls = "".join(
-        f"  <url><loc>{site_url}{p}</loc><lastmod>{today}</lastmod></url>\n"
-        for p in pages if p not in NOT_IN_SITEMAP
-    )
-    (OUTPUT / "sitemap.xml").write_text(
-        '<?xml version="1.0" encoding="UTF-8"?>\n'
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "</urlset>\n",
-        encoding="utf-8",
-    )
-    (OUTPUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {site_url}/sitemap.xml\n", encoding="utf-8")
-    (OUTPUT / "CNAME").write_text(urlsplit(site_url).hostname + "\n", encoding="utf-8")
+    (OUTPUT / "CNAME").write_text(urlsplit(site.SITE_URL).hostname + "\n", encoding="utf-8")
     (OUTPUT / ".nojekyll").write_text("", encoding="utf-8")  # serve files as-is, no Jekyll processing
     return pages
 
@@ -157,6 +143,18 @@ def check_links():
                 broken.append(f"{page_file.relative_to(OUTPUT)} -> {url}{hint}")
     if broken:
         sys.exit("Broken internal links:\n  " + "\n  ".join(sorted(set(broken))))
+
+
+def check_sitemap(site):
+    """Every address in sitemap.xml must be a built page, like the internal link check."""
+    root = ET.parse(OUTPUT / "sitemap.xml").getroot()
+    missing = []
+    for loc in root.iter(f"{SITEMAP_NS}loc"):
+        path = loc.text.removeprefix(site.SITE_URL)
+        if not path.startswith("/") or not output_file(path).is_file():
+            missing.append(loc.text)
+    if missing:
+        sys.exit("sitemap.xml lists pages that were not built:\n  " + "\n  ".join(missing))
 
 
 class PagesLikeHandler(http.server.SimpleHTTPRequestHandler):
@@ -186,9 +184,10 @@ def main():
     site = load_app()
     pages = build(site)
     check_links()
+    check_sitemap(site)
     files = sum(1 for f in OUTPUT.rglob("*") if f.is_file())
     size = sum(f.stat().st_size for f in OUTPUT.rglob("*") if f.is_file()) / 1024 / 1024
-    print(f"Built {len(pages)} pages + 404 into {OUTPUT.name}/ ({files} files, {size:.1f} MB). All internal links OK.")
+    print(f"Built {len(pages)} pages + 404 into {OUTPUT.name}/ ({files} files, {size:.1f} MB). All internal links and sitemap OK.")
 
     if args.serve:
         print("Preview: http://127.0.0.1:8000  (Ctrl+C to stop)")
