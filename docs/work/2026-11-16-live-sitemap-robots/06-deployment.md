@@ -20,3 +20,31 @@
   (3) `Disallow: /admin` is a prefix rule, so keep it in mind for future URLs; (4) existing issue N2:
   clearing a slug in admin makes `/sitemap.xml` return 500. Optional owner action: resubmit
   the sitemap in Google Search Console.
+
+## Verify (2026-11-16)
+- Merge: `fix/live-sitemap-robots` is an ancestor of `origin/main` (`git merge-base --is-ancestor`
+  OK). The owner merged PR #4 (`3ed2fe6`) first, then PR #5. Merge commit: `58cba28` ("Merge pull
+  request #5 from AbdulRaheem-Sheik/fix/live-sitemap-robots").
+- Server: `sudo systemctl start ar-cooling-update` was run. `/opt/ar-cooling` is on `58cba28`.
+  `ar-cooling` is `active`. It restarted at 04:13:29 and logged "running at http://127.0.0.1:8080"
+  at 04:13:31.
+- Extra deployment steps: none (as in `02-design.md`). None were run.
+- `tools/check_site.py --live` (run from local `main` at `58cba28`): **ALL CHECKS PASSED**, exit 0.
+  This covers the local app (153 pages, sitemap of 152 pages, robots.txt, favicon, admin, static
+  build) and the live site (17 live pages and files, exact robots.txt text, a valid sitemap of 152
+  pages with all 152 loc URLs returning 200, favicon, and the www redirect).
+- AC11 live, checked by hand:
+  - `https://arcooling.in/robots.txt`: 200, `text/plain; charset=utf-8`. The body is exactly
+    `User-agent: *` / `Allow: /` / `Disallow: /admin` / blank line /
+    `Sitemap: https://arcooling.in/sitemap.xml`.
+  - `https://arcooling.in/sitemap.xml`: 200, `application/xml; charset=utf-8`. It is a `urlset`
+    with 152 `<loc>` entries, full `https://arcooling.in/...` addresses, and lastmod `2026-11-16`.
+  - `https://www.arcooling.in/sitemap.xml` and `/robots.txt`: 301 to the same path on
+    `https://arcooling.in/`.
+- AC12 live: `https://arcooling.in/favicon.ico` returns 200, `image/vnd.microsoft.icon`, 7077 bytes.
+  The SHA-256 `0bdab012...d83362` is identical to `static/favicon.ico` (`cmp` equal).
+- Logs: `journalctl -u ar-cooling` shows no errors, tracebacks or exceptions since the restart.
+  The earlier entries are only the usual `waitress.queue` depth warnings from Nov 15.
+- Live status: **LIVE and OK**. No revert needed.
+- Follow-ups: the non-blocking review nits listed under Prepare. The owner can optionally
+  resubmit `https://arcooling.in/sitemap.xml` in Google Search Console.
