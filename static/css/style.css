@@ -694,6 +694,8 @@ a.contact-card:hover { transform: translateY(-3px); border-color: var(--ring); b
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 18px; }
 .form-field { min-width: 0; display: grid; align-content: start; gap: 8px; }
 .form-field-full { grid-column: 1 / -1; }
+/* Side-by-side fields whose labels may wrap to different heights: keep the boxes level. */
+.form-field-bottom { align-content: end; }
 .form-field label { color: var(--ink); font-size: 12px; font-weight: 600; }
 .form-field .optional-label { padding-left: 6px; color: var(--muted); font-size: 11px; font-weight: 500; }
 /* Preferred visit time: a fieldset (so screen readers group Day / Time / Date under its

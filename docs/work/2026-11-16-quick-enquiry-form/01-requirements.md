@@ -282,3 +282,16 @@ the owner before sending.
 - **Real test sends approved**: the team may send about 3–4 test enquiries through FormSubmit to
   the live enquiry inbox, each clearly labelled "TEST – please ignore" (name and details), to
   check delivery with and without JavaScript and with email left empty. No other real sends.
+
+## Owner decisions after testing (2026-11-16)
+- **FormSubmit activation**: the T1 test from 127.0.0.1 was refused ("This form needs
+  Activation"). The owner chose to **activate the local test form** (they click FormSubmit's
+  Activate link), then the tester sends the **4 labelled test enquiries T1–T4 from the branch**
+  before merge (4 new sends approved; the refused T1 attempt doesn't count).
+- **Scope added**: fix two existing form bugs found by the tester, on /enquiry/ and the home
+  contact form:
+  - **R29** After a successful send, going Back must not leave the submit button stuck on
+    "Sending…"/disabled (pages restored from the browser cache must reset the button).
+  - **R30** Name (and Mobile) made only of spaces must be rejected like an empty field.
+  - **AC17** Send (stubbed), press Back: the button reads its normal label and is enabled.
+  - **AC18** A name of only spaces, or a mobile of only spaces, is blocked with the usual message.

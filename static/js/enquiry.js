@@ -144,6 +144,14 @@
   }
 
   // ---- Submit ---------------------------------------------------------------------
+  // A name or mobile of only spaces is emptied so the browser shows its usual "fill in this
+  // field" message. (Without JavaScript the pattern on those boxes blocks it instead.)
+  function clearBlank(names) {
+    names.forEach((name) => {
+      if (field(name).value && !field(name).value.trim()) field(name).value = "";
+    });
+  }
+
   function makeReference() {
     const now = new Date();
     const pad = (n) => String(n).padStart(2, "0");
@@ -161,6 +169,17 @@
   }
 
   const buttons = form.querySelectorAll('button[type="submit"]');
+  const primary = form.querySelector('button[value="submit"]');
+  const primaryLabel = primary.innerHTML;
+
+  function resetButtons() {
+    buttons.forEach((button) => { button.disabled = false; });
+    primary.innerHTML = primaryLabel;
+  }
+  // After a send, Back can bring this page out of the browser's cache exactly as it was left:
+  // button disabled and saying "Sending…". Make it usable again.
+  window.addEventListener("pageshow", (event) => { if (event.persisted) resetButtons(); });
+
   const typeLabels = { product: "Product", service: "Service", spare: "Spare part", general: "General" };
 
   // What FormSubmit receives: its settings (names starting with "_"), then the enquiry as
@@ -200,6 +219,7 @@
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    clearBlank(["name", "phone"]);
     if (!form.reportValidity()) return;
 
     const reference = makeReference();
@@ -214,8 +234,6 @@
 
     buttons.forEach((button) => { button.disabled = true; });
     status.hidden = true;
-    const primary = form.querySelector('button[value="submit"]');
-    const primaryLabel = primary.innerHTML;
     primary.textContent = "Sending…";
 
     try {
@@ -229,8 +247,7 @@
       const ok = response.ok && String(result.success) === "true";
       if (!ok) throw new Error(result.message || `HTTP ${response.status}`);
     } catch (error) {
-      buttons.forEach((button) => { button.disabled = false; });
-      primary.innerHTML = primaryLabel;
+      resetButtons();
       showError(`Sorry, your enquiry couldn't be sent (${error.message}). Please try again, or call us on ${data.phone}.`);
       return;
     }

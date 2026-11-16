@@ -8,6 +8,24 @@
   const value = (name) => field(name).value.trim();
   const status = form.querySelector("[data-contact-status]");
   const button = form.querySelector('button[type="submit"]');
+  const label = button.innerHTML;
+
+  // After a send, Back can bring this page out of the browser's cache exactly as it was left:
+  // button disabled and saying "Sending…". Make it usable again.
+  window.addEventListener("pageshow", (event) => {
+    if (!event.persisted) return;
+    button.disabled = false;
+    button.innerHTML = label;
+  });
+
+  // A name or mobile of only spaces is emptied so the browser shows its usual "fill in this
+  // field" message. (Without JavaScript the pattern on those boxes blocks it instead.)
+  function clearBlank(names) {
+    names.forEach((name) => {
+      if (field(name).value && !value(name)) field(name).value = "";
+    });
+  }
+
   const typeKeys = { Service: "service", Product: "product", "Spare part": "spare" };
 
   function makeReference() {
@@ -19,6 +37,7 @@
 
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
+    clearBlank(["name", "phone"]);
     if (!form.reportValidity()) return;
 
     const reference = makeReference();
@@ -45,7 +64,6 @@
 
     button.disabled = true;
     status.hidden = true;
-    const label = button.innerHTML;
     button.textContent = "Sending…";
 
     try {

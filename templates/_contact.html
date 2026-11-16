@@ -63,13 +63,13 @@
       <div class="form-grid">
         <div class="form-field">
           <label for="contact-name">Full name <span class="required-mark" aria-hidden="true">*</span></label>
-          <input id="contact-name" name="name" type="text" autocomplete="name" maxlength="120" required>
+          <input id="contact-name" name="name" type="text" autocomplete="name" maxlength="120" pattern=".*\S.*" title="Please enter your name" required>
         </div>
         <div class="form-field">
           <label for="contact-phone">Mobile number <span class="required-mark" aria-hidden="true">*</span></label>
           {#- ( ) and - are escaped: browsers check patterns in strict "v" mode and ignore a pattern
               with bare brackets, which would let any text through. -#}
-          <input id="contact-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" pattern="[0-9+\(\)\- ]{7,24}" title="Digits, spaces and + ( ) - only" required>
+          <input id="contact-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="24" pattern="(?=.*[0-9])[0-9+\(\)\- ]{7,24}" title="Digits, spaces and + ( ) - only" required>
         </div>
         <div class="form-field">
           <label for="contact-email">Email address <span class="optional-label">Optional</span></label>

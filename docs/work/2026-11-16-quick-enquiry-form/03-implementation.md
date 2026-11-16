@@ -70,4 +70,35 @@ All four go to `https://formsubmit.co/ajax/enquiry@arcooling.in` (T3 posts to th
 - `03ceabd` Quicker enquiry form: only name, mobile and category required (code, docs 01–03 and the research backlog)
 
 ## Rework log
-- (none, first implementation)
+### Round 1 (after 04-test-report.md and the owner decisions adding R29/R30, AC17/AC18)
+The test report had no must-fix code defect (FAIL only because FormSubmit needs activation,
+which the owner is handling). The owner asked for Defects 1 and 2 to be fixed; Defect 3 was
+trivial, so it is fixed too. Nothing was sent to FormSubmit.
+
+- **Defect 1 / R29 / AC17: button stuck on "Sending…" after Back.**
+  `static/js/enquiry.js`: the primary button's label is now saved once when the page loads,
+  and a `resetButtons()` helper re-enables all submit buttons and restores the label. It runs
+  on a failed send (as before) and on `pageshow` when `event.persisted` is true (page restored
+  from the back/forward cache). The existing visit-date `pageshow` re-sync is unchanged.
+  `static/js/contact.js`: same, for the single button on the home page contact form.
+- **Defect 2 / R30 / AC18: name or mobile of only spaces.**
+  - No-JS path (and a backstop for JS): `templates/product_enquiry.html` and
+    `templates/_contact.html`. Name gets `pattern=".*\S.*"` with title "Please enter your
+    name". Mobile pattern is now `(?=.*[0-9])[0-9+\(\)\- ]{7,24}` (must contain at least one
+    digit; same 7–24 length and characters as before, same v-mode-safe escaping).
+    Checked in headless Edge (v-mode): "   " and "       " are blocked; "abc" still blocked;
+    "+91 98765 43210" and "(040) 1234-5678" still accepted.
+  - JS path: both scripts call `clearBlank(["name", "phone"])` before `reportValidity()`. A
+    value of only spaces is emptied, so the browser shows its usual "Please fill in this
+    field" message (the same as an empty field) rather than the pattern message.
+- **Defect 3 (cosmetic): Company box 19px lower than Email at ~601px.**
+  New `.form-field-bottom { align-content: end; }` in `static/css/style.css`, applied to the
+  Email and Company fields in `templates/product_enquiry.html`, so both boxes sit on the same
+  line when the Company label wraps. No effect on phones (one column) or wide screens.
+
+Checks: `node --check` on both scripts; `.venv/Scripts/python tools/check_site.py` → ALL CHECKS PASSED.
+
+**For the tester:** AC17 needs a real (or stubbed) successful send then Back, on /enquiry/
+and on the home page form. AC18: "   " in Name gives the usual required message on both
+forms with JS; with JS off the pattern blocks it ("Please enter your name"). Recheck the
+Email/Company row at 601px and that the stacked layout at ≤600px is unchanged.
