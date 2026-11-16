@@ -295,3 +295,13 @@ the owner before sending.
   - **R30** Name (and Mobile) made only of spaces must be rejected like an empty field.
   - **AC17** Send (stubbed), press Back: the button reads its normal label and is enabled.
   - **AC18** A name of only spaces, or a mobile of only spaces, is blocked with the usual message.
+
+## Owner decisions after retest (2026-11-16)
+- **T1 arrived** in the inbox (no email given → delivered). **T2 did not arrive** (that send failed).
+- **AC5 Reply-To**: on T1, Reply goes to a FormSubmit address — accepted as FormSubmit's normal
+  behaviour when the customer gives no email (not broken).
+- **Remaining real sends (T2 again, T3, T4) happen after merge, from https://arcooling.in**,
+  done once by the deployer in the verify phase (3 labelled "TEST – please ignore" sends, same
+  stop rule). Delivery checks for AC4, AC8, AC9, AC11 move to that step.
+- Minor cleanup before review: tester defect 5 (remove the dead `clearBlank` path or make it
+  work, and correct 03) and defect 6 (a mobile must contain at least 7 digits).

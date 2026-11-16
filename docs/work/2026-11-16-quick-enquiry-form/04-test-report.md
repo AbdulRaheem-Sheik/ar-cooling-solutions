@@ -1,4 +1,4 @@
-# Test report: Quicker enquiry form for home customers (backlog N1) — FAIL (blocked at Part B, no code defect)
+# Test report: Quicker enquiry form for home customers (backlog N1) — FAIL (retest round 1: Part A passed; Part B stopped at T2, no code defect found)
 
 **In short:** Part A (local checks, no real sends) **passed**: every check that can be done without a
 real email works. Part B (real sends) **stopped after the first send**. FormSubmit answered T1 with
@@ -87,3 +87,121 @@ Choose one:
 - **(b)** Click the "Activate Form" link in the FormSubmit email for the local test address, then let the tester send T1 (again), T2, T3 and T4 from the branch. That is 4 more sends, which needs a fresh OK because the approved 4 included the T1 attempt that was refused.
 
 Until then, AC1/AC4/AC5/AC9/AC11 delivery and Reply behaviour stay unverified.
+
+---
+
+# Retest (round 1) — FAIL (Part A passed; Part B stopped at T2)
+
+**In short:** the rework works. The button is usable again after Back on both forms (AC17).
+Names or mobiles made only of spaces are blocked, with and without JavaScript (AC18). The
+Email and Company boxes now line up at 601px. Every earlier check still passes, and so does
+`check_site.py`. In Part B, **T1 was accepted by FormSubmit** (the activation worked).
+**T2 got no answer from FormSubmit** while the test was watching: there was no "success"
+and the page did not go to the thank-you page. The stop rule applied, so I did **not** resend
+T2 and did **not** send T3 or T4. The owner needs to check the inbox for T1 and T2 (details
+below) and decide on the next step.
+
+## Environment
+- Branch `feature/quick-enquiry-form` at `4672fd9` (rework code in `b44287b`). Working tree clean; no code edited.
+- `serve.py` (Waitress) on `http://127.0.0.1:8791` (the same origin as the first T1 attempt, so the activation applies), with a throwaway database (`AR_DATABASE_PATH` = temp file) and a 40+ character test `SECRET_KEY`.
+- Headless Edge driven over DevTools (the same harness as round 0; scripts in the session temp folder). Phone viewport 375×800 unless stated. In Part A, formsubmit.co was mapped to a dead port **and** blocked by DevTools, and Google Tag Manager/Analytics were blocked. "Successful send" = the test-only stub that answers `{"success":"true"}` without any network call.
+
+## Regression
+`.venv/Scripts/python tools/check_site.py` → **ALL CHECKS PASSED** (public pages, share pages, admin lock/login/CSRF, static build "Built 153 pages + 404 … All internal links and sitemap OK", robots and sitemap match). The built `_site/enquiry/index.html` and `_site/index.html` contain the new name/mobile patterns. `form-field-bottom` is in `_site/enquiry/index.html`. Neither page has `name="email"`.
+
+## New acceptance criteria
+| AC | Result | Evidence |
+|---|---|---|
+| AC17 | **PASS** | /enquiry/: fresh label "Submit enquiry". Stubbed send → `/enquiry/thank-you/` → `history.back()`: `pageshow.persisted = true`, button `disabled: false`, text "Submit enquiry". The form kept its values. Pressing Submit again sent and reached the thank-you page again. Visit date after Back: with Pick a date + 21 Nov → day "Pick a date", date `2026-11-21`, box visible, `required: true`, min `2026-11-16`. With Tomorrow → date empty, box hidden, `required: false`. Home contact form: label "Send enquiry" before and after Back (`persisted: true`, `disabled: false`), and resending works. Failure path (AC15) unchanged on both forms: "Sorry, your enquiry couldn't be sent (Failed to fetch). Please try again, or call us on +91 88013 81405.", button enabled, label restored. |
+| AC18 | **PASS** | Tested on both forms, with JS on and with scripts disabled. Name `"   "` or `" \t  "`: blocked, focus on Name, "Please match the requested format." (the browser adds the box's hint "Please enter your name"), nothing sent. Mobile `"       "` (7 spaces), `"   "`, `abc` and `"+-() ()-"`: blocked, focus on Mobile, same message (hint "Digits, spaces and + ( ) - only"), nothing sent. Still accepted: `+91 98765 43210`, `(040) 1234-5678`, `040-1234 5678`, `9876543210`, and the name `"  Tester  "` (sent trimmed as "Tester"). See Defect 5 for a small difference from what 03 describes. |
+
+## Layout (Defect 3 recheck)
+Email/Company box tops (px from the page top): 601px **1719 / 1719** (the Company label wraps to 40px, the Email label is 20px, `align-content: end`), 700px 1699/1699, 800px 1701/1701, 900px 1682/1682, 1024px 1163/1163, 1280px 1169/1169. At 320, 375 and 600px they are still stacked in one column (e.g. 375: 1898 then 1994, both full width), the same as before. No horizontal scroll at any width. (At ≥700px `scrollWidth` is 15px less than the window, which is the desktop scrollbar.) **Defect 3 fixed.**
+
+## Quick regression of earlier ACs (re-run of the round-0 scripts)
+- **Field order and required marks (AC6):** at 375px: name, phone, category, details, area, visit_day, visit_time, email_address, company, comments. Only the first three are required (red `rgb(180,55,47)`). Every "Optional" and the legend's "Optional" are grey `rgb(138,131,137)`. Note text, submit-row sentence, Details placeholder and service panel wording are as in round 0 (AC7, R13). Home form: name, phone, topic and message required; Email address Optional in grey.
+- **Mobile pattern (AC3):** `abc` blocked on both forms, `name@` blocked, valid formats accepted (above).
+- **Visit date (AC10):** min `2026-11-16` and max `2026-12-16`. These are blocked with the right messages: no date, 15 Nov and 17 Dec. These match round 0:
+  - 16 Dec and Sunday 22 Nov are accepted.
+  - Today, Tomorrow and "Any day, Morning" are sent as before.
+  - Typing a date switches the day to Pick a date.
+  - Pick a date → No preference sends "Not given".
+  - Back from /privacy/ and from the thank-you page restores a consistent state.
+- **Payload and row order (AC1/AC4/AC8):**
+  - Minimal send: rows in R15 order, "Not given" ×5, Comments "None", Page "Enquiry form", **no `_replyto`**.
+  - Full send from the Repair Book link: "Tomorrow (Tue 17 Nov), Morning (9am–12pm)", Kukatpally, `_replyto` = the given email (last key).
+  - Prefills: service (card Repair, "Service enquiry", title "Enquire about Repair"), product (Split AC units, "New product enquiry: Split AC units (AR-…)") and spare part (Copeland ZR28K3, "New spare part enquiry: …").
+  - The thank-you page works, and storage holds only `{name, about, type, reference}`.
+- **Home contact form (AC11):** no email → "Email address": "Not given" and no `_replyto`. With email → `_replyto` set. Stubbed success → thank-you page with reference.
+- **No-JS markup (AC9/R19):** posts to `https://formsubmit.co/enquiry@arcooling.in`, date box visible, empty name blocked. The captured body has `area`, `visit_day`, `visit_time`, `visit_date`, `email_address=` and no `email` field.
+- **Edge:** `/enquiry/nope/` and `/go/does-not-exist/` → 404. `/enquiry`, `/enquiry/thank-you` and `/privacy` → 308 to the trailing-slash URL. `/admin` and `/admin/` → 302 to `/admin/login`. Admin login POST without a CSRF token → 400.
+
+## Part B — real sends (owner-activated local form, 4 approved, stop rule)
+First, each of T1–T4 was run as a **dry run** with formsubmit.co blocked, to check the exact payload with the reworked code (all four correct; no invalid fields). Then the real sends were made one at a time, from `http://127.0.0.1:8791` in headless Edge, exactly as in round 0.
+
+| # | Time (IST, 16 Nov 2026) | Reference | Result |
+|---|---|---|---|
+| T1 | 17:56:11–17:56:24 | **AR-261116-2591** | `OPTIONS` → 200. `POST https://formsubmit.co/ajax/enquiry@arcooling.in` → **HTTP 200 `{"success":"true","message":"The form was submitted successfully."}`**. The page went to `/enquiry/thank-you/`: "Service enquiry received", "Thank you, TEST – please ignore.", "Reference AR-261116-2591". Storage = `{name, about:"Repair", type:"service", reference}` only. The only non-GET requests were OPTIONS + POST to formsubmit.co (AC12). |
+| T2 | 17:56:49–17:57:04 | AR-261116-3372 (made in the page; **may not have been delivered**) | The page started the send: DevTools saw `OPTIONS` and `POST` to `https://formsubmit.co/ajax/enquiry@arcooling.in` begin. **No FormSubmit response was recorded** in the ~8 seconds the harness waited, for either OPTIONS or POST. The page **stayed on the enquiry form**, and session storage was not written, so the page never got a success. **Stop rule applied: not resent.** |
+| T3 | — | — | **Not sent** (stopped) |
+| T4 | — | — | **Not sent** (stopped) |
+
+A plain `GET https://formsubmit.co/` at 17:57:42 answered 200 in 2.5s, so FormSubmit was up a minute later. I can't tell from here whether T2 reached FormSubmit:
+- if the preflight (OPTIONS) never got an answer, the POST was never sent and there is **no T2 email**;
+- if FormSubmit was just slow, it may have arrived late.
+
+A limitation of my harness: it records FormSubmit answers with a status code, but not network errors, and it closed the browser after ~8 seconds. So a slow answer or a network failure both look the same in my log. The T2 payload was byte-for-byte what the dry run showed and follows the same code path as the successful T1. There is no sign of a code fault, but that is not proven.
+
+T2 payload (as built by the page):
+- Subject: `New service enquiry: Repair (AR-261116-3372)`
+- Name: "TEST – please ignore"
+- Mobile: "+91 88013 81405"
+- Area / locality: "Kukatpally"
+- Preferred visit time: "Tomorrow (Tue 17 Nov), Morning (9am–12pm)"
+- Category: "Repair"
+- Details: "TEST – please ignore (T2: all fields, from the Repair page)", then the Repair prefill
+- Comments: "TEST – please ignore – Please contact me to schedule a visit."
+- Email address: "enquiry@arcooling.in"
+- Company: "AR Cooling Solutions (TEST)"
+- Page: "https://arcooling.in/services/repair/"
+- `_replyto`: "enquiry@arcooling.in"
+
+### What the owner should see in the enquiry@arcooling.in inbox
+- **T1 (should be there, sent about 17:56 IST).** Subject **`New service enquiry: Repair (AR-261116-2591)`**. Table rows in this order:
+  - Reference = AR-261116-2591
+  - Enquiry type = Service
+  - Enquiring about = Repair
+  - Name = TEST – please ignore
+  - Mobile = +91 88013 81405
+  - Area / locality = **Not given**
+  - Preferred visit time = **Not given**
+  - Category = Repair
+  - Details = **Not given**
+  - Comments = TEST – please ignore (T1: name, mobile and category only; automated website test)
+  - Email address = **Not given**
+  - Company = **Not given**
+  - Page = Enquiry form
+
+  **Reply check (AC5):** press Reply. The "To" must not be empty or broken. No `_replyto` was sent, so it should go to FormSubmit's normal sender address. Please tell us which address appears.
+- **T2 (may or may not be there, about 17:57 IST).** Subject `New service enquiry: Repair (AR-261116-3372)`, with the rows listed above. If it **is** there, pressing Reply should address **enquiry@arcooling.in**. Please tell us whether it arrived. That tells us if it was a slow answer (delivered) or a failed connection (not delivered).
+- **T3, T4:** not sent, so nothing to expect.
+- Also from round 0: the FormSubmit "Activate Form" email (around 15:09). The T1 attempt from 15:09 (AR-261116-3629) was refused, so it should not be in the inbox.
+
+## Defects (round 1)
+Defects 1–3 from round 0: **fixed** (checked above). Defect 4 (activation): resolved; T1 was accepted.
+
+5. **minor (doc / unreachable code):** 03-implementation says that with JavaScript a name or mobile of only spaces is emptied first, so the browser shows "Please fill in this field". It doesn't work that way. The forms have no `novalidate`, so the browser checks the new `pattern` **before** the script's submit handler runs. `clearBlank()` never gets a chance to run. The visitor sees "Please match the requested format." plus the hint ("Please enter your name" / "Digits, spaces and + ( ) - only"). The entry is still blocked, with a clear message that names the field, so AC18 passes.
+   *Steps:* /enquiry/ with JS on, Name `"   "`, valid mobile and category → Submit.
+   *Expected (per 03):* "Please fill out this field."
+   *Actual:* "Please match the requested format." / "Please enter your name".
+   Fix: either drop `clearBlank` or correct the note. Nothing changes for the visitor.
+6. **minor (input check, not a regression):** a mobile of six spaces and one digit (`"      1"`) passes the new pattern (7–24 characters, at least one digit). It is sent as Mobile "1", on both forms, with or without JS. *Expected:* a realistic number (e.g. at least 7 digits). *Actual:* accepted. Not required by R30/AC18; it's a possible follow-up.
+7. **blocker for sign-off (no code defect found):** T2 got no FormSubmit answer during the test. Under the stop rule, T2 was not resent and T3/T4 were not sent. These are still unproven: AC4 delivery and Reply-To, AC8 delivery, AC9 (no-JS acceptance, redirect, empty email accepted) and AC11 delivery.
+
+## Owner decision needed
+1. Check the inbox for **T1 (AR-261116-2591)** and **T2 (AR-261116-3372)**, and for T1 say what address Reply goes to.
+2. Then choose:
+   - **(a)** Approve **T2 once more plus T3 and T4** from the branch: 3 more sends, or only T3 and T4 if T2 did arrive. I would make the harness wait longer and also log network errors, so the result is clear. *Or*
+   - **(b)** Merge, then do the remaining sends (T2–T4) on https://arcooling.in straight after going live. If any one fails, revert.
+
+**Verdict: FAIL.** Every acceptance criterion that can be checked locally passes, including the new AC17 and AC18. But the required real-send proof is incomplete: T1 was accepted (delivery pending the owner's check), T2 got no answer, and T3/T4 were not sent.
