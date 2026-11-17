@@ -158,8 +158,14 @@
     let gone = false;
     const go = () => { if (!gone) { gone = true; window.location.href = url; } };
     if (typeof gtag !== "function" || !window.google_tag_manager) return go();
-    gtag("event", "enquiry_sent", { ...details, event_callback: go, event_timeout: 1000 });
-    setTimeout(go, 1000);   // the real guarantee: event_callback may never come through GTM
+    // Timer first: it is the real guarantee (event_callback may never come through GTM),
+    // and it must already be running if gtag throws inside GTM's dataLayer.push.
+    setTimeout(go, 1000);
+    try {
+      gtag("event", "enquiry_sent", { ...details, event_callback: go, event_timeout: 1000 });
+    } catch (err) {
+      go();   // counting failed; the enquiry is already sent, so don't keep the visitor waiting
+    }
   }
 
   // The enquiry type for Google Analytics, from a fixed list, so no other text can slip in.

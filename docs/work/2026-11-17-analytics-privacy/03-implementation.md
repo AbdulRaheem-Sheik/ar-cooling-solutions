@@ -82,4 +82,22 @@ admin pages and stop the privacy text drifting from what the site does.
 - `209360f` Analytics: admin pages stop loading Google, count sent enquiries, honest privacy page
 
 ## Rework log
-(none yet)
+### Round 1 (after 05-review.md, CHANGES REQUESTED, and owner decisions in 01)
+- **Finding 1 [must-fix], opt-out bullet** (`templates/privacy.html`): replaced with the
+  owner-approved wording from 01 word for word ("To stop being counted: ..."); the add-on
+  stays a link to https://tools.google.com/dlpage/gaoptout.
+- **Finding 2 [must-fix], ads sentence** (`templates/privacy.html`): now says only what is
+  verified: "We do not use Google Analytics for advertising: it is not linked to Google Ads,
+  and Google Signals is turned off." The "ad personalisation turned off" claim is removed.
+- **Finding 4 [should-fix], timer order** (`static/js/contact.js`, `static/js/enquiry.js`,
+  `countEnquiryThenGo`): `setTimeout(go, 1000)` is now started before `gtag(...)`, and the
+  `gtag` call is wrapped in `try/catch` that calls `go()` at once if it throws. The `gone`
+  guard is unchanged, so the page still navigates exactly once (callback, timer or catch,
+  whichever comes first).
+- **Finding 5 [nit], "Google receives" bullet**: now lists the page address and title, the
+  page you came from, device type, browser and screen size, and rough location.
+- Not changed: finding 3 (GTM/GA4 setting; owner switches off user-provided data collection,
+  deployer re-checks gtm.js), finding 6 (tester method note), line 62 fonts sentence (optional
+  nit, left as is). `PRIVACY_UPDATED` stays "17 November 2026".
+- Checks: `node --check` on both JS files OK; `tools/check_site.py` ALL CHECKS PASSED
+  (static build 153 pages + 404). Nothing was sent to FormSubmit or Google.
