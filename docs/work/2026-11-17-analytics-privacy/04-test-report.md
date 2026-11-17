@@ -1,4 +1,4 @@
-# Test report: Count calls, WhatsApp taps and enquiries, and fix the privacy mismatch (Option A) — PASS
+# Test report: Count calls, WhatsApp taps and enquiries, and fix the privacy mismatch (Option A) — PASS (retest round 1 at a8ecbbc: PASS)
 
 **In short:** the change works. Public pages and the 404 page load the Google tag once. The admin
 pages load no Google code and made no Google request in a real browser. A successful send of
@@ -126,3 +126,85 @@ None must-fix or should-fix.
    and container ID. The privacy page already says Google receives the page address, so
    this is covered. I mention it only so nobody is surprised to see these requests in dev
    tools.
+
+---
+
+# Retest (round 1) — PASS
+
+**In short:** the rework does what the review asked. If Google's code throws an error, the
+thank-you page now opens at once (0–16 ms). If Google never answers, it opens after about
+1.0 s. If `gtag` is missing, it opens at once. Every send opens the thank-you page exactly
+once, and FormSubmit is called exactly once. A normal success still gives exactly one
+`enquiry_sent` with the right form and type. Failed sends give none. The privacy page now
+uses the owner-approved opt-out wording word for word. It no longer claims "ad
+personalisation", and the "Google receives" bullet lists page title, referring page and
+screen size. The date is 17 November 2026, and the page is readable at 375 px.
+`check_site.py` passes. No new defects.
+
+## Environment
+- Branch `fix/analytics-privacy`, HEAD `a8ecbbc`. Code changes since round 0 (`1cb1591..a8ecbbc`):
+  `static/js/contact.js`, `static/js/enquiry.js`, `templates/privacy.html` (+ 03 notes).
+  I edited no code. During my run, `05-review.md` was changed in the working tree by the
+  reviewer's re-review. That was not me.
+- `serve.py` on `http://127.0.0.1:8792` with a new throwaway database (`r1.db` in the
+  session scratchpad `tester\` folder), a 48-character test `SECRET_KEY` and throwaway
+  admin credentials. Stopped afterwards.
+- Headless Edge harness from round 0 (`n2setup.py`/`cdp.py`), plus new scripts in the same
+  scratchpad folder: `r1forms.py` (outputs `r1forms-gtm.out`, `r1forms-stall.out`,
+  `r1forms-block.out`), `r1dbg.py`, `r1privacy.py`, `r1shot.py`.
+- **Hard rules kept:**
+  - FormSubmit was never reached. Success and error answers were stubbed in page JS. At
+    network level `formsubmit.co` was mapped to a dead port and failed in DevTools. The
+    "network failure" cases recorded 2 failed attempts each, and none got through.
+  - The only Google request allowed was the exact
+    `https://www.googletagmanager.com/gtm.js?id=GTM-WZFNQQXC` loader. Every
+    `google-analytics.com/g/collect` and `googletagmanager.com/td` request was recorded and
+    then failed ("gtm" mode), or left hanging so it never left the browser ("stall" mode).
+    In "block" mode, Google Tag Manager itself was blocked.
+  - Nothing went to `google.com/ccm` or `pagead`.
+
+## Regression
+`.venv/Scripts/python tools/check_site.py` gave **ALL CHECKS PASSED** (exit 0, 29 PASS
+lines, 0 FAIL). This includes "admin pages load no Google tag (3 checked)" and a static
+build of 153 pages + 404 with internal link and sitemap check OK. The built
+`_site/privacy/index.html` has the new opt-out text and no "personalis".
+
+## Rework checks
+"Navigations" = document requests seen by DevTools after the submit click. "Leave" = time
+from the (stubbed) FormSubmit success answer to the form page's `beforeunload`.
+
+| # | Check | Result | Evidence |
+|---|---|---|---|
+| 1 | `window.gtag` throws while `google_tag_manager` is set (GTM loaded) | **PASS** | `r1forms.py gtm`, "THROW gtag": full form (`/services/repair/` → Enquire → `/enquiry/`) and quick form (home, topic Spare part) both reached `/enquiry/thank-you/` with the visitor's name in the heading. Navigations: exactly `['/enquiry/thank-you/']` each time. `r1dbg.py` THROW: 1 FormSubmit call, leave after 16 ms (quick) and 6 ms (full). No `enquiry_sent` in dataLayer or hits, as expected because the call failed. |
+| 1b | The real `gtag` runs but GTM's `dataLayer.push` throws (the reviewer's exact scenario) | **PASS** | "THROW dataLayer.push": both forms reached the thank-you page, leave 2 ms, exactly 1 navigation each. |
+| 2a | GTM loaded, callback never comes (`dataLayer.push` swallowed) | **PASS** | "NOCB": leave 1007 ms (full) and 1008 ms (quick), 1 navigation each. |
+| 2b | GTM loaded, every collect request stalled (never answered) | **PASS** | `r1forms.py stall`: plain send leave 2 ms / 6 ms (GTM's callback came without waiting for the network), 1 navigation. Stall + no callback: leave 1014 ms / 1015 ms, 1 navigation each. |
+| 2c | `gtag` missing (`undefined`) with GTM loaded | **PASS** | "GTAG MISSING": thank-you page on both forms, 1 navigation. `r1dbg.py` MISSING: leave 6 ms for both forms. Block mode (no GTM at all): leave 2 ms / 6 ms. "Block + gtag throws": leave 0 ms. |
+| 2d | Normal success: exactly one `enquiry_sent` with the right fields | **PASS** | "NORMAL" full/service: dataLayer `["event","enquiry_sent",{"enquiry_form":"full","enquiry_type":"service","event_timeout":1000}]` once. GA hits: one `en=enquiry_sent`, `ep.enquiry_form=full`, `ep.enquiry_type=service`. Quick/Spare part: one, `quick` / `spare`. No other `ep.*` keys, and no `em`, `ec_*` or `upd*` parameters (the review's finding 6 method). Leave 3 ms / 1 ms. Stall mode gave the same single event per send. |
+| 2e | Failed send: no `enquiry_sent`, no redirect | **PASS** | 500 answer and network failure on both forms (5 cases, including one in block mode): page stayed put, 0 navigations, no `enquiry_sent` in dataLayer or hits. Status said "Sorry, your enquiry couldn't be sent (…). Please try again, or call us on +91 88013 81405." The button was enabled again ("Submit enquiry" / "Send enquiry"). |
+| 3a | Opt-out bullet = owner-approved wording in 01 | **PASS** | Text of the served `/privacy/` `<li>` (tags stripped) compared in Python with the 01 text: **exact match**. The old "To opt out" is gone. The add-on link is still `https://tools.google.com/dlpage/gaoptout` (`target="_blank" rel="noopener noreferrer"`). |
+| 3b | Ads sentence has no "ad personalisation" claim | **PASS** | "We do not use Google Analytics for advertising: it is not linked to Google Ads, and Google Signals is turned off. We see totals and reports, not who you are." Regex `personali[sz]` gives 0 matches on the whole page. |
+| 3c | "Google receives" bullet | **PASS** | "Google receives the page address and title, the page you came from, your type of device, browser and screen size, and your rough location (city or region). …" |
+| 3d | Date | **PASS** | "Last updated 17 November 2026" (`PRIVACY_UPDATED` in `app.py:879`). |
+| 3e | Readable at 375 px | **PASS** | `r1privacy.py`: at 375, document width = 375 (no sideways scroll), no element wider than the screen, list text 15 px / 26.25 px line height. Opt-out bullet 321 px wide, right edge 359. At 320 the document is 320 wide with nothing overflowing. At 1280 there is no overflow. Screenshots: `r1-privacy-375-bullets.png`, `r1-privacy-375-optout.png`, `r1-privacy-{375,320,1280}.png`. The footer link "Privacy & cookies" is visible at all three widths. |
+| 4 | `tools/check_site.py` | **PASS** | See Regression. |
+
+## Edge cases (round 1)
+- **Exactly one FormSubmit call per send:** `r1dbg.py` logged every stubbed FormSubmit call
+  with its stack trace, plus the `beforeunload` time, in the THROW, MISSING and NORMAL
+  scenarios on both forms. Each time there was exactly 1 call (from `contact.js:78` or
+  `enquiry.js:252`), followed by leaving the page 6–16 ms later.
+- **Harness note:** in the first `r1forms.py` run, the THROW and MISSING rows showed
+  negative "leave" times (−74 to −142 ms). The direct log in `r1dbg.py` disproved this: there
+  was a single call, and the page left after it. So the negative times came from my
+  timing method, not from a second send.
+- The round-0 edge cases (reload/Back/Forward on the thank-you page, tampered topic,
+  validation) were not re-run. The code those paths use is unchanged in this diff: only
+  the body of `countEnquiryThenGo` changed.
+
+## Defects (round 1)
+No new defects. Round-0 minor item 1 is still there: the social buttons on the right edge
+cover the ends of a few lines at 375 px (visible on the opt-out bullet: "visi[ts]", "eith[er]").
+It existed before this change and affects every page. Backlog item, not part of this task.
+The reviewer's finding 3 (GA4 "User-provided data collection") is an owner setting outside
+the code. It stays open for the owner and the deployer, as 01 and 05 say.

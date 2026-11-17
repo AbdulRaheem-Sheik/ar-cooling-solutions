@@ -1,4 +1,4 @@
-# Review: Count calls, WhatsApp taps and enquiries, and fix the privacy mismatch (Option A) — CHANGES REQUESTED
+# Review: Count calls, WhatsApp taps and enquiries, and fix the privacy mismatch (Option A) — APPROVE (re-review round 1; owner steps before merge)
 
 ## Summary
 The code is good. It is small and follows the existing patterns:
@@ -154,3 +154,78 @@ must be fixed before merge. Both are small text changes, or one Google setting p
   `email_click` arrives with `link_text=(redacted)`. Use `enquiry_sent`, not `form_submit`.
   Tell the team before changing any Google setting, because the privacy page depends on
   those settings.
+
+---
+
+# Re-review (round 1) — APPROVE
+
+Reviewed `git diff 1cb1591..a8ecbbc` (branch `fix/analytics-privacy` at `a8ecbbc`), the owner
+decisions at the end of 01 and the Rework log in 03. The commit contains only
+`03-implementation.md`, `contact.js`, `enquiry.js` and `privacy.html` (no `data/` edits).
+`node --check` passes on both JS files. Tester re-run is in progress separately (04).
+
+## Earlier findings
+| # | Result |
+|---|---|
+| 1 must-fix, opt-out bullet | **Resolved.** `templates/privacy.html:54` matches the owner-approved wording in 01 word for word; the add-on link is unchanged. |
+| 2 must-fix, ads sentence | **Resolved.** Line 52 now says only "not linked to Google Ads, and Google Signals is turned off". Re-fetched `gtm.js?id=GTM-WZFNQQXC` today: `GOOGLE_SIGNALS disallowAllRegions: true` and `allow_google_signals: false`; no `AW-` or `DC-` (Google Ads / Floodlight) IDs in the container. A GA4 → Google Ads product link cannot be seen from `gtm.js`, so the owner confirms it (step 3 below). |
+| 3 should-fix, user-provided data | **Owner step, still open.** Today's `gtm.js` still has `__ogt_1p_data_v2` with `vtp_isEnabled: true`, `vtp_isAutoEnabled: true`, `vtp_autoPhoneEnabled: true`. Must be switched off before merge (step 1) and re-checked by the deployer. |
+| 4 should-fix, timer order | **Resolved.** `static/js/contact.js:39-44` and `static/js/enquiry.js:163-168`: `setTimeout(go, 1000)` now runs first, and `gtag` is wrapped in `try/catch` that calls `go()`. With the `gone` guard the page still navigates exactly once (callback, timer or catch). The early `return go()` when Google is blocked is unchanged. The two copies are identical. |
+| 5 nit, "Google receives" list | **Resolved.** Line 50 now lists page address and title, referring page, device type, browser, screen size and rough location. |
+| 6 nit, tester method | Left to the tester (not code). |
+
+## Whole privacy page re-checked
+Every sentence was compared with the code and Google's behaviour:
+- Lines 23-44 (what we collect, FormSubmit, WhatsApp, use, retention, rights): unchanged from
+  `main` and still match the forms and `contact.js`/`enquiry.js` (FormSubmit only; nothing
+  stored on our server).
+- Line 49 (two cookies, random ID, up to 2 years) and line 60 ("The only cookies are the
+  Google Analytics ones"): true for our pages. I also checked the Google Maps embed in
+  `_contact.html` (on home, about, clients and services): loading it in a fresh headless Edge
+  profile set **no** Google cookies, and the embed response has no `Set-Cookie`.
+- Line 51 (form contents not sent): true in code and in the round-0 hit capture; it depends on
+  Google's own detection being off, so owner step 1 is what makes it safe for the future.
+- Line 52: see finding 2 above.
+- Line 55 (14 months): true only once the owner sets GA4 retention (step 2).
+- Line 61 (session storage, cleared when the tab closes): matches `sessionStorage` use in
+  `contact.js:96`, `enquiry.js:268`, `enquiry_thanks.html:34`; no `localStorage` or
+  `document.cookie` anywhere in our JS.
+- "Last updated 17 November 2026" (`app.py:879`) is correct for a merge today.
+
+## New finding
+7. **[nit] templates/privacy.html:62 — Google Maps is not mentioned.** The map on the home,
+   about, clients and services pages is loaded from Google, so Google gets the visitor's IP
+   address from it too, just like Google Fonts (and Tag Manager). Nothing on the page is
+   false; it is just incomplete, and this was already so on `main`. → In a later change, e.g.
+   "The site loads its fonts from Google Fonts, and the map from Google Maps, so Google
+   receives your device's IP address when a page loads…". Does not block.
+
+## Requirements check (changes since round 0)
+- S5 privacy text matches reality → **met in code**; lines 51, 52 and 55 rely on the owner
+  steps below being done before merge.
+- A6 privacy page tells the truth → **met** (same condition).
+- S7 forms work with Google blocked → met, now more robust (finding 4).
+- All other rows unchanged from round 0: met.
+
+## Owner's steps before merge (all in Google's screens; nothing on the server)
+1. **GA4 → Admin → Data collection and modification → Data collection → turn OFF
+   "User-provided data collection"** (and, if the Google tag settings show it, "automatic
+   detection of user-provided data"). Needed for line 51 to stay true.
+2. **GA4 → Admin → Data retention → set event data retention to 14 months** and save.
+   Needed for line 55.
+3. **Confirm Google Signals is OFF** (GA4 → Admin → Data collection) and **GA4 → Admin →
+   Product links → Google Ads links shows no link.** Needed for line 52.
+4. Tell the team before changing any of these settings later: the privacy page depends on them.
+
+## Notes for deployment
+- **Deployer, after the owner's steps and before merge:** re-fetch the public
+  `https://www.googletagmanager.com/gtm.js?id=GTM-WZFNQQXC` and confirm (a)
+  `__ogt_1p_data_v2` is gone or has `"vtp_isEnabled":false`, (b) Signals is still
+  `disallowAllRegions: true`, (c) still no `AW-`/`DC-` IDs. Note that Google may take a few
+  minutes to publish the setting change into `gtm.js`. Do not merge while (a) fails.
+- Wait for the tester's round-1 result in 04 before merging.
+- If the merge slips past 17 November, update `PRIVACY_UPDATED` in `app.py`.
+- After release: `check_site.py --live` (live `/admin/login` must turn from FAIL to PASS),
+  and one real test enquiry marked "TEST – please ignore", checking its `collect` hit has only
+  `ep.enquiry_form` / `ep.enquiry_type` and no `em`, `ec_*` or `upd*`.
+- Commit `04-test-report.md` and this file by name.
