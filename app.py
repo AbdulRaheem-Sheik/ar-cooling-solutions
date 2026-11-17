@@ -876,7 +876,7 @@ def enquiry_thanks():
     return render_template("enquiry_thanks.html", business=BUSINESS)
 
 
-PRIVACY_UPDATED = "16 November 2026"   # change when the privacy policy text changes
+PRIVACY_UPDATED = "17 November 2026"   # change when the privacy policy text changes
 
 
 @app.get("/privacy/")
