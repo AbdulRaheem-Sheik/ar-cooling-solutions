@@ -6,6 +6,9 @@
 Local checks use a throwaway database and a test admin login, so your real data, .env and
 admin password are never touched:
   - every public page renders (200, with a <title>); unknown pages give 404
+  - every public page and the 404 page load the Google tag exactly once; the admin pages
+    (login, dashboard, edit) contain no Google Analytics / Tag Manager code at all
+  - the privacy page mentions Google Analytics and does not say "has no analytics"
   - every social share page (/go/<id>/) renders and its picture exists
   - admin: locked when logged out, login with the security token works, a wrong password
     and a form without the token are refused, the dashboard and an edit page open
@@ -14,7 +17,8 @@ admin password are never touched:
   - the static build (tools/build_static.py) succeeds, its internal link and sitemap checks
     pass, and its sitemap.xml and robots.txt match what the app serves
 With --live, the same files and every page in the live sitemap are fetched from the live
-site (or from --live-url); a missing file is a failure.
+site (or from --live-url); a missing file is a failure. The live home page must load the
+Google tag once, and the live /admin/login page must load none.
 Exits with status 1 if anything fails.
 """
 
@@ -38,6 +42,12 @@ SITEMAP_NS = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
 # statement of what robots.txt must say (a mistake there can hide the whole site).
 ROBOTS_TEMPLATE = "User-agent: *\nAllow: /\nDisallow: /admin\n\nSitemap: {site}/sitemap.xml\n"
 FORBIDDEN_IN_SITEMAP = ("/admin", "/go/", "/enquiry/thank-you/")
+# The Google Analytics loader in base.html. Public pages must have it exactly once (twice
+# would double-count visits).
+GOOGLE_TAG = "googletagmanager.com/gtm.js?id=GTM-WZFNQQXC"
+# Anything that would make an admin page talk to Google Analytics / Tag Manager. Admin
+# visits are not customers, and the privacy page says they are not sent to Google.
+TRACKING_MARKERS = ("googletagmanager.com", "google-analytics.com", "gtag(", "dataLayer")
 
 failures = []
 
@@ -67,6 +77,15 @@ def load_app():
     return site, build_static
 
 
+def tag_count(html):
+    return html.count(GOOGLE_TAG)
+
+
+def tracking_found(html):
+    """The Google Analytics / Tag Manager markers present in a page (empty list = none)."""
+    return [marker for marker in TRACKING_MARKERS if marker in html]
+
+
 def csrf_token(html):
     match = re.search(r'name="csrf_token"[^>]*value="([^"]+)"', html)
     return match.group(1) if match else ""
@@ -76,13 +95,24 @@ def check_pages(site, build_static):
     print("Public pages")
     client = site.app.test_client()
     paths = build_static.page_paths(site)
-    bad = []
+    bad, bad_tag = [], []
     for path in paths:
         response = client.get(path)
         if response.status_code != 200 or b"<title>" not in response.data:
             bad.append(f"{path} -> {response.status_code}")
+        if (count := tag_count(response.get_data(as_text=True))) != 1:
+            bad_tag.append(f"{path}: {count}")
     check(not bad, f"{len(paths)} pages render", "; ".join(bad[:5]))
-    check(client.get("/this-page-does-not-exist/").status_code == 404, "unknown page gives 404")
+    not_found = client.get("/this-page-does-not-exist/")
+    check(not_found.status_code == 404, "unknown page gives 404")
+    if (count := tag_count(not_found.get_data(as_text=True))) != 1:
+        bad_tag.append(f"404 page: {count}")
+    check(not bad_tag, "public pages load the Google tag exactly once", "; ".join(bad_tag[:5]))
+    # While the tag is on public pages, the privacy page must say so (it once said the
+    # opposite). Catches the two drifting apart in our own code.
+    privacy = client.get("/privacy/").get_data(as_text=True)
+    check("Google Analytics" in privacy and "has no analytics" not in privacy,
+          "privacy page explains Google Analytics (no \"has no analytics\")")
 
     print("Social share pages")
     posts = site.get_social_posts()
@@ -161,8 +191,10 @@ def check_admin(site):
     response = client.get("/admin")
     check(response.status_code == 302 and "/admin/login" in response.location, "dashboard locked when logged out")
 
-    token = csrf_token(client.get("/admin/login").get_data(as_text=True))
+    login_page = client.get("/admin/login").get_data(as_text=True)
+    token = csrf_token(login_page)
     check(bool(token), "login form has a security token")
+    tracking = {"/admin/login": tracking_found(login_page)}
     response = client.post("/admin/login", data={"csrf_token": token, "username": username, "password": "wrong-password-1"})
     check(response.status_code == 401, "wrong password refused", str(response.status_code))
     response = client.post("/admin/login", data={"username": username, "password": password})
@@ -172,11 +204,17 @@ def check_admin(site):
 
     dashboard = client.get("/admin")
     check(dashboard.status_code == 200 and b'class="edit"' in dashboard.data, "dashboard opens with edit links")
+    tracking["/admin"] = tracking_found(dashboard.get_data(as_text=True))
     edit_link = re.search(r'href="(/admin/[^"]+/edit)"', dashboard.get_data(as_text=True))
+    check(bool(edit_link), "dashboard links to an edit page")
     if edit_link:
-        check(client.get(edit_link.group(1)).status_code == 200, f"edit page opens ({edit_link.group(1)})")
+        edit_page = client.get(edit_link.group(1))
+        check(edit_page.status_code == 200, f"edit page opens ({edit_link.group(1)})")
+        tracking[edit_link.group(1)] = tracking_found(edit_page.get_data(as_text=True))
         response = client.post(edit_link.group(1), data={"json_data": "{}"})
         check(response.status_code == 400, "save without token refused", str(response.status_code))
+    found = [f"{page}: {', '.join(markers)}" for page, markers in tracking.items() if markers]
+    check(not found, f"admin pages load no Google tag ({len(tracking)} checked)", "; ".join(found))
 
 
 def check_static_build(site):
@@ -255,6 +293,14 @@ def check_live(site, base_url):
 
     content_type, body = files.get("/favicon.ico", ("", b""))
     check(content_type.startswith("image/") and body == favicon_bytes(), "live /favicon.ico is the site icon")
+
+    # The live dashboard needs a login, and this check never uses the real password; the
+    # local admin check covers the dashboard and edit templates.
+    home = files.get("/", ("", b""))[1].decode("utf-8", "replace")
+    login = files.get("/admin/login", ("", b""))[1].decode("utf-8", "replace")
+    check(tag_count(home) == 1, "live home page loads the Google tag once", f"{tag_count(home)} found")
+    check("/admin/login" in files and not tracking_found(login), "live /admin/login loads no Google tag",
+          ", ".join(tracking_found(login)) or "page missing")
 
     if base_url == LIVE_URL:
         try:
