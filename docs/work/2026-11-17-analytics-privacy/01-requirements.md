@@ -317,3 +317,12 @@ comes from `PRIVACY_UPDATED` in `app.py`.
   Signals is turned off (no claim about "ad personalisation").
 - The owner will **switch off "User-provided data collection"** in GA4 before merge; the deployer
   re-fetches gtm.js afterwards to confirm it is off.
+
+## Owner's Google settings done (2026-11-17)
+- Owner reports: GA4 data retention set to 14 months; Google Signals off; GA4 "User-provided data
+  collection" off; no Google Ads link.
+- Tag Manager: the container setting "Allow user-provided data capabilities" was still ON (an
+  unpublished workspace edit). The coordinator, at the owner's request, switched it OFF, saved and
+  published it as **container Version 2** ("Disable user-provided data collection setting",
+  17 Nov 2026 12:44 PM). Re-fetched gtm.js?id=GTM-WZFNQQXC: `__ogt_1p_data_v2` now has
+  `"vtp_isEnabled":false`; still no AW-/DC- IDs.
