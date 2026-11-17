@@ -27,6 +27,17 @@
     return `AR-${date}-${Math.floor(1000 + Math.random() * 9000)}`;
   }
 
+  // Count the sent enquiry in Google Analytics, then open the thank-you page. Waits for
+  // Google at most 1 second, and not at all if the Google tag didn't load (blocked, slow).
+  // Only fixed words are sent, never what the visitor typed. Twin: enquiry.js.
+  function countEnquiryThenGo(url, details) {
+    let gone = false;
+    const go = () => { if (!gone) { gone = true; window.location.href = url; } };
+    if (typeof gtag !== "function" || !window.google_tag_manager) return go();
+    gtag("event", "enquiry_sent", { ...details, event_callback: go, event_timeout: 1000 });
+    setTimeout(go, 1000);   // the real guarantee: event_callback may never come through GTM
+  }
+
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!form.reportValidity()) return;
@@ -85,6 +96,10 @@
     } catch {
       // Storage can be blocked; the thank-you page has a generic fallback.
     }
-    window.location.href = form.dataset.thanksUrl;
+    // topic is one of the form's own fixed choices, mapped to four fixed words. The own-key
+    // test means even a tampered value like "toString" can only give "general" (and works on
+    // older phones, unlike Object.hasOwn).
+    const countedType = Object.prototype.hasOwnProperty.call(typeKeys, topic) ? typeKeys[topic] : "general";
+    countEnquiryThenGo(form.dataset.thanksUrl, { enquiry_form: "quick", enquiry_type: countedType });
   });
 })();

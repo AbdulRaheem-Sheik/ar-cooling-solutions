@@ -169,7 +169,10 @@ document.querySelectorAll("[data-carousel]").forEach((carousel) => {
   }, 5500);
 });
 
-// Track Call, WhatsApp and Email taps in Google Analytics
+// Track Call, WhatsApp and Email taps in Google Analytics. Only public pages (base.html)
+// load this file and the Google tag; the admin pages load neither. link_text is the link's
+// own text (our phone number or a label like "WhatsApp us"), never anything the visitor
+// typed. The privacy page describes these events.
 document.addEventListener('click', function (e) {
   var link = e.target.closest('a[href]');
   if (!link || typeof gtag !== 'function') return;

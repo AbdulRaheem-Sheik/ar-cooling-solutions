@@ -151,6 +151,21 @@
     return `AR-${date}-${Math.floor(1000 + Math.random() * 9000)}`;
   }
 
+  // Count the sent enquiry in Google Analytics, then open the thank-you page. Waits for
+  // Google at most 1 second, and not at all if the Google tag didn't load (blocked, slow).
+  // Only fixed words are sent, never what the visitor typed. Twin: contact.js.
+  function countEnquiryThenGo(url, details) {
+    let gone = false;
+    const go = () => { if (!gone) { gone = true; window.location.href = url; } };
+    if (typeof gtag !== "function" || !window.google_tag_manager) return go();
+    gtag("event", "enquiry_sent", { ...details, event_callback: go, event_timeout: 1000 });
+    setTimeout(go, 1000);   // the real guarantee: event_callback may never come through GTM
+  }
+
+  // The enquiry type for Google Analytics, from a fixed list, so no other text can slip in.
+  const COUNTED_TYPES = ["product", "service", "spare", "general"];
+  const countedType = () => (COUNTED_TYPES.includes(enquiryType()) ? enquiryType() : "general");
+
   function showError(message) {
     status.replaceChildren();
     const heading = document.createElement("p");
@@ -253,6 +268,6 @@
     } catch {
       // Storage can be blocked; the thank-you page has a generic fallback.
     }
-    window.location.href = data.thanksUrl;
+    countEnquiryThenGo(data.thanksUrl, { enquiry_form: "full", enquiry_type: countedType() });
   });
 })();
