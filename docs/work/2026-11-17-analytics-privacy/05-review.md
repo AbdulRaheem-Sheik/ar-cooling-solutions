@@ -1,0 +1,156 @@
+# Review: Count calls, WhatsApp taps and enquiries, and fix the privacy mismatch (Option A) — CHANGES REQUESTED
+
+## Summary
+The code is good. It is small and follows the existing patterns:
+- The three admin templates no longer load the Google tag or `script.js`. I confirmed this in
+  the source, in `check_site.py`, and in the tester's browser run (no Google requests at all
+  from admin pages).
+- `enquiry_sent` only sends two fixed words. In the quick form, `typeKeys` is checked with an
+  own-key test. In the full form, `COUNTED_TYPES.includes` is used. So nothing the visitor
+  typed can get into the event. The event fires only on the success path, after the
+  `try/catch` that `return`s on failure. The `gone` flag makes sure the redirect happens
+  only once.
+- The new `check_site.py` checks are sound. They fail when they should: a missing page
+  counts as 0 tags and fails, a missing live `/admin/login` fails as "page missing", and the
+  new "dashboard links to an edit page" check stops the edit-page check from being quietly
+  skipped.
+- `check_site.py` passes on the branch (I re-ran it: ALL CHECKS PASSED, static build of 153
+  pages + 404).
+- No secrets or visitor data are in the diff. The only phone and email in the docs are the
+  business's own public ones.
+
+I compared the privacy page with what the GTM container and the browser actually do. I
+fetched the public `gtm.js?id=GTM-WZFNQQXC` and ran a local check through the tester's
+harness, in which every Google collect request was recorded and then blocked. Most of the
+page is accurate:
+- The only cookies set are `_ga` and `_ga_EYB0ZX8K90`, both about 2 years. There is no
+  `_gcl_au`, and our own code sets no cookie on public pages.
+- Signals is off in the container (`GOOGLE_SIGNALS disallowAllRegions: true`).
+- `enquiry_sent` hits carry only `ep.enquiry_form` / `ep.enquiry_type`.
+- Page titles never contain the visitor's name.
+
+Two sentences, however, promise more than the site or its Google settings deliver. The
+whole point of this task is that every sentence on the privacy page is true (S5), so both
+must be fixed before merge. Both are small text changes, or one Google setting plus a check.
+
+## Findings
+
+1. **[must-fix] templates/privacy.html:54 — two of the three "opt out" methods don't opt you
+   out.**
+   - A private / incognito window still loads Google Analytics and sends every page view.
+     The `_ga` cookie only disappears when the window is closed.
+   - Clearing cookies does the same thing: the next visit is counted as a new visitor.
+   - Blocking cookies stops the cookies, but the Google script still loads and still sends
+     page views.
+
+   Only the opt-out add-on (or a tracker/ad blocker) stops the counting.
+   → Reword the bullet, for example:
+   "**To stop being counted:** install the [Google Analytics opt-out browser add-on](…), or
+   use a browser or add-on that blocks trackers. Clearing or blocking cookies, or using a
+   private / incognito window, stops your visits being linked together, but each visit is
+   still counted. The website works the same either way."
+   The owner approved the current wording, so they need to approve this one changed bullet
+   again.
+
+2. **[must-fix] templates/privacy.html:52 — "ad personalisation [is] turned off" has not
+   been checked, and the evidence points the other way.**
+   - Every GA4 hit I recorded carries `npa=0`, which means the hit is *not* marked as
+     non-personalised.
+   - The container's regional settings cover only `DEVICE_AND_GEO` and `GOOGLE_SIGNALS`.
+     There is nothing about ads personalisation.
+   - The owner's agreed pre-merge step (01, "Owner decisions before merge") confirms only
+     that Signals is off.
+
+   → Either:
+   (a) before merge, the owner opens GA4 → Admin → Data collection and modification → Data
+   collection → "Advanced settings to allow for ads personalization", turns it off for all
+   regions, and confirms GA4 → Admin → Product links shows no Google Ads link. Or:
+   (b) change the sentence to what is already true, e.g. "We do not use Google Analytics
+   for advertising: it is not linked to Google Ads, and Google Signals is turned off."
+   (b) is the safer text whatever the owner does, because it states only things we have
+   checked.
+
+3. **[should-fix, do before merge] GTM container — automatic "user-provided data"
+   detection is switched on.** In `gtm.js`, the `__ogt_1p_data_v2` tag has
+   `isEnabled: true`, `isAutoEnabled: true`, `autoEmailEnabled`, `autoPhoneEnabled` and
+   `autoAddressEnabled`, and calls `internal.detectUserProvidedData`. This Google feature
+   scans the page for email addresses and phone numbers (for example in our form fields)
+   and can send them to Google in hashed form.
+   - In my local check, nothing was attached. That covered `enquiry_sent`, and also
+     `qualify_lead`, which the container already treats as a key event (`_c=1`). No
+     `em` / `ec_*` / `upd` parameters were sent and nothing went to `google.com/ccm`.
+   - So the line 51 promise ("What you type into the enquiry form is not sent to Google
+     Analytics") holds today. But it rests on Google's current behaviour, not on a setting
+     we control, and the owner is about to mark `enquiry_sent` as a key event.
+   - The tester's AC-A8 search looked for the raw typed values, so it could not have found
+     hashed ones.
+
+   → The owner turns off GA4 → Admin → Data collection → "User-provided data collection"
+   (and, if shown, the Google tag's "automatic detection of user-provided data"). The
+   deployer then re-fetches `gtm.js?id=GTM-WZFNQQXC` and confirms that `__ogt_1p_data_v2`
+   is gone or has `"vtp_isEnabled":false`.
+
+4. **[should-fix] static/js/contact.js:37-38 and static/js/enquiry.js:161-162 — start the
+   1-second safety timer before calling `gtag`.** The timer is "the real guarantee", but it
+   is only set *after* `gtag(...)` returns. Once GTM has loaded, `gtag` pushes into GTM's own
+   `dataLayer.push`. If that ever throws, the redirect never happens. The visitor's enquiry
+   has already been sent, but they are left on a disabled "Sending…" button and may send it
+   again.
+   → Swap the two lines in both files (`setTimeout(go, 1000);` first, then `gtag(...)`).
+   There is no other change in behaviour.
+
+5. **[nit] templates/privacy.html:50 — the list of what Google receives is shorter than what
+   the hits carry.** The hits also include the page title, the page the visitor came from,
+   screen size and browser language. When Tag Manager loads, it also sends its own small
+   diagnostics requests with the page address. → If the bullet is reopened for finding 1/2
+   anyway, consider "the page address and title, the page you came from, your type of
+   device, browser and screen…". Line 62 could say "fonts and the Google Analytics script"
+   so that the IP-address sentence covers `googletagmanager.com` too.
+
+6. **[nit] 04-test-report.md, AC-A8 — method note.** A search for raw typed values cannot
+   find hashed data. For future rounds, also check that the hits have no `em`, `ec_*` or
+   `upd*` parameters and that nothing is sent to `google.com/ccm`.
+
+## Requirements check
+| Req | Result |
+|---|---|
+| S1 no server-side storage/cookies | met (only `PRIVACY_UPDATED` changed; no session cookie on public pages) |
+| S2 no new packages/paid services | met |
+| S3 URLs, `/go/<id>/`, sitemap, robots unchanged | met (sitemap/robots checks pass; footer link keeps `/privacy/`) |
+| S4 admin pages load no Google tag | met (source, check_site, tester's browser run) |
+| S5 privacy text matches reality, new date | **not met**: findings 1 and 2 (date is correct) |
+| S6 check_site / build pass, new checks | met (re-run: ALL CHECKS PASSED; negative tests in 03/04) |
+| S7 forms/links work with Google blocked, no-JS unchanged | met (finding 4 is about making this more robust) |
+| A1 tag once on public pages, none on admin | met |
+| A2 / A3 `call_click`, `whatsapp_click` (`email_click` kept) | met (unchanged code, verified by tester) |
+| A4 `enquiry_sent` only on success, at most 1 s, works when blocked | met |
+| A5 no personal data in events | met in code; see finding 3 for the container setting |
+| A6 privacy page tells the truth | **not met**: findings 1 and 2 |
+| A7 no banner, "Privacy & cookies" footer link | met |
+| A8 owner's monthly view | owner steps in 02 (not code); deployer writes owner notes |
+| A9 snippet unchanged | met (byte-for-byte; owner step 0 confirmed events arrive) |
+
+## Notes for deployment
+- **Before merge (owner, in Google's screens):**
+  - set GA4 data retention to 14 months (the privacy page says so);
+  - confirm Signals is off;
+  - for finding 2 (a): turn ads personalisation off for all regions, and confirm there is no
+    Google Ads link;
+  - for finding 3: turn user-provided data collection off.
+- **Before merge (developer):** fix findings 1 and 2 (text) and 4 (swap two lines). The owner
+  re-approves the changed privacy bullets. If the merge slips past 17 November, update
+  `PRIVACY_UPDATED`.
+- **Deployer:** after the owner's changes, re-fetch the public `gtm.js?id=GTM-WZFNQQXC` and
+  confirm that Signals is still disallowed and that `__ogt_1p_data_v2` is off or gone. After
+  release, run `check_site.py --live`. Today the live `/admin/login` still has the tag, so
+  that check must turn from FAIL to PASS.
+- **After the owner marks `enquiry_sent` as a key event:** send one real test enquiry,
+  marked "TEST – please ignore", and check its `collect` hit in dev tools. It should contain
+  only `ep.enquiry_form` / `ep.enquiry_type`, with no `em`, `ec_*` or `upd*`.
+- **Commit:** `04-test-report.md` and this file are uncommitted, as expected. The
+  `01-requirements.md` "Owner decisions before merge" edit is uncommitted too. Commit all
+  three by name.
+- **Owner notes:** counts are a minimum (ad blockers and opt-outs are not counted).
+  `email_click` arrives with `link_text=(redacted)`. Use `enquiry_sent`, not `form_submit`.
+  Tell the team before changing any Google setting, because the privacy page depends on
+  those settings.

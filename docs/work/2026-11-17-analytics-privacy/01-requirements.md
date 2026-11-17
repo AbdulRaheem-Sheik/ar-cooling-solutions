@@ -303,3 +303,17 @@ comes from `PRIVACY_UPDATED` in `app.py`.
 - **Q4 = default**: keep counting email-link taps (`email_click`).
 - Coordinator note: `git log -S "GTM-WZFNQQXC"` shows the tag was added in cba5aee (2026-11-07,
   the owner's account, "Add home page counters, reviews, FAQ and site-wide share tags").
+
+## Owner decisions before merge (2026-11-17)
+- **Privacy wording approved** as written in templates/privacy.html (commit 209360f).
+- The owner will set **GA4 data retention to 14 months** and confirm **Google Signals is off** before merging (the privacy page states both).
+
+## Owner decisions after review (2026-11-17)
+- **Opt-out bullet approved** as the reviewer worded it: "To stop being counted: install the
+  Google Analytics opt-out browser add-on, or use a browser or add-on that blocks trackers.
+  Clearing or blocking cookies, or using a private / incognito window, stops your visits being
+  linked together, but each visit is still counted. The website works the same either way."
+- **Ads sentence changed** to say only what is verified: not linked to Google Ads, and Google
+  Signals is turned off (no claim about "ad personalisation").
+- The owner will **switch off "User-provided data collection"** in GA4 before merge; the deployer
+  re-fetches gtm.js afterwards to confirm it is off.
